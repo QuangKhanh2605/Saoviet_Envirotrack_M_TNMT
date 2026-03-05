@@ -125,6 +125,8 @@ sATCommandList sATCmdList[] =
     {_GET_STATE_SENSOR,	    NULL,	        {(uint8_t*)"at+statesensor?",15}},
     {_GET_MEASURE_VALUE,    NULL,           {(uint8_t*)"at+measurevalue?",16}},
     {_GET_MEASURE_FILTER,   NULL,           {(uint8_t*)"at+measurefilter?",17}},
+    {_GET_MEASURE_AVERAGE,  NULL,           {(uint8_t*)"at+measureaverage?",18}},
+    {_SET_RESET_AVERAGE,    NULL,           {(uint8_t*)"at+resetaverage?",16}},
 
     {_GET_FREQ_WARNING_SENSOR, NULL,        {(uint8_t*)"at+freqwarningsensor?",21}},
     {_SET_FREQ_WARNING_SENSOR, NULL,        {(uint8_t*)"at+freqwarningsensor=",21}},

@@ -45,19 +45,19 @@ char AppSensor_TN_PARAM[_END_SENSOR][10] =
     "TURB",     // 4 TURB
     "COD",      // 5 COD
     "TSS",      // 6 TSS
-    "NH4",      // 7 NH4
+    "NH4+",      // 7 NH4
     "DO",       // 8 DO
     "SALT",     // 9 SALT
     "TDS",      //10 TDS
-    "NO3"       //11 NO3
+    "NO3-"       //11 NO3
 };
 
 char AppSensor_TN_UNIT[_END_SENSOR][10] = 
 { 
-    "oC",    // 0 Nhiet do
-    "",      // 1 pH
+    "°C",    // 0 Nhiet do
+    "-",      // 1 pH
     "mg/l",  // 2 Clo
-    "uS/cm", // 3 EC
+    "µS/cm", // 3 EC
     "NTU",   // 4 TURB
     "mg/l",  // 5 COD
     "mg/l",  // 6 TSS
@@ -545,6 +545,37 @@ void AT_CMD_Get_Measure_Filter (sData *str_Receiv, uint16_t Pos)
 
         Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sMeasureHandle[i].sMeasureHanlde->Value_i32), sMeasureHandle[i].sMeasureHanlde->Scale_u8);
     }
+
+    Modem_Respond(PortConfig, aTemp, length, 0);
+}
+
+void AT_CMD_Get_Measure_Average (sData *str_Receiv, uint16_t Pos)
+{
+    uint8_t aTemp[300] = "Measure_Average: ";   //11 ki tu dau tien
+    uint16_t length = 17;
+    
+    for (uint8_t i = 1; i < _END_SENSOR; i++)   
+    {
+        Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
+        Insert_String_To_String(aTemp, &length,(uint8_t*)AppSensor_TN_PARAM[i], 0,strlen(AppSensor_TN_PARAM[i]));
+        Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
+
+        Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sAverageMeasure[i].Value_f*100), 0xFE); 
+    }
+
+    Modem_Respond(PortConfig, aTemp, length, 0);
+}
+
+void AT_CMD_Set_Reset_Average (sData *str_Receiv, uint16_t Pos)
+{
+    uint8_t aTemp[300] = "Reset_Average: OK";   //11 ki tu dau tien
+    uint16_t length = 17;
+    
+    for(uint8_t i = 0; i < _END_SENSOR; i++)
+    {
+        UTIL_MEM_set(&sAverageOneHour[i], 0, sizeof(Struct_AverageOneHour));
+    }
+    OnchipFlashPageErase(ADDR_VALUE_AVG_ONE_HOUR);
 
     Modem_Respond(PortConfig, aTemp, length, 0);
 }
@@ -1073,6 +1104,8 @@ void Init_AppSensor(void)
     
     sATCmdList[_GET_MEASURE_VALUE].CallBack = AT_CMD_Get_Measure_Value;
     sATCmdList[_GET_MEASURE_FILTER].CallBack = AT_CMD_Get_Measure_Filter;
+    sATCmdList[_GET_MEASURE_AVERAGE].CallBack = AT_CMD_Get_Measure_Average;
+    sATCmdList[_SET_RESET_AVERAGE].CallBack = AT_CMD_Set_Reset_Average,
     
     sATCmdList[_GET_USER_SENSOR].CallBack = AT_CMD_Get_User_Sensor;
     sATCmdList[_SET_USER_SENSOR].CallBack = AT_CMD_Set_User_Sensor;
