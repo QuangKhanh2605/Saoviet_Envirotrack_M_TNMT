@@ -4,7 +4,7 @@
 #include "user_define.h"
 #define USING_CHECK_MODBUS_RTU
 
-#define ID_DEFAULT          1
+#define ID_DEFAULT          7
 #define BAUDRATE_DEFAULT    3       //9600
 
 typedef enum

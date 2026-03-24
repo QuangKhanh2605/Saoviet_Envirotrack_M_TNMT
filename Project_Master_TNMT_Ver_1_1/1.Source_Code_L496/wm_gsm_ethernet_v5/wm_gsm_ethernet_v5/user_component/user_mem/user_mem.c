@@ -1,5 +1,7 @@
 
 #include "user_mem.h"
+//#include "user_define.h"
+//#include "user_convert_variable.h"
 
 
 /*======== Struct var ===========*/
@@ -1039,9 +1041,16 @@ uint8_t Mem_Inc_Index_Send (sMemRecordInfor *sRec, uint8_t num)
 {       
     sMemVar.rPending_u8 = false;
     
+//    uint8_t aTemp[50] = "iSend_u16: ";   //13 ki tu dau tien
+//    sData StrResp = {&aTemp[0], 11}; 
+    
     if (sRec->iSend_u16 != sRec->iSave_u16) {
         sRec->iSend_u16 = (sRec->iSend_u16 + num) % sRec->Max_u16;
         Mem_Save_Index_Rec(); 
+        
+//        Convert_Uint64_To_StringDec (&StrResp, (uint64_t) (sRec->iSend_u16), 0);
+//        Insert_String_To_String(StrResp.Data_a8, &StrResp.Length_u16, (uint8_t*)" end\r\n",0 , 6);
+//        Modem_Respond(_UART_DEBUG, StrResp.Data_a8, StrResp.Length_u16, 0);
     }
     
     return true;

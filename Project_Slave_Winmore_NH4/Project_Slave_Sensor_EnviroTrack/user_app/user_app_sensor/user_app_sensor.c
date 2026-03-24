@@ -21,7 +21,7 @@ sEvent_struct               sEventAppSensor[]=
 {
   {_EVENT_SENSOR_ENTRY,              1, 5, 10000,            fevent_sensor_entry},            //Doi slave khoi dong moi truyen opera
   
-  {_EVENT_SENSOR_TRANSMIT,           0, 5, 1500,             fevent_sensor_transmit},
+  {_EVENT_SENSOR_TRANSMIT,           0, 5, 1000,             fevent_sensor_transmit},
   {_EVENT_SENSOR_RECEIVE_HANDLE,     0, 5, 5,                fevent_sensor_receive_handle},
   {_EVENT_SENSOR_RECEIVE_COMPLETE,   0, 5, 500,              fevent_sensor_receive_complete},
   
@@ -41,7 +41,7 @@ Struct_KindMode485  sKindMode485=
     .Trans = _RS485_SS_NH4_OPERA,
 };
 
-uint8_t aDATA_CALIB[4] = {0};
+uint8_t aDATA_CALIB[12] = {0};
 sData   sData_Calib ={aDATA_CALIB , 0};
 
 uint8_t Kind_Trans_Calib = 0;
@@ -90,17 +90,26 @@ static uint8_t fevent_sensor_transmit(uint8_t event)
 //              sKindMode485.Trans = _RS485_SS_DO_OPERA;
 //          break;
 //    }
+    switch (sLCD.sScreenNow.Index_u8)
+    {
+      case _LCD_SCREEN_1:
+        if(sKindMode485.Trans < _RS485_SS_NH4_TEMP_OPERA)
+            sKindMode485.Trans++;
+        else
+            sKindMode485.Trans = _RS485_SS_NH4_OPERA;
+        break;
+        
+      default:
+        if(sKindMode485.Trans < _RS485_SS_NH4_CALIB_K_B_K_OPERA)
+            sKindMode485.Trans++;
+        else
+            sKindMode485.Trans = _RS485_SS_NH4_OPERA;
+        break;
+    }
     
-//    if(sKindMode485.Trans < _RS485_SS_DO_OPERA)
-//    {
-//        sKindMode485.Trans++;
-//    }
-//    else
-//    {
-//        sKindMode485.Trans = _RS485_SS_NH4_OPERA;
-//    }
     
-    sKindMode485.Trans = _RS485_SS_NH4_OPERA;
+    
+//    sKindMode485.Trans = _RS485_SS_NH4_OPERA;
     
     fevent_active(sEventAppSensor, _EVENT_SENSOR_RECEIVE_HANDLE);
     fevent_enable(sEventAppSensor, _EVENT_SENSOR_RECEIVE_COMPLETE);
@@ -245,16 +254,17 @@ void Handle_Data_Measure(uint8_t KindRecv)
     {
         case _RS485_SS_NH4_OPERA:
             
-            sSensor_NH4.pH_Value_f = quickSort_Sampling_Value((int32_t)(sSensor_NH4.pH_Value_f*100));
+            sSensor_NH4.NH4_Value_f = quickSort_Sampling_Value((int32_t)(sSensor_NH4.NH4_Value_f*100));
             
-            sSensor_NH4.pH_Filter_f = Filter_pH(sSensor_NH4.pH_Value_f);
+            sSensor_NH4.NH4_Filter_f = Filter_pH(sSensor_NH4.NH4_Value_f);
             sSensor_NH4.temp_Filter_f = Filter_Temp(sSensor_NH4.temp_Value_f);
+            sSensor_NH4.pH_Filter_f = sSensor_NH4.pH_Value_f;
             
             Stamp = sSensor_NH4.temp_Filter_f + sSensor_NH4.temp_Offset_f;
             sSensor_NH4.temp_Filter_f = ((Stamp) > sMeasureRange.Upper_Temp) ? sMeasureRange.Upper_Temp : ((Stamp) < sMeasureRange.Lower_Temp ? sMeasureRange.Lower_Temp : (Stamp));
             
-            Stamp = sSensor_NH4.pH_Filter_f + sSensor_NH4.pH_Offset_f;
-            sSensor_NH4.pH_Filter_f = ((Stamp) > sMeasureRange.Upper_Key) ? sMeasureRange.Upper_Key : ((Stamp) < sMeasureRange.Lower_Key ? sMeasureRange.Lower_Key : (Stamp));
+            Stamp = sSensor_NH4.NH4_Filter_f + sSensor_NH4.NH4_Offset_f;
+            sSensor_NH4.NH4_Filter_f = ((Stamp) > sMeasureRange.Upper_Key) ? sMeasureRange.Upper_Key : ((Stamp) < sMeasureRange.Lower_Key ? sMeasureRange.Lower_Key : (Stamp));
           break;
           
         default:
@@ -263,8 +273,14 @@ void Handle_Data_Measure(uint8_t KindRecv)
     
     if(sSensor_NH4.State_Connect == _SENSOR_DISCONNECT)
     {
-        sSensor_NH4.pH_Value_f = 0;
-        sSensor_NH4.pH_Filter_f = Filter_pH(sSensor_NH4.pH_Value_f);
+        sSensor_NH4.NH4_Value_f = 0;
+        sSensor_NH4.NH4_Filter_f = Filter_pH(sSensor_NH4.NH4_Value_f);
+    }
+    
+    if(sSensor_NH4.State_Connect == _SENSOR_DISCONNECT)
+    {
+        sSensor_NH4.pH_Filter_f = 0;
+        sSensor_NH4.pH_Filter_f = 0;
     }
     
     if(sSensor_NH4.State_Connect == _SENSOR_DISCONNECT)
@@ -296,30 +312,45 @@ void Handle_Data_Trans_SS_pH(sData *sFrame, uint8_t KindTrans)
     {
         //Trans Opera
         case _RS485_SS_NH4_OPERA:
-            ModRTU_Master_Read_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x03, 0x0000, 0x04);
+            ModRTU_Master_Read_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x03, 0x2800, 0x06);
+            break;
+
+        case _RS485_SS_NH4_PH_OPERA:
+            ModRTU_Master_Read_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x03, 0x2600, 0x04);
             break;
             
+        case _RS485_SS_NH4_TEMP_OPERA:
+            ModRTU_Master_Read_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x03, 0x2400, 0x02);
+            break;
+            
+        case _RS485_SS_NH4_CALIB_K_B_NH4_OPERA:
+            ModRTU_Master_Read_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x03, 0x3600, 0x04);
+            break;
+
+        case _RS485_SS_NH4_CALIB_K_B_PH_OPERA:
+            ModRTU_Master_Read_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x03, 0x1100, 0x04);
+            break;
+            
+        case _RS485_SS_NH4_CALIB_K_B_K_OPERA:
+            ModRTU_Master_Read_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x03, 0x3500, 0x04);
+            break;
+          
          //Trans Calib
-        case _RS485_SS_NH4_CALIB_686:
-            if(sData_Calib.Length_u16 == 2)
-                ModRTU_Master_Write_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x06, 0x1000, (sData_Calib.Length_u16/2), sData_Calib.Data_a8);
+        case _RS485_SS_NH4_CALIB_K_B_NH4:
+            if(sData_Calib.Length_u16 == 8)
+                ModRTU_Master_Write_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x10, 0x3600, (sData_Calib.Length_u16/2), sData_Calib.Data_a8);
             break;
             
-        case _RS485_SS_NH4_CALIB_918:
-            if(sData_Calib.Length_u16 == 2)
-                ModRTU_Master_Write_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x06, 0x1004, (sData_Calib.Length_u16/2), sData_Calib.Data_a8);
+        case _RS485_SS_NH4_CALIB_K_B_PH:
+            if(sData_Calib.Length_u16 == 8)
+                ModRTU_Master_Write_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x10, 0x1100, (sData_Calib.Length_u16/2), sData_Calib.Data_a8);
             break;
             
-        case _RS485_SS_NH4_CALIB_400:
-            if(sData_Calib.Length_u16 == 2)
-                ModRTU_Master_Write_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x06, 0x1002, (sData_Calib.Length_u16/2), sData_Calib.Data_a8);
+        case _RS485_SS_NH4_CALIB_K_B_K:
+            if(sData_Calib.Length_u16 == 8)
+                ModRTU_Master_Write_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x10, 0x3500, (sData_Calib.Length_u16/2), sData_Calib.Data_a8);
             break;
-            
-        case _RS485_SS_NH4_RESET:
-            if(sData_Calib.Length_u16 == 2)
-                ModRTU_Master_Write_Frame(sFrame, ID_DEFAULT_SS_NH4, 0x06, 0x2020, (sData_Calib.Length_u16/2), sData_Calib.Data_a8);
-            break;
-      
+
         default:
           break;
     }
@@ -329,7 +360,6 @@ void Handle_Data_Recv_SS_pH(sData sDataRS485, uint8_t KindRecv)
 {
     uint16_t Pos = 0;
     uint32_t Stamp_Hex = 0;
-    uint32_t Decimal_Hex = 0;
     
     switch(KindRecv)
     {
@@ -337,20 +367,62 @@ void Handle_Data_Recv_SS_pH(sData sDataRS485, uint8_t KindRecv)
         case _RS485_SS_NH4_OPERA:
             Pos = 3;
 
-            Stamp_Hex = Read_Register_Rs485(sDataRS485.Data_a8, &Pos, 2);
-            Decimal_Hex = Read_Register_Rs485(sDataRS485.Data_a8, &Pos, 2); 
-            sSensor_NH4.pH_Value_f =  ((float)Stamp_Hex)/(pow(10,Decimal_Hex));
+          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4);
+          Convert_uint32Hex_To_Float(Stamp_Hex, &sSensor_NH4.NH4_Value_f);
             
-            Stamp_Hex = Read_Register_Rs485(sDataRS485.Data_a8, &Pos, 2);
-            Decimal_Hex = Read_Register_Rs485(sDataRS485.Data_a8, &Pos, 2); 
-            sSensor_NH4.temp_Value_f =  ((float)Stamp_Hex)/(pow(10,Decimal_Hex));
+//          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4);
+//          Convert_uint32Hex_To_Float(Stamp_Hex, &sSensor_NH4.K_Value_f);
+          break;
+          
+        case _RS485_SS_NH4_PH_OPERA:
+            Pos = 3;
+
+          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4); //bo 4 byte dau
+          
+          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4);
+          Convert_uint32Hex_To_Float(Stamp_Hex, &sSensor_NH4.pH_Value_f);
+          break;
+        case _RS485_SS_NH4_TEMP_OPERA:
+            Pos = 3;
+
+          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4);
+          Convert_uint32Hex_To_Float(Stamp_Hex, &sSensor_NH4.temp_Value_f);
+          break;
+        
+        case _RS485_SS_NH4_CALIB_K_B_NH4_OPERA:
+            Pos = 3;
+
+          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4);
+          Convert_uint32Hex_To_Float(Stamp_Hex, &sSensor_NH4.Const_K_NH4_f);
+            
+          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4);
+          Convert_uint32Hex_To_Float(Stamp_Hex, &sSensor_NH4.Const_B_NH4_f);
+          break;
+          
+        case _RS485_SS_NH4_CALIB_K_B_PH_OPERA:
+            Pos = 3;
+
+          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4);
+          Convert_uint32Hex_To_Float(Stamp_Hex, &sSensor_NH4.Const_K_pH_f);
+            
+          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4);
+          Convert_uint32Hex_To_Float(Stamp_Hex, &sSensor_NH4.Const_B_pH_f);
+          break;
+          
+        case _RS485_SS_NH4_CALIB_K_B_K_OPERA:
+            Pos = 3;
+
+          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4);
+          Convert_uint32Hex_To_Float(Stamp_Hex, &sSensor_NH4.Const_K_K_f);
+            
+          Stamp_Hex = Read_Register_Rs485_NH4(sDataRS485.Data_a8, &Pos, 4);
+          Convert_uint32Hex_To_Float(Stamp_Hex, &sSensor_NH4.Const_B_K_f);
           break;
           
         //Recv Calib
-        case _RS485_SS_NH4_CALIB_686:
-        case _RS485_SS_NH4_CALIB_918:
-        case _RS485_SS_NH4_CALIB_400:
-        case _RS485_SS_NH4_RESET:
+        case _RS485_SS_NH4_CALIB_K_B_NH4:
+        case _RS485_SS_NH4_CALIB_K_B_PH:
+        case _RS485_SS_NH4_CALIB_K_B_K:
             RS485_Done_Calib();
           break;
           
@@ -364,10 +436,16 @@ void Handle_State_SS_pH(uint8_t KindRecv, uint8_t KindDetect)
     switch(KindRecv)
     {
         case _RS485_SS_NH4_OPERA:
-        case _RS485_SS_NH4_CALIB_686:
-        case _RS485_SS_NH4_CALIB_918:
-        case _RS485_SS_NH4_CALIB_400:
-        case _RS485_SS_NH4_RESET:
+        case _RS485_SS_NH4_PH_OPERA:
+        case _RS485_SS_NH4_TEMP_OPERA:
+        
+        case _RS485_SS_NH4_CALIB_K_B_NH4_OPERA:
+        case _RS485_SS_NH4_CALIB_K_B_PH_OPERA:
+        case _RS485_SS_NH4_CALIB_K_B_K_OPERA:
+        
+        case _RS485_SS_NH4_CALIB_K_B_NH4:
+        case _RS485_SS_NH4_CALIB_K_B_PH:
+        case _RS485_SS_NH4_CALIB_K_B_K:
           if(KindDetect == _RS485_RESPOND)
           {
             sSensor_NH4.Count_Disconnect = 0;
@@ -394,8 +472,17 @@ void Handle_State_SS_pH(uint8_t KindRecv, uint8_t KindDetect)
     else if(sSensor_NH4.Count_Disconnect >=3)
     {
         sSensor_NH4.State_Connect = _SENSOR_DISCONNECT;
+        sSensor_NH4.NH4_Value_f = 0;
         sSensor_NH4.pH_Value_f = 0;
+        sSensor_NH4.K_Value_f = 0;
         sSensor_NH4.temp_Value_f = 0;
+        
+        sSensor_NH4.Const_K_NH4_f = 0;
+        sSensor_NH4.Const_B_NH4_f = 0;
+        sSensor_NH4.Const_K_pH_f = 0;
+        sSensor_NH4.Const_B_pH_f = 0;
+        sSensor_NH4.Const_K_K_f = 0;
+        sSensor_NH4.Const_B_K_f = 0;
 
         sHandleRs485.State_Recv_pH = 0;
     }
@@ -567,6 +654,30 @@ void RS485_LogData_Calib(uint8_t Kind_Send, const void *data, uint16_t size)
     sParaDisplay.State_Setting = _STATE_SETTING_ENTER;
 }
 
+void RS485_LogData_Calib_NH4(uint8_t Kind_Send, float K_const_f, float B_const_f)
+{
+    uint32_t StampHex_u32 = 0;
+    
+    Reset_Buff(&sData_Calib);
+
+    StampHex_u32 = Handle_Float_To_hexUint32(K_const_f);
+    sData_Calib.Data_a8[0] = StampHex_u32;
+    sData_Calib.Data_a8[1] = StampHex_u32 >> 8;
+    sData_Calib.Data_a8[2] = StampHex_u32 >> 16;
+    sData_Calib.Data_a8[3] = StampHex_u32 >> 24;
+    
+    StampHex_u32 = Handle_Float_To_hexUint32(B_const_f);
+    sData_Calib.Data_a8[4] = StampHex_u32;
+    sData_Calib.Data_a8[5] = StampHex_u32 >> 8;
+    sData_Calib.Data_a8[6] = StampHex_u32 >> 16;
+    sData_Calib.Data_a8[7] = StampHex_u32 >> 24;
+    
+    sData_Calib.Length_u16 = 8;
+    
+    Kind_Trans_Calib = Kind_Send;
+    sParaDisplay.State_Setting = _STATE_SETTING_ENTER;
+}
+
 uint32_t Read_Register_Rs485(uint8_t aData[], uint16_t *pos, uint8_t LengthData)
 {
     uint32_t stamp = 0;
@@ -575,6 +686,23 @@ uint32_t Read_Register_Rs485(uint8_t aData[], uint16_t *pos, uint8_t LengthData)
     {
         stamp = aData[length+2]<<8 | aData[length+3];
         stamp = (stamp << 16) | (aData[length]<<8 | aData[length+1]);
+    }
+    else if(LengthData == 2)
+    {
+        stamp = aData[length]<<8 | aData[length+1];
+    }
+    *pos = *pos + LengthData;
+    return stamp;
+}
+
+uint32_t Read_Register_Rs485_NH4(uint8_t aData[], uint16_t *pos, uint8_t LengthData)
+{
+    uint32_t stamp = 0;
+    uint16_t length = *pos;
+    if(LengthData == 4)
+    {
+        stamp = aData[length+3]<<8 | aData[length+2];
+        stamp = (stamp << 16) | (aData[length+1]<<8 | aData[length]);
     }
     else if(LengthData == 2)
     {
@@ -632,25 +760,33 @@ void Cal_Calib_NH4_Log(float P1_Standard, float P1_Measure, float P2_Standard, f
     float logM1 = 0;
     float logM2 = 0;
     
-    logS1 = log10(P1_Standard);
-    logS2 = log10(P2_Standard);
-    logM1 = log10(P1_Measure);
-    logM2 = log10(P2_Measure);
-
-    if(logM2 == logM1)
+    if(P1_Standard != 0 && P1_Measure != 0 && P2_Standard != 0 && P2_Measure != 0)
     {
-        *K = 1;
-        *B = 0;
+        logS1 = log10(P1_Standard);
+        logS2 = log10(P2_Standard);
+        logM1 = log10(P1_Measure);
+        logM2 = log10(P2_Measure);
+
+        if(logM2 == logM1)
+        {
+            *K = 1;
+            *B = 0;
+        }
+        else
+        {
+            *K = (logS2 - logS1) / (logM2 - logM1);
+            *B = logS1 - (*K) * logM1;
+        }
     }
     else
     {
-        *K = (logS2 - logS1) / (logM2 - logM1);
-        *B = logS1 - (*K) * logM1;
+            *K = 1;
+            *B = 0;
     }
 }
 
 /*===================Save and Init Calib====================*/
-void Save_ParamCalib(float pH_Offset_f, float temp_Offset_f)
+void Save_ParamCalib(float NH4_Offset_f, float temp_Offset_f)
 {
 #ifdef USING_APP_SENSOR
     uint8_t aData[50] = {0};
@@ -659,10 +795,10 @@ void Save_ParamCalib(float pH_Offset_f, float temp_Offset_f)
     uint32_t hexUint_Compensation_pH = 0;
     uint32_t hexUint_Compensation_temp = 0;
     
-    sSensor_NH4.pH_Offset_f = pH_Offset_f;
+    sSensor_NH4.NH4_Offset_f = NH4_Offset_f;
     sSensor_NH4.temp_Offset_f = temp_Offset_f;
     
-    hexUint_Compensation_pH    = Handle_Float_To_hexUint32(sSensor_NH4.pH_Offset_f);
+    hexUint_Compensation_pH    = Handle_Float_To_hexUint32(sSensor_NH4.NH4_Offset_f);
     hexUint_Compensation_temp  = Handle_Float_To_hexUint32(sSensor_NH4.temp_Offset_f);
     
     aData[length++] = hexUint_Compensation_pH >> 24;
@@ -697,12 +833,12 @@ void Init_ParamCalib(void)
         hexUint_Compensation_temp  |= *(__IO uint8_t*)(ADDR_CALIB_TEMPERATURE+8)<< 8;
         hexUint_Compensation_temp  |= *(__IO uint8_t*)(ADDR_CALIB_TEMPERATURE+9);
         
-        Convert_uint32Hex_To_Float(hexUint_Compensation_pH,  &sSensor_NH4.pH_Offset_f);
+        Convert_uint32Hex_To_Float(hexUint_Compensation_pH,  &sSensor_NH4.NH4_Offset_f);
         Convert_uint32Hex_To_Float(hexUint_Compensation_temp, &sSensor_NH4.temp_Offset_f);
     }
     else
     {
-        sSensor_NH4.pH_Offset_f = 0;
+        sSensor_NH4.NH4_Offset_f = 0;
         sSensor_NH4.temp_Offset_f = 0;
     }
 #endif   
@@ -1222,6 +1358,50 @@ void AT_CMD_Set_BR_Slave (sData *str_Receiv, uint16_t Pos)
         HAL_UART_Transmit(&uart_debug, (uint8_t*)"ERROR", 5, 1000);
     }
 }
+
+void AT_CMD_Get_Calib_Nh4 (sData *str_Receiv, uint16_t Pos)
+{
+    uint8_t aTemp[300] = "NH4_Calib: ";   //11 ki tu dau tien
+    uint16_t length = 10;
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)"S_NH4_P1: ",0 , 10);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.Standard_NH4_P1*100), 0xFE);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" M_NH4_P1: ",0 , 11);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.MeasureV_NH4_P1*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" S_NH4_P2: ",0 , 11);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.Standard_NH4_P2*100), 0xFE);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" M_NH4_P2: ",0 , 11);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.MeasureV_NH4_P2*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" S_PH_P1: ",0 , 10);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.Standard_pH_P1*100), 0xFE);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" M_PH_P1: ",0 , 10);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.MeasureV_pH_P1*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" S_PH_P2: ",0 , 10);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.Standard_pH_P2*100), 0xFE);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" M_PH_P2: ",0 , 10);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.MeasureV_pH_P2*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" S_K_P1: ",0 , 9);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.Standard_K_P1*100), 0xFE);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" M_K_P1: ",0 , 9);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.MeasureV_K_P1*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" S_K_P2: ",0 , 9);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.Standard_K_P2*100), 0xFE);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" M_K_P2: ",0 , 9);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sNH4Calib.MeasureV_K_P2*100), 0xFE);
+    
+    HAL_UART_Transmit(&uart_debug, aTemp, length, 1000);
+}
 #endif
 
 /*==================Handle Task and Init app=================*/
@@ -1240,6 +1420,8 @@ void       Init_AppSensor(void)
     CheckList_AT_CONFIG[_SET_ID_SLAVE].CallBack = AT_CMD_Set_ID_Slave;
     CheckList_AT_CONFIG[_GET_BR_SLAVE].CallBack = AT_CMD_Get_BR_Slave;
     CheckList_AT_CONFIG[_SET_BR_SLAVE].CallBack = AT_CMD_Set_BR_Slave;
+    
+    CheckList_AT_CONFIG[_GET_CALIB_NH4].CallBack = AT_CMD_Get_Calib_Nh4;
 #endif
     RS485SS_Stop_RX_Mode();
     RS485SS_Init_RX_Mode();

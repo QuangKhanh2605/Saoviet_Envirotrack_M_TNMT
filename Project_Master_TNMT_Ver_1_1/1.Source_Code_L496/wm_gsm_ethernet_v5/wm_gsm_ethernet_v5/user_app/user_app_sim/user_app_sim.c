@@ -561,6 +561,7 @@ uint8_t AppSim_Send_Mess (void)
                         Sim_Push_Block_To_Queue(aSIM_BLOCK_STEP_PING);
                     } else {
                         if (UTIL_var.ModeConnNow_u8 == _CONNECT_FTP_UPLOAD) {
+//                            Modem_Respond(_UART_DEBUG, (uint8_t*)"FTP_UPLOAD", 10, 0);
                             Sim_Push_Block_To_Queue(aSIM_BLOCK_STEP_FTP_PUB);
                         } else {
                             if (sMessage.PubQos != 0) {

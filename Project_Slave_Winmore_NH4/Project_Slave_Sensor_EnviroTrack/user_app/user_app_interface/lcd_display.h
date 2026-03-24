@@ -65,7 +65,7 @@ typedef enum
     __SET_MODE_CALIB_TITLE,
     __SET_MODE_CALIB_NH4,
     __SET_MODE_CALIB_PH,
-    __SET_MODE_CALIB_K,
+//    __SET_MODE_CALIB_K,
     
     __SET_CALIB_NH4_TITLE,
     __SET_CALIB_NH4_VALUE,
@@ -219,6 +219,7 @@ typedef struct
     int32_t     pH_Value_i32;
     int32_t     Temp_Value_i32;
     
+    int32_t     NH4_Filter_i32;
     int32_t     pH_Filter_i32;
     int32_t     Temp_Filter_i32;
     

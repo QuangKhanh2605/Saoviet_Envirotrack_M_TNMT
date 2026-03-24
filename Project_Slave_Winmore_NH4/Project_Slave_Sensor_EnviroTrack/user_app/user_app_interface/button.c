@@ -161,6 +161,9 @@ uint32_t    Old_Value_u32 = 0;
 int16_t     Old_Value_i16 = 0;
 float       Button_Stamp1_f = 0;
 float       Button_Stamp2_f = 0;
+
+float       Button_K_Const_f = 0;
+float       Button_B_Const_f = 0;
       
 void BUTTON_Enter_Process (void)
 {
@@ -210,7 +213,7 @@ void BUTTON_Enter_Process (void)
                 case __SCR_SET_CALIB:
                     UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                     Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                       __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+                                       __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_PH,
                                        NULL, 0xF1);
                     break;
                     
@@ -311,16 +314,16 @@ void BUTTON_Enter_Process (void)
                 case __SET_MODE_CALIB_PH:
                     UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                     Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_PH, 0,
-                                       __SET_CALIB_NH4_RESET, __SET_CALIB_NH4_RESET, __SET_CALIB_NH4_CONFIRM,
+                                       __SET_CALIB_PH_RESET, __SET_CALIB_PH_RESET, __SET_CALIB_PH_CONFIRM,
                                        NULL, 0xF1);
                     break;
                     
-                case __SET_MODE_CALIB_K:
-                    UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                    Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_K, 0,
-                                       __SET_CALIB_K_RESET, __SET_CALIB_K_RESET, __SET_CALIB_K_CONFIRM,
-                                       NULL, 0xF1);
-                    break;
+//                case __SET_MODE_CALIB_K:
+//                    UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                    Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_K, 0,
+//                                       __SET_CALIB_K_RESET, __SET_CALIB_K_RESET, __SET_CALIB_K_CONFIRM,
+//                                       NULL, 0xF1);
+//                    break;
                     
                 default:
                   break;
@@ -336,8 +339,11 @@ void BUTTON_Enter_Process (void)
                                        __CHECK_STATE_SETTING, __CHECK_STATE_SETTING, __CHECK_STATE_SETTING,
                                        NULL, 0xF0);
 
-                    Old_Value_i16 = 0x0000;
-                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_686, &Old_Value_i16, sizeof(int16_t));
+//                    Old_Value_i16 = 0x0000;
+//                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_K_B_NH4, &Old_Value_i16, sizeof(int16_t));
+                    Button_K_Const_f = 1;
+                    Button_B_Const_f = 0;
+                    RS485_LogData_Calib_NH4(_RS485_SS_NH4_CALIB_K_B_NH4, Button_K_Const_f, Button_B_Const_f);
                     break;
               
                 case __SET_CALIB_NH4_P1:
@@ -394,8 +400,14 @@ void BUTTON_Enter_Process (void)
                                        __CHECK_STATE_SETTING, __CHECK_STATE_SETTING, __CHECK_STATE_SETTING,
                                        NULL, 0xF0);
 
-                    Old_Value_i16 = 0x0000;
-                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_686, &Old_Value_i16, sizeof(int16_t));
+//                    Old_Value_i16 = 0x0000;
+//                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_K_B_NH4, &Old_Value_i16, sizeof(int16_t));
+                    Button_K_Const_f = 0.98;
+                    Button_B_Const_f = -0.25;
+//                    Cal_Calib_NH4_Log(sNH4Calib.Standard_NH4_P1, sNH4Calib.MeasureV_NH4_P1, 
+//                                      sNH4Calib.Standard_NH4_P2, sNH4Calib.MeasureV_NH4_P2,
+//                                      &Button_K_Const_f, &Button_B_Const_f);
+                    RS485_LogData_Calib_NH4(_RS485_SS_NH4_CALIB_K_B_NH4, Button_K_Const_f, Button_B_Const_f);
                     break;
                     
             }
@@ -404,23 +416,26 @@ void BUTTON_Enter_Process (void)
         case _LCD_SCR_CALIB_PH:
             switch (sLCD.sScreenNow.Para_u8)
             {
-                case __SET_CALIB_NH4_RESET:
+                case __SET_CALIB_PH_RESET:
                     UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                     Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CHECK_SETTING, 0,
                                        __CHECK_STATE_SETTING, __CHECK_STATE_SETTING, __CHECK_STATE_SETTING,
                                        NULL, 0xF0);
 
-                    Old_Value_i16 = 0x0000;
-                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_686, &Old_Value_i16, sizeof(int16_t));
+//                    Old_Value_i16 = 0x0000;
+//                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_K_B_PH, &Old_Value_i16, sizeof(int16_t));
+                    Button_K_Const_f = 1;
+                    Button_B_Const_f = 0;
+                    RS485_LogData_Calib_NH4(_RS485_SS_NH4_CALIB_K_B_PH, Button_K_Const_f, Button_B_Const_f);
                     break;
               
-                case __SET_CALIB_NH4_P1:
+                case __SET_CALIB_PH_P1:
                     switch(sLCD.sScreenNow.SubIndex_u8)
                     {
                         case 0:
                             UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                             Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_PH, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_CALIB_NH4_P1, __SET_CALIB_NH4_RESET, __SET_CALIB_NH4_CONFIRM,
+                                               __SET_CALIB_PH_P1, __SET_CALIB_PH_RESET, __SET_CALIB_PH_CONFIRM,
                                                &sButton.Old_value, 0xF2);
                              sButton.Old_value = sParaDisplay.PH_P1_i32;
                             break;
@@ -438,13 +453,13 @@ void BUTTON_Enter_Process (void)
                     }
                     break;
                     
-                case __SET_CALIB_NH4_P2:
+                case __SET_CALIB_PH_P2:
                     switch(sLCD.sScreenNow.SubIndex_u8)
                     {
                         case 0:
                             UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                             Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_PH, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_CALIB_NH4_P2, __SET_CALIB_NH4_RESET, __SET_CALIB_NH4_CONFIRM,
+                                               __SET_CALIB_PH_P2, __SET_CALIB_PH_RESET, __SET_CALIB_PH_CONFIRM,
                                                &sButton.Old_value, 0xF2);
                              sButton.Old_value = sParaDisplay.PH_P2_i32;
                             break;
@@ -462,14 +477,20 @@ void BUTTON_Enter_Process (void)
                     }
                     break;
                     
-                case __SET_CALIB_NH4_CONFIRM:
+                case __SET_CALIB_PH_CONFIRM:
                     UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                     Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CHECK_SETTING, 0,
                                        __CHECK_STATE_SETTING, __CHECK_STATE_SETTING, __CHECK_STATE_SETTING,
                                        NULL, 0xF0);
 
-                    Old_Value_i16 = 0x0000;
-                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_686, &Old_Value_i16, sizeof(int16_t));
+//                    Old_Value_i16 = 0x0000;
+//                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_K_B_PH, &Old_Value_i16, sizeof(int16_t));
+                    Button_K_Const_f = 1;
+                    Button_B_Const_f = 0;
+                    Cal_Calib_NH4(sNH4Calib.Standard_pH_P1, sNH4Calib.MeasureV_pH_P1, 
+                                  sNH4Calib.Standard_pH_P2, sNH4Calib.MeasureV_pH_P2,
+                                  &Button_K_Const_f, &Button_B_Const_f);
+                    RS485_LogData_Calib_NH4(_RS485_SS_NH4_CALIB_K_B_PH, Button_K_Const_f, Button_B_Const_f);
                     break;
                     
             }
@@ -484,8 +505,11 @@ void BUTTON_Enter_Process (void)
                                        __CHECK_STATE_SETTING, __CHECK_STATE_SETTING, __CHECK_STATE_SETTING,
                                        NULL, 0xF0);
 
-                    Old_Value_i16 = 0x0000;
-                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_686, &Old_Value_i16, sizeof(int16_t));
+//                    Old_Value_i16 = 0x0000;
+//                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_K_B_K, &Old_Value_i16, sizeof(int16_t));
+                    Button_K_Const_f = 1;
+                    Button_B_Const_f = 0;
+                    RS485_LogData_Calib_NH4(_RS485_SS_NH4_CALIB_K_B_K, Button_K_Const_f, Button_B_Const_f);
                     break;
               
                 case __SET_CALIB_K_P1:
@@ -542,8 +566,14 @@ void BUTTON_Enter_Process (void)
                                        __CHECK_STATE_SETTING, __CHECK_STATE_SETTING, __CHECK_STATE_SETTING,
                                        NULL, 0xF0);
 
-                    Old_Value_i16 = 0x0000;
-                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_686, &Old_Value_i16, sizeof(int16_t));
+//                    Old_Value_i16 = 0x0000;
+//                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_K_B_K, &Old_Value_i16, sizeof(int16_t));
+                    Button_K_Const_f = 1;
+                    Button_B_Const_f = 0;
+                    Cal_Calib_NH4(sNH4Calib.Standard_K_P1, sNH4Calib.MeasureV_K_P1, 
+                                  sNH4Calib.Standard_K_P2, sNH4Calib.MeasureV_K_P2,
+                                  &Button_K_Const_f, &Button_B_Const_f);
+                    RS485_LogData_Calib_NH4(_RS485_SS_NH4_CALIB_K_B_K, Button_K_Const_f, Button_B_Const_f);
                     break;
                     
             }
@@ -829,7 +859,7 @@ void BUTTON_Enter_Process (void)
                       break;
                       
                     case __SET_OFFSET_TEMP:
-                      Save_ParamCalib(sSensor_NH4.pH_Offset_f, ((float)sButton.Old_value/Calculator_Scale(sParaDisplay.Scale_Temp)));
+                      Save_ParamCalib(sSensor_NH4.NH4_Offset_f, ((float)sButton.Old_value/Calculator_Scale(sParaDisplay.Scale_Temp)));
                       break;
                       
                     default:
@@ -918,25 +948,25 @@ void BUTTON_Enter_Process (void)
               case _LCD_SCR_CALIB_PH:
                 switch (sLCD.sScreenBack.Para_u8)
                 {
-                    case __SET_CALIB_NH4_RESET:
+                    case __SET_CALIB_PH_RESET:
                       RS485_Enter_Calib();
                       break;
                       
-                    case __SET_CALIB_NH4_P1:
+                    case __SET_CALIB_PH_P1:
                       sParaDisplay.State_Setting = _STATE_SETTING_DONE;
                       On_Speaker(50);
-                      Save_CalibNH4(_E_STD_NH4_P1, ((float)sButton.Old_value/Calculator_Scale(sParaDisplay.Scale_NH4))); 
-                      Save_CalibNH4(_E_MEA_NH4_P1, sSensor_NH4.pH_Value_f); 
+                      Save_CalibNH4(_E_STD_PH_P1, ((float)sButton.Old_value/Calculator_Scale(sParaDisplay.Scale_NH4))); 
+                      Save_CalibNH4(_E_MEA_PH_P1, sSensor_NH4.pH_Value_f); 
                       break;
                       
-                    case __SET_CALIB_NH4_P2:
+                    case __SET_CALIB_PH_P2:
                       sParaDisplay.State_Setting = _STATE_SETTING_DONE;
                       On_Speaker(50);
-                      Save_CalibNH4(_E_STD_NH4_P2, ((float)sButton.Old_value/Calculator_Scale(sParaDisplay.Scale_NH4))); 
-                      Save_CalibNH4(_E_MEA_NH4_P2, sSensor_NH4.pH_Value_f); 
+                      Save_CalibNH4(_E_STD_PH_P2, ((float)sButton.Old_value/Calculator_Scale(sParaDisplay.Scale_NH4))); 
+                      Save_CalibNH4(_E_MEA_PH_P2, sSensor_NH4.pH_Value_f); 
                       break;
                       
-                    case __SET_CALIB_NH4_CONFIRM:
+                    case __SET_CALIB_PH_CONFIRM:
                       RS485_Enter_Calib();
                       break;
                       
@@ -1179,10 +1209,10 @@ void BUTTON_Up_Process (void)
               {
                 switch (sLCD.sScreenNow.Para_u8)
                 {
-                    case __SET_CALIB_NH4_RESET:
+                    case __SET_CALIB_PH_RESET:
                         break;
                         
-                    case __SET_CALIB_NH4_P1:
+                    case __SET_CALIB_PH_P1:
                         switch(sLCD.sScreenNow.SubIndex_u8)
                         {
                             case 0:
@@ -1197,7 +1227,7 @@ void BUTTON_Up_Process (void)
                         }
                         break;
                         
-                    case __SET_CALIB_NH4_P2:
+                    case __SET_CALIB_PH_P2:
                         switch(sLCD.sScreenNow.SubIndex_u8)
                         {
                             case 0:
@@ -1212,7 +1242,7 @@ void BUTTON_Up_Process (void)
                         }
                         break;
                         
-                    case __SET_CALIB_NH4_CONFIRM:
+                    case __SET_CALIB_PH_CONFIRM:
                         break;
                 }
             }
@@ -1622,10 +1652,10 @@ void BUTTON_Down_Process (void)
               {
                 switch (sLCD.sScreenNow.Para_u8)
                 {
-                    case __SET_CALIB_NH4_RESET:
+                    case __SET_CALIB_PH_RESET:
                         break;
                         
-                    case __SET_CALIB_NH4_P1:
+                    case __SET_CALIB_PH_P1:
                         switch(sLCD.sScreenNow.SubIndex_u8)
                         {
                             case 0:
@@ -1641,7 +1671,7 @@ void BUTTON_Down_Process (void)
                         }
                         break;
                         
-                    case __SET_CALIB_NH4_P2:
+                    case __SET_CALIB_PH_P2:
                         switch(sLCD.sScreenNow.SubIndex_u8)
                         {
                             case 0:
@@ -1657,7 +1687,7 @@ void BUTTON_Down_Process (void)
                         }
                         break;
                         
-                    case __SET_CALIB_NH4_CONFIRM:
+                    case __SET_CALIB_PH_CONFIRM:
                         break;
                 }
             }
@@ -1943,7 +1973,7 @@ void BUTTON_ESC_Process (void)
           {
             case __SET_MODE_CALIB_NH4:
             case __SET_MODE_CALIB_PH:
-            case __SET_MODE_CALIB_K:
+//            case __SET_MODE_CALIB_K:
                 Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING, 0,
                                     __SCR_SET_CALIB, __SCR_SET_MODBUS, __SCR_SET_INFOR,
                                     NULL, 0xF1);
@@ -1960,7 +1990,7 @@ void BUTTON_ESC_Process (void)
           {
               case __SET_CALIB_NH4_RESET:
                 Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                    __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+                                    __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_PH,
                                     NULL, 0xF1);
                 UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                 break;
@@ -1970,7 +2000,7 @@ void BUTTON_ESC_Process (void)
                 {
                     case 0:
                         Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                            __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+                                            __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_PH,
                                             NULL, 0xF1);
                         UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                         break;             
@@ -1992,7 +2022,7 @@ void BUTTON_ESC_Process (void)
                 {
                     case 0:
                         Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                            __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+                                            __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_PH,
                                             NULL, 0xF1);
                         UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                         break;             
@@ -2011,7 +2041,7 @@ void BUTTON_ESC_Process (void)
                 
               case __SET_CALIB_NH4_CONFIRM:
                 Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                    __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+                                    __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_PH,
                                     NULL, 0xF1);
                 UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                 break;
@@ -2024,19 +2054,19 @@ void BUTTON_ESC_Process (void)
         case _LCD_SCR_CALIB_PH:   
           switch(sLCD.sScreenNow.Para_u8)
           {
-              case __SET_CALIB_NH4_RESET:
+              case __SET_CALIB_PH_RESET:
                 Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                    __SET_MODE_CALIB_PH, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+                                    __SET_MODE_CALIB_PH, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_PH,
                                     NULL, 0xF1);
                 UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                 break;
                 
-            case __SET_CALIB_NH4_P1:
+            case __SET_CALIB_PH_P1:
                 switch(sLCD.sScreenNow.SubIndex_u8)
                 {
                     case 0:
                         Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                            __SET_MODE_CALIB_PH, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+                                            __SET_MODE_CALIB_PH, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_PH,
                                             NULL, 0xF1);
                         UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                         break;             
@@ -2044,7 +2074,7 @@ void BUTTON_ESC_Process (void)
                     case 1:
                         UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                         Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_PH, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_CALIB_NH4_P1, __SET_CALIB_NH4_RESET, __SET_CALIB_NH4_CONFIRM,
+                                           __SET_CALIB_PH_P1, __SET_CALIB_PH_RESET, __SET_CALIB_PH_CONFIRM,
                                            &sParaDisplay.PH_P1_i32, 0xF1);
                         break;
                         
@@ -2053,12 +2083,12 @@ void BUTTON_ESC_Process (void)
                 }
                 break;
                 
-            case __SET_CALIB_NH4_P2:
+            case __SET_CALIB_PH_P2:
                 switch(sLCD.sScreenNow.SubIndex_u8)
                 {
                     case 0:
                         Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                            __SET_MODE_CALIB_PH, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+                                            __SET_MODE_CALIB_PH, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_PH,
                                             NULL, 0xF1);
                         UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                         break;             
@@ -2066,7 +2096,7 @@ void BUTTON_ESC_Process (void)
                     case 1:
                         UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                         Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_PH, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_CALIB_NH4_P2, __SET_CALIB_NH4_RESET, __SET_CALIB_NH4_CONFIRM,
+                                           __SET_CALIB_PH_P2, __SET_CALIB_PH_RESET, __SET_CALIB_PH_CONFIRM,
                                            &sParaDisplay.PH_P2_i32, 0xF1);
                         break;
                         
@@ -2075,9 +2105,9 @@ void BUTTON_ESC_Process (void)
                 }
                 break;
                 
-              case __SET_CALIB_NH4_CONFIRM:
+              case __SET_CALIB_PH_CONFIRM:
                 Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                    __SET_MODE_CALIB_PH, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+                                    __SET_MODE_CALIB_PH, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_PH,
                                     NULL, 0xF1);
                 UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
                 break;
@@ -2087,71 +2117,71 @@ void BUTTON_ESC_Process (void)
           }
           break;
           
-        case _LCD_SCR_CALIB_K:   
-          switch(sLCD.sScreenNow.Para_u8)
-          {
-              case __SET_CALIB_K_RESET:
-                Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                    __SET_MODE_CALIB_K, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
-                                    NULL, 0xF1);
-                UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                break;
-                
-            case __SET_CALIB_K_P1:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                            __SET_MODE_CALIB_K, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
-                                            NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;             
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_K, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_CALIB_K_P1, __SET_CALIB_K_RESET, __SET_CALIB_K_CONFIRM,
-                                           &sParaDisplay.K_P1_i32, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-            case __SET_CALIB_K_P2:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                            __SET_MODE_CALIB_K, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
-                                            NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;             
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_K, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_CALIB_K_P2, __SET_CALIB_K_RESET, __SET_CALIB_K_CONFIRM,
-                                           &sParaDisplay.K_P2_i32, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-              case __SET_CALIB_K_CONFIRM:
-                Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
-                                    __SET_MODE_CALIB_K, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
-                                    NULL, 0xF1);
-                UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                break;
-                
-              default:
-                break;
-          }
-          break;
+//        case _LCD_SCR_CALIB_K:   
+//          switch(sLCD.sScreenNow.Para_u8)
+//          {
+//              case __SET_CALIB_K_RESET:
+//                Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
+//                                    __SET_MODE_CALIB_K, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_PH,
+//                                    NULL, 0xF1);
+//                UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                break;
+//                
+//            case __SET_CALIB_K_P1:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
+//                                            __SET_MODE_CALIB_K, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+//                                            NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;             
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_K, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_CALIB_K_P1, __SET_CALIB_K_RESET, __SET_CALIB_K_CONFIRM,
+//                                           &sParaDisplay.K_P1_i32, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//            case __SET_CALIB_K_P2:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
+//                                            __SET_MODE_CALIB_K, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+//                                            NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;             
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_CALIB_K, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_CALIB_K_P2, __SET_CALIB_K_RESET, __SET_CALIB_K_CONFIRM,
+//                                           &sParaDisplay.K_P2_i32, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//              case __SET_CALIB_K_CONFIRM:
+//                Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_MODE_CALIB, 0,
+//                                    __SET_MODE_CALIB_K, __SET_MODE_CALIB_NH4, __SET_MODE_CALIB_K,
+//                                    NULL, 0xF1);
+//                UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                break;
+//                
+//              default:
+//                break;
+//          }
+//          break;
           
         case _LCD_SCR_SET_OFFSET:
           switch(sLCD.sScreenNow.Para_u8)

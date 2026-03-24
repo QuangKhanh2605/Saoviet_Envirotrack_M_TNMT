@@ -110,7 +110,7 @@ typedef enum
     _GET_BR_SLAVE,
     _SET_BR_SLAVE,
     
-    _GET_CURRENT_OUT,
+    _GET_CALIB_NH4,
     
     _END_AT_CMD,
 }Type_Command_AT_PC;

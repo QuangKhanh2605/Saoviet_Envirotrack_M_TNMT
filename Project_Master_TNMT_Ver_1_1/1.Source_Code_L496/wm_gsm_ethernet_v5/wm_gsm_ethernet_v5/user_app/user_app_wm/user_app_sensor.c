@@ -45,11 +45,11 @@ char AppSensor_TN_PARAM[_END_SENSOR][10] =
     "TURB",     // 4 TURB
     "COD",      // 5 COD
     "TSS",      // 6 TSS
-    "NH4+",      // 7 NH4
+    "NH4_N",    // 7 NH4
     "DO",       // 8 DO
     "SALT",     // 9 SALT
     "TDS",      //10 TDS
-    "NO3-"       //11 NO3
+    "NO3_N"     //11 NO3
 };
 
 char AppSensor_TN_UNIT[_END_SENSOR][10] = 

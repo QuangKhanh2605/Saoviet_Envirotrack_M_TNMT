@@ -6,7 +6,7 @@
 #include "user_util.h"
 #include "event_driven.h"
 
-#define ID_DEFAULT_SS_NH4       7
+#define ID_DEFAULT_SS_NH4       2
 
 #define NUMBER_SAMPLING_SS      10
 
@@ -16,7 +16,7 @@
 #define DAC_MIN                 0
 #define DAC_MAX                 4095
 
-#define NH4_RANGE_MAX           100
+#define NH4_RANGE_MAX           10
 
 #define ALARM_MIN               0
 #define ALARM_MAX               NH4_RANGE_MAX
@@ -54,15 +54,15 @@ typedef enum
 {
     _RS485_SS_NH4_OPERA,
     _RS485_SS_NH4_PH_OPERA,
+    _RS485_SS_NH4_TEMP_OPERA,
+    
+    _RS485_SS_NH4_CALIB_K_B_NH4_OPERA,
+    _RS485_SS_NH4_CALIB_K_B_PH_OPERA,
+    _RS485_SS_NH4_CALIB_K_B_K_OPERA,
     
     _RS485_SS_NH4_CALIB_K_B_NH4,
     _RS485_SS_NH4_CALIB_K_B_PH,
     _RS485_SS_NH4_CALIB_K_B_K,
-    
-    _RS485_SS_NH4_CALIB_686,
-    _RS485_SS_NH4_CALIB_918,
-    _RS485_SS_NH4_CALIB_400,
-    _RS485_SS_NH4_RESET,
 
     _RS485_5_END,
 }eKindMode485;
@@ -152,7 +152,7 @@ typedef struct
     float   K_Filter_f;
     float   temp_Filter_f;
     
-    float   pH_Offset_f;
+    float   NH4_Offset_f;
     float   temp_Offset_f;
     
     float   Const_K_NH4_f;          //Const K of NH4+
@@ -196,7 +196,7 @@ extern Struct_NH4_Calib     sNH4Calib;
 uint8_t    AppSensor_Task(void);
 void       Init_AppSensor(void);
 
-void       Save_ParamCalib(float pH_Offset_f, float temp_Offset_f);
+void       Save_ParamCalib(float NH4_Offset_f, float temp_Offset_f);
 void       Init_ParamCalib(void);
 
 void       Save_TempAlarm(uint8_t State, float AlarmLower, float AlarmUpper);
@@ -217,10 +217,12 @@ float      quickSort_Sampling_Value(int32_t Value);
 
 void       Send_RS458_Sensor(uint8_t *aData, uint16_t Length_u16);
 uint32_t   Read_Register_Rs485(uint8_t aData[], uint16_t *pos, uint8_t LengthData);
+uint32_t   Read_Register_Rs485_NH4(uint8_t aData[], uint16_t *pos, uint8_t LengthData);
 
 void       RS485_Done_Calib(void);
 void       RS485_Enter_Calib(void);
 void       RS485_LogData_Calib(uint8_t Kind_Send, const void *data, uint16_t size);
+void       RS485_LogData_Calib_NH4(uint8_t Kind_Send, float K_const_f, float B_const_f);
 
 void       Handle_Data_Trans_Sensor(sData *sFrame, uint8_t KindRecv);
 void       Handle_Data_Trans_SS_pH(sData *sFrame, uint8_t KindTrans);

@@ -1370,6 +1370,11 @@ uint32_t EC200_Get_Delay_AT (uint8_t Step)
         case _EC200_FTP_LOGIN_1: 
             Time = 2000;
             break; 
+            
+        case _EC200_FTP_PUT3: 
+            Time = 1000;
+            break; 
+            
         default:
             Time = 50;
             break;
