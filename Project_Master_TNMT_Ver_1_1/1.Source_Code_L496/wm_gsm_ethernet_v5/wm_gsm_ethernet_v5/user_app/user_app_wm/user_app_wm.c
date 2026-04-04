@@ -57,8 +57,8 @@ sEvent_struct sEventAppWM [] =
     { _EVENT_SCAN_ALARM,	    1, 0, 50,       _Cb_Scan_Alarm }, 
     { _EVENT_CONTROL_LED1,		1, 0, 200,      _Cb_Control_Led1 }, 
     
-    { _EVENT_RS485_MODBUS,		1, 0, 500,      _Cb_Read_RS485_Modbus }, 
-    { _EVENT_RS485_2_MODBUS,    1, 0, 500,      _Cb_Read_RS485_2_Modbus }, 
+    { _EVENT_RS485_MODBUS,		0, 0, 500,      _Cb_Read_RS485_Modbus }, 
+    { _EVENT_RS485_2_MODBUS,    0, 0, 500,      _Cb_Read_RS485_2_Modbus }, 
     
     { _EVENT_POWER_UP_12V,      0, 0, 100,      _Cb_Power_Up_12V },
     
@@ -822,68 +822,69 @@ uint8_t AppWm_Digital_Decode (uint8_t chann, sData *pdata)
 
 uint8_t AppWm_RS485_1_Process (uint8_t chann)
 {
-    uint8_t result = pending;
-    static uint8_t step = 0;
-    uint8_t nreg = 0, func = FUN_READ_BYTE, type = sWmDigVar.sModbInfor[chann].MType_u8;
-    static uint32_t landmark = 0; 
-    sData  pData;
-    uint16_t addr = 0;
+//    uint8_t result = pending;
+//    static uint8_t step = 0;
+//    uint8_t nreg = 0, func = FUN_READ_BYTE, type = sWmDigVar.sModbInfor[chann].MType_u8;
+//    static uint32_t landmark = 0; 
+//    sData  pData;
+//    uint16_t addr = 0;
+//    
+//    if (type == __MET_UNKNOWN) {
+//        return false;
+//    }
+//    
+//    switch (step)
+//    {
+//        case 0:
+//            RS485_Stop_RX_Mode();
+//            WM_DIG_Init_Uart(&uart_rs485, type);
+//            RS485_Init_RX_Mode();
+//            sWmDigVar.sModbDevData[chann].inReg = 0;
+//            step++;
+//            break;
+//        case 1:  //Send request frame modrtu 
+//            WM_DIG_Get_Infor(chann, type, &addr, &nreg);
+//            RS485_Modbus_Send(sWmDigVar.sModbInfor[chann].SlaveId_u8, func, addr, nreg);
+//            landmark = RtCountSystick_u32;
+//            step++;
+//            break;
+//        case 2: //Check ACK
+//            if (Check_Time_Out(landmark, 1000) == true) {
+//                step = 0;
+//                result = false;
+//            } else {
+//                if (Rs485Status_u8 == true)
+//                {       
+//                    UTIL_Printf_Hex( DBLEVEL_L, sUart485.Data_a8, sUart485.Length_u16);
+//                    UTIL_Printf_Str( DBLEVEL_L,"\r\n");
+//                    
+//                    step = 0;
+//                    result = ModRTU_Check_Format(sUart485.Data_a8, sUart485.Length_u16);
+//                    
+//                    if (result == true) {
+//                        pData.Data_a8 = sUart485.Data_a8 + 3;
+//                        pData.Length_u16 = sUart485.Length_u16 - 3;
+//                        
+//                        result = AppWm_Digital_Decode(chann, &pData);
+//
+//                        if (result == error) { 
+//                            result = false;                       
+//                        } else if (result != true) {
+//                            step = 1;  //tiep tuc hoi tiep lenh
+//                        } 
+//                        
+//                        sWmDigVar.sModbDevData[chann].inReg++;
+//                    }
+//                }
+//            }
+//            break;
+//        default:
+//            step = 0;
+//            break;
+//    }
     
-    if (type == __MET_UNKNOWN) {
-        return false;
-    }
-    
-    switch (step)
-    {
-        case 0:
-            RS485_Stop_RX_Mode();
-            WM_DIG_Init_Uart(&uart_rs485, type);
-            RS485_Init_RX_Mode();
-            sWmDigVar.sModbDevData[chann].inReg = 0;
-            step++;
-            break;
-        case 1:  //Send request frame modrtu 
-            WM_DIG_Get_Infor(chann, type, &addr, &nreg);
-            RS485_Modbus_Send(sWmDigVar.sModbInfor[chann].SlaveId_u8, func, addr, nreg);
-            landmark = RtCountSystick_u32;
-            step++;
-            break;
-        case 2: //Check ACK
-            if (Check_Time_Out(landmark, 1000) == true) {
-                step = 0;
-                result = false;
-            } else {
-                if (Rs485Status_u8 == true)
-                {       
-                    UTIL_Printf_Hex( DBLEVEL_L, sUart485.Data_a8, sUart485.Length_u16);
-                    UTIL_Printf_Str( DBLEVEL_L,"\r\n");
-                    
-                    step = 0;
-                    result = ModRTU_Check_Format(sUart485.Data_a8, sUart485.Length_u16);
-                    
-                    if (result == true) {
-                        pData.Data_a8 = sUart485.Data_a8 + 3;
-                        pData.Length_u16 = sUart485.Length_u16 - 3;
-                        
-                        result = AppWm_Digital_Decode(chann, &pData);
-
-                        if (result == error) { 
-                            result = false;                       
-                        } else if (result != true) {
-                            step = 1;  //tiep tuc hoi tiep lenh
-                        } 
-                        
-                        sWmDigVar.sModbDevData[chann].inReg++;
-                    }
-                }
-            }
-            break;
-        default:
-            step = 0;
-            break;
-    }
-    
-    return result;
+//    return result;
+    return 0;
 }
 
 
@@ -891,82 +892,82 @@ uint8_t AppWm_RS485_1_Process (uint8_t chann)
 
 static uint8_t _Cb_Read_RS485_Modbus (uint8_t event)
 {
-    static uint8_t retry = 0, cDisconnect = 0;
-    static uint8_t poweron = false;
-    uint8_t result = false;
-    uint8_t status = false;
-    
-    if (retry < 2)
-    {
-        status = AppWm_RS485_1_Process(0);
-        
-        if (status == true) {
-            //cap nhat lai mepdv neu co kenh moi
-            if (sWmDigVar.sModbDevData[0].Status_u8 == false) {
-                sMessage.aMESS_PENDING[DATA_HANDSHAKE] = TRUE;
-            }
-            //get data to channel modbus de hien thay
-            WM_DIG_Get_Data(0, sWmDigVar.sModbInfor[0].MType_u8);
-            
-            result = true;
-            cDisconnect = 0;
-            sWmDigVar.sModbDevData[0].LandMark_u32 = RtCountSystick_u32;
-        } else if (status == false) {
-            retry++;
-        }
-        
-        //enable su kien
-        if (poweron == false) {
-            poweron = true;
-            V_PIN_ON;  //On power: cap nguon cho level
-            RS485_ON;
-            sEventAppWM[event].e_period = 1000;
-        } else {
-            sEventAppWM[event].e_period = 50;
-        }
-        
-        fevent_enable(sEventAppWM, event);
-    } else {
-        cDisconnect++;
-        result = true;
-        
-        if (sWmDigVar.sModbDevData[0].Status_u8 == true) {
-            if (sWmVar.pPack_Alarm_Str != NULL)
-                sWmVar.pPack_Alarm_Str ("u_app_wm: modbus 1 fail!\r\n");
-        } else {
-            UTIL_Printf_Str(DBLEVEL_M, "u_app_wm: modbus 1 fail!\r\n" );
-        }
-        
-        if (cDisconnect >= MAX_DISCONN_RS485) {
-            sWmDigVar.sModbDevData[0].Status_u8 = false;
-        }
-    }
-    
-    if (result == true)
-    {
-        poweron = false;
-        retry = 0;
-        RS485_Stop_RX_Mode();
-        
-        iMarkTSVH |= 0x04;
-        if (iMarkTSVH == 0x0F) {
-            iMarkTSVH = 0;
-            fevent_active(sEventAppWM, _EVENT_LOG_TSVH);
-        }
-    
-        if ( (UTIL_var.ModePower_u8 == _POWER_MODE_SAVE) && (iMarkTSVH == 0x0F) ) {
-            V_PIN_OFF;  
-        } else {
-            sEventAppWM[event].e_period = PERIOD_READ_MODBUS;
-            fevent_enable(sEventAppWM, event);
-        }
-        
-        if ((UTIL_var.ModeConnNow_u8 != _CONNECT_DATA_MAIN) 
-            && (UTIL_var.ModeConnNow_u8 != _CONNECT_DATA_BACKUP)
-            && (UTIL_var.ModeConnNow_u8 != _CONNECT_FTP_UPLOAD)) {
-            fevent_disable(sEventAppWM, event);
-        }
-    }
+//    static uint8_t retry = 0, cDisconnect = 0;
+//    static uint8_t poweron = false;
+//    uint8_t result = false;
+//    uint8_t status = false;
+//    
+//    if (retry < 2)
+//    {
+//        status = AppWm_RS485_1_Process(0);
+//        
+//        if (status == true) {
+//            //cap nhat lai mepdv neu co kenh moi
+//            if (sWmDigVar.sModbDevData[0].Status_u8 == false) {
+//                sMessage.aMESS_PENDING[DATA_HANDSHAKE] = TRUE;
+//            }
+//            //get data to channel modbus de hien thay
+//            WM_DIG_Get_Data(0, sWmDigVar.sModbInfor[0].MType_u8);
+//            
+//            result = true;
+//            cDisconnect = 0;
+//            sWmDigVar.sModbDevData[0].LandMark_u32 = RtCountSystick_u32;
+//        } else if (status == false) {
+//            retry++;
+//        }
+//        
+//        //enable su kien
+//        if (poweron == false) {
+//            poweron = true;
+//            V_PIN_ON;  //On power: cap nguon cho level
+//            RS485_ON;
+//            sEventAppWM[event].e_period = 1000;
+//        } else {
+//            sEventAppWM[event].e_period = 50;
+//        }
+//        
+//        fevent_enable(sEventAppWM, event);
+//    } else {
+//        cDisconnect++;
+//        result = true;
+//        
+//        if (sWmDigVar.sModbDevData[0].Status_u8 == true) {
+//            if (sWmVar.pPack_Alarm_Str != NULL)
+//                sWmVar.pPack_Alarm_Str ("u_app_wm: modbus 1 fail!\r\n");
+//        } else {
+//            UTIL_Printf_Str(DBLEVEL_M, "u_app_wm: modbus 1 fail!\r\n" );
+//        }
+//        
+//        if (cDisconnect >= MAX_DISCONN_RS485) {
+//            sWmDigVar.sModbDevData[0].Status_u8 = false;
+//        }
+//    }
+//    
+//    if (result == true)
+//    {
+//        poweron = false;
+//        retry = 0;
+//        RS485_Stop_RX_Mode();
+//        
+//        iMarkTSVH |= 0x04;
+//        if (iMarkTSVH == 0x0F) {
+//            iMarkTSVH = 0;
+//            fevent_active(sEventAppWM, _EVENT_LOG_TSVH);
+//        }
+//    
+//        if ( (UTIL_var.ModePower_u8 == _POWER_MODE_SAVE) && (iMarkTSVH == 0x0F) ) {
+//            V_PIN_OFF;  
+//        } else {
+//            sEventAppWM[event].e_period = PERIOD_READ_MODBUS;
+//            fevent_enable(sEventAppWM, event);
+//        }
+//        
+//        if ((UTIL_var.ModeConnNow_u8 != _CONNECT_DATA_MAIN) 
+//            && (UTIL_var.ModeConnNow_u8 != _CONNECT_DATA_BACKUP)
+//            && (UTIL_var.ModeConnNow_u8 != _CONNECT_FTP_UPLOAD)) {
+//            fevent_disable(sEventAppWM, event);
+//        }
+//    }
     
     return true;
 }
@@ -980,146 +981,147 @@ static uint8_t _Cb_Read_RS485_Modbus (uint8_t event)
 
 uint8_t AppWm_RS485_2_Process (uint8_t chann)
 {
-    uint8_t result = pending;
-    static uint8_t step = 0;
-    uint8_t nreg = 0, func = FUN_READ_BYTE, type = sWmDigVar.sModbInfor[chann].MType_u8;
-    static uint32_t landmark = 0; 
-    sData  pData;
-    uint16_t addr = 0;
+//    uint8_t result = pending;
+//    static uint8_t step = 0;
+//    uint8_t nreg = 0, func = FUN_READ_BYTE, type = sWmDigVar.sModbInfor[chann].MType_u8;
+//    static uint32_t landmark = 0; 
+//    sData  pData;
+//    uint16_t addr = 0;
+//    
+//    if (type == __MET_UNKNOWN) {
+//        return false;
+//    }
+//    
+//    switch (step)
+//    {
+//        case 0:
+//            RS485_2_Stop_RX_Mode();
+//            WM_DIG_Init_Uart(&uart_rs485_2, type);
+//            RS485_2_Init_RX_Mode();
+//            sWmDigVar.sModbDevData[chann].inReg = 0;
+//            step++;
+//            break;
+//        case 1:  //Send request frame modrtu 
+//            WM_DIG_Get_Infor(chann, type, &addr, &nreg);
+//            RS485_2_Modbus_Send(sWmDigVar.sModbInfor[chann].SlaveId_u8, func, addr, nreg);
+//            landmark = RtCountSystick_u32;
+//            step++;
+//            break;
+//        case 2: //Check ACK
+//            if (Check_Time_Out(landmark, 500) == true) {
+//                step = 0;
+//                result = false;
+//            } else {
+//                if (Rs485_2Status_u8 == true)
+//                {       
+//                    UTIL_Printf_Hex( DBLEVEL_L, sUart485_2.Data_a8, sUart485_2.Length_u16);
+//                    UTIL_Printf_Str( DBLEVEL_L,"\r\n");
+//                    
+//                    step = 0;
+//                    result = ModRTU_Check_Format(sUart485_2.Data_a8, sUart485_2.Length_u16);
+//                    
+//                    if (result == true) {
+//                        pData.Data_a8 = sUart485_2.Data_a8 + 3;
+//                        pData.Length_u16 = sUart485_2.Length_u16 - 3;
+//                        
+//                        result = AppWm_Digital_Decode(chann, &pData);
+//                        if (result != true) {
+//                            step = 1;  //tiep tuc hoi tiep lenh
+//                        }
+//                        sWmDigVar.sModbDevData[chann].inReg++;
+//                    }
+//                }
+//            }
+//            break;
+//        default:
+//            step = 0;
+//            break;
+//    }
     
-    if (type == __MET_UNKNOWN) {
-        return false;
-    }
-    
-    switch (step)
-    {
-        case 0:
-            RS485_2_Stop_RX_Mode();
-            WM_DIG_Init_Uart(&uart_rs485_2, type);
-            RS485_2_Init_RX_Mode();
-            sWmDigVar.sModbDevData[chann].inReg = 0;
-            step++;
-            break;
-        case 1:  //Send request frame modrtu 
-            WM_DIG_Get_Infor(chann, type, &addr, &nreg);
-            RS485_2_Modbus_Send(sWmDigVar.sModbInfor[chann].SlaveId_u8, func, addr, nreg);
-            landmark = RtCountSystick_u32;
-            step++;
-            break;
-        case 2: //Check ACK
-            if (Check_Time_Out(landmark, 500) == true) {
-                step = 0;
-                result = false;
-            } else {
-                if (Rs485_2Status_u8 == true)
-                {       
-                    UTIL_Printf_Hex( DBLEVEL_L, sUart485_2.Data_a8, sUart485_2.Length_u16);
-                    UTIL_Printf_Str( DBLEVEL_L,"\r\n");
-                    
-                    step = 0;
-                    result = ModRTU_Check_Format(sUart485_2.Data_a8, sUart485_2.Length_u16);
-                    
-                    if (result == true) {
-                        pData.Data_a8 = sUart485_2.Data_a8 + 3;
-                        pData.Length_u16 = sUart485_2.Length_u16 - 3;
-                        
-                        result = AppWm_Digital_Decode(chann, &pData);
-                        if (result != true) {
-                            step = 1;  //tiep tuc hoi tiep lenh
-                        }
-                        sWmDigVar.sModbDevData[chann].inReg++;
-                    }
-                }
-            }
-            break;
-        default:
-            step = 0;
-            break;
-    }
-    
-    return result;
+//    return result;
+  return 0;
 }
 
 
 
 static uint8_t _Cb_Read_RS485_2_Modbus (uint8_t event)
 {
-    static uint8_t retry = 0, cDisconnect = 0;
-    static uint8_t poweron = false;
-    uint8_t result = false;
-    uint8_t status = false;
-    
-    if (retry < 2)
-    {
-        status = AppWm_RS485_2_Process(1);
-        
-        if (status == true) {
-            //cap nhat lai mepdv neu co kenh moi
-            if (sWmDigVar.sModbDevData[1].Status_u8 == false) {
-                sMessage.aMESS_PENDING[DATA_HANDSHAKE] = TRUE;
-            }
-            //get data to channel modbus de hien thay
-            WM_DIG_Get_Data(1, sWmDigVar.sModbInfor[1].MType_u8);
-            
-            result = true;
-            cDisconnect = 0;
-            sWmDigVar.sModbDevData[1].LandMark_u32 = RtCountSystick_u32;
-        } else if (status == false) {
-            retry++;
-        }
-        
-        //enable su kien
-        if (poweron == false) {
-            poweron = true;
-            V_PIN_ON;  //On power: cap nguon cho level
-            RS485_ON;
-            sEventAppWM[event].e_period = 1000;
-        } else {
-            sEventAppWM[event].e_period = 50;
-        }
-        
-        fevent_enable(sEventAppWM, event);
-    } else {
-        cDisconnect++;
-        result = true;
-        
-        if (sWmDigVar.sModbDevData[1].Status_u8 == true) {
-            if (sWmVar.pPack_Alarm_Str != NULL)
-                sWmVar.pPack_Alarm_Str ("u_app_wm: modbus 2 fail!\r\n");
-        } else {
-            UTIL_Printf_Str(DBLEVEL_M, "u_app_wm: modbus 2 fail!\r\n" );
-        }
-        
-        if (cDisconnect >= MAX_DISCONN_RS485) {
-            sWmDigVar.sModbDevData[1].Status_u8 = false;
-        }
-    }
-    
-    if (result == true)
-    {
-        poweron = false;
-        retry = 0;
-        RS485_2_Stop_RX_Mode();
-        
-        iMarkTSVH |= 0x08;
-        if (iMarkTSVH == 0x0F) {
-            iMarkTSVH = 0;
-            fevent_active(sEventAppWM, _EVENT_LOG_TSVH);
-        }
-    
-        if ( (UTIL_var.ModePower_u8 == _POWER_MODE_SAVE) && (iMarkTSVH == 0x0F) ) {
-            V_PIN_OFF;  
-        } else {
-            sEventAppWM[event].e_period = PERIOD_READ_MODBUS;
-            fevent_enable(sEventAppWM, event);
-        }
-        
-        if ((UTIL_var.ModeConnNow_u8 != _CONNECT_DATA_MAIN) 
-            && (UTIL_var.ModeConnNow_u8 != _CONNECT_DATA_BACKUP)
-            && (UTIL_var.ModeConnNow_u8 != _CONNECT_FTP_UPLOAD)) {
-            fevent_disable(sEventAppWM, event);
-        }
-    }
+//    static uint8_t retry = 0, cDisconnect = 0;
+//    static uint8_t poweron = false;
+//    uint8_t result = false;
+//    uint8_t status = false;
+//    
+//    if (retry < 2)
+//    {
+//        status = AppWm_RS485_2_Process(1);
+//        
+//        if (status == true) {
+//            //cap nhat lai mepdv neu co kenh moi
+//            if (sWmDigVar.sModbDevData[1].Status_u8 == false) {
+//                sMessage.aMESS_PENDING[DATA_HANDSHAKE] = TRUE;
+//            }
+//            //get data to channel modbus de hien thay
+//            WM_DIG_Get_Data(1, sWmDigVar.sModbInfor[1].MType_u8);
+//            
+//            result = true;
+//            cDisconnect = 0;
+//            sWmDigVar.sModbDevData[1].LandMark_u32 = RtCountSystick_u32;
+//        } else if (status == false) {
+//            retry++;
+//        }
+//        
+//        //enable su kien
+//        if (poweron == false) {
+//            poweron = true;
+//            V_PIN_ON;  //On power: cap nguon cho level
+//            RS485_ON;
+//            sEventAppWM[event].e_period = 1000;
+//        } else {
+//            sEventAppWM[event].e_period = 50;
+//        }
+//        
+//        fevent_enable(sEventAppWM, event);
+//    } else {
+//        cDisconnect++;
+//        result = true;
+//        
+//        if (sWmDigVar.sModbDevData[1].Status_u8 == true) {
+//            if (sWmVar.pPack_Alarm_Str != NULL)
+//                sWmVar.pPack_Alarm_Str ("u_app_wm: modbus 2 fail!\r\n");
+//        } else {
+//            UTIL_Printf_Str(DBLEVEL_M, "u_app_wm: modbus 2 fail!\r\n" );
+//        }
+//        
+//        if (cDisconnect >= MAX_DISCONN_RS485) {
+//            sWmDigVar.sModbDevData[1].Status_u8 = false;
+//        }
+//    }
+//    
+//    if (result == true)
+//    {
+//        poweron = false;
+//        retry = 0;
+//        RS485_2_Stop_RX_Mode();
+//        
+//        iMarkTSVH |= 0x08;
+//        if (iMarkTSVH == 0x0F) {
+//            iMarkTSVH = 0;
+//            fevent_active(sEventAppWM, _EVENT_LOG_TSVH);
+//        }
+//    
+//        if ( (UTIL_var.ModePower_u8 == _POWER_MODE_SAVE) && (iMarkTSVH == 0x0F) ) {
+//            V_PIN_OFF;  
+//        } else {
+//            sEventAppWM[event].e_period = PERIOD_READ_MODBUS;
+//            fevent_enable(sEventAppWM, event);
+//        }
+//        
+//        if ((UTIL_var.ModeConnNow_u8 != _CONNECT_DATA_MAIN) 
+//            && (UTIL_var.ModeConnNow_u8 != _CONNECT_DATA_BACKUP)
+//            && (UTIL_var.ModeConnNow_u8 != _CONNECT_FTP_UPLOAD)) {
+//            fevent_disable(sEventAppWM, event);
+//        }
+//    }
     
     return true;
 }

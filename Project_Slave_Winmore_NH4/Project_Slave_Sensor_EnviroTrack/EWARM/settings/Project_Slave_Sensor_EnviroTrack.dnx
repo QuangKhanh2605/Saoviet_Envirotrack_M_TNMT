@@ -14,10 +14,10 @@
     <StLinkDriver>
         <stlinkserialNo>31531457</stlinkserialNo>
         <stlinkfoundProbes />
-        <CStepIntDis>_ 0</CStepIntDis>
-        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
         <stlinkResetStyle>0</stlinkResetStyle>
         <stlinkResetStrategy>2</stlinkResetStrategy>
+        <CStepIntDis>_ 0</CStepIntDis>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </StLinkDriver>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -104,12 +104,6 @@
         <ShowTimeSum>1</ShowTimeSum>
         <SumSortOrder>0</SumSortOrder>
     </EventLog>
-    <DisassembleMode>
-        <mode>0</mode>
-    </DisassembleMode>
-    <Breakpoints2>
-        <Count>0</Count>
-    </Breakpoints2>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
@@ -119,13 +113,6 @@
         <LogFile>_ ""</LogFile>
         <Category>_ 0</Category>
     </LogFile>
-    <Aliases>
-        <A0>_ "D:\Saoviet_Git\Saoviet_EnviroTrack_M_And_S\Project_Sensor_Slave\Project_Slave_LanChang_pH\Project_Slave_Sensor_EnviroTrack\Core\Src\stm32l4xx_it.c" ""</A0>
-        <A1>_ "D:\Saoviet_Git\Saoviet_EnviroTrack_M_And_S\Project_Sensor_Slave\Project_Slave_LanChang_pH\Project_Slave_Sensor_EnviroTrack\user_util\user_util.c" ""</A1>
-        <A2>_ "D:\Saoviet_Git\Saoviet_EnviroTrack_M_And_S_RawWater\Project_Slave_Chemins_pH\Project_Slave_Sensor_EnviroTrack\user_app\user_app_sensor\user_app_sensor.c" ""</A2>
-        <Count>3</Count>
-        <SuppressDialog>0</SuppressDialog>
-    </Aliases>
     <DriverProfiling>
         <Enabled>0</Enabled>
         <Mode>3</Mode>
@@ -139,4 +126,17 @@
     <CallStackStripe>
         <ShowTiming>1</ShowTiming>
     </CallStackStripe>
+    <DisassembleMode>
+        <mode>0</mode>
+    </DisassembleMode>
+    <Breakpoints2>
+        <Count>0</Count>
+    </Breakpoints2>
+    <Aliases>
+        <A0>_ "D:\Saoviet_Git\Saoviet_EnviroTrack_M_And_S\Project_Sensor_Slave\Project_Slave_LanChang_pH\Project_Slave_Sensor_EnviroTrack\Core\Src\stm32l4xx_it.c" ""</A0>
+        <A1>_ "D:\Saoviet_Git\Saoviet_EnviroTrack_M_And_S\Project_Sensor_Slave\Project_Slave_LanChang_pH\Project_Slave_Sensor_EnviroTrack\user_util\user_util.c" ""</A1>
+        <A2>_ "D:\Saoviet_Git\Saoviet_EnviroTrack_M_And_S_RawWater\Project_Slave_Chemins_pH\Project_Slave_Sensor_EnviroTrack\user_app\user_app_sensor\user_app_sensor.c" ""</A2>
+        <Count>3</Count>
+        <SuppressDialog>0</SuppressDialog>
+    </Aliases>
 </settings>

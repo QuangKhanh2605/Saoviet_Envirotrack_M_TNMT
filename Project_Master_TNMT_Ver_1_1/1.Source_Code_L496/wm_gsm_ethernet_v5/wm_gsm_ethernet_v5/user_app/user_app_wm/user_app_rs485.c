@@ -196,6 +196,7 @@ static uint8_t fevent_rs485_wait_calib(uint8_t event)
 static uint8_t fevent_rs485_refresh(uint8_t event)
 {
     Init_UartRs485();
+    Init_UartRs485_2();
     fevent_enable(sEventAppRs485, event);
     return 1;
 }
@@ -442,9 +443,17 @@ void Init_UartRs485(void)
     RS485_Init_RX_Mode();
 }
 
+void Init_UartRs485_2(void)
+{
+    RS485_2_Stop_RX_Mode();
+    WM_DIG_Init_Uart(&uart_rs485_2, sWmDigVar.sModbInfor[0].MType_u8);
+    RS485_2_Init_RX_Mode();
+}
+
 void       Init_AppRs485(void)
 {
     Init_UartRs485();
+    Init_UartRs485_2();
     Init_Parameter_Sensor();
 #ifdef USING_AT_CONFIG
     /* regis cb serial */

@@ -159,19 +159,19 @@ typedef struct
 
 typedef struct
 {
-    uint8_t eKind;                  //Name Register
-    uint8_t *State;                 //Trang thai su dung (On/Off)
-    uint8_t cmdRW;                  //0: Read, 1: Write
-    uint8_t idDev;                  //ID cua thiet bi
-    uint8_t cmdLen;                 //So thanh ghi can doc
-    uint8_t cmdAddr;                //Addr thanh ghi 1234(Dec)
-    uint8_t vFormat;                //Kieu du lieu(float, uint32_t, int32_t, uint16_t, int16_t)
-    uint8_t vBeLe;                  //Kieu giai ma
-    float   vScale;                 //Scale du lieu 0.01, 0.1, 1, 10 (ket qua do nhan voi scale)
-    float   *subReg;                //Gia tri viet vao thanh ghi lay tu thiet bi so 1|2|3...
-    uint8_t nPort;                  //Modbus port: 1
-    float   *vReturn;                  
-    uint8_t *nConnect;
+    uint8_t  eKind;                  //Name Register
+    uint8_t  *State;                 //Trang thai su dung (On/Off)
+    uint8_t  cmdRW;                  //0: Read, 1: Write
+    uint8_t  idDev;                  //ID cua thiet bi
+    uint8_t  cmdLen;                 //So thanh ghi can doc
+    uint16_t cmdAddr;                //Addr thanh ghi 1234(Dec)
+    uint8_t  vFormat;                //Kieu du lieu(float, uint32_t, int32_t, uint16_t, int16_t)
+    uint8_t  vBeLe;                  //Kieu giai ma
+    float    vScale;                 //Scale du lieu 0.01, 0.1, 1, 10 (ket qua do nhan voi scale)
+    float    *subReg;                //Gia tri viet vao thanh ghi lay tu thiet bi so 1|2|3...
+    uint8_t  nPort;                  //Modbus port: 1
+    float    *vReturn;                  
+    uint8_t  *nConnect;
 }Struct_RegSensor;
 
 typedef struct
@@ -205,6 +205,7 @@ void       RS485_Para_Init(void);
 void       Init_Parameter_Sensor(void);
 
 void       Init_UartRs485(void);
+void       Init_UartRs485_2(void);
 void       Send_RS458_Sensor(uint8_t *aData, uint16_t Length_u16);
 
 uint32_t   Read_Register_Rs485(uint8_t aData[], uint16_t *pos, uint8_t LengthData);

@@ -8,6 +8,7 @@
 
 /*============== Function static ===============*/
 static uint8_t fevent_sensor_entry(uint8_t event);
+static uint8_t fevent_sensor_log_tsvh(uint8_t event);
 
 static uint8_t fevent_sensor_data_measure(uint8_t event);
 static uint8_t fevent_sensor_handle_state(uint8_t event);
@@ -15,6 +16,7 @@ static uint8_t fevent_sensor_handle_state(uint8_t event);
 sEvent_struct               sEventAppSensor[] = 
 {
   {_EVENT_SENSOR_ENTRY,              1, 5, 60000,                fevent_sensor_entry},
+  {_EVENT_SENSOR_LOG_TSVH,           0, 0, 500,                  fevent_sensor_log_tsvh},
   
   {_EVENT_SENSOR_DATA_MEASURE,       1, 5, 500,                  fevent_sensor_data_measure}, 
   {_EVENT_SENSOR_HANDLE_STATE,       0, 5, 500,                  fevent_sensor_handle_state},
@@ -148,6 +150,22 @@ static inline void set_measure_block(Struct_SS_Value *blk, float value, float of
 static uint8_t fevent_sensor_entry(uint8_t event)
 {
     fevent_enable(sEventAppSensor, _EVENT_SENSOR_HANDLE_STATE);
+    return 1;
+}
+
+static uint8_t fevent_sensor_log_tsvh(uint8_t event)
+{
+    if (sRTC.year < 20)
+    {
+    	return 0;
+    }
+    
+    Average_One_Hour();
+    
+//    if(sRTC.min == 0)
+        AppSensor_Packet_TNMT();
+    
+    AppSensor_Log_Data_TSVH();
     return 1;
 }
 
