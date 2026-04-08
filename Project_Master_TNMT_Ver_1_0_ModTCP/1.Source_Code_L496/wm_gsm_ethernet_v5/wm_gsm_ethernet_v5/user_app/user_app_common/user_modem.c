@@ -988,14 +988,14 @@ void Modem_SER_HTTP_Update (sData *strRecei, uint16_t Pos)
         fevent_active(sEventAppEth, _EVENT_ETH_HARD_RESET);
     #endif
         
-    #ifdef USING_APP_SIM
-    #ifdef USING_APP_ETHERNET
-        if (sAppEthVar.Status_u8 < _ETH_TCP_CONNECT)
-            AppSim_Restart_Imediate();
-    #else
+//    #ifdef USING_APP_SIM
+//    #ifdef USING_APP_ETHERNET
+//        if (sAppEthVar.Status_u8 < _ETH_TCP_CONNECT)
+//            AppSim_Restart_Imediate();
+//    #else
         AppSim_Restart_Imediate();
-    #endif
-    #endif
+//    #endif
+//    #endif
         
         Modem_Respond_Str(PortConfig, "OK", 0);
     } else {  

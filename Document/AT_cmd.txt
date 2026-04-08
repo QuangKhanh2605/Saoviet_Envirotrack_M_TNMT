@@ -1,0 +1,29 @@
+-lệnh config địa chỉ FTP
+at+ftpmain=124.158.5.154,21,admin,admin,chien/test_tn
+
+-lệnh config tên trạm, tên công trình, tham số thu thập
+at+chaninfor=6,SV|HOANGNGOC|TANG2|2,0,1
+
+-lệnh config modbus TCP
+at+modtcpmain=124.158.5.154,502,admin,admin
+
+-lệnh config mode pack TNMT
+at+mpacket=1
+
+at+userurl=http://124.158.5.154:21,admin,admin/FTP/chien/SVWM_GSM_ETH_V2_1_1.bin
+at+userurl=http://up.saovietgroup.com.vn:80,saoviet,sv123@/WMGE/SVWM_GSM_ETH_V2_2_1.bin
+
+at+userurl=http://up.saovietgroup.com.vn:80/chien/SVWM_GSM_V2_0_25.bin 
+
+at+userurl=http://up.saovietgroup.com.vn:80,saoviet,sv123@/khanh_http/SVWM_GSM_ETH_V5_2_0.bin
+IP host Filzilla (Phần mềm up file lên FTP/HTTP)
+
+192.168.6.67
+
+user: saoviet 
+
+Pass: sv123@
+
+K điền port
+
+Mặc định port trong đường dẫn http: 80

@@ -282,6 +282,14 @@ static uint8_t _Cb_Check_Bus (uint8_t event)
         sAppEthVar.PHYstatus_u8 = false;
         fevent_active(sEventAppEth, _EVENT_ETH_PHY_LINK);
         RetryBus = 0;
+                
+        gWIZNETINFO.mac[3] = sModemInfor.aID[strlen(sModemInfor.aID)-1] 
+                           + sModemInfor.aID[strlen(sModemInfor.aID)-2];
+        gWIZNETINFO.mac[4] = sModemInfor.aID[strlen(sModemInfor.aID)-3]
+                           + sModemInfor.aID[strlen(sModemInfor.aID)-4];
+        gWIZNETINFO.mac[5] = sModemInfor.aID[strlen(sModemInfor.aID)-5]
+                           + sModemInfor.aID[strlen(sModemInfor.aID)-6];
+        ctlnetwork(CN_SET_NETINFO, (void*) &gWIZNETINFO);
     } else {
         if (RetryBus++ >= ETH_MAX_RETRY_BUS) {
             RetryBus = 0;
@@ -1028,7 +1036,7 @@ static uint8_t _Cb_Send_Data (uint8_t event)
     }
 
 //                    return false;
-    sEventAppEth[_EVENT_ETH_SOCK_CTRL].e_period = 1000;
+//    sEventAppEth[_EVENT_ETH_SOCK_CTRL].e_period = 1000;
     
     fevent_enable(sEventAppSim, event);
     
@@ -1100,25 +1108,25 @@ uint8_t AppEth_Send_Mess (void)
 
 static uint8_t _Cb_Control_Sim (uint8_t event)
 {
-#ifdef USING_APP_SIM
-    if ( ( (UTIL_var.ModeConnNow_u8 != _CONNECT_DATA_MAIN)
-            && (UTIL_var.ModeConnNow_u8  != _CONNECT_DATA_BACKUP) 
-            && (UTIL_var.ModeConnNow_u8  != _CONNECT_FTP_UPLOAD) )
-        || (UTIL_var.ModePower_u8 == _POWER_MODE_SAVE) )
-    {
-        if (sAppEthVar.Status_u8 < _ETH_TCP_CONNECT)
-        {
-            AppSim_Restart_If_PSM();
-        } else
-        {
-            //Power Off SIM
-            if (sSimCommVar.State_u8 != _SIM_POWER_OFF)
-                fevent_active(sEventAppSim, _EVENT_SIM_POWER_OFF);
-        }
-    }
-
-    fevent_enable(sEventAppEth, event);
-#endif
+//#ifdef USING_APP_SIM
+//    if ( ( (UTIL_var.ModeConnNow_u8 != _CONNECT_DATA_MAIN)
+//            && (UTIL_var.ModeConnNow_u8  != _CONNECT_DATA_BACKUP) 
+//            && (UTIL_var.ModeConnNow_u8  != _CONNECT_FTP_UPLOAD) )
+//        || (UTIL_var.ModePower_u8 == _POWER_MODE_SAVE) )
+//    {
+//        if (sAppEthVar.Status_u8 < _ETH_TCP_CONNECT)
+//        {
+//            AppSim_Restart_If_PSM();
+//        } else
+//        {
+//            //Power Off SIM
+//            if (sSimCommVar.State_u8 != _SIM_POWER_OFF)
+//                fevent_active(sEventAppSim, _EVENT_SIM_POWER_OFF);
+//        }
+//    }
+//
+//    fevent_enable(sEventAppEth, event);
+//#endif
 
     return 1;
 }

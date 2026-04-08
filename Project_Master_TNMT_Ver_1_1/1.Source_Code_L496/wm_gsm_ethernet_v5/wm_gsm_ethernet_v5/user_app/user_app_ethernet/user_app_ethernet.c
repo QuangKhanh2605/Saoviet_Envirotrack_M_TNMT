@@ -282,6 +282,14 @@ static uint8_t _Cb_Check_Bus (uint8_t event)
         sAppEthVar.PHYstatus_u8 = false;
         fevent_active(sEventAppEth, _EVENT_ETH_PHY_LINK);
         RetryBus = 0;
+        
+        gWIZNETINFO.mac[3] = sModemInfor.aID[strlen(sModemInfor.aID)-1] 
+                           + sModemInfor.aID[strlen(sModemInfor.aID)-2];
+        gWIZNETINFO.mac[4] = sModemInfor.aID[strlen(sModemInfor.aID)-3]
+                           + sModemInfor.aID[strlen(sModemInfor.aID)-4];
+        gWIZNETINFO.mac[5] = sModemInfor.aID[strlen(sModemInfor.aID)-5]
+                           + sModemInfor.aID[strlen(sModemInfor.aID)-6];
+        ctlnetwork(CN_SET_NETINFO, (void*) &gWIZNETINFO);
     } else {
         if (RetryBus++ >= ETH_MAX_RETRY_BUS) {
             RetryBus = 0;
@@ -562,8 +570,8 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
     //Ctrl socket run
     switch (UTIL_var.ModeConnNow_u8)
     {
-        case _ETH_MODE_CONN_MAIN:
-        case _ETH_MODE_CONN_BACKUP:
+        case _CONNECT_DATA_MAIN:
+        case _CONNECT_DATA_BACKUP:
             sEventAppEth[_EVENT_ETH_SOCK_CTRL].e_period = 10;
             
             SockCtrlState = AppEth_Socket_Control (SOCKET_DEMO, sAppEthVar.sServer.aIP, 
@@ -595,7 +603,7 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
                 }
             }
             break;
-        case _ETH_MODE_CONN_FTP:
+        case _CONNECT_FTP:
             if (sFTPvar.Retry_u8 >= ETH_MAX_RETRY_UPDATE)
             {
                 AppEth_Finish_Update(__FAIL_CONNECT);
@@ -693,13 +701,18 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
                 }
             }
             break;
-        case _ETH_MODE_CONN_HTTP:
+        case _CONNECT_HTTP:
             //Neu 60s ma k connect duoc: se retry lai
             if (Check_Time_Out(sFTPvar.LandMark_u32, 60000) == true)
             {
                 rReConn_u8 = true;
                 sAppEthVar.Retry_u8 = ETH_MAX_SOCK_RETRY;
             }
+            break;
+        case _CONNECT_FTP_UPLOAD:
+          
+            sEventAppEth[_EVENT_ETH_SOCK_CTRL].e_period = 1000;
+            sAppEthVar.cHardReset_u16++;
             break;
         default:
             break;

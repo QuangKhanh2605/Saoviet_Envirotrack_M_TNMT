@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Project_STM32\Datalogger_Sensor_ModbusTCP\Project_Master_TNMT_Ver_1_1\1.Source_Code_L496\wm_gsm_ethernet_v5\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.general.xcl" --backend -f "D:\Project_STM32\Datalogger_Sensor_ModbusTCP\Project_Master_TNMT_Ver_1_1\1.Source_Code_L496\wm_gsm_ethernet_v5\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_1_0_ModTCP\1.Source_Code_L496\wm_gsm_ethernet_v5\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.general.xcl" --backend -f "D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_1_0_ModTCP\1.Source_Code_L496\wm_gsm_ethernet_v5\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Project_STM32\Datalogger_Sensor_ModbusTCP\Project_Master_TNMT_Ver_1_1\1.Source_Code_L496\wm_gsm_ethernet_v5\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.general.xcl" "--debug_file=%~1" --backend -f "D:\Project_STM32\Datalogger_Sensor_ModbusTCP\Project_Master_TNMT_Ver_1_1\1.Source_Code_L496\wm_gsm_ethernet_v5\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_1_0_ModTCP\1.Source_Code_L496\wm_gsm_ethernet_v5\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.general.xcl" "--debug_file=%~1" --backend -f "D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_1_0_ModTCP\1.Source_Code_L496\wm_gsm_ethernet_v5\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.driver.xcl" 
 
 @echo off 
 :end

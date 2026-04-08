@@ -95,7 +95,7 @@ Struct_RegSensor            sRegSensor[] =
   {_E_TEMP_VALUE,    NULL,    0,      ID_SS_TEMP,  2,        6,    _ETYPE_F,  _E_BE,   1,        NULL,     0,       NULL,      NULL},
   {_E_TEMP_TEMP,     NULL,    0,      ID_SS_TEMP,  2,        4,    _ETYPE_F,  _E_BE,   1,        NULL,     0,       NULL,      NULL},
   {_E_TEMP_S_SENSOR, NULL,    0,      ID_SS_TEMP,  1,        0,    _ETYPE_U8, _E_BE,   1,        NULL,     0,       NULL,      NULL},
-  {_E_TEMP_S_VALUE,  NULL,    0,      ID_SS_TEMP,  1,        3,    _ETYPE_U8, _E_BE,   1,        NULL,     0,       NULL,      NULL},
+  {_E_TEMP_S_VALUE,  NULL,    0,      ID_SS_TEMP,  1,        3,    _ETYPE_U8, _E_BS,   1,        NULL,     0,       NULL,      NULL},
 };
 /*========================Function Handle========================*/
 void       RS485_Para_Init(void)
@@ -446,6 +446,7 @@ static uint8_t fevent_rs485_receive_data(uint8_t event)
 
 
     Rs485_KindHandle++;
+    Reset_Buff(&sDataRecvTCP);
     fevent_active(sEventAppRs485, _EVENT_RS485_TRANSMIT_DATA);
     return 1;
 }
@@ -626,40 +627,66 @@ uint32_t Read_Register_Rs485(uint8_t aData[], uint16_t *pos, uint8_t LengthData)
 /*========================Handle Data========================*/
 uint32_t Endian_Format(uint32_t Hex_Data, uint8_t length, uint8_t Type)
 {
-    uint32_t Result = 0;
-    uint8_t hex11_u8 = Hex_Data >> 24;
-    uint8_t hex22_u8 = Hex_Data >> 16;
-    uint8_t hex33_u8 = Hex_Data >> 8;
-    uint8_t hex44_u8 = Hex_Data;
-    
-    if(Type == _E_BE)
+    uint8_t b1 = (Hex_Data >> 24) & 0xFF;
+    uint8_t b2 = (Hex_Data >> 16) & 0xFF;
+    uint8_t b3 = (Hex_Data >> 8)  & 0xFF;
+    uint8_t b4 = (Hex_Data)       & 0xFF;
+
+    uint32_t Result = Hex_Data;
+
+    if(length == 4)
     {
-        Result = ((uint32_t)hex11_u8 << 24) | ((uint32_t)hex22_u8 << 16) | ((uint32_t)hex33_u8 << 8) | (uint32_t)hex44_u8;
+        switch(Type)
+        {
+            case _E_BE: // ABCD
+                Result = (b1<<24)|(b2<<16)|(b3<<8)|b4;
+                break;
+
+            case _E_LE: // DCBA
+                Result = (b4<<24)|(b3<<16)|(b2<<8)|b1;
+                break;
+
+            case _E_BS: // BADC
+                Result = (b2<<24)|(b1<<16)|(b4<<8)|b3;
+                break;
+
+            case _E_WS: // CDAB
+                Result = (b3<<24)|(b4<<16)|(b1<<8)|b2;
+                break;
+
+            default:
+                return 0;
+        }
     }
-    else if(Type == _E_LE)
+    else if(length == 2)
     {
-        if(length == 4)
-            Result = ((uint32_t)hex44_u8 << 24) | ((uint32_t)hex33_u8 << 16) | ((uint32_t)hex22_u8 << 8) | (uint32_t)hex11_u8;
-        else
-            Result = ((uint32_t)hex11_u8 << 24) | ((uint32_t)hex22_u8 << 16) | ((uint32_t)hex44_u8 << 8) | (uint32_t)hex33_u8;
+        switch(Type)
+        {
+            case _E_BE: // 56 78
+                Result = (b1<<24)|(b2<<16)|(b3<<8)|b4;
+                break;
+
+            case _E_LE: // 56 78 -> 78 56
+                Result = (b1<<24)|(b2<<16)|(b4<<8)|b3;
+                break;
+
+            case _E_BS: // 56 78 -> 65 87 
+                Result = (b1<<24) | (b2<<16) |
+                         ((((b3 & 0x0F) << 4) | ((b3 & 0xF0) >> 4)) << 8) |
+                         (((b4 & 0x0F) << 4) | ((b4 & 0xF0) >> 4));
+                break;
+
+            case _E_WS: // 56 78 -> 87 65
+                Result = (b1<<24) | (b2<<16) |
+                         ((((b4 & 0x0F) << 4) | ((b4 & 0xF0) >> 4)) << 8) |
+                         (((b3 & 0x0F) << 4) | ((b3 & 0xF0) >> 4));
+                break;
+
+            default:
+                return 0;
+        }
     }
-    else if(Type == _E_BS)
-    {
-        if(length == 4)
-            Result = ((uint32_t)hex22_u8 << 24) | ((uint32_t)hex11_u8 << 16) | ((uint32_t)hex44_u8 << 8) | (uint32_t)hex33_u8;
-        else
-            Result = ((uint32_t)hex11_u8 << 24) | ((uint32_t)hex22_u8 << 16) | ((uint32_t)hex44_u8 << 8) | (uint32_t)hex33_u8;
-    }
-    else if(Type == _E_WS)
-    {
-        if(length == 4)
-            Result = ((uint32_t)hex33_u8 << 24) | ((uint32_t)hex44_u8 << 16) | ((uint32_t)hex11_u8 << 8) | (uint32_t)hex22_u8;
-        else
-            Result = ((uint32_t)hex11_u8 << 24) | ((uint32_t)hex22_u8 << 16) | ((uint32_t)hex44_u8 << 8) | (uint32_t)hex33_u8;
-    }
-    else
-      return 0;
-    
+
     return Result;
 }
 

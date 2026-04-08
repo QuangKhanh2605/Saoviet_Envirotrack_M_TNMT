@@ -141,14 +141,6 @@ typedef enum
 }eListUrcEthernet;
 
 
-typedef enum
-{
-    _ETH_MODE_CONN_MAIN = 0,		
-    _ETH_MODE_CONN_BACKUP,		
-    _ETH_MODE_CONN_FTP,		       
-    _ETH_MODE_CONN_HTTP , 
-}sKindEthConnect;
-
 typedef struct
 {
 	char *sIP;
