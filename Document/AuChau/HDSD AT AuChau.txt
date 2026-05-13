@@ -1,0 +1,20 @@
+Hướng dẫn sử dụng lệnh AT Âu Châu
+
+-lệnh config địa chỉ FTP
+at+ftpmain=124.158.5.154,21,admin,admin,khanh_ftp/SVWMDL26009999
+at+ftpmain=103.140.42.141,21,ftpuser,0!@#$%^QWERTY,TAINGUYENNUOC/NUOCNGAM/QUAWACO
+
+-lệnh config tên trạm, tên công trình, tham số thu thập
+at+chaninfor=1,QN|TRUNGLUONG|NUOCTHO|2,0,1
+
+-lệnh config modbus TCP
+at+modtcpmain=192.168.0.100.154,502,admin,admin
+
+-lệnh config mode pack TNMT
+at+mpacket=1
+
+UpdateFirmware Ethernet
+at+userftp=http://124.158.5.154:21,admin,admin/khanh_ftp/SVTH_SVM_DLS_V1_1_1.bin
+
+at+mqttmain=124.158.5.154,1883,syswmsv,sv@wmsv568
+at+mqttbackup=117.6.163.177,1883,syswmsv,sv@wmsv568

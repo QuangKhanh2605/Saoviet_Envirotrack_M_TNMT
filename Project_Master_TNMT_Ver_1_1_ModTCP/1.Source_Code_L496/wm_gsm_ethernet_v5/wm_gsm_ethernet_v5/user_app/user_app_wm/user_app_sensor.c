@@ -460,7 +460,7 @@ void AppSensor_Packet_TNMT(void)
                 c_pack++;
                 tnstatus_u8 = sAverageMeasure[i].State;
                 AppSensor_Packet_Param(aTEMP, i);
-                sprintf(aPAY_LOAD + strlen(aPAY_LOAD), "%s %s %04d%02d%02d%02d%02d%02d %02d\n", 
+                sprintf(aPAY_LOAD + strlen(aPAY_LOAD), "%s\t%s\t%04d%02d%02d%02d%02d%02d\t%02d\n", 
                                         AppSensor_TN_PARAM[i], aTEMP,
                                         sRTC.year + 2000, sRTC.month, sRTC.date,
                                         sRTC.hour, sRTC.min, sRTC.sec,

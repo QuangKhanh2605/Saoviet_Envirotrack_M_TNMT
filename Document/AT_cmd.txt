@@ -11,9 +11,12 @@ at+modtcpmain=124.158.5.154,502,admin,admin
 at+mpacket=1
 
 at+userurl=http://124.158.5.154:21,admin,admin/FTP/chien/SVWM_GSM_ETH_V2_1_1.bin
+
 at+userurl=http://up.saovietgroup.com.vn:80,saoviet,sv123@/WMGE/SVWM_GSM_ETH_V2_2_1.bin
 
 at+userurl=http://up.saovietgroup.com.vn:80/chien/SVWM_GSM_V2_0_25.bin 
+
+at+userftp=http://124.158.5.154:21,admin,admin/khanh_ftp/SVTH_SVM_DLS_V1_1_1.bin
 
 at+userurl=http://up.saovietgroup.com.vn:80,saoviet,sv123@/khanh_http/SVWM_GSM_ETH_V5_2_0.bin
 IP host Filzilla (Phần mềm up file lên FTP/HTTP)
