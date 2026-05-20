@@ -165,36 +165,51 @@ static uint8_t _Cb_Event_Flash_Send_BYTE(uint8_t event)
 	uint8_t flash_status = 0;
 	uint8_t flag_check = 0;
 	uint8_t flash_cmd = 0;
-
-    sEventExFlash[_EVENT_FLASH_SEND_BYTE].e_period = FLASH_CMD_TIME;
     
-	flash_cmd = eFlash_Get_Step_From_Queue(0);
-
-	if (flash_cmd >= _FLASH_CMD_END) 
-    {
-		return 0;
-	}
-    
-    //Lenh nao cmd send ! skip se send
-	if (aFlashCmd[flash_cmd].cmd_byte != SKIP) // ignore with SKIP command
-	{
-		if ( (flash_cmd == _FLASH_CMD_CHECK_WRITE_ENABLE) || (flash_cmd == _FLASH_CMD_CHECK_ERASE_ENABLE) )
-			flag_check = aFlashCmd[_FLASH_CMD_CHECK_WRITE_ENABLE].cmd_check;
-
-		flash_status = S25FL_Send_Byte(aFlashCmd[flash_cmd].cmd_byte);
+//    uint32_t LandMarkSPI_NSS_u32 = 0;  
+//
+//    LandMarkSPI_NSS_u32 = HAL_GetTick();
+//    do
+//    {
+//        HAL_Delay(FLASH_CMD_TIME);
+        sEventExFlash[_EVENT_FLASH_SEND_BYTE].e_period = FLASH_CMD_TIME;
         
-		if ( (aFlashCmd[flash_cmd].cmd_check != SKIP ) && ( (flash_status & aFlashCmd[flash_cmd].cmd_check) != flag_check) )
-		{
-			aFlashCmd[flash_cmd].callback_failure();
-			return 0;
-		}
-	}
-    
-    fevent_active( sEventExFlash, event);
-    
-	if (aFlashCmd[flash_cmd].callback_success() == true)
-        eFlash_Get_Step_From_Queue(1); // clear
+        flash_cmd = eFlash_Get_Step_From_Queue(0);
 
+        if (flash_cmd >= _FLASH_CMD_END) 
+        {
+            return 0;
+        }
+        
+        //Lenh nao cmd send ! skip se send
+        if (aFlashCmd[flash_cmd].cmd_byte != SKIP) // ignore with SKIP command
+        {
+            if ( (flash_cmd == _FLASH_CMD_CHECK_WRITE_ENABLE) || (flash_cmd == _FLASH_CMD_CHECK_ERASE_ENABLE) )
+                flag_check = aFlashCmd[_FLASH_CMD_CHECK_WRITE_ENABLE].cmd_check;
+
+            flash_status = S25FL_Send_Byte(aFlashCmd[flash_cmd].cmd_byte);
+            
+            if ( (aFlashCmd[flash_cmd].cmd_check != SKIP ) && ( (flash_status & aFlashCmd[flash_cmd].cmd_check) != flag_check) )
+            {
+                aFlashCmd[flash_cmd].callback_failure();
+                return 0;
+            }
+        }
+        
+        fevent_active( sEventExFlash, event);
+        
+        if (aFlashCmd[flash_cmd].callback_success() == true)
+            eFlash_Get_Step_From_Queue(1); // clear
+        
+//        if (Check_Time_Out(LandMarkSPI_NSS_u32, 1000) == true)
+//        {
+//            UTIL_Printf_Str( DBLEVEL_M, "u_ex_flash: TimeOut Send Byte \r\n");
+//            S25FL_ChipSelect(HIGH);
+//            break;
+//        }
+//        
+//    }while(HAL_GPIO_ReadPin(SPI_NSS_GPIO_Port, SPI_NSS_Pin) == 0);
+    
 	return 1;
 }
 
@@ -407,8 +422,10 @@ static uint8_t _Cb_Write_Delay_Success(void)
 {
 	UTIL_Printf_Str (DBLEVEL_H, "write delay\r\n");
     //Delay 50ms sau Erase
-    sEventExFlash[_EVENT_FLASH_SEND_BYTE].e_period = FLASH_WRITE_TIME;
-    fevent_enable( sEventExFlash, _EVENT_FLASH_SEND_BYTE);
+//    sEventExFlash[_EVENT_FLASH_SEND_BYTE].e_period = FLASH_WRITE_TIME;
+//    fevent_enable( sEventExFlash, _EVENT_FLASH_SEND_BYTE);
+    
+    HAL_Delay(FLASH_WRITE_TIME);
     
 	return 1;
 }

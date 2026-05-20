@@ -188,6 +188,8 @@ void UTIL_Printf_Hex (uint8_t Level, uint8_t *pData, uint16_t Length)
         sprintf(buffer, "%02X", pData[i]);
     
         UTIL_Printf_Str(Level, buffer);
+        if(i%2 == 0)
+            UTIL_Printf_Str(Level, "|");
     }
 }
 

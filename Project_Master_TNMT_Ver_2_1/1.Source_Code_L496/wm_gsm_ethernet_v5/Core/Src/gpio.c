@@ -162,12 +162,10 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(RS485_ON_OFF_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : DEV_DO_4_Pin DEV_DO_3_Pin DEV_DO_2_Pin DEV_DO_1_Pin
-                           ETH_RSTn_Pin ETH_SCSn_Pin */
-  GPIO_InitStruct.Pin = DEV_DO_4_Pin|DEV_DO_3_Pin|DEV_DO_2_Pin|DEV_DO_1_Pin
-                          |ETH_RSTn_Pin|ETH_SCSn_Pin;
+  /*Configure GPIO pins : DEV_DO_4_Pin DEV_DO_3_Pin DEV_DO_2_Pin DEV_DO_1_Pin */
+  GPIO_InitStruct.Pin = DEV_DO_4_Pin|DEV_DO_3_Pin|DEV_DO_2_Pin|DEV_DO_1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
@@ -224,6 +222,13 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(ETH_INTn_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : ETH_RSTn_Pin ETH_SCSn_Pin */
+  GPIO_InitStruct.Pin = ETH_RSTn_Pin|ETH_SCSn_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PH3 */
   GPIO_InitStruct.Pin = GPIO_PIN_3;

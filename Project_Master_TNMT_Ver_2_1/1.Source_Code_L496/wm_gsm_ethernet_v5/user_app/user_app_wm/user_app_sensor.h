@@ -41,6 +41,7 @@ typedef enum
     _EVENT_SENSOR_HANDLE_STATE,
     
     _EVENT_SENSOR_HANDLE_STATUS,
+    _EVENT_CONTROL_CLEAN_SENSOR,
     
     _EVENT_SENSOR_END,
 }eKindEventSensor;

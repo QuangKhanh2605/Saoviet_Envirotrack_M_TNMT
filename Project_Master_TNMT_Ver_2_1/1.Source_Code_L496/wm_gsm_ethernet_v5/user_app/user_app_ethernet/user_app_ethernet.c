@@ -774,7 +774,8 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
                         fevent_active(sEventAppEth, _EVENT_ETH_HARD_RESET);
                         return 1;
                     }
-
+                    
+                    sFTPvar.dsock_state = DATASOCK_IDLE;
                     qQueue_Clear(&qEthStep);
                     Pending_u8 = false;
                     setRTR(0x07d0); //dieu chinh rtr
@@ -826,6 +827,7 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
                         sAppEthVar.DataSockConnected_u8 = false;
                         close (DATA_SOCK);
                         sAppEthVar.cHardReset_u16++;
+                        rReConn_u8 = true;
                     }
                 }
             } else {
@@ -1134,23 +1136,21 @@ static uint8_t _Cb_Recv_Mod_TCP (uint8_t event)
         }
     }
 
-
     if (LengthRecv > 0)
     {
-        UTIL_Printf_Str ( DBLEVEL_M, "u_app_eth: intn recv: \r\n");          
+        UTIL_Printf_Str ( DBLEVEL_M, "u_app_eth: intn recv: Hex \r\n");          
         UTIL_Printf_Hex ( DBLEVEL_M, strSource.Data_a8, strSource.Length_u16);
-        UTIL_Printf_Str(DBLEVEL_M, "\r\n");
+        UTIL_Printf_Str (DBLEVEL_M, "\r\n");
         
-        for(uint8_t i = 0; i < strSource.Length_u16; i++)
+        for(uint16_t i = 0; i < strSource.Length_u16; i++)
             sDataRecvTCP.Data_a8[i] = strSource.Data_a8[i];
         
         sDataRecvTCP.Length_u16 = strSource.Length_u16;
     }
-    
     //Clear
     LengthRecv = 0;
-    memset(aRECEIVE_MODBUS, 0, sizeof(aRECEIVE_MODBUS));
-
+    memset(aRECEIVE_MODBUS, 0, sizeof(aRECEIVE_MODBUS));  
+    
 	sTransModTCP.Flag = FALSE;
     return 1;
 }
@@ -1996,6 +1996,13 @@ static uint8_t _Cb_Post_Finish (sData *pData)
     sAppEthVar.Status_u8 = _ETH_TCP_CONNECT;
     sFTPvar.dsock_state = DATASOCK_IDLE;
     AppEth_Push_Block_To_Queue( aETH_FTP_DATA_SOCK, sizeof(aETH_FTP_DATA_SOCK) ); 
+    
+    
+    char dat[50]={0};
+    
+    sprintf(dat,"u_app_eth: isend:%d - isave:%d\r\n", sRecGPS.iSend_u16, sRecGPS.iSave_u16);   // saoviet
+    UTIL_Printf_Str( DBLEVEL_M, dat);
+    
     return 1;
 }
 

@@ -1091,7 +1091,7 @@ void Display_Show_Static_Param (void)
     }
     
     //hien thi cot ethernet
-    if (sAppEthVar.Status_u8 >= _ETH_MQTT_CONNECTED) {
+    if (sAppEthVar.Status_u8 >= _ETH_TCP_CONNECT) {    //Default: _ETH_MQTT_CONNECTED
         glcd_tiny_draw_char(114 - TempPos, 0, FONT_ETHERNET);    
     } else {
         glcd_tiny_draw_char(114 - TempPos, 0, 0x20U);    

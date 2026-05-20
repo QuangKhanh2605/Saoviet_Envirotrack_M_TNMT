@@ -864,7 +864,7 @@ void mGet_Data_From_Mem (uint8_t type, uint8_t tdata, uint8_t *pData, uint16_t L
         last_tdata = 0xFF;
     } else {
         // Check if tdata is different from last_tdata and reset if necessary
-        if (last_tdata != tdata && sMemVar.nSending_u16 != 0) {
+        if (last_tdata != tdata) {
             mReset_Raw_Data();
             sMemVar.nSending_u16 = 0;
         } 

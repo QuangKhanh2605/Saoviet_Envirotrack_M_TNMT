@@ -8,7 +8,7 @@ at+ftpmain=103.140.42.141,21,ftpuser,0!@#$%^QWERTY,TAINGUYENNUOC/NUOCNGAM/QUAWAC
 at+chaninfor=1,QN|TRUNGLUONG|NUOCTHO|2,0,1
 
 -lệnh config modbus TCP
-at+modtcpmain=192.168.0.100.154,502,admin,admin
+at+modtcpmain=192.168.0.100,502,admin,admin
 
 -lệnh config mode pack TNMT
 at+mpacket=1

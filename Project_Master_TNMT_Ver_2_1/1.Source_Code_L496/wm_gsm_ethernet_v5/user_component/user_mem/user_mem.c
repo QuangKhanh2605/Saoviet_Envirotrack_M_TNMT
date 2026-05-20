@@ -138,7 +138,7 @@ sEvent_struct sEventMem[] =
     
     { _EVENT_MEM_CTRL_READ,  		    0, 0, 100,     _Cb_mem_Ctrl_Read },    
     { _EVENT_MEM_CTRL_WRITE,  		    0, 0, 100,     _Cb_mem_Ctrl_Write },   
-    { _EVENT_MEM_CTRL_REQ,  		    0, 0, 6000,     _Cb_mem_Ctrl_Request },
+    { _EVENT_MEM_CTRL_REQ,  		    0, 0, 6000,    _Cb_mem_Ctrl_Request },
 };    
 
 static sMemQueueWrite    sQMemWrite[20];
@@ -437,6 +437,7 @@ static uint8_t _Cb_mem_Ctrl_Write (uint8_t event)
             }
             
             sMemVar.wPending_u8 = true;
+            cPending_u8 = 0;
             fevent_enable( sEventMem, event);
         }
     }
@@ -976,6 +977,10 @@ void Mem_Cb_Read_OK (uint8_t Kind, uint32_t Addr, uint8_t *pData, uint16_t lengt
     } else {
         IsValidData = false;
     }
+    
+    //Check first byte
+    if(*(pData) != 0xA5)
+        IsValidData = false;
     
     //Copy sang buff App sim Data
     if (Kind == _MEM_READ_NEW_MESS) {

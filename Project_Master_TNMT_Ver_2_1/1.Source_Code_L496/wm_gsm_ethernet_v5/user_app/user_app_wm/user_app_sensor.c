@@ -12,6 +12,7 @@ static uint8_t fevent_sensor_log_tsvh(uint8_t event);
 static uint8_t fevent_sensor_data_measure(uint8_t event);
 static uint8_t fevent_sensor_handle_state(uint8_t event);
 static uint8_t fevent_sensor_handle_status(uint8_t event);
+static uint8_t fevent_control_clean_sensor(uint8_t event);
 /*=================== struct ==================*/
 sEvent_struct               sEventAppSensor[] = 
 {
@@ -22,6 +23,7 @@ sEvent_struct               sEventAppSensor[] =
   {_EVENT_SENSOR_HANDLE_STATE,       0, 5, 500,                  fevent_sensor_handle_state},
   
   {_EVENT_SENSOR_HANDLE_STATUS,      1, 5, 50,                   fevent_sensor_handle_status},
+  {_EVENT_CONTROL_CLEAN_SENSOR,      0, 5, 50,                   fevent_control_clean_sensor},
 };
 uint8_t DurationTimeWarningSensor = 0;
 
@@ -157,6 +159,7 @@ static uint8_t fevent_sensor_log_tsvh(uint8_t event)
     
     AppSensor_Log_Data_TSVH();
     
+    fevent_enable(sEventAppSensor,_EVENT_CONTROL_CLEAN_SENSOR);
     return 1;
 }
 
@@ -242,7 +245,6 @@ static uint8_t fevent_sensor_handle_status(uint8_t event)
         sAverageMeasure[i].Value_f = sModbMeasure[i].Value_f;
     }
 #else
-    uint8_t sValue = 0;
     for(uint8_t i = 0; i < _END_SENSOR; i++)
     {
         if(sModbMeasure[i].nConnect_u8 == _SENSOR_DISCONNECT)
@@ -253,9 +255,7 @@ static uint8_t fevent_sensor_handle_status(uint8_t event)
                 sAverageMeasure[i].State = _E_HIEU_CHUAN;        
             else if(sModbMeasure[i].stateSensor == 0x02)
             {
-                sValue = sModbMeasure[i].stateValue >> 4 & 0xFF;
-                
-                if(sValue== 0x01)
+                if(sModbMeasure[i].stateValue== 0x01)
                   sAverageMeasure[i].State = _E_DANG_DO;    
                 else
                   sAverageMeasure[i].State = _E_BAO_LOI_THIET_BI;
@@ -268,6 +268,46 @@ static uint8_t fevent_sensor_handle_status(uint8_t event)
     }
 #endif
 
+    fevent_enable(sEventAppSensor, event);
+    return 1; 
+}
+
+static uint8_t fevent_control_clean_sensor(uint8_t event)
+{
+    static uint8_t first_run = 0;
+    static uint8_t active = 0;
+    static uint8_t start_second = 60;
+    static uint8_t start_min = 60;
+
+    if ((first_run == 0)  || sRTC.min == 2 || sRTC.min == 17 || sRTC.min == 32 || sRTC.min == 47)
+    {
+        if ((first_run == 0) || ((active == 0) && (start_min != sRTC.min)))
+        {
+            first_run = 1;
+            active = 1;
+            start_second = sRTC.sec;
+            start_min    = sRTC.min;
+            HAL_GPIO_WritePin(DEV_DO_1_GPIO_Port, DEV_DO_1_Pin, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(DEV_DO_2_GPIO_Port, DEV_DO_2_Pin, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(DEV_DO_3_GPIO_Port, DEV_DO_3_Pin, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(DEV_DO_4_GPIO_Port, DEV_DO_4_Pin, GPIO_PIN_SET);
+        }
+    }
+
+    if (active == 1)
+    {
+        uint32_t elapsed = (uint32_t)sRTC.sec - (uint32_t)start_second;
+
+        if (elapsed >= 20)
+        {
+            active = 0;
+            HAL_GPIO_WritePin(DEV_DO_1_GPIO_Port, DEV_DO_1_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(DEV_DO_2_GPIO_Port, DEV_DO_2_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(DEV_DO_3_GPIO_Port, DEV_DO_3_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(DEV_DO_4_GPIO_Port, DEV_DO_4_Pin, GPIO_PIN_RESET);
+        }
+    }
+    
     fevent_enable(sEventAppSensor, event);
     return 1; 
 }
@@ -464,9 +504,10 @@ void AppSensor_Packet_TNMT(void)
 //                sd_mount();
 //                sd_write_file(File_Name, aPAY_LOAD);
                 sprintf(File_Name + strlen(File_Name), "%04d%02d%02d.txt", sRTC.year + 2000, sRTC.month, sRTC.date);
-                sd_unmount();
-                sd_mount();
-                sd_append_file(File_Name, aPAY_LOAD);
+//                sd_unmount();
+//                sd_mount();
+//                sd_append_file(File_Name, aPAY_LOAD);
+                Write_Mem_SDCard(File_Name, aPAY_LOAD);
             }
         }
     }

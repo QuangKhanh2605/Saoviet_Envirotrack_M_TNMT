@@ -14,7 +14,7 @@
 #include "event_driven.h"
 #include "user_mem_comm.h"
 
-
+#define MAX_QUEUE_SD    10
 /*======== Struct var ===========*/
 
 typedef enum
@@ -24,9 +24,18 @@ typedef enum
 	_EVENT_SD_READ,
     
     _EVENT_SD_CHECK,
-    
+    _EVENT_SD_Q_WRITE,
+      
 	_EVENT_SD_END, 
 }eEVENT_SD;
+
+typedef struct
+{
+    char         aData_Packet[512];
+    uint16_t     Length_Packet_u16;             //Length data
+    char         aName_File[128];
+    uint16_t     Length_Name_u16;
+}sMemSDCardWrite;
 
 
 extern sEvent_struct sEventSD[];
@@ -43,6 +52,7 @@ uint8_t SD_Card_Task (void);
 uint8_t SD_Check(void);
 
 uint8_t sd_write_log_append(uint8_t *aData);
+uint8_t Write_Mem_SDCard(const char *filename, const char *text);
 
 #endif
 

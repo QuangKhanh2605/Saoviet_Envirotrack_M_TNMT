@@ -9,6 +9,8 @@
 
 //#define MODBUS_SENSOR_SAOVIET
 
+#define MODBUS_SENSOR_XYLEM
+
 #define ID_DEFAULT_OXY          5
 #define ID_DEFAULT_PH           3
 
@@ -35,7 +37,7 @@
 #define DEFAULT_SCALE_TEMPERATURE   0xFE
 #define DEFAULT_SCALE_EC            0x00
 
-#define MAX_COUNT_DISCONNECT        5
+#define MAX_COUNT_DISCONNECT        8
 
 #define PORT_MODB_TCP   0
 #define PORT_RS485_1    1
@@ -284,5 +286,6 @@ float      Decode_Data_Type_u32(uint32_t Hex_Data, uint8_t Type);
 uint32_t   Decode_Data_Type_f(float Data_f, uint8_t Type);
 uint8_t ModbusTCP_Check_Format(uint8_t SlaveID, uint16_t nRegis,
                                sData *pSource, sData *Content);
+uint32_t   Read_Register_Modbus(uint8_t aData[], uint16_t *pos, uint8_t LengthData);
 #endif
 

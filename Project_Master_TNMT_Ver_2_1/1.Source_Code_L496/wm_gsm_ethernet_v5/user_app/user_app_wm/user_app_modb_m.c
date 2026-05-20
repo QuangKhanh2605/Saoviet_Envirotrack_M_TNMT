@@ -356,6 +356,7 @@ static uint8_t fevent_modb_handle_subreg(uint8_t event)
 }
 
 uint8_t Modb_KindHandle = _E_PH_VALUE;
+uint16_t Transaction = 0;
 static uint8_t fevent_modb_transmit_data(uint8_t event)
 {
     uint8_t aData[4] = {0};
@@ -379,6 +380,24 @@ static uint8_t fevent_modb_transmit_data(uint8_t event)
     
     sTransModTCP.Flag = 0;
     
+#ifdef MODBUS_SENSOR_XYLEM
+        sTransModTCP.length = 0;
+        sTransModTCP.aData[sTransModTCP.length++] = Transaction >> 8;
+        sTransModTCP.aData[sTransModTCP.length++] = Transaction;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x06;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x01;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x04;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x28;
+        sTransModTCP.Flag = 1;
+        
+        Reset_Buff(&sDataRecvTCP);
+#else
     if (sRegSensor[Modb_KindHandle].nPort > _PORT_MODB_TCP)
     {
         if (sRegSensor[Modb_KindHandle].cmdRW == 1)
@@ -425,6 +444,7 @@ static uint8_t fevent_modb_transmit_data(uint8_t event)
         
         Reset_Buff(&sDataRecvTCP);
     }
+#endif
     
     fevent_enable(sEventAppModb, _EVENT_MODBUS_RECEIVE_DATA);
     return 1;
@@ -439,6 +459,114 @@ static uint8_t fevent_modbus_receive_data(uint8_t event)
     hex_Recv = 0;
     uint8_t Result_Recv = false;
     
+#ifdef MODBUS_SENSOR_XYLEM
+    uint16_t Transaction_Recv = 0;
+    uint16_t Pos = 0;
+
+   
+    if (ModbusTCP_Check_Format(0x01, 0x28, &sDataRecvTCP, &ModContent) == true)
+    {
+        Transaction_Recv = sDataRecvTCP.Data_a8[0] << 8 | sDataRecvTCP.Data_a8[1];
+        if(Transaction_Recv == Transaction)
+           Result_Recv = true;
+    }
+
+    if(Result_Recv == true)
+    {
+        // pH + Temp
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sModbMeasure[_SS_PH].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        sModbMeasure[_SS_TEMP].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sModbMeasure[_SS_PH].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        sModbMeasure[_SS_TEMP].stateValue = 0x0F &(uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sModbMeasure[_SS_PH].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sModbMeasure[_SS_TEMP].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F);
+        
+        // Do
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sModbMeasure[_SS_DO].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sModbMeasure[_SS_DO].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sModbMeasure[_SS_DO].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        // NH4
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sModbMeasure[_SS_NH4].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sModbMeasure[_SS_NH4].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sModbMeasure[_SS_NH4].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        // TSS
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sModbMeasure[_SS_TSS].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sModbMeasure[_SS_TSS].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sModbMeasure[_SS_TSS].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F) * 1000;
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        // COD
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sModbMeasure[_SS_COD].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sModbMeasure[_SS_COD].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sModbMeasure[_SS_COD].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F);
+        
+        sModbMeasure[_SS_PH].nConnect_u8 = MAX_COUNT_DISCONNECT;
+        sModbMeasure[_SS_TEMP].nConnect_u8 = MAX_COUNT_DISCONNECT;
+        sModbMeasure[_SS_DO].nConnect_u8 = MAX_COUNT_DISCONNECT;
+        sModbMeasure[_SS_NH4].nConnect_u8 = MAX_COUNT_DISCONNECT;
+        sModbMeasure[_SS_TSS].nConnect_u8 = MAX_COUNT_DISCONNECT;
+        sModbMeasure[_SS_COD].nConnect_u8 = MAX_COUNT_DISCONNECT;
+    }
+    else
+    {
+        if(sModbMeasure[_SS_PH].nConnect_u8 > 0)
+            sModbMeasure[_SS_PH].nConnect_u8 -= 1;
+        if(sModbMeasure[_SS_TEMP].nConnect_u8 > 0)
+            sModbMeasure[_SS_TEMP].nConnect_u8 -= 1;
+        if(sModbMeasure[_SS_DO].nConnect_u8 > 0)
+            sModbMeasure[_SS_DO].nConnect_u8 -= 1;
+        if(sModbMeasure[_SS_NH4].nConnect_u8 > 0)
+            sModbMeasure[_SS_NH4].nConnect_u8 -= 1;
+        if(sModbMeasure[_SS_TSS].nConnect_u8 > 0)
+            sModbMeasure[_SS_TSS].nConnect_u8 -= 1;
+        if(sModbMeasure[_SS_COD].nConnect_u8 > 0)
+            sModbMeasure[_SS_COD].nConnect_u8 -= 1;
+    }
+    
+    Transaction++;
+#else
     if (sRegSensor[Modb_KindHandle].nPort > _PORT_MODB_TCP)
     {
         if ((RS485Status == TRUE) && (RS485_Modbus_Check_Format(sRegSensor[Modb_KindHandle].idDev, sRegSensor[Modb_KindHandle].cmdLen, sDataReg, &ModContent) == true))
@@ -514,7 +642,7 @@ static uint8_t fevent_modbus_receive_data(uint8_t event)
         if(*sRegSensor[Modb_KindHandle].nConnect > 0)
             *sRegSensor[Modb_KindHandle].nConnect -=1;
     }
-    
+#endif
     Modb_KindHandle++;
     fevent_enable(sEventAppModb, _EVENT_MODB_TRANSMIT_DATA);
     return 1;
@@ -744,6 +872,28 @@ uint32_t Decode_Data_Type_f(float Data_f, uint8_t Type)
     return Result;
 }
 
+uint32_t Read_Register_Modbus(uint8_t aData[], uint16_t *pos, uint8_t LengthData)
+{
+    uint32_t stamp = 0;
+    uint16_t length = *pos;
+    if(LengthData == 4)
+    {
+        stamp =  ((uint32_t)aData[length] << 24) | 
+                    ((uint32_t)aData[length + 1] << 16) | 
+                    ((uint32_t)aData[length + 2] << 8)  | 
+                    (uint32_t)aData[length + 3];
+    }
+    else if(LengthData == 2)
+    {
+        stamp =  ((uint32_t)aData[length] << 8) | (uint32_t)aData[length + 1];
+    }
+    else 
+    {
+        stamp = (uint32_t)aData[length];
+    }
+    *pos = *pos + LengthData;
+    return stamp;
+}
 /*========================AT Command======================*/
 void Modem_SER_Set_Mod_TCP_Main (sData *strRecei, uint16_t Pos)
 {
