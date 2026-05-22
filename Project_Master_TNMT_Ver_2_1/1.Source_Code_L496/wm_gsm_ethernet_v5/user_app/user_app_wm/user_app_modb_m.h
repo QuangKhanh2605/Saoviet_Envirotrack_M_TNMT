@@ -9,8 +9,6 @@
 
 //#define MODBUS_SENSOR_SAOVIET
 
-#define MODBUS_SENSOR_XYLEM
-
 #define ID_DEFAULT_OXY          5
 #define ID_DEFAULT_PH           3
 
@@ -18,6 +16,9 @@
 #define ID_DEFAULT_SS_CLO       2
 #define ID_DEFAULT_SS_EC        3
 #define ID_DEFAULT_SS_TURB      4
+
+#define TIMEOUT_MODBUS_RTU      300
+#define TIMEOUT_MODBUS_TCP      900
 
 #define ID_SS_TEMP      0
 #define ID_SS_PH        1
@@ -37,7 +38,11 @@
 #define DEFAULT_SCALE_TEMPERATURE   0xFE
 #define DEFAULT_SCALE_EC            0x00
 
-#define MAX_COUNT_DISCONNECT        8
+#ifdef MODBUS_SENSOR_SAOVIET
+    #define MAX_COUNT_DISCONNECT    3
+#else
+    #define MAX_COUNT_DISCONNECT    8
+#endif
 
 #define PORT_MODB_TCP   0
 #define PORT_RS485_1    1
@@ -92,30 +97,54 @@ typedef enum
 {
 #ifdef MODBUS_SENSOR_SAOVIET
     _E_PH_VALUE,
+    _E_PH_S_SENSOR,
+    _E_PH_S_VALUE,
     
     _E_CLO_SEND_PH,
     _E_CLO_VALUE,
+    _E_CLO_S_SENSOR,
+    _E_CLO_S_VALUE,
     
     _E_EC_VALUE,
+    _E_EC_S_SENSOR,
+    _E_EC_S_VALUE,
     
     _E_TURB_VALUE,
+    _E_TURB_S_SENSOR,
+    _E_TURB_S_VALUE,
     
     _E_COD_VALUE,
+    _E_COD_S_SENSOR,
+    _E_COD_S_VALUE,
     
     _E_TSS_VALUE,
+    _E_TSS_S_SENSOR,
+    _E_TSS_S_VALUE,
     
     _E_NH4_VALUE,
+    _E_NH4_S_SENSOR,
+    _E_NH4_S_VALUE,
     
     _E_DO_SALT,
     _E_DO_VALUE,
+    _E_DO_S_SENSOR,
+    _E_DO_S_VALUE,
     
     _E_SALT_VALUE,
+    _E_SALT_S_SENSOR,
+    _E_SALT_S_VALUE,
     
     _E_TDS_VALUE,
+    _E_TDS_S_SENSOR,
+    _E_TDS_S_VALUE,
     
     _E_NO3_VALUE,
+    _E_NO3_S_SENSOR,
+    _E_NO3_S_VALUE,
     
     _E_TEMP_VALUE,
+    _E_TEMP_S_SENSOR,
+    _E_TEMP_S_VALUE,
 #else
     _E_PH_VALUE,
     _E_PH_S_SENSOR,

@@ -602,8 +602,10 @@ static uint8_t _Cb_Running_DHCP (uint8_t event)
             wizchip_network_infor();
             //Active event Open Socket
             fevent_active(sEventAppEth, _EVENT_ETH_SOCK_CTRL);
-            AppEth_FTP_Init_Default();
             AppEth_Init_Socket();
+            
+            if(UTIL_var.ModeConnNow_u8 == _CONNECT_FTP || UTIL_var.ModeConnNow_u8 == _CONNECT_FTP_UPLOAD)
+                AppEth_FTP_Init_Default();
 			return 1;
 	}
 
@@ -754,6 +756,11 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
             break;
         case _CONNECT_FTP_UPLOAD:
 //            sAppEthVar.cHardReset_u16++;
+            if (sFTPvar.Retry_u8 >= ETH_MAX_RETRY_UPDATE) {
+                UTIL_var.ModeConnNow_u8 = UTIL_var.ModeConnLast_u8;
+                fevent_active(sEventAppEth, _EVENT_ETH_HARD_RESET);
+                return true;
+            }
           
             sEventAppEth[event].e_period = 0;
             SockCtrlState = AppEth_Socket_Control (CTRL_SOCK, sAppEthVar.sUpdateVar.sServer.aIP, 
@@ -823,9 +830,11 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
                 } else {
                     sAppEthVar.Status_u8 = _ETH_TCP_CONNECT;
                     if (Check_Time_Out(LandMarkSockData_u32, ETH_MAX_TIME_CTRL_SOCK) == true) {
+                        UTIL_Printf_Str ( DBLEVEL_M, "u_app_eth: Timeout Socket Data\r\n" );
                         LandMarkSockData_u32 = RtCountSystick_u32;
                         sAppEthVar.DataSockConnected_u8 = false;
                         close (DATA_SOCK);
+                        sFTPvar.dsock_state = DATASOCK_IDLE;
                         sAppEthVar.cHardReset_u16++;
                         rReConn_u8 = true;
                     }
@@ -980,6 +989,7 @@ static uint8_t _Cb_Send_Timeout (uint8_t event)
             qQueue_Clear(&qEthStep);
             Pending_u8 = false;
             fevent_active(sEventAppEth, _EVENT_ETH_RUN_DHCP);
+            sFTPvar.Retry_u8++;
             break;
         case _ETH_FTP_POST_FINISH:
         case _ETH_FTP_QUER_SIZE_2: 
@@ -988,6 +998,7 @@ static uint8_t _Cb_Send_Timeout (uint8_t event)
             sAppEthVar.DataSockConnected_u8 = false;
             sFTPvar.dsock_state = DATASOCK_IDLE;
             AppEth_Push_Block_To_Queue( aETH_FTP_DATA_SOCK, sizeof(aETH_FTP_DATA_SOCK) ); 
+            sFTPvar.Retry_u8++;
             break;
         default:
             break;
@@ -1189,6 +1200,7 @@ static uint8_t _Cb_Send_Data (uint8_t event)
                     //khoi dong lai ethernet va ket thuc mode
                     close (CTRL_SOCK);
                     close (DATA_SOCK);
+                    sFTPvar.dsock_state = DATASOCK_IDLE;
                     AppEth_Init_Socket();
                     UTIL_var.ModeConnNow_u8 = UTIL_var.ModeConnLast_u8;
                     return 1;
@@ -2278,6 +2290,9 @@ static uint8_t _fFTP_Post_Data (void)
     UTIL_Printf_Str(DBLEVEL_M, "\r\nu_app_eth: ftp post: \r\n");
     UTIL_Printf (DBLEVEL_M, sMessage.str.Data_a8, sMessage.str.Length_u16);
     UTIL_Printf_Str(DBLEVEL_M, "\r\n");
+    
+    if(sMessage.str.Length_u16 == 0)
+        sFTPvar.Retry_u8++;
                     
     if (send (DATA_SOCK, sMessage.str.Data_a8, sMessage.str.Length_u16) == -1)
         return false;
@@ -2289,7 +2304,7 @@ static uint8_t _fFTP_Post_Finish (void)
 {       
     UTIL_Printf_Str(DBLEVEL_M, "\r\nu_app_eth: data sock closing...\r\n");
     disconnect (DATA_SOCK);
-    
+    sFTPvar.dsock_state = DATASOCK_IDLE;
     return true;
 }
 

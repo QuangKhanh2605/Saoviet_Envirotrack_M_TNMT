@@ -16,7 +16,7 @@
 #define DAC_MIN                 0
 #define DAC_MAX                 4095
 
-#define NH4_RANGE_MAX           10
+#define NH4_RANGE_MAX           200
 
 #define ALARM_MIN               0
 #define ALARM_MAX               NH4_RANGE_MAX
@@ -39,6 +39,8 @@ typedef enum
     _EVENT_TEMP_ALARM,
     
     _EVENT_SENSOR_RESET,
+    
+    _EVENT_HANDLE_STATE_SENSOR,
     
     _EVENT_SENSOR_END,
 }eKindEventSENSOR;
@@ -99,6 +101,20 @@ typedef enum
     _E_STD_K_P2,
     _E_MEA_K_P2,
 }eKindSaveParaCalib;
+
+typedef enum
+{
+    _SS_DISCONNECT,
+    _SS_ERROR,
+    _SS_MEASURE,
+    _SS_CALIB,
+}eKindStateSS;
+
+typedef enum
+{
+    _MEASURE_INVALID,
+    _MEASURE_VALID,
+}eKindStateMeasure;
 
 typedef struct 
 {
@@ -161,6 +177,10 @@ typedef struct
     float   Const_B_pH_f;           //Const B of pH
     float   Const_K_K_f;            //Const K of K+
     float   Const_B_K_f;            //Const B of K+
+    
+    uint8_t State_Sensor_u8;
+    uint8_t State_Measure_NH4_u8;
+    uint8_t State_Measure_Temp_u8;
 }Struct_Sensor_NH4;
 
 typedef struct

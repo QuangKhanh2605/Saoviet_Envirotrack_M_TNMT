@@ -468,6 +468,18 @@ void UtilIntToString(int number, char* buffer)
 void UtilFloatToString(float number, char* buffer, int decimals) 
 {
     sprintf(buffer, "%.*f", decimals, number);
+    
+#ifdef USING_NUMBER_COMMA
+    // doi dau '.' thanh dau ','
+    for(char *p = buffer; *p != '\0'; p++)
+    {
+        if(*p == '.')
+        {
+            *p = ',';
+            break; 
+        }
+    }
+#endif
 }
 
 void UtilDoubleToString(double number, char* buffer, int decimals) 

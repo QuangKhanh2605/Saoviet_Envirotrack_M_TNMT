@@ -20,7 +20,7 @@
         <stlinkResetStrategy>2</stlinkResetStrategy>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>3146908474</Checksum>
+        <Checksum>120103318</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -74,21 +74,22 @@
         <Fmt14>sAppWmPressureInfor-Mode_u8	3	0</Fmt14>
         <Fmt15>sAppWmPressureInfor-Val_i32	3	0</Fmt15>
         <Fmt16>sData-Length_u16	3	0</Fmt16>
-        <Fmt17>sEthernetVariable-PHYstatus_u8	3	0</Fmt17>
-        <Fmt18>sEvent_struct-e_name	3	0</Fmt18>
-        <Fmt19>sEvent_struct-e_status	3	0</Fmt19>
-        <Fmt20>sMemRecordInfor-AddrStart_u32	4	0</Fmt20>
-        <Fmt21>sMemRecordInfor-AddrStop_u32	4	0</Fmt21>
-        <Fmt22>sMemRecordInfor-cReaded_u8	3	0</Fmt22>
-        <Fmt23>sModbusDeviceData-Factor	4	0</Fmt23>
-        <Fmt24>sModbusDeviceData-Status_u8	3	0</Fmt24>
-        <Fmt25>sModbusDeviceData-Type_u8	3	0</Fmt25>
-        <Fmt26>sModbusInfor-MType_u8	3	0</Fmt26>
-        <Fmt27>sModbusInfor-SlaveId_u8	3	0</Fmt27>
-        <Fmt28>sPressureLinearInter-InUnit_u8	3	0</Fmt28>
-        <Fmt29>sPressureLinearInter-OutUnit_u8	3	0</Fmt29>
-        <Fmt30>sServerInfor-DomainOrIp_u8	3	0</Fmt30>
-        <Fmt31>sWoteckUltraData-PosInt_u32	4	0</Fmt31>
+        <Fmt17>sEthFTPvariable-Retry_u8	3	0</Fmt17>
+        <Fmt18>sEthernetVariable-PHYstatus_u8	3	0</Fmt18>
+        <Fmt19>sEvent_struct-e_name	3	0</Fmt19>
+        <Fmt20>sEvent_struct-e_status	3	0</Fmt20>
+        <Fmt21>sMemRecordInfor-AddrStart_u32	4	0</Fmt21>
+        <Fmt22>sMemRecordInfor-AddrStop_u32	4	0</Fmt22>
+        <Fmt23>sMemRecordInfor-cReaded_u8	3	0</Fmt23>
+        <Fmt24>sModbusDeviceData-Factor	4	0</Fmt24>
+        <Fmt25>sModbusDeviceData-Status_u8	3	0</Fmt25>
+        <Fmt26>sModbusDeviceData-Type_u8	3	0</Fmt26>
+        <Fmt27>sModbusInfor-MType_u8	3	0</Fmt27>
+        <Fmt28>sModbusInfor-SlaveId_u8	3	0</Fmt28>
+        <Fmt29>sPressureLinearInter-InUnit_u8	3	0</Fmt29>
+        <Fmt30>sPressureLinearInter-OutUnit_u8	3	0</Fmt30>
+        <Fmt31>sServerInfor-DomainOrIp_u8	3	0</Fmt31>
+        <Fmt32>sWoteckUltraData-PosInt_u32	4	0</Fmt32>
     </struct_types>
     <array_types>
         <Fmt0>uint32_t[6]	3	0</Fmt0>

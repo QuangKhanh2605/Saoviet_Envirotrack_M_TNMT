@@ -37,6 +37,8 @@
 #ifndef USER_UTIL_H
 #define USER_UTIL_H
 
+//#define USING_NUMBER_COMMA
+
 
 /*===================Define=========================*/
 /*

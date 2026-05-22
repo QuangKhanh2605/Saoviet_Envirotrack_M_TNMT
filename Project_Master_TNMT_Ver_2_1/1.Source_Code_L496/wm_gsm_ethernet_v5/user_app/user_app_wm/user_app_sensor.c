@@ -229,22 +229,22 @@ static uint8_t fevent_sensor_handle_state(uint8_t event)
 
 static uint8_t fevent_sensor_handle_status(uint8_t event)
 {
-#ifdef MODBUS_SENSOR_SAOVIET
-    for(uint8_t i = 0; i < _END_SENSOR; i++)
-    {
-        if(sModbMeasure[i].nConnect_u8 == _SENSOR_DISCONNECT)
-            sAverageMeasure[i].State = _E_BAO_LOI_THIET_BI;
-        else
-        {
-            if(StateCalibSensor == 0)
-                sAverageMeasure[i].State = _E_DANG_DO;        
-            else
-                sAverageMeasure[i].State = _E_HIEU_CHUAN;
-        }
-        
-        sAverageMeasure[i].Value_f = sModbMeasure[i].Value_f;
-    }
-#else
+//#ifdef MODBUS_SENSOR_SAOVIET
+//    for(uint8_t i = 0; i < _END_SENSOR; i++)
+//    {
+//        if(sModbMeasure[i].nConnect_u8 == _SENSOR_DISCONNECT)
+//            sAverageMeasure[i].State = _E_BAO_LOI_THIET_BI;
+//        else
+//        {
+//            if(StateCalibSensor == 0)
+//                sAverageMeasure[i].State = _E_DANG_DO;        
+//            else
+//                sAverageMeasure[i].State = _E_HIEU_CHUAN;
+//        }
+//        
+//        sAverageMeasure[i].Value_f = sModbMeasure[i].Value_f;
+//    }
+//#else
     for(uint8_t i = 0; i < _END_SENSOR; i++)
     {
         if(sModbMeasure[i].nConnect_u8 == _SENSOR_DISCONNECT)
@@ -266,7 +266,7 @@ static uint8_t fevent_sensor_handle_status(uint8_t event)
         
         sAverageMeasure[i].Value_f = sModbMeasure[i].Value_f;
     }
-#endif
+//#endif
 
     fevent_enable(sEventAppSensor, event);
     return 1; 
@@ -517,6 +517,17 @@ uint8_t AppSensor_Packet_Param (char *pdata, uint8_t chann)
 {
     sprintf(pdata, "%.3lf %s", sAverageMeasure[chann].Value_f , sNameUnitParam[chann].Unit);
 
+#ifdef USING_NUMBER_COMMA
+    // doi dau '.' thanh dau ','
+    for(char *p = pdata; *p != '\0'; p++)
+    {
+        if(*p == '.')
+        {
+            *p = ',';
+            break; 
+        }
+    }
+#endif
     return 1;
 }
 
