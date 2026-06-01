@@ -693,8 +693,8 @@ static uint8_t fevent_modbus_receive_data(uint8_t event)
 
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
-        sModbMeasure[_SS_PH].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
-        sModbMeasure[_SS_TEMP].stateValue = 0x0F &(uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
+        sModbMeasure[_SS_PH].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
+        sModbMeasure[_SS_TEMP].stateValue = 0x0F &(uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
         
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
         hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
@@ -710,7 +710,7 @@ static uint8_t fevent_modbus_receive_data(uint8_t event)
 
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
-        sModbMeasure[_SS_DO].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        sModbMeasure[_SS_DO].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
         
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
         hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
@@ -723,7 +723,7 @@ static uint8_t fevent_modbus_receive_data(uint8_t event)
 
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
-        sModbMeasure[_SS_NH4].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        sModbMeasure[_SS_NH4].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
         
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
         hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
@@ -736,7 +736,7 @@ static uint8_t fevent_modbus_receive_data(uint8_t event)
 
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
-        sModbMeasure[_SS_TSS].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        sModbMeasure[_SS_TSS].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
         
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
         hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
@@ -749,7 +749,7 @@ static uint8_t fevent_modbus_receive_data(uint8_t event)
 
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
-        sModbMeasure[_SS_COD].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        sModbMeasure[_SS_COD].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
         
         hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
         hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);

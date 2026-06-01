@@ -68,7 +68,7 @@ char aSaoVietCom[15][71] =
 };
 
 
-char sFirmVersion[] = {"SVTH_SVM_DLS_V2_2_1"};  //19 byte
+char sFirmVersion[] = {"SVTH_SVM_DLS_V2_2_2"};  //19 byte
 
 static UTIL_TIMER_Object_t TimerTx;
 

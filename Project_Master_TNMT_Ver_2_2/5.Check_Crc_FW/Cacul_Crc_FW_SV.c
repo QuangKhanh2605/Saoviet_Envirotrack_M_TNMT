@@ -9,7 +9,7 @@ unsigned int 	Total, total_boot = 0;
 
 int main ()
 {
-	fp = fopen("SVTH_SVM_DLS_V2_2_1.bin","rb");   
+	fp = fopen("SVTH_SVM_DLS_V2_2_2.bin","rb");   
 	
 	if(fp == NULL)
 	{

@@ -133,21 +133,21 @@ static uint8_t _Cb_mem_Erase (uint8_t event);
 /*================ Var struct =================*/  
 sEvent_struct sEventMem[] = 
 {
-    { _EVENT_MEM_TEST_WRITE,  		    1, 0, 5,        _Cb_mem_Test_Write }, 
-    { _EVENT_MEM_ERASE,  	            0, 0, 0,        _Cb_mem_Erase },
+    { _EVENT_MEM_TEST_WRITE,  		    1, 0, 5000,                 _Cb_mem_Test_Write }, 
+    { _EVENT_MEM_ERASE,  	            0, 0, 0,                    _Cb_mem_Erase },
     
-    { _EVENT_MEM_CTRL_READ,  		    0, 0, 100,     _Cb_mem_Ctrl_Read },    
-    { _EVENT_MEM_CTRL_WRITE,  		    0, 0, 100,     _Cb_mem_Ctrl_Write },   
-    { _EVENT_MEM_CTRL_REQ,  		    0, 0, 6000,    _Cb_mem_Ctrl_Request },
+    { _EVENT_MEM_CTRL_READ,  		    0, 0, MEM_PERIOD_READ,      _Cb_mem_Ctrl_Read },    
+    { _EVENT_MEM_CTRL_WRITE,  		    0, 0, MEM_PERIOD_WRITE,     _Cb_mem_Ctrl_Write },   
+    { _EVENT_MEM_CTRL_REQ,  		    0, 0, 6000,                 _Cb_mem_Ctrl_Request },
 };    
 
-static sMemQueueWrite    sQMemWrite[20];
-static sMemQueueRead     sQMemRead[20];
+static sMemQueueWrite    sQMemWrite[MEM_MAX_QWRITE_ITEM];
+static sMemQueueRead     sQMemRead[MEM_MAX_QREAD_ITEM];
 
 Struct_Queue_Type   qMemRead;
 Struct_Queue_Type   qMemWrite;
 
-
+static uint8_t last_type = 0;
 /*================ Function ===================*/
 
 uint8_t Mem_Task(void)
@@ -192,8 +192,8 @@ uint8_t Mem_Task(void)
    
 void Mem_Init(void)
 {
-    qQueue_Create (&qMemWrite, 20, sizeof (sMemQueueWrite), (sMemQueueWrite *) &sQMemWrite);  
-    qQueue_Create (&qMemRead, 20, sizeof (sMemQueueRead), (sMemQueueRead *) &sQMemRead);    
+    qQueue_Create (&qMemWrite, MEM_MAX_QWRITE_ITEM, sizeof (sMemQueueWrite), (sMemQueueWrite *) &sQMemWrite);  
+    qQueue_Create (&qMemRead, MEM_MAX_QREAD_ITEM, sizeof (sMemQueueRead), (sMemQueueRead *) &sQMemRead);    
     
     sMemVar.Status_u8 = PENDING;
         
@@ -208,6 +208,7 @@ void Mem_Init(void)
 
 #ifdef MEM_REC_EX_EEPROM
     sMemVar.Type_u8 = __EXTERNAL_EEPROM;
+    sMemVar.Size_u16 = 256;
     CAT24Mxx_Init();
     sCAT24Var.pMem_Write_OK = Mem_Cb_Write_OK;
     sCAT24Var.pMem_Read_OK = Mem_Cb_Read_OK;
@@ -217,6 +218,7 @@ void Mem_Init(void)
 
 #ifdef MEM_REC_EX_FLASH
     sMemVar.Type_u8 = __EXTERNAL_FALSH;
+    sMemVar.Size_u16 = EX_FLASH_16MBIT;
     eFlash_Init();
     
     sS25FLvar.pMem_Write_OK = Mem_Cb_Write_OK;
@@ -278,7 +280,7 @@ static uint8_t _Cb_mem_Test_Write(uint8_t event)
 static uint8_t _Cb_mem_Ctrl_Read (uint8_t event)
 {      
     static uint16_t MAX_COUNT_PENDING = 0;
-    static uint8_t cPending_u8 = 0, last_type = _MEM_DATA_TSVH;
+    static uint8_t cPending_u8 = 0;
     uint8_t kindData;
     uint16_t length = 0;
     
@@ -363,25 +365,26 @@ static uint8_t _Cb_mem_Ctrl_Write (uint8_t event)
     static uint16_t MAX_COUNT_PENDING = 0;
     static uint8_t cPending_u8 = 0;
     uint32_t addr = 0;
+    uint8_t check = false;
+    
+    MAX_COUNT_PENDING = MAX_TIME_RETRY_READ / sEventMem[event].e_period;
+       
+    if (sMemVar.wPending_u8 == true)
+    {
+        if (cPending_u8++ >= MAX_COUNT_PENDING ) {
+            cPending_u8 = 0;
+            sMemVar.wPending_u8 = false;
+            //xoa du lieu buff gui data qua sim
+            if (sMemVar.pReset_Buff_Sim != NULL) {
+                sMemVar.pReset_Buff_Sim();
+            }
+        }  
+        
+        fevent_enable( sEventMem, event);
+    }
     
     if (sMemVar.Status_u8 == true)
     {
-        MAX_COUNT_PENDING = MAX_TIME_RETRY_READ / sEventMem[event].e_period;
-       
-        if (sMemVar.wPending_u8 == true)
-        {
-            if (cPending_u8++ >= MAX_COUNT_PENDING ) {
-                cPending_u8 = 0;
-                sMemVar.wPending_u8 = false;
-                //xoa du lieu buff gui data qua sim
-                if (sMemVar.pReset_Buff_Sim != NULL) {
-                    sMemVar.pReset_Buff_Sim();
-                }
-            }  
-            
-            fevent_enable( sEventMem, event);
-        }
-        
         if ( (sMemVar.wPending_u8 == false) 
             && (qGet_Number_Items (&qMemWrite) != 0) )
         {
@@ -445,13 +448,57 @@ static uint8_t _Cb_mem_Ctrl_Write (uint8_t event)
     
     //check mem ok hay loi
     if (sMemVar.Status_u8 == ERROR) {
-        if (qGet_Number_Items (&qMemWrite) != 0) {
-            UTIL_Printf_Str( DBLEVEL_H, "u_mem: forward to sim...\r\n");
+        /* 
+            - chi xu ly khi o trang thai online
+            - kiem tra ban tin theo tung mode: k dung thi se xoay xuong phia sau. chi lay 2 loai ban tin GPS va TSVH, Event 
+        */
+        if ( ( sMemVar.pModem_Connected() == true )
+             && (sMemVar.wPending_u8 == false)
+             && (qGet_Number_Items (&qMemWrite) != 0) ) {
+                 
             qQueue_Receive(&qMemWrite, (sMemQueueWrite *) &sqWriteTemp, 0);
-            
+
             if (sMemVar.pForward_Mess != NULL) {
-                sMemVar.pForward_Mess(0, sqWriteTemp.TypeData_u8, sqWriteTemp.aData, sqWriteTemp.Length_u16);
+                switch (sqWriteTemp.TypeData_u8)
+                {
+                    case _MEM_DATA_TSVH:
+                    case _MEM_DATA_EVENT:
+                        if ( (UTIL_var.ModeConnNow_u8 == _CONNECT_DATA_MAIN)
+                            || (UTIL_var.ModeConnNow_u8 == _CONNECT_DATA_BACKUP) ) {
+                            check = true;
+                        }
+                        break;
+                    case _MEM_DATA_GPS:
+                        if (UTIL_var.ModeConnNow_u8 == _CONNECT_FTP_UPLOAD) {
+                            check = true;
+                        }
+                        break;
+                    default:  //ban tin khac bo qua luon
+                        check = ERROR;
+                        break;
+                }
+                
+                if ( check == true ) {   
+                    UTIL_Printf_Str( DBLEVEL_M, "u_mem: forward to sim...\r\n");
+                    sMemVar.pForward_Mess(0, sqWriteTemp.TypeData_u8, sqWriteTemp.aData + 3, sqWriteTemp.Length_u16 - 4);
+                    sMemVar.wPending_u8 = true;
+                    cPending_u8 = 0;
+                    sMemVar.cQueueSwapp_u8 = 0;
+                } else if (check == false) {
+                    //dao ra phia sau
+                    qQueue_Receive(&qMemWrite, NULL, 1);
+                    qQueue_Send(&qMemWrite, &sqWriteTemp, _TYPE_SEND_TO_END);
+                    sMemVar.cQueueSwapp_u8++;
+                } else {
+                    qQueue_Receive(&qMemWrite, NULL, 1);
+                }
             }
+            
+            fevent_enable( sEventMem, event);  
+        }
+        
+        if (qGet_Number_Items (&qMemWrite) != 0) {
+            fevent_enable( sEventMem, event);  
         }
     }
     
@@ -747,91 +794,58 @@ void Mem_Init_Index_Record (void)
     uint8_t aTEMP[24] = {0};
     uint16_t TempU16 = 0;
     
-#ifdef BOARD_QN_V5_0
-    //Doc vi tri send va luu ra
-    TempU8 = *(__IO uint8_t*) ADDR_INDEX_REC;
-    
-	if (TempU8 != FLASH_BYTE_EMPTY)
-	{
-        OnchipFlashReadData ((ADDR_INDEX_REC + 2), aTEMP, 24);   
+//#ifdef INFOR_ON_FLASH
+    OnchipFlashReadData (ADDR_INDEX_REC, aTEMP, 24);   
+//#endif
+//    
+//#ifdef INFOR_EX_EEPROM
+//    if (CAT24Mxx_Read_Array(CAT_ADDR_INDEX_REC, aTEMP, 24) == false) {
+//        return;
+//    }
+//#endif
+//    
+//#ifdef INFOR_EX_FLASH
+//    if (eFlash_S25FL_BufferRead(aTEMP, FLASH_ADDR_INDEX_REC, 24) == false) {
+//        UTIL_Log_Str(DBLEVEL_M, "u_app_wm: read mem error...\r\n" );  
+//        return;
+//    }     
+//#endif
+    //doc 64 byte tu eeprom
+    TempU8 = aTEMP[0];
+    //Check Byte EMPTY
+    if (TempU8 == BYTE_WRITEN) {
         //TSVH send
-        TempU16 = (aTEMP[0] << 8) | aTEMP[1];
-        sRecTSVH.iSend_u16 = MIN(TempU16, sRecTSVH.Max_u16);
+        TempU16 = (aTEMP[2] << 8) | aTEMP[3];
+        sRecTSVH.iSend_u16 = MIN(TempU16, sRecTSVH.Max_u16 - 1);
         
         //TSVH Save
-        TempU16 = (aTEMP[2] << 8) | aTEMP[3];        
-        sRecTSVH.iSave_u16 = MIN(TempU16, sRecTSVH.Max_u16);
+        TempU16 = (aTEMP[4] << 8) | aTEMP[5];        
+        sRecTSVH.iSave_u16 = MIN(TempU16, sRecTSVH.Max_u16 - 1);
         
         //Event send
-        TempU16 = (aTEMP[4] << 8) | aTEMP[5];
-        sRecEvent.iSend_u16 = MIN(TempU16, sRecEvent.Max_u16);
+        TempU16 = (aTEMP[6] << 8) | aTEMP[7];
+        sRecEvent.iSend_u16 = MIN(TempU16, sRecEvent.Max_u16 - 1);
 
         //Event Save
-        TempU16 = (aTEMP[6] << 8) | aTEMP[7];
-        sRecEvent.iSave_u16 = MIN(TempU16, sRecEvent.Max_u16);
+        TempU16 = (aTEMP[8] << 8) | aTEMP[9];
+        sRecEvent.iSave_u16 = MIN(TempU16, sRecEvent.Max_u16 - 1);
         
         //GPS send
-        TempU16 = (aTEMP[8] << 8) | aTEMP[9];
-        sRecGPS.iSend_u16 = MIN(TempU16, sRecGPS.Max_u16);
+        TempU16 = (aTEMP[10] << 8) | aTEMP[11];
+        sRecGPS.iSend_u16 = MIN(TempU16, sRecGPS.Max_u16 - 1);
 
         //GPS Save
-        TempU16 = (aTEMP[10] << 8) | aTEMP[11];
-        sRecGPS.iSave_u16 = MIN(TempU16, sRecGPS.Max_u16);
+        TempU16 = (aTEMP[12] << 8) | aTEMP[13];
+        sRecGPS.iSave_u16 = MIN(TempU16, sRecGPS.Max_u16 - 1);
         
         //log send
-        TempU16 = (aTEMP[12] << 8) | aTEMP[13];
-        sRecLog.iSend_u16 = MIN(TempU16, sRecLog.Max_u16);
+        TempU16 = (aTEMP[14] << 8) | aTEMP[15];
+        sRecLog.iSend_u16 = MIN(TempU16, sRecLog.Max_u16 - 1);
         
         //log Save
-        TempU16 = (aTEMP[14] << 8) | aTEMP[15];
-        sRecLog.iSave_u16 = MIN(TempU16, sRecLog.Max_u16);
-    } else
-    {
-    	Mem_Save_Index_Rec();
+        TempU16 = (aTEMP[16] << 8) | aTEMP[17];
+        sRecLog.iSave_u16 = MIN(TempU16, sRecLog.Max_u16 - 1); 
     }
-#endif
-
-    
-#ifdef BOARD_LC_V1_1
-    if (CAT24Mxx_Read_Array(CAT_ADDR_INDEX_REC, aTEMP, 24) == true) {
-        //doc 64 byte tu eeprom
-        TempU8 = aTEMP[0];
-        //Check Byte EMPTY
-        if (TempU8 == BYTE_WRITEN) {
-            //TSVH send
-            TempU16 = (aTEMP[2] << 8) | aTEMP[3];
-            sRecTSVH.iSend_u16 = MIN(TempU16, sRecTSVH.Max_u16);
-            
-            //TSVH Save
-            TempU16 = (aTEMP[4] << 8) | aTEMP[5];        
-            sRecTSVH.iSave_u16 = MIN(TempU16, sRecTSVH.Max_u16);
-            
-            //Event send
-            TempU16 = (aTEMP[6] << 8) | aTEMP[7];
-            sRecEvent.iSend_u16 = MIN(TempU16, sRecEvent.Max_u16);
-
-            //Event Save
-            TempU16 = (aTEMP[8] << 8) | aTEMP[9];
-            sRecEvent.iSave_u16 = MIN(TempU16, sRecEvent.Max_u16);
-            
-            //GPS send
-            TempU16 = (aTEMP[10] << 8) | aTEMP[11];
-            sRecGPS.iSend_u16 = MIN(TempU16, sRecGPS.Max_u16);
-
-            //GPS Save
-            TempU16 = (aTEMP[12] << 8) | aTEMP[13];
-            sRecGPS.iSave_u16 = MIN(TempU16, sRecGPS.Max_u16);
-            
-            //log send
-            TempU16 = (aTEMP[14] << 8) | aTEMP[15];
-            sRecLog.iSend_u16 = MIN(TempU16, sRecLog.Max_u16);
-            
-            //log Save
-            TempU16 = (aTEMP[16] << 8) | aTEMP[17];
-            sRecLog.iSave_u16 = MIN(TempU16, sRecLog.Max_u16); 
-        }
-    }
-#endif
 }
 
 
@@ -945,6 +959,7 @@ void Mem_Cb_Read_OK (uint8_t Kind, uint32_t Addr, uint8_t *pData, uint16_t lengt
     uint8_t tdata = Mem_Get_Type_From_Addr(Addr);
     sMemRecordInfor *pRecord;   
     uint8_t TempCrc = 0, IsValidData = true;
+    static uint8_t retry = 0;
     
     qQueue_Receive(&qMemRead, NULL, 1);
     reallen = (*(pData + 1) << 8) + *(pData + 2);
@@ -992,21 +1007,28 @@ void Mem_Cb_Read_OK (uint8_t Kind, uint32_t Addr, uint8_t *pData, uint16_t lengt
             if (sMemVar.pForward_Mess != NULL) {
                 sMemVar.pForward_Mess(1, tdata, pData + 3, reallen);
             }
+            retry = 0;
         } else {
-            UTIL_Log_Str( DBLEVEL_M, "u_mem: invalid data read!\r\n" );
-            if ( sMemVar.nSending_u16 == 0 ) {
-                Mem_Handle_Invalid(tdata); 
-            } else {
-                sMemVar.nSending_u16++;
-                if ( (sMemVar.nSending_u16 >= MAX_PACK_IN_MESS) 
-                    || (Mem_Is_New_Record_2(pRecord) == false) ) {
-                    if (sMemVar.pForward_Mess != NULL) {
-                        sMemVar.pForward_Mess(1, tdata, pData + 3, 0);
-                        return;
-                    }
-                } 
-                sMemVar.rPending_u8 = false;
-            }
+            retry++;
+            if (retry >= 3) {
+                retry = 0;
+                UTIL_Log_Str( DBLEVEL_M, "u_mem: invalid data read!\r\n" );
+                if ( sMemVar.nSending_u16 == 0 ) {
+                    Mem_Handle_Invalid(tdata); 
+                } else {
+                    sMemVar.nSending_u16++;
+                    if ( (sMemVar.nSending_u16 >= MAX_PACK_IN_MESS) 
+                        || (Mem_Is_New_Record_2(pRecord) == false) ) {
+                        if (sMemVar.pForward_Mess != NULL) {
+                            sMemVar.pForward_Mess(1, tdata, pData + 3, 0);
+                            return;
+                        }
+                    } 
+                }
+            } 
+            
+            sMemVar.rPending_u8 = false;
+            fevent_active( sEventMem, _EVENT_MEM_CTRL_READ);   
         }    
     } else {
         if (sMemVar.pRespond_Req != NULL) {
@@ -1062,9 +1084,15 @@ uint8_t Mem_Inc_Index_Send (sMemRecordInfor *sRec, uint8_t num)
     sMemVar.rPending_u8 = false;
     sMemVar.nSending_u16 = 0;
     
-    if (sRec->iSend_u16 != sRec->iSave_u16) {
-        sRec->iSend_u16 = (sRec->iSend_u16 + num) % sRec->Max_u16;
-        Mem_Save_Index_Rec(); 
+    if (sMemVar.Status_u8 != ERROR) {
+        if ( (sRec->iSend_u16 != sRec->iSave_u16) ) {
+            sRec->iSend_u16 = (sRec->iSend_u16 + num) % sRec->Max_u16;
+            Mem_Save_Index_Rec(); 
+        }
+    } else {
+        fevent_enable( sEventMem, _EVENT_MEM_CTRL_WRITE);
+        qQueue_Receive(&qMemWrite, NULL, 1);
+        sMemVar.wPending_u8 = false;
     }
     
     return true;
@@ -1082,6 +1110,7 @@ void Mem_Cb_Wrtie_ERROR (uint32_t Addr, uint8_t *pdata, uint16_t length)
     qQueue_Receive(&qMemWrite, NULL, 1);
     fevent_active( sEventMem, _EVENT_MEM_CTRL_WRITE);
     sMemVar.wPending_u8 = false;
+    sMemVar.Error_u8 = __MEM_WRITE; 
     
     //Forward packet to sim
     if (sMemVar.pForward_Mess != NULL) {
@@ -1110,7 +1139,7 @@ void Mem_Cb_Wrtie_ERROR (uint32_t Addr, uint8_t *pdata, uint16_t length)
         sMemVar.pRestart();
     }
     
-    
+    fevent_enable( sEventMem, _EVENT_MEM_TEST_WRITE);
 }
 
 
@@ -1124,7 +1153,6 @@ void Mem_Cb_Erase_Chip_OK(void)
     NVIC_SystemReset(); // Reset MCU
 #endif
     
-#ifdef INFOR_ON_FLASH
     sRecTSVH.iSend_u16 = 0;
     sRecTSVH.iSave_u16 = 0;
     sRecEvent.iSend_u16 = 0;
@@ -1139,9 +1167,8 @@ void Mem_Cb_Erase_Chip_OK(void)
     if (sMemVar.pReset_MCU != NULL) {
         sMemVar.pReset_MCU();
     }
-#endif
     
-#ifdef INFOR_EX_FLASH
+#ifdef MEM_REC_EX_FLASH
     __disable_irq();
     NVIC_SystemReset(); 
 #endif
@@ -1212,11 +1239,12 @@ void Mem_SER_Get_Last_For_GPS (sData *strRecei, uint16_t Pos)
 
 void Mem_SER_Get_Index_Log (sData *strRecei, uint16_t Pos)
 {    
-    char aData[128] = {0};
+    char aData[256] = {0};
     
     sprintf(aData, "tsvh: %d, %d, %d\r\n", sRecTSVH.iSend_u16, sRecTSVH.iSave_u16, sRecTSVH.Max_u16);
     sprintf(aData + strlen(aData), "event: %d, %d, %d\r\n", sRecEvent.iSend_u16, sRecEvent.iSave_u16, sRecEvent.Max_u16);
     sprintf(aData + strlen(aData), "log: %d, %d, %d\r\n", sRecLog.iSend_u16, sRecLog.iSave_u16, sRecLog.Max_u16);
+    sprintf(aData + strlen(aData), "gps: %d, %d, %d\r\n", sRecGPS.iSend_u16, sRecGPS.iSave_u16, sRecGPS.Max_u16);
     
     sMemVar.pRespond_Str(PortConfig, aData, 0);
 }
@@ -1285,7 +1313,20 @@ uint8_t Mem_Get_Req_AT (uint8_t type, uint16_t NumRec)
 #endif
 
 
-
+extern void mReset_Raw_Data (void);
+void Mem_Init_Send (uint8_t type)
+{
+    if (sMemVar.Status_u8 != ERROR) {
+        last_type = type;
+        mReset_Raw_Data();
+        sMemVar.nSending_u16 = 0;
+        sMemVar.rPending_u8 = false;
+    } else {
+        sMemVar.wPending_u8 = false;
+        mReset_Raw_Data();
+        sMemVar.cQueueSwapp_u8 = 0;
+    }
+}
 
 
 

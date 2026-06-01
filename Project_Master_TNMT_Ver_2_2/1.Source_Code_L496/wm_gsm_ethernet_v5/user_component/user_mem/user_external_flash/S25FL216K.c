@@ -142,7 +142,7 @@ uint8_t S25FL_Send_Byte(uint8_t byte)
 {
 	uint8_t retVal=0;
 
-	HAL_SPI_TransmitReceive(&hSPI, &byte, &retVal, 1, 1000); 
+	HAL_SPI_TransmitReceive(&hSPI, &byte, &retVal, 1, 100); 
 
 	return retVal;
 }
@@ -165,51 +165,36 @@ static uint8_t _Cb_Event_Flash_Send_BYTE(uint8_t event)
 	uint8_t flash_status = 0;
 	uint8_t flag_check = 0;
 	uint8_t flash_cmd = 0;
-    
-//    uint32_t LandMarkSPI_NSS_u32 = 0;  
-//
-//    LandMarkSPI_NSS_u32 = HAL_GetTick();
-//    do
-//    {
-//        HAL_Delay(FLASH_CMD_TIME);
-        sEventExFlash[_EVENT_FLASH_SEND_BYTE].e_period = FLASH_CMD_TIME;
-        
-        flash_cmd = eFlash_Get_Step_From_Queue(0);
 
-        if (flash_cmd >= _FLASH_CMD_END) 
-        {
-            return 0;
-        }
-        
-        //Lenh nao cmd send ! skip se send
-        if (aFlashCmd[flash_cmd].cmd_byte != SKIP) // ignore with SKIP command
-        {
-            if ( (flash_cmd == _FLASH_CMD_CHECK_WRITE_ENABLE) || (flash_cmd == _FLASH_CMD_CHECK_ERASE_ENABLE) )
-                flag_check = aFlashCmd[_FLASH_CMD_CHECK_WRITE_ENABLE].cmd_check;
-
-            flash_status = S25FL_Send_Byte(aFlashCmd[flash_cmd].cmd_byte);
-            
-            if ( (aFlashCmd[flash_cmd].cmd_check != SKIP ) && ( (flash_status & aFlashCmd[flash_cmd].cmd_check) != flag_check) )
-            {
-                aFlashCmd[flash_cmd].callback_failure();
-                return 0;
-            }
-        }
-        
-        fevent_active( sEventExFlash, event);
-        
-        if (aFlashCmd[flash_cmd].callback_success() == true)
-            eFlash_Get_Step_From_Queue(1); // clear
-        
-//        if (Check_Time_Out(LandMarkSPI_NSS_u32, 1000) == true)
-//        {
-//            UTIL_Printf_Str( DBLEVEL_M, "u_ex_flash: TimeOut Send Byte \r\n");
-//            S25FL_ChipSelect(HIGH);
-//            break;
-//        }
-//        
-//    }while(HAL_GPIO_ReadPin(SPI_NSS_GPIO_Port, SPI_NSS_Pin) == 0);
+    sEventExFlash[_EVENT_FLASH_SEND_BYTE].e_period = FLASH_CMD_TIME;
     
+	flash_cmd = eFlash_Get_Step_From_Queue(0);
+
+	if (flash_cmd >= _FLASH_CMD_END) 
+    {
+		return 0;
+	}
+    
+    //Lenh nao cmd send ! skip se send
+	if (aFlashCmd[flash_cmd].cmd_byte != SKIP) // ignore with SKIP command
+	{
+		if ( (flash_cmd == _FLASH_CMD_CHECK_WRITE_ENABLE) || (flash_cmd == _FLASH_CMD_CHECK_ERASE_ENABLE) )
+			flag_check = aFlashCmd[_FLASH_CMD_CHECK_WRITE_ENABLE].cmd_check;
+
+		flash_status = S25FL_Send_Byte(aFlashCmd[flash_cmd].cmd_byte);
+        
+		if ( (aFlashCmd[flash_cmd].cmd_check != SKIP ) && ( (flash_status & aFlashCmd[flash_cmd].cmd_check) != flag_check) )
+		{
+			aFlashCmd[flash_cmd].callback_failure();
+			return 0;
+		}
+	}
+    
+    fevent_active( sEventExFlash, event);
+    
+	if (aFlashCmd[flash_cmd].callback_success() == true)
+        eFlash_Get_Step_From_Queue(1); // clear
+
 	return 1;
 }
 
@@ -251,11 +236,7 @@ static uint8_t _Cb_Flash_Cmd_Failure(void)
     */
     uint8_t flash_cmd = 0;
     flash_cmd = eFlash_Get_Step_From_Queue(0);
-    
-    UTIL_Printf_Str( DBLEVEL_M, "u_ex_flash: flash cmd failure: ");
-    UTIL_Printf_Dec( DBLEVEL_M, flash_cmd);
-    UTIL_Printf_Str( DBLEVEL_M, "\r\n");  
-    
+
     Retry_u8++;
     
     if (Retry_u8 <= FLASH_MAX_RETRY_ITEM)
@@ -264,6 +245,10 @@ static uint8_t _Cb_Flash_Cmd_Failure(void)
         fevent_enable( sEventExFlash, _EVENT_FLASH_SEND_BYTE);
     } else if (Retry_u8 <= FLASH_MAX_RETRY_SKIP)
     {
+        UTIL_Printf_Str( DBLEVEL_M, "u_ex_flash: flash cmd failure: ");
+        UTIL_Printf_Dec( DBLEVEL_M, flash_cmd);
+        UTIL_Printf_Str( DBLEVEL_M, "\r\n");  
+        
         sEventExFlash[_EVENT_FLASH_SEND_BYTE].e_period = FLASH_CMD_TIMEOUT;
         fevent_enable( sEventExFlash, _EVENT_FLASH_SEND_BYTE);
         
@@ -422,10 +407,8 @@ static uint8_t _Cb_Write_Delay_Success(void)
 {
 	UTIL_Printf_Str (DBLEVEL_H, "write delay\r\n");
     //Delay 50ms sau Erase
-//    sEventExFlash[_EVENT_FLASH_SEND_BYTE].e_period = FLASH_WRITE_TIME;
-//    fevent_enable( sEventExFlash, _EVENT_FLASH_SEND_BYTE);
-    
-    HAL_Delay(FLASH_WRITE_TIME);
+    sEventExFlash[_EVENT_FLASH_SEND_BYTE].e_period = FLASH_WRITE_TIME;
+    fevent_enable( sEventExFlash, _EVENT_FLASH_SEND_BYTE);
     
 	return 1;
 }
@@ -473,7 +456,7 @@ static uint8_t _Cb_Read_Check_write(void)
 
 static uint8_t _Cb_Erase_Chip_Success(void)
 {
-    UTIL_Printf_Str( DBLEVEL_H, "u_ex_flash_: erase chip process...\r\n" );
+    UTIL_Printf_Str( DBLEVEL_M, "u_ex_flash_: erase chip process...\r\n" );
 
 	return 1;
 }
@@ -911,6 +894,7 @@ void eFlash_Push_Step_Erase_Sector (void)
 */
 void eFlash_Push_Step_Erase_Chip (void)
 {
+    qQueue_Clear(&qS25FLStep);  
     eFlash_Push_Block_To_Queue(aFlash_Erase_Chip_BlockCmd, sizeof(aFlash_Erase_Chip_BlockCmd));
 }
 
@@ -931,21 +915,19 @@ uint8_t eFlash_Test_Write (void)
     eFlash_S25FL_BufferWrite(aTEST_WRITE, FLASH_S25FL_BASE, 256 );
     
     //doc ra check
-    if (eFlash_S25FL_BufferRead(aTEST_READ, FLASH_S25FL_BASE, 256) == 1)
+    eFlash_S25FL_BufferRead(aTEST_READ, FLASH_S25FL_BASE, 256);
+    //in ra man hinh
+    UTIL_Printf( DBLEVEL_H, aTEST_READ, 256 );
+    
+    for (i = 0; i < 256; i++)
     {
-        //in ra man hinh
-        UTIL_Printf( DBLEVEL_M, aTEST_READ, 256 );
-        
-        for (i = 0; i < 256; i++)
+        if (aTEST_READ[i] != aTEST_WRITE[i])
         {
-            if (aTEST_READ[i] != aTEST_WRITE[i])
-            {
-                UTIL_Printf_Str( DBLEVEL_M, "\r\nu_ex_flash: error!\r\n" );
-                return false;  
-            }
+            UTIL_Printf_Str( DBLEVEL_M, "\r\nu_ex_flash: error!\r\n" );
+            return false;  
         }
     }
-    
+
     return true;
 }
 

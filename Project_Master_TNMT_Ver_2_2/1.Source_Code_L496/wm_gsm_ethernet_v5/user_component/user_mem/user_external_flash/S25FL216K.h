@@ -18,10 +18,15 @@
 #include "user_mem_comm.h"
 
 
-
 /*============ Define =============*/ 
 #define USING_EX_FLASH	
-     
+
+/*=====loai flash ngoai: 16Mbit ... =========*/
+#define EX_FLASH_16MBIT	    16
+//#define EX_FLASH_64MBIT	
+
+
+ /*====================================*/
 #define SKIP				0x00
 
 #define LOW    	 			0x00  /* Chip Select line low */

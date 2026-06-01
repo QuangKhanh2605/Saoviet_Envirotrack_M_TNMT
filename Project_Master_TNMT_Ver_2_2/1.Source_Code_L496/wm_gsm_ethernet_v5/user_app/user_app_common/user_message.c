@@ -816,7 +816,7 @@ uint8_t mCheck_Empty_Mess (void)
             + true: Copy data to buff sim mqtt
                     mark new mess to send now
 */
-void mGet_Data_From_Mem (uint8_t type, uint8_t tdata, uint8_t *pData, uint16_t Length)
+uint8_t mGet_Data_From_Mem (uint8_t type, uint8_t tdata, uint8_t *pData, uint16_t Length)
 { 
     static uint8_t last_tdata = 0xFF;
     uint8_t tmess = 0;
@@ -847,7 +847,7 @@ void mGet_Data_From_Mem (uint8_t type, uint8_t tdata, uint8_t *pData, uint16_t L
             Max_Packet_In_Mess = MAX_PACK_IN_MESS;
             break;
         default:
-            return;
+            return false;
     }
     
     if (type == 0) {
@@ -883,7 +883,7 @@ void mGet_Data_From_Mem (uint8_t type, uint8_t tdata, uint8_t *pData, uint16_t L
             if (Mem_Is_New_Record_2(pRec) == true) {
                 sMemVar.rPending_u8 = false;
                 UTIL_Printf_Str( DBLEVEL_M, "u_mem: packet next...\r\n" );
-                return;
+                return true;
             }
         }
     }
@@ -898,6 +898,8 @@ void mGet_Data_From_Mem (uint8_t type, uint8_t tdata, uint8_t *pData, uint16_t L
     }
     //mark mess to send
     sMessage.aMESS_PENDING[tmess] = TRUE;  
+    
+    return true;
 }
 
 

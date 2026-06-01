@@ -16,11 +16,18 @@
 //#define MEM_REC_IN_FLASH    
 #define MEM_REC_EX_FLASH    
 
+#define MEM_MAX_QWRITE_ITEM     20   
+#define MEM_MAX_QREAD_ITEM      20   
+
 #define MAX_TIME_RETRY_READ     5000   
 #define MAX_BYTE_CUT_GPS        18    
 #define MEM_MAX_TIMEOUT_READ    24*3600    //1 ngay
 
 #define MAX_PACK_IN_MESS        6   
+
+#define MEM_PERIOD_READ         100   
+#define MEM_PERIOD_WRITE        100   
+#define MEM_PERIOD_W_ER         10000   
 
 /*======== Struct var ===========*/
 
@@ -122,6 +129,8 @@ typedef struct
     uint8_t     Onoff_u8;
     uint8_t     Status_u8;
     uint8_t     Type_u8;
+    uint16_t    Size_u16;
+    uint8_t     Error_u8;
 
     uint8_t     wPending_u8;
     uint8_t     rPending_u8;
@@ -135,10 +144,12 @@ typedef struct
     void        ( *pRespond_Str) (uint8_t portNo, const char *str, uint8_t ack);
     void        ( *pRestart) (void);
     void        ( *pReset_Buff_Sim) (void);
-    void        ( *pForward_Mess) (uint8_t type, uint8_t tdata, uint8_t *pdata, uint16_t length);
+    uint8_t     ( *pForward_Mess) (uint8_t type, uint8_t tdata, uint8_t *pdata, uint16_t length);
     void        ( *pRespond_Req) (uint8_t tdata, uint8_t *pdata, uint16_t length);
     uint8_t     ( *pMessage_Pending ) (void);
+    uint8_t     ( *pModem_Connected ) (void);
     uint16_t    nSending_u16;
+    uint8_t     cQueueSwapp_u8;
 }sMemVariable;
 
 
@@ -199,6 +210,9 @@ void Mem_SER_Get_Index_Log (sData *strRecei, uint16_t Pos);
 uint8_t Mem_Get_Req_AT (uint8_t type, uint16_t NumRec);
 
 #endif
+
+
+void Mem_Init_Send (uint8_t type);
 
 #endif
 

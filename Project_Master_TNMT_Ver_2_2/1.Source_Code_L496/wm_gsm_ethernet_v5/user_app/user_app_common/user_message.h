@@ -231,7 +231,7 @@ uint8_t     mCheck_Empty_Mess (void);
 
 void        mReset_Raw_Data (void);
 void        mUnmark_Mess (uint8_t type);
-void        mGet_Data_From_Mem (uint8_t type, uint8_t tdata, uint8_t *pData, uint16_t Length);
+uint8_t        mGet_Data_From_Mem (uint8_t type, uint8_t tdata, uint8_t *pData, uint16_t Length);
 uint8_t     mIs_Sending_Message (void);
 
 #endif
