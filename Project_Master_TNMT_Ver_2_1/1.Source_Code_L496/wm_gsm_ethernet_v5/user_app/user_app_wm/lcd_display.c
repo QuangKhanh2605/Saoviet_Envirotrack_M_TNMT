@@ -46,7 +46,7 @@ sOjectInformation   sLCDObject[] =
     {   __PARAM_CM44,       "Sensor.",            NULL,   _DTYPE_STRING,   0,      NULL,      0,  0,  0x00,    _LCD_SCREEN_CM44    },
 //    {   __SC1_ID_DCU,       NULL,               NULL,   _DTYPE_STRING,   0,      NULL,      2,  20, 0x00,    _LCD_SCREEN_CM44    },
     {   __SC1_CLO_DU,       "CLO  : ",         NULL,   _DTYPE_I32,        0,   "  mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_PH_WATER,     "PH   : ",         NULL,   _DTYPE_I32,        0,   "  pH",     2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_PH_WATER,     "pH   : ",         NULL,   _DTYPE_I32,        0,   "    ",     2,  0,  0x00,    _LCD_SCREEN_CM44    },
     {   __SC1_TURB,         "NTU  : ",         NULL,   _DTYPE_I32,        0,   "  NTU",    2,  0,  0x00,    _LCD_SCREEN_CM44    },
     {   __SC1_EC,           "EC   : ",         NULL,   _DTYPE_I32,        0,   "  uS/cm",  2,  0,  0x00,    _LCD_SCREEN_CM44    },
     {   __SC1_SALINITY,     "Salt : ",         NULL,   _DTYPE_I32,        0,   "  %",      2,  0,  0x00,    _LCD_SCREEN_CM44    },

@@ -45,8 +45,8 @@ uint8_t _Cb_Handle_SS_NO3(uint8_t State);
 Struct_NameUnitParam    sNameUnitParam[_END_SENSOR] = 
 {
     //eKind          Name           Unit
-  {_SS_TEMP,        "TEMP",         "°C"        },       // 0 Temperature
-  {_SS_PH,          "PH",           "-"         },       // 1 pH
+  {_SS_TEMP,        "Temp",         "°C"        },       // 0 Temperature
+  {_SS_PH,          "pH",           "-"         },       // 1 pH
   {_SS_CLO,         "CLO",          "mg/l"      },       // 2 Clo
   {_SS_EC,          "EC",           "µS/cm"     },       // 3 EC
   {_SS_TURB,        "TURB",         "NTU"       },       // 4 Turb
@@ -515,7 +515,7 @@ void AppSensor_Packet_TNMT(void)
 
 uint8_t AppSensor_Packet_Param (char *pdata, uint8_t chann)
 {
-    sprintf(pdata, "%.3lf %s", sAverageMeasure[chann].Value_f , sNameUnitParam[chann].Unit);
+    sprintf(pdata, "%.3lf\t%s", sAverageMeasure[chann].Value_f , sNameUnitParam[chann].Unit);
 
 #ifdef USING_NUMBER_COMMA
     // doi dau '.' thanh dau ','

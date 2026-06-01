@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V8.40.2.214/W32 for ARM                  22/May/2026  09:16:36
+# IAR ELF Linker V8.40.2.214/W32 for ARM                  27/May/2026  08:25:54
 # Copyright 2007-2019 IAR Systems AB.
 #
 #    Output file  =
@@ -8,7 +8,7 @@
 #    Map file     =
 #        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_1\1.Source_Code_L496\wm_gsm_ethernet_v5\EWARM\wm_gsm_ethernet_v3\List\wm_gsm_ethernet_v3.map
 #    Command line =
-#        -f C:\Users\PC\AppData\Local\Temp\EW4D90.tmp
+#        -f C:\Users\PC\AppData\Local\Temp\EW4F5F.tmp
 #        (D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_1\1.Source_Code_L496\wm_gsm_ethernet_v5\EWARM\wm_gsm_ethernet_v3\Obj\adc.o
 #        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_1\1.Source_Code_L496\wm_gsm_ethernet_v5\EWARM\wm_gsm_ethernet_v3\Obj\button.o
 #        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_1\1.Source_Code_L496\wm_gsm_ethernet_v5\EWARM\wm_gsm_ethernet_v3\Obj\cat24mxx.o
@@ -201,7 +201,7 @@ initialize by copy { rw };
   .intvec            ro code   0x800'4000     0x1ac  startup_stm32l496xx.o [1]
                              - 0x800'41ac     0x1ac
 
-"P1":                                      0x3'4c06
+"P1":                                      0x3'4c04
   .text              ro code   0x800'41ac    0x3190  user_app_wm.o [1]
   .text              ro code   0x800'733c     0x3c4  user_timer.o [1]
   .text              ro code   0x800'7700      0xe8  user_rs485.o [1]
@@ -1288,8 +1288,8 @@ initialize by copy { rw };
   .text              ro code   0x803'7acc       0x4  startup_stm32l496xx.o [1]
   .rodata            const     0x803'7ad0       0x0  zero_init3.o [4]
   .rodata            const     0x803'7ad0       0x0  lz77_init_single.o [4]
-  Initializer bytes  const     0x803'7ad0    0x12e2  <for P2-1>
-                             - 0x803'8db2  0x3'4c06
+  Initializer bytes  const     0x803'7ad0    0x12e0  <for P2-1>
+                             - 0x803'8db0  0x3'4c04
 
 "P2", part 1 of 3:                           0x4003
   P2-1                        0x2000'0000    0x4003  <Init block>
@@ -1722,7 +1722,7 @@ Unused ranges:
          From           To      Size
          ----           --      ----
    0x800'0000   0x800'3fff    0x4000
-   0x803'8db2   0x80f'ffff  0xc'724e
+   0x803'8db0   0x80f'ffff  0xc'7250
   0x2000'4003  0x2000'4003       0x1
   0x2000'f390  0x2004'ffff  0x4'0c70
 
@@ -1738,8 +1738,8 @@ Zero (__iar_zero_init3)
           0x2000'4004  0xa08c
 
 Copy/lz77 (__iar_lz77_init_single3)
-    1 source range, total size 0x12e2 (29% of destination):
-           0x803'7ad0  0x12e2
+    1 source range, total size 0x12e0 (29% of destination):
+           0x803'7ad0  0x12e0
     1 destination range, total size 0x4003:
           0x2000'0000  0x4003
 
@@ -1764,9 +1764,9 @@ D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_1\1.Source_C
     ST7565R.o                     340
     STM32L4.o                     160
     adc.o                         476               104
-    button.o                    9'108       25      204
+    button.o                    9'108       24      204
     ccsbcs.o                      304      944
-    dhcpv4.o                    4'368       28       79
+    dhcpv4.o                    4'368       29       79
     dhcpv6.o                    3'384       93      145
     diskio.o                      240
     dma.o                         144
@@ -1780,7 +1780,7 @@ D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_1\1.Source_C
     graphics.o                    688
     i2c.o                         244                84
     iwdg.o                         44                16
-    lcd_display.o               5'758    4'587    5'466
+    lcd_display.o               5'758    4'586    5'466
     level_SUP_PX261_B.o            72
     level_S_YW_01B.o               86
     level_ultrasonic.o             42
@@ -1834,12 +1834,12 @@ D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_1\1.Source_C
     user_app_ethernet.o        11'044    2'102    7'323
     user_app_modb_m.o           3'704      370    3'387
     user_app_sensor.o           7'376    2'436    1'411
-    user_app_sim.o              5'328      579    1'052
-    user_app_wm.o              12'688    1'442    4'616
-    user_at_serial.o                     1'837    1'521
+    user_app_sim.o              5'328      578    1'052
+    user_app_wm.o              12'688    1'443    4'616
+    user_at_serial.o                     1'836    1'521
     user_convert_variable.o     2'210        8
-    user_ec200u.o               3'066    4'896      151
-    user_internal_mem.o           260       10      596
+    user_ec200u.o               3'066    4'897      151
+    user_internal_mem.o           260        9      596
     user_lpm.o                     36                 5
     user_lptim.o                  460                 8
     user_mem.o                  4'064      455    5'723
@@ -1866,7 +1866,7 @@ D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_1\1.Source_C
     woteck_ultrasonic.o           480       50       72
     woteck_wm.o                   492       31       24
     ---------------------------------------------------
-    Total:                    166'342   27'256   56'839
+    Total:                    166'342   27'254   56'839
 
 dl7M_tlf.a: [2]
     XShttio.o                      12        3        8
@@ -1965,7 +1965,7 @@ shb_l.a: [5]
     Gaps                           71        8        4
     Linker created                          32    4'864
 -------------------------------------------------------
-    Grand Total:              187'941   28'557   62'351
+    Grand Total:              187'941   28'555   62'351
 
 
 *******************************************************************************
@@ -4199,7 +4199,7 @@ writeMQTTString          0x802'd675    0x46  Code  Gb  MQTTPacket.o [1]
 [5] = shb_l.a
 
   187'941 bytes of readonly  code memory
-   28'557 bytes of readonly  data memory
+   28'555 bytes of readonly  data memory
    62'351 bytes of readwrite data memory
 
 Errors: none

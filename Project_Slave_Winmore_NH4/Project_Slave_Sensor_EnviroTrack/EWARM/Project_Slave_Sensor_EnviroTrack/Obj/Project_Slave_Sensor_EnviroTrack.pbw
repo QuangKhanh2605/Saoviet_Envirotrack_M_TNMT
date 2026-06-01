@@ -336406,7 +336406,7 @@
     "scope": null
   },
   {
-    "ID": "c:button.c@41461@F@BUTTON_Enter_Process@i",
+    "ID": "c:button.c@41448@F@BUTTON_Enter_Process@i",
     "What": "Variable",
     "defdec": "Def",
     "display": "i",
@@ -336434,7 +336434,7 @@
     "scope": null
   },
   {
-    "ID": "c:button.c@51537@F@BUTTON_Up_Process@i",
+    "ID": "c:button.c@51524@F@BUTTON_Up_Process@i",
     "What": "Variable",
     "defdec": "Def",
     "display": "i",
@@ -336462,7 +336462,7 @@
     "scope": null
   },
   {
-    "ID": "c:button.c@67167@F@BUTTON_Down_Process@i",
+    "ID": "c:button.c@67154@F@BUTTON_Down_Process@i",
     "What": "Variable",
     "defdec": "Def",
     "display": "i",

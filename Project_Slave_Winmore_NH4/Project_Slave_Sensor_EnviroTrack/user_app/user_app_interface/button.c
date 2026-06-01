@@ -402,11 +402,11 @@ void BUTTON_Enter_Process (void)
 
 //                    Old_Value_i16 = 0x0000;
 //                    RS485_LogData_Calib(_RS485_SS_NH4_CALIB_K_B_NH4, &Old_Value_i16, sizeof(int16_t));
-                    Button_K_Const_f = 0.98;
-                    Button_B_Const_f = -0.25;
-//                    Cal_Calib_NH4_Log(sNH4Calib.Standard_NH4_P1, sNH4Calib.MeasureV_NH4_P1, 
-//                                      sNH4Calib.Standard_NH4_P2, sNH4Calib.MeasureV_NH4_P2,
-//                                      &Button_K_Const_f, &Button_B_Const_f);
+                    Button_K_Const_f = 1;
+                    Button_B_Const_f = 0;
+                    Cal_Calib_NH4_Log(sNH4Calib.Standard_NH4_P1, sNH4Calib.MeasureV_NH4_P1, 
+                                      sNH4Calib.Standard_NH4_P2, sNH4Calib.MeasureV_NH4_P2,
+                                      &Button_K_Const_f, &Button_B_Const_f);
                     RS485_LogData_Calib_NH4(_RS485_SS_NH4_CALIB_K_B_NH4, Button_K_Const_f, Button_B_Const_f);
                     break;
                     

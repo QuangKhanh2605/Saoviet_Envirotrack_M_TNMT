@@ -5,7 +5,7 @@ at+ftpmain=124.158.5.154,21,admin,admin,khanh_ftp/SVWMDL26009999
 at+ftpmain=103.140.42.141,21,ftpuser,0!@#$%^QWERTY,TAINGUYENNUOC/NUOCNGAM/QUAWACO
 
 -lệnh config tên trạm, tên công trình, tham số thu thập
-at+chaninfor=1,QN|TRUNGLUONG|NUOCTHO|2,0,1
+at+chaninfor=1,QN,TRUNGLUONG,NUOCTHO,0,0,0
 
 -lệnh config modbus TCP
 at+modtcpmain=192.168.0.100,502,admin,admin
