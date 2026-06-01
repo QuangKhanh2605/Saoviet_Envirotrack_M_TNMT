@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+   <gatewayInfo clientName="khanh26"  timeOut="30" serverAddress="124.158.5.154" mqttPort="1883" openwritePort="61616" userName="syswmsv" password="sv@wmsv568" qoS="0" topicName="dcu/002/currentInfo/read/#"/>
+   <sqlconnectionStrings connectionString="Data Source=117.6.163.177;Initial Catalog=AmiSystem;Persist Security Info=True;User ID=sa;Password=@dmin123"/>
+   <toolConfig showTabCOM="TRUE" showTabAMQ="TRUE"/>
+</configuration>

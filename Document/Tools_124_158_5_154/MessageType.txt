@@ -1,0 +1,10 @@
+Blank
+Update firmWare
+Server config
+Historical
+Instantaneos
+Event
+Operation
+Loadprofile
+UpdateTime
+Reset
