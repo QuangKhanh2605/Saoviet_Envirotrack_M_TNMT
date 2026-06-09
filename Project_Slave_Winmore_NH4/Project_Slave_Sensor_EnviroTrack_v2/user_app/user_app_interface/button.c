@@ -1269,7 +1269,8 @@ void BUTTON_Up_Process (void)
                                 break;
                                 
                             case 1:
-                                sButton.Old_value += 1;
+                                if(sButton.Old_value < NH4_RANGE_MAX * Calculator_Scale(sParaDisplay.Scale_NH4))
+                                    sButton.Old_value+=1;
                                 break;
                             
                             default:
@@ -1284,7 +1285,8 @@ void BUTTON_Up_Process (void)
                                 break;
                                 
                             case 1:
-                                sButton.Old_value += 1;
+                                if(sButton.Old_value < NH4_RANGE_MAX * Calculator_Scale(sParaDisplay.Scale_NH4))
+                                    sButton.Old_value+=100;
                                 break;
                             
                             default:
@@ -1321,7 +1323,8 @@ void BUTTON_Up_Process (void)
                                 break;
                                 
                             case 1:
-                                sButton.Old_value += 1;
+                                if(sButton.Old_value < NH4_RANGE_MAX * Calculator_Scale(sParaDisplay.Scale_NH4))
+                                    sButton.Old_value+=10;
                                 break;
                             
                             default:
@@ -1336,7 +1339,8 @@ void BUTTON_Up_Process (void)
                                 break;
                                 
                             case 1:
-                                sButton.Old_value += 1;
+                                if(sButton.Old_value < NH4_RANGE_MAX * Calculator_Scale(sParaDisplay.Scale_NH4))
+                                    sButton.Old_value+=10;
                                 break;
                             
                             default:
@@ -1766,7 +1770,7 @@ void BUTTON_Down_Process (void)
                                 break;
                                 
                             case 1:
-                                if(sButton.Old_value > 0)
+                                if(sButton.Old_value > 1)
                                     sButton.Old_value -= 1;
                                 break;
                             
@@ -1783,7 +1787,7 @@ void BUTTON_Down_Process (void)
                                 
                             case 1:
                                 if(sButton.Old_value > 0)
-                                    sButton.Old_value -= 1;
+                                    sButton.Old_value -= 100;
                                 break;
                             
                             default:
@@ -1817,7 +1821,7 @@ void BUTTON_Down_Process (void)
                                 
                             case 1:
                                 if(sButton.Old_value > 0)
-                                    sButton.Old_value-=1;
+                                    sButton.Old_value-=10;
                                 break;
                             
                             default:
@@ -1833,7 +1837,7 @@ void BUTTON_Down_Process (void)
                                 
                             case 1:
                                 if(sButton.Old_value > 0)
-                                    sButton.Old_value-=1;
+                                    sButton.Old_value-=10;
                                 break;
                             
                             default:

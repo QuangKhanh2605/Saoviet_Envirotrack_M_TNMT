@@ -48,7 +48,7 @@ uint8_t *aModeSelectONOFF[2] = {"OFF", "ON"};
 sOjectInformation  sLCDObject[] = 
 {
 //          para          name                  value      dtype         scale   unit      row  col      screen
-    {   __SC1_TITLE,      "NH4_N.",         NULL,   _DTYPE_STRING,   0,      NULL,      0,  0,  0x00,      _LCD_SCREEN_1  },
+    {   __SC1_TITLE,      "NH4-N.",         NULL,   _DTYPE_STRING,   0,      NULL,      0,  0,  0x00,      _LCD_SCREEN_1  },
     {   __SC1_PH_ATC,     NULL,             NULL,   _DTYPE_I16,      0,    "mg/L",      4,  0,  0x00,      _LCD_SCREEN_1  },
     {   __SC1_TEMP,       "Temp  : ",       NULL,   _DTYPE_I16,      0,      " ‰C",      7,  0,  0x00,      _LCD_SCREEN_1  },
   
@@ -73,21 +73,21 @@ sOjectInformation  sLCDObject[] =
     {   __SET_MODE_CALIB_PH,    "2.Calib pH",       NULL,   _DTYPE_STRING,   0x00,  NULL,       3,  0,  0x00,    _LCD_SCR_SET_MODE_CALIB},
 //    {   __SET_MODE_CALIB_K,     "3.Calib K+",       NULL,   _DTYPE_STRING,   0x00,  NULL,       4,  0,  0x00,    _LCD_SCR_SET_MODE_CALIB},
     
-    {   __SET_CALIB_NH4_TITLE,  "CALIB NH4_N",      NULL,   _DTYPE_STRING,   0x00,  NULL,       0,  0,  0x00,    _LCD_SCR_CALIB_NH4},
+    {   __SET_CALIB_NH4_TITLE,  "CALIB NH4-N",      NULL,   _DTYPE_STRING,   0x00,  NULL,       0,  0,  0x00,    _LCD_SCR_CALIB_NH4},
     {   __SET_CALIB_NH4_VALUE,  "NH4: ",           NULL,   _DTYPE_I32,      0x00,  NULL,       2,  0,  0x00,    _LCD_SCR_CALIB_NH4},
     {   __SET_CALIB_NH4_CONST_K,"K: ",             NULL,   _DTYPE_I32,      0x00,  NULL,       3,  0,  0x00,    _LCD_SCR_CALIB_NH4},
     {   __SET_CALIB_NH4_CONST_B,"B: ",             NULL,   _DTYPE_I32,      0x00,  NULL,       3,  70, 0x00,    _LCD_SCR_CALIB_NH4},
     {   __SET_CALIB_NH4_RESET,  "1.Reset",         NULL,   _DTYPE_STRING,   0x00,  NULL,       4,  0,  0x00,    _LCD_SCR_CALIB_NH4},
-    {   __SET_CALIB_NH4_P1,     "2.NH4+ Z: ",     NULL,   _DTYPE_I32,       0x00,  " mg/L",    5,  0,  0x00,    _LCD_SCR_CALIB_NH4},
-    {   __SET_CALIB_NH4_P2,     "3.NH4+ S: ",     NULL,   _DTYPE_I32,       0x00,  " mg/L",    6,  0,  0x00,    _LCD_SCR_CALIB_NH4},
+    {   __SET_CALIB_NH4_P1,     "2.NH4 Z: ",     NULL,   _DTYPE_I32,       0x00,  " mg/L",    5,  0,  0x00,    _LCD_SCR_CALIB_NH4},
+    {   __SET_CALIB_NH4_P2,     "3.NH4 S: ",     NULL,   _DTYPE_I32,       0x00,  " mg/L",    6,  0,  0x00,    _LCD_SCR_CALIB_NH4},
     {   __SET_CALIB_NH4_CONFIRM,"4.Confirm",       NULL,   _DTYPE_STRING,   0x00,  NULL,       7,  0,  0x00,    _LCD_SCR_CALIB_NH4},
     
-    {   __SET_CALIB_NH4_TITLE_PLS,  "CALIB NH4_N PLUS",      NULL,   _DTYPE_STRING,   0x00,  NULL,       0,  0,  0x00,    _LCD_SCR_CALIB_NH4_PLS},
+    {   __SET_CALIB_NH4_TITLE_PLS,  "CALIB NH4-N PLUS",      NULL,   _DTYPE_STRING,   0x00,  NULL,       0,  0,  0x00,    _LCD_SCR_CALIB_NH4_PLS},
     {   __SET_CALIB_NH4_VALUE_PLS,  "NH4: ",           NULL,   _DTYPE_I32,      0x00,  NULL,       2,  0,  0x00,    _LCD_SCR_CALIB_NH4_PLS},
     {   __SET_CALIB_NH4_CONST_K_PLS,"K: ",             NULL,   _DTYPE_I32,      0x00,  NULL,       3,  0,  0x00,    _LCD_SCR_CALIB_NH4_PLS},
     {   __SET_CALIB_NH4_CONST_B_PLS,"B: ",             NULL,   _DTYPE_I32,      0x00,  NULL,       3,  70, 0x00,    _LCD_SCR_CALIB_NH4_PLS},
-    {   __SET_CALIB_NH4_P1_PLS,     "1.NH4+ P1: ",     NULL,   _DTYPE_I32,      0x00,  " mg/L",    4,  0,  0x00,    _LCD_SCR_CALIB_NH4_PLS},
-    {   __SET_CALIB_NH4_P2_PLS,     "2.NH4+ P2: ",     NULL,   _DTYPE_I32,      0x00,  " mg/L",    5,  0,  0x00,    _LCD_SCR_CALIB_NH4_PLS},
+    {   __SET_CALIB_NH4_P1_PLS,     "1.NH4 P1: ",     NULL,   _DTYPE_I32,      0x00,  " mg/L",    4,  0,  0x00,    _LCD_SCR_CALIB_NH4_PLS},
+    {   __SET_CALIB_NH4_P2_PLS,     "2.NH4 P2: ",     NULL,   _DTYPE_I32,      0x00,  " mg/L",    5,  0,  0x00,    _LCD_SCR_CALIB_NH4_PLS},
     {   __SET_CALIB_NH4_RESET_PLS,  "3.Reset",         NULL,   _DTYPE_STRING,   0x00,  NULL,       6,  0,  0x00,    _LCD_SCR_CALIB_NH4_PLS},
     
     {   __SET_CALIB_PH_TITLE,   "CALIB PH",        NULL,   _DTYPE_STRING,   0x00,  NULL,       0,  0,  0x00,    _LCD_SCR_CALIB_PH},

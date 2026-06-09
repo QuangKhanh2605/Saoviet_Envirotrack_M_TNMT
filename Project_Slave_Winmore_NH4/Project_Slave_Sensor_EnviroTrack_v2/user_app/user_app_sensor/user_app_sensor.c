@@ -284,6 +284,7 @@ static uint8_t fevent_handle_state_sensor(uint8_t event)
     fevent_enable(sEventAppSensor, event);
     return 1;
 }
+
 /*==================Function Handle Data=================*/
 void Handle_Data_Measure(uint8_t KindRecv)
 {
@@ -1744,6 +1745,56 @@ void AT_CMD_Get_Calib_Nh4 (sData *str_Receiv, uint16_t Pos)
     
     HAL_UART_Transmit(&uart_debug, aTemp, length, 1000);
 }
+
+void AT_CMD_Get_Calib_Plus (sData *str_Receiv, uint16_t Pos)
+{
+    uint8_t aTemp[300] = "Calib_Plus: ";   //11 ki tu dau tien
+    uint16_t length = 12;
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)"var_x: ",0 , 7);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.var_x_f*100), 0xFE);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" var_y: ",0 , 8);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.var_y_f*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)"\r\nZ_M: ",0 , 7);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PZero.Mode), 0x00);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" Z_X: ",0 , 6);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PZero.pt_x*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" Z_Y: ",0 , 6);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PZero.pt_y*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)"\r\n1_M: ",0 , 7);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PPls1.Mode), 0x00);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" 1_X: ",0 , 6);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PPls1.pt_x*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" 1_Y: ",0 , 6);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PPls1.pt_y*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)"\r\n2_M: ",0 , 7);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PPls2.Mode), 0x00);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" 2_X: ",0 , 6);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PPls2.pt_x*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" 2_Y: ",0 , 6);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PPls2.pt_y*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)"\r\nS_M: ",0 , 7);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PSlope.Mode), 0x00);
+
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" S_X: ",0 , 6);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PSlope.pt_x*100), 0xFE);
+    
+    Insert_String_To_String(aTemp, &length, (uint8_t*)" S_Y: ",0 , 6);
+    Convert_Point_Int_To_String_Scale (aTemp, &length, (int)(sCalibPlus.PSlope.pt_y*100), 0xFE);
+    
+    HAL_UART_Transmit(&uart_debug, aTemp, length, 1000);
+}
 #endif
 
 /*==================Handle Task and Init app=================*/
@@ -1765,6 +1816,7 @@ void       Init_AppSensor(void)
     CheckList_AT_CONFIG[_SET_BR_SLAVE].CallBack = AT_CMD_Set_BR_Slave;
     
     CheckList_AT_CONFIG[_GET_CALIB_NH4].CallBack = AT_CMD_Get_Calib_Nh4;
+    CheckList_AT_CONFIG[_GET_CALIB_PLUS].CallBack = AT_CMD_Get_Calib_Plus;
 #endif
     RS485SS_Stop_RX_Mode();
     RS485SS_Init_RX_Mode();

@@ -148,6 +148,7 @@ static uint8_t fevent_sensor_log_tsvh(uint8_t event)
 {
     if (sRTC.year < 20)
     {
+        Modem_Reset_MCU_Immediately();
     	return 0;
     }
     

@@ -8,7 +8,7 @@
 
 #define ID_DEFAULT_SS_NH4       2
 
-#define NUMBER_SAMPLING_SS      10
+#define NUMBER_SAMPLING_SS      5
 
 #define CURR_OUT_MIN            4
 #define CURR_OUT_MAX            20

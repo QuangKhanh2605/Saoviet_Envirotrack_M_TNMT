@@ -111,6 +111,7 @@ typedef enum
     _SET_BR_SLAVE,
     
     _GET_CALIB_NH4,
+    _GET_CALIB_PLUS,
     
     _END_AT_CMD,
 }Type_Command_AT_PC;

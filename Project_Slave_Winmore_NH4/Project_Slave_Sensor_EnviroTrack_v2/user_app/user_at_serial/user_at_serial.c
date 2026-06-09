@@ -109,6 +109,8 @@ struct_CheckList_AT CheckList_AT_CONFIG[] =
         
         {_GET_CALIB_NH4,        NULL,           {(uint8_t*)"at+calibnh4?",12}},
         
+        {_GET_CALIB_PLUS,       NULL,           {(uint8_t*)"at+calibplus?",13}},
+        
         {_END_AT_CMD,	        NULL,           {(uint8_t*)"at+end",6}},
 };
 

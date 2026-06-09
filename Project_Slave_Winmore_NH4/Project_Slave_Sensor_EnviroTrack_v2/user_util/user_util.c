@@ -10,7 +10,7 @@
 /*===================Struct, Var=========================*/
 uint32_t        RtCountSystick_u32;
 ST_TIME_FORMAT  sRTC;
-uint8_t         VLevelDebug = DBLEVEL_M;
+uint8_t         VLevelDebug = DBLEVEL_MESS;
 
 /*Func Pointer to Save Log to mem*/
 uint8_t (*pFunc_UTIL_Log_To_Mem) (uint8_t *pData, uint16_t Length);
