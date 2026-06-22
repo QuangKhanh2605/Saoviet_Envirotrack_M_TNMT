@@ -45,18 +45,31 @@ sOjectInformation   sLCDObject[] =
     
     {   __PARAM_CM44,       "Sensor.",            NULL,   _DTYPE_STRING,   0,      NULL,      0,  0,  0x00,    _LCD_SCREEN_CM44    },
 //    {   __SC1_ID_DCU,       NULL,               NULL,   _DTYPE_STRING,   0,      NULL,      2,  20, 0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_CLO_DU,       "CLO  : ",         NULL,   _DTYPE_I32,        0,   "  mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_PH_WATER,     "pH   : ",         NULL,   _DTYPE_I32,        0,   "    ",     2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_TURB,         "NTU  : ",         NULL,   _DTYPE_I32,        0,   "  NTU",    2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_EC,           "EC   : ",         NULL,   _DTYPE_I32,        0,   "  uS/cm",  2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_SALINITY,     "Salt : ",         NULL,   _DTYPE_I32,        0,   "  %",      2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_COD,          "COD  : ",         NULL,   _DTYPE_I32,        0,   "  mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_TSS,          "TSS  : ",         NULL,   _DTYPE_I32,        0,   "  mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_NH4,          "NH4_N: ",         NULL,   _DTYPE_I32,        0,   "  mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_DO,           "DO   : ",         NULL,   _DTYPE_I32,        0,   "  mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_TDS,          "TDS  : ",         NULL,   _DTYPE_I32,        0,   "  mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_NO3,          "NO3_N: ",         NULL,   _DTYPE_I32,        0,   "  mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
-    {   __SC1_TEMP,         "Temp : ",         NULL,   _DTYPE_I32,        0,   "  ‰C",     2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_CLO_DU,       "1CLO  : ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_PH_WATER,     "1pH   : ",         NULL,   _DTYPE_I32,        0,   "   ",     2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_TURB,         "1NTU  : ",         NULL,   _DTYPE_I32,        0,   " NTU",    2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_EC,           "1EC   : ",         NULL,   _DTYPE_I32,        0,   " uS/cm",  2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_SALINITY,     "1Salt : ",         NULL,   _DTYPE_I32,        0,   " %",      2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_COD,          "1COD  : ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_TSS,          "1TSS  : ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_NH4,          "1NH4_N: ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_DO,           "1DO   : ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_TDS,          "1TDS  : ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_NO3,          "1NO3_N: ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC1_TEMP,         "1Temp : ",         NULL,   _DTYPE_I32,        0,   " ‰C",     2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    
+    {   __SC2_CLO_DU,       "2CLO  : ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_PH_WATER,     "2pH   : ",         NULL,   _DTYPE_I32,        0,   "   ",     2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_TURB,         "2NTU  : ",         NULL,   _DTYPE_I32,        0,   " NTU",    2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_EC,           "2EC   : ",         NULL,   _DTYPE_I32,        0,   " uS/cm",  2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_SALINITY,     "2Salt : ",         NULL,   _DTYPE_I32,        0,   " %",      2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_COD,          "2COD  : ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_TSS,          "2TSS  : ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_NH4,          "2NH4_N: ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_DO,           "2DO   : ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_TDS,          "2TDS  : ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_NO3,          "2NO3_N: ",         NULL,   _DTYPE_I32,        0,   " mg/L",   2,  0,  0x00,    _LCD_SCREEN_CM44    },
+    {   __SC2_TEMP,         "2Temp : ",         NULL,   _DTYPE_I32,        0,   " ‰C",     2,  0,  0x00,    _LCD_SCREEN_CM44    },
     
     {   __PARAM_CM44_2,     "Sensor.",         NULL,   _DTYPE_STRING,   0,      NULL,      0,  0,  0x00,    _LCD_SCREEN_CM44_2  },
     {   __PARAM_CM44_3,     "Sensor.",         NULL,   _DTYPE_STRING,   0,      NULL,      0,  0,  0x00,    _LCD_SCREEN_CM44_3  },
@@ -114,30 +127,11 @@ sOjectInformation   sLCDObject[] =
     
     {   __SET_LEVEL_SETT,   "6.Level Set",      NULL,   _DTYPE_STRING,   0,      NULL,      2,  24, 0x00,    _LCD_SCR_SETTING_2 },
     {   __SET_RESTORE_DEV,  "7.Restore device", NULL,   _DTYPE_STRING,   0,      NULL,      3,  24, 0x00,    _LCD_SCR_SETTING_2 },
-    {   __SET_OPTION_SENSOR,"8.Option Sensor",  NULL,   _DTYPE_STRING,   0,      NULL,      4,  24, 0x00,    _LCD_SCR_SETTING_2 },
-    {   __SET_CHANGE_PASS,  "9.Change Password",NULL,   _DTYPE_STRING,   0,      NULL,      5,  24, 0x00,    _LCD_SCR_SETTING_2 },
-    {   __SET_MANUFACTOR,   "10.Information",   NULL,   _DTYPE_STRING,   0,      NULL,      6,  24, 0x00,    _LCD_SCR_SETTING_2 },
+    {   __SET_CHANGE_PASS,  "8.Change Password",NULL,   _DTYPE_STRING,   0,      NULL,      4,  24, 0x00,    _LCD_SCR_SETTING_2 },
+    {   __SET_MANUFACTOR,   "9.Information",    NULL,   _DTYPE_STRING,   0,      NULL,      5,  24, 0x00,    _LCD_SCR_SETTING_2 },
     
     {   __SET_REQ_2_1,      "*Tsend Data:",     NULL,   _DTYPE_STRING,   0,      NULL,      2,  24, 0x00,    _LCD_SCR_SET_FREQ },
     {   __SET_REQ_2_2,      NULL,               NULL,   _DTYPE_U32,      0,      " (min)",  3,  36, 0x02,    _LCD_SCR_SET_FREQ },
-    
-    {   __SET_OPTION_SS_TITLE,  "OPTION SENSOR",  NULL,   _DTYPE_STRING,   0x00, NULL,        2,  26,  0x00,    _LCD_SCR_SET_OPTION_SENSOR  },
-    {   __SET_OPTION_SS_PH,     "1. pH     : ",   NULL,   _DTYPE_U8,       0x00, NULL,        3,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR  },
-    {   __SET_OPTION_SS_CLO,    "2. Clo    : ",   NULL,   _DTYPE_U8,       0x00, NULL,        4,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR  },
-    {   __SET_OPTION_SS_EC,     "3. EC     : ",   NULL,   _DTYPE_U8,       0x00, NULL,        5,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR  },
-    {   __SET_OPTION_SS_TURB,   "4. TURB   : ",   NULL,   _DTYPE_U8,       0x00, NULL,        6,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR  },
-    {   __SET_OPTION_SS_COD,    "5. COD    : ",   NULL,   _DTYPE_U8,       0x00, NULL,        7,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR  },
-
-    {   __SET_OPTION_SS_TITLE_2,"OPTION SENSOR",  NULL,   _DTYPE_STRING,   0x00, NULL,        2,  26,  0x00,    _LCD_SCR_SET_OPTION_SENSOR_TAB_2 },
-    {   __SET_OPTION_SS_TSS,    "6. TSS    : ",   NULL,   _DTYPE_U8,       0x00, NULL,        3,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR_TAB_2 },
-    {   __SET_OPTION_SS_NH4,    "7. NH4_N  : ",   NULL,   _DTYPE_U8,       0x00, NULL,        4,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR_TAB_2 },
-    {   __SET_OPTION_SS_DO,     "8. DO     : ",   NULL,   _DTYPE_U8,       0x00, NULL,        5,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR_TAB_2 },
-    {   __SET_OPTION_SS_SALT,   "9. SALT   : ",   NULL,   _DTYPE_U8,       0x00, NULL,        6,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR_TAB_2 },
-    {   __SET_OPTION_SS_TDS,    "10.TDS    : ",   NULL,   _DTYPE_U8,       0x00, NULL,        7,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR_TAB_2 },
-    
-    {   __SET_OPTION_SS_TITLE_3,"OPTION SENSOR",  NULL,   _DTYPE_STRING,   0x00, NULL,        2,  26,  0x00,    _LCD_SCR_SET_OPTION_SENSOR_TAB_3 },
-    {   __SET_OPTION_SS_NO3,    "11.NO3_N  : ",   NULL,   _DTYPE_U8,       0x00, NULL,        3,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR_TAB_3 },
-    {   __SET_OPTION_SS_TEMP,   "12.Temp   : ",   NULL,   _DTYPE_U8,       0x00, NULL,        4,  14,  0x00,    _LCD_SCR_SET_OPTION_SENSOR_TAB_3 },
     
     {   __CHECK_STATE_SETTING,        NULL,             NULL,   _DTYPE_STRING,   0,      NULL,      1,  24, 0x00,     _LCD_SCR_CHECK_SETTING},
     
@@ -215,19 +209,31 @@ static char charNotDetectPress = '-';
 
 static const SENSOR_CFG SensorTable[] =
 {
-    { __SC1_CLO_DU,     &sModbMeasure[_SS_CLO].sUser,    &sDataSensorMeasure.sClo.State_u8,    &sAverageMeasure[_SS_CLO].State},
-    { __SC1_PH_WATER,   &sModbMeasure[_SS_PH].sUser,     &sDataSensorMeasure.spH.State_u8,     &sAverageMeasure[_SS_PH].State},
-    { __SC1_TURB,       &sModbMeasure[_SS_TURB].sUser,   &sDataSensorMeasure.sTurb.State_u8,   &sAverageMeasure[_SS_TURB].State},
-    { __SC1_EC,         &sModbMeasure[_SS_EC].sUser,     &sDataSensorMeasure.sEC.State_u8,     &sAverageMeasure[_SS_EC].State},
-    { __SC1_SALINITY,   &sModbMeasure[_SS_SALT].sUser,   &sDataSensorMeasure.sSal.State_u8,    &sAverageMeasure[_SS_SALT].State},
-    { __SC1_COD,        &sModbMeasure[_SS_COD].sUser,    &sDataSensorMeasure.sCOD.State_u8,    &sAverageMeasure[_SS_COD].State},
-    { __SC1_TSS,        &sModbMeasure[_SS_TSS].sUser,    &sDataSensorMeasure.sTSS.State_u8,    &sAverageMeasure[_SS_TSS].State},
-    { __SC1_NH4,        &sModbMeasure[_SS_NH4].sUser,    &sDataSensorMeasure.sNH4.State_u8,    &sAverageMeasure[_SS_NH4].State},
-    { __SC1_DO,         &sModbMeasure[_SS_DO].sUser,     &sDataSensorMeasure.sDO.State_u8,     &sAverageMeasure[_SS_DO].State},
-    { __SC1_TDS,        &sModbMeasure[_SS_TDS].sUser,    &sDataSensorMeasure.sTDS.State_u8,    &sAverageMeasure[_SS_TDS].State},
-    { __SC1_NO3,        &sModbMeasure[_SS_NO3].sUser,    &sDataSensorMeasure.sNO3.State_u8,    &sAverageMeasure[_SS_NO3].State},
+    { __SC1_CLO_DU,     &sMeasureMain[0][_SS_CLO].sUser,    &sMeasureMain[0][_SS_CLO].sVal.State_u8,    &sMeasureMain[0][_SS_CLO].State},
+    { __SC1_PH_WATER,   &sMeasureMain[0][_SS_PH].sUser,     &sMeasureMain[0][_SS_PH].sVal.State_u8,     &sMeasureMain[0][_SS_PH].State},
+    { __SC1_TURB,       &sMeasureMain[0][_SS_TURB].sUser,   &sMeasureMain[0][_SS_TURB].sVal.State_u8,   &sMeasureMain[0][_SS_TURB].State},
+    { __SC1_EC,         &sMeasureMain[0][_SS_EC].sUser,     &sMeasureMain[0][_SS_EC].sVal.State_u8,     &sMeasureMain[0][_SS_EC].State},
+    { __SC1_SALINITY,   &sMeasureMain[0][_SS_SALT].sUser,   &sMeasureMain[0][_SS_SALT].sVal.State_u8,   &sMeasureMain[0][_SS_SALT].State},
+    { __SC1_COD,        &sMeasureMain[0][_SS_COD].sUser,    &sMeasureMain[0][_SS_COD].sVal.State_u8,    &sMeasureMain[0][_SS_COD].State},
+    { __SC1_TSS,        &sMeasureMain[0][_SS_TSS].sUser,    &sMeasureMain[0][_SS_TSS].sVal.State_u8,    &sMeasureMain[0][_SS_TSS].State},
+    { __SC1_NH4,        &sMeasureMain[0][_SS_NH4].sUser,    &sMeasureMain[0][_SS_NH4].sVal.State_u8,    &sMeasureMain[0][_SS_NH4].State},
+    { __SC1_DO,         &sMeasureMain[0][_SS_DO].sUser,     &sMeasureMain[0][_SS_DO].sVal.State_u8,     &sMeasureMain[0][_SS_DO].State},
+    { __SC1_TDS,        &sMeasureMain[0][_SS_TDS].sUser,    &sMeasureMain[0][_SS_TDS].sVal.State_u8,    &sMeasureMain[0][_SS_TDS].State},
+    { __SC1_NO3,        &sMeasureMain[0][_SS_NO3].sUser,    &sMeasureMain[0][_SS_NO3].sVal.State_u8,    &sMeasureMain[0][_SS_NO3].State},
+    { __SC1_TEMP,       &sMeasureMain[0][_SS_TEMP].sUser,   &sMeasureMain[0][_SS_TEMP].sVal.State_u8,   &sMeasureMain[0][_SS_TEMP].State},
     
-    { __SC1_TEMP,       &sModbMeasure[_SS_TEMP].sUser,   &sDataSensorMeasure.sTemp.State_u8,   &sAverageMeasure[_SS_TEMP].State},
+    { __SC2_CLO_DU,     &sMeasureMain[1][_SS_CLO].sUser,    &sMeasureMain[1][_SS_CLO].sVal.State_u8,    &sMeasureMain[1][_SS_CLO].State},
+    { __SC2_PH_WATER,   &sMeasureMain[1][_SS_PH].sUser,     &sMeasureMain[1][_SS_PH].sVal.State_u8,     &sMeasureMain[1][_SS_PH].State},
+    { __SC2_TURB,       &sMeasureMain[1][_SS_TURB].sUser,   &sMeasureMain[1][_SS_TURB].sVal.State_u8,   &sMeasureMain[1][_SS_TURB].State},
+    { __SC2_EC,         &sMeasureMain[1][_SS_EC].sUser,     &sMeasureMain[1][_SS_EC].sVal.State_u8,     &sMeasureMain[1][_SS_EC].State},
+    { __SC2_SALINITY,   &sMeasureMain[1][_SS_SALT].sUser,   &sMeasureMain[1][_SS_SALT].sVal.State_u8,   &sMeasureMain[1][_SS_SALT].State},
+    { __SC2_COD,        &sMeasureMain[1][_SS_COD].sUser,    &sMeasureMain[1][_SS_COD].sVal.State_u8,    &sMeasureMain[1][_SS_COD].State},
+    { __SC2_TSS,        &sMeasureMain[1][_SS_TSS].sUser,    &sMeasureMain[1][_SS_TSS].sVal.State_u8,    &sMeasureMain[1][_SS_TSS].State},
+    { __SC2_NH4,        &sMeasureMain[1][_SS_NH4].sUser,    &sMeasureMain[1][_SS_NH4].sVal.State_u8,    &sMeasureMain[1][_SS_NH4].State},
+    { __SC2_DO,         &sMeasureMain[1][_SS_DO].sUser,     &sMeasureMain[1][_SS_DO].sVal.State_u8,     &sMeasureMain[1][_SS_DO].State},
+    { __SC2_TDS,        &sMeasureMain[1][_SS_TDS].sUser,    &sMeasureMain[1][_SS_TDS].sVal.State_u8,    &sMeasureMain[1][_SS_TDS].State},
+    { __SC2_NO3,        &sMeasureMain[1][_SS_NO3].sUser,    &sMeasureMain[1][_SS_NO3].sVal.State_u8,    &sMeasureMain[1][_SS_NO3].State},
+    { __SC2_TEMP,       &sMeasureMain[1][_SS_TEMP].sUser,   &sMeasureMain[1][_SS_TEMP].sVal.State_u8,   &sMeasureMain[1][_SS_TEMP].State},
 };
 
 static uint8_t IsSensorDisabled(uint8_t id)
@@ -269,46 +275,60 @@ void Display_Init (void)
     sLCDObject[__FREQ].pData    = &sModemInfor.sFrequence.DurOnline_u32;    
     
 //    sLCDObject[__SC1_ID_DCU].pData      = sModemInfor.sId.Data_a8;
-    sLCDObject[__SC1_CLO_DU].pData      = &sDataSensorMeasure.sClo.Value_i32 ; 
-    sLCDObject[__SC1_CLO_DU].Scale_u8   = sDataSensorMeasure.sClo.Scale_u8; 
-    sLCDObject[__SC1_PH_WATER].pData    = &sDataSensorMeasure.spH.Value_i32;    
-    sLCDObject[__SC1_PH_WATER].Scale_u8 = sDataSensorMeasure.spH.Scale_u8;    
-    sLCDObject[__SC1_TURB].pData         = &sDataSensorMeasure.sTurb.Value_i32;   
-    sLCDObject[__SC1_TURB].Scale_u8      = sDataSensorMeasure.sTurb.Scale_u8;   
-    sLCDObject[__SC1_SALINITY].pData    = &sDataSensorMeasure.sSal.Value_i32;    
-    sLCDObject[__SC1_SALINITY].Scale_u8 = sDataSensorMeasure.sSal.Scale_u8; 
-    sLCDObject[__SC1_TEMP].pData        = &sDataSensorMeasure.sTemp.Value_i32;    
-    sLCDObject[__SC1_TEMP].Scale_u8     = sDataSensorMeasure.sTemp.Scale_u8;   
-    sLCDObject[__SC1_EC].pData          = &sDataSensorMeasure.sEC.Value_i32;   
-    sLCDObject[__SC1_EC].Scale_u8       = sDataSensorMeasure.sEC.Scale_u8;    
+    //Channel 1
+    sLCDObject[__SC1_CLO_DU].pData      = &sMeasureMain[0][_SS_CLO].sVal.Value_i32; 
+    sLCDObject[__SC1_CLO_DU].Scale_u8   = sMeasureMain[0][_SS_CLO].sVal.Scale_u8;  
+    sLCDObject[__SC1_PH_WATER].pData    = &sMeasureMain[0][_SS_PH].sVal.Value_i32; 
+    sLCDObject[__SC1_PH_WATER].Scale_u8 = sMeasureMain[0][_SS_PH].sVal.Scale_u8;  
+    sLCDObject[__SC1_TURB].pData        = &sMeasureMain[0][_SS_TURB].sVal.Value_i32; 
+    sLCDObject[__SC1_TURB].Scale_u8     = sMeasureMain[0][_SS_TURB].sVal.Scale_u8;  
+    sLCDObject[__SC1_SALINITY].pData    = &sMeasureMain[0][_SS_SALT].sVal.Value_i32; 
+    sLCDObject[__SC1_SALINITY].Scale_u8 = sMeasureMain[0][_SS_SALT].sVal.Scale_u8;  
+    sLCDObject[__SC1_TEMP].pData        = &sMeasureMain[0][_SS_TEMP].sVal.Value_i32; 
+    sLCDObject[__SC1_TEMP].Scale_u8     = sMeasureMain[0][_SS_TEMP].sVal.Scale_u8;  
+    sLCDObject[__SC1_EC].pData          = &sMeasureMain[0][_SS_EC].sVal.Value_i32; 
+    sLCDObject[__SC1_EC].Scale_u8       = sMeasureMain[0][_SS_EC].sVal.Scale_u8;  
     
-    sLCDObject[__SC1_COD].pData         = &sDataSensorMeasure.sCOD.Value_i32;   
-    sLCDObject[__SC1_COD].Scale_u8      = sDataSensorMeasure.sCOD.Scale_u8;   
-    sLCDObject[__SC1_TSS].pData         = &sDataSensorMeasure.sTSS.Value_i32;   
-    sLCDObject[__SC1_TSS].Scale_u8      = sDataSensorMeasure.sTSS.Scale_u8; 
-    sLCDObject[__SC1_NH4].pData         = &sDataSensorMeasure.sNH4.Value_i32;   
-    sLCDObject[__SC1_NH4].Scale_u8      = sDataSensorMeasure.sNH4.Scale_u8; 
-    sLCDObject[__SC1_DO].pData          = &sDataSensorMeasure.sDO.Value_i32;   
-    sLCDObject[__SC1_DO].Scale_u8       = sDataSensorMeasure.sDO.Scale_u8; 
-    sLCDObject[__SC1_TDS].pData         = &sDataSensorMeasure.sTDS.Value_i32;   
-    sLCDObject[__SC1_TDS].Scale_u8      = sDataSensorMeasure.sTDS.Scale_u8; 
-    sLCDObject[__SC1_NO3].pData         = &sDataSensorMeasure.sNO3.Value_i32;   
-    sLCDObject[__SC1_NO3].Scale_u8      = sDataSensorMeasure.sNO3.Scale_u8; 
+    sLCDObject[__SC1_COD].pData         = &sMeasureMain[0][_SS_COD].sVal.Value_i32; 
+    sLCDObject[__SC1_COD].Scale_u8      = sMeasureMain[0][_SS_COD].sVal.Scale_u8;  
+    sLCDObject[__SC1_TSS].pData         = &sMeasureMain[0][_SS_TSS].sVal.Value_i32; 
+    sLCDObject[__SC1_TSS].Scale_u8      = sMeasureMain[0][_SS_TSS].sVal.Scale_u8;  
+    sLCDObject[__SC1_NH4].pData         = &sMeasureMain[0][_SS_NH4].sVal.Value_i32; 
+    sLCDObject[__SC1_NH4].Scale_u8      = sMeasureMain[0][_SS_NH4].sVal.Scale_u8;  
+    sLCDObject[__SC1_DO].pData          = &sMeasureMain[0][_SS_DO].sVal.Value_i32; 
+    sLCDObject[__SC1_DO].Scale_u8       = sMeasureMain[0][_SS_DO].sVal.Scale_u8;  
+    sLCDObject[__SC1_TDS].pData         = &sMeasureMain[0][_SS_TDS].sVal.Value_i32; 
+    sLCDObject[__SC1_TDS].Scale_u8      = sMeasureMain[0][_SS_TDS].sVal.Scale_u8;  
+    sLCDObject[__SC1_NO3].pData         = &sMeasureMain[0][_SS_NO3].sVal.Value_i32;  
+    sLCDObject[__SC1_NO3].Scale_u8      = sMeasureMain[0][_SS_NO3].sVal.Scale_u8;  
     
-    sLCDObject[__SET_OPTION_SS_PH].pData      = &sModbMeasure[_SS_PH].sUser;
-    sLCDObject[__SET_OPTION_SS_CLO].pData     = &sModbMeasure[_SS_CLO].sUser;
-    sLCDObject[__SET_OPTION_SS_EC].pData      = &sModbMeasure[_SS_EC].sUser;
-    sLCDObject[__SET_OPTION_SS_TURB].pData   = &sModbMeasure[_SS_TURB].sUser;
-    sLCDObject[__SET_OPTION_SS_COD].pData   = &sModbMeasure[_SS_COD].sUser;
+    //Channel 2
+    sLCDObject[__SC2_CLO_DU].pData      = &sMeasureMain[1][_SS_CLO].sVal.Value_i32; 
+    sLCDObject[__SC2_CLO_DU].Scale_u8   = sMeasureMain[1][_SS_CLO].sVal.Scale_u8;  
+    sLCDObject[__SC2_PH_WATER].pData    = &sMeasureMain[1][_SS_PH].sVal.Value_i32; 
+    sLCDObject[__SC2_PH_WATER].Scale_u8 = sMeasureMain[1][_SS_PH].sVal.Scale_u8;  
+    sLCDObject[__SC2_TURB].pData        = &sMeasureMain[1][_SS_TURB].sVal.Value_i32; 
+    sLCDObject[__SC2_TURB].Scale_u8     = sMeasureMain[1][_SS_TURB].sVal.Scale_u8;  
+    sLCDObject[__SC2_SALINITY].pData    = &sMeasureMain[1][_SS_SALT].sVal.Value_i32; 
+    sLCDObject[__SC2_SALINITY].Scale_u8 = sMeasureMain[1][_SS_SALT].sVal.Scale_u8;  
+    sLCDObject[__SC2_TEMP].pData        = &sMeasureMain[1][_SS_TEMP].sVal.Value_i32; 
+    sLCDObject[__SC2_TEMP].Scale_u8     = sMeasureMain[1][_SS_TEMP].sVal.Scale_u8;  
+    sLCDObject[__SC2_EC].pData          = &sMeasureMain[1][_SS_EC].sVal.Value_i32; 
+    sLCDObject[__SC2_EC].Scale_u8       = sMeasureMain[1][_SS_EC].sVal.Scale_u8;  
     
-    sLCDObject[__SET_OPTION_SS_TSS].pData    = &sModbMeasure[_SS_TSS].sUser;
-    sLCDObject[__SET_OPTION_SS_NH4].pData    = &sModbMeasure[_SS_NH4].sUser;
-    sLCDObject[__SET_OPTION_SS_DO].pData     = &sModbMeasure[_SS_DO].sUser;
-    sLCDObject[__SET_OPTION_SS_SALT].pData   = &sModbMeasure[_SS_SALT].sUser;
-    sLCDObject[__SET_OPTION_SS_TDS].pData    = &sModbMeasure[_SS_TDS].sUser;
-    sLCDObject[__SET_OPTION_SS_NO3].pData    = &sModbMeasure[_SS_NO3].sUser;
-    sLCDObject[__SET_OPTION_SS_TEMP].pData    = &sModbMeasure[_SS_TEMP].sUser;
-    
+    sLCDObject[__SC2_COD].pData         = &sMeasureMain[1][_SS_COD].sVal.Value_i32; 
+    sLCDObject[__SC2_COD].Scale_u8      = sMeasureMain[1][_SS_COD].sVal.Scale_u8;  
+    sLCDObject[__SC2_TSS].pData         = &sMeasureMain[1][_SS_TSS].sVal.Value_i32; 
+    sLCDObject[__SC2_TSS].Scale_u8      = sMeasureMain[1][_SS_TSS].sVal.Scale_u8;  
+    sLCDObject[__SC2_NH4].pData         = &sMeasureMain[1][_SS_NH4].sVal.Value_i32; 
+    sLCDObject[__SC2_NH4].Scale_u8      = sMeasureMain[1][_SS_NH4].sVal.Scale_u8;  
+    sLCDObject[__SC2_DO].pData          = &sMeasureMain[1][_SS_DO].sVal.Value_i32; 
+    sLCDObject[__SC2_DO].Scale_u8       = sMeasureMain[1][_SS_DO].sVal.Scale_u8;  
+    sLCDObject[__SC2_TDS].pData         = &sMeasureMain[1][_SS_TDS].sVal.Value_i32; 
+    sLCDObject[__SC2_TDS].Scale_u8      = sMeasureMain[1][_SS_TDS].sVal.Scale_u8;  
+    sLCDObject[__SC2_NO3].pData         = &sMeasureMain[1][_SS_NO3].sVal.Value_i32;  
+    sLCDObject[__SC2_NO3].Scale_u8      = sMeasureMain[1][_SS_NO3].sVal.Scale_u8;  
+
     sLCDObject[__PULSE_1].pData =  &sPulse[0].Total_lf;
     sLCDObject[__PULSE_1].Scale_u8 = sPulse[0].FactorDec_u8;
     sLCDObject[__PRESS_1].pData =  &sWmVar.aPRESSURE[0].Val_i32;
@@ -1270,25 +1290,38 @@ void Display_Update_ScrSensor(uint8_t screen)
 
 void Update_ParaDisplay(void)
 {
-//    sParaDisplay.pH_Offset_i32 = (int32_t)(sModbMeasure[_SS_PH].Offset_f * 100);
-//    sParaDisplay.Clo_Offset_i32 = (int32_t)(sModbMeasure[_SS_CLO].Offset_f * 100);
-//    sParaDisplay.Turb_Offset_i32 = (int32_t)(sModbMeasure[_SS_TURB].Offset_f * 100);
-//    sParaDisplay.EC_Offset_i32 = (int32_t)(sModbMeasure[_SS_EC].Offset_f * 100);
-//    sParaDisplay.Salinity_Offset_i32 = (int32_t)(sModbMeasure[_SS_SALT].Offset_f * 100);
+//    sParaDisplay.pH_Offset_i32 = (int32_t)(sMeasureMain[0][_SS_PH].Offset_f * 100);
+//    sParaDisplay.Clo_Offset_i32 = (int32_t)(sMeasureMain[0][_SS_CLO].Offset_f * 100);
+//    sParaDisplay.Turb_Offset_i32 = (int32_t)(sMeasureMain[0][_SS_TURB].Offset_f * 100);
+//    sParaDisplay.EC_Offset_i32 = (int32_t)(sMeasureMain[0][_SS_EC].Offset_f * 100);
+//    sParaDisplay.Salinity_Offset_i32 = (int32_t)(sMeasureMain[0][_SS_SALT].Offset_f * 100);
 //    sParaDisplay.Temp_Offset_i32 = (int32_t)(sOffsetMeasure.Temp_f * 100);
     
-    sLCDObject[__SC1_CLO_DU].Scale_u8   = sDataSensorMeasure.sClo.Scale_u8;   
-    sLCDObject[__SC1_PH_WATER].Scale_u8 = sDataSensorMeasure.spH.Scale_u8;    
-    sLCDObject[__SC1_TURB].Scale_u8      = sDataSensorMeasure.sTurb.Scale_u8;    
-    sLCDObject[__SC1_SALINITY].Scale_u8 = sDataSensorMeasure.sSal.Scale_u8;  
-    sLCDObject[__SC1_TEMP].Scale_u8     = sDataSensorMeasure.sTemp.Scale_u8;    
-    sLCDObject[__SC1_EC].Scale_u8       = sDataSensorMeasure.sEC.Scale_u8; 
-    sLCDObject[__SC1_COD].Scale_u8     = sDataSensorMeasure.sCOD.Scale_u8;  
-    sLCDObject[__SC1_TSS].Scale_u8     = sDataSensorMeasure.sTSS.Scale_u8;  
-    sLCDObject[__SC1_NH4].Scale_u8     = sDataSensorMeasure.sNH4.Scale_u8;  
-    sLCDObject[__SC1_DO].Scale_u8      = sDataSensorMeasure.sDO.Scale_u8;  
-    sLCDObject[__SC1_TDS].Scale_u8      = sDataSensorMeasure.sTDS.Scale_u8;
-    sLCDObject[__SC1_NO3].Scale_u8      = sDataSensorMeasure.sNO3.Scale_u8;
+    sLCDObject[__SC1_CLO_DU].Scale_u8   = sMeasureMain[0][_SS_CLO].sVal.Scale_u8; 
+    sLCDObject[__SC1_PH_WATER].Scale_u8 = sMeasureMain[0][_SS_PH].sVal.Scale_u8;  
+    sLCDObject[__SC1_TURB].Scale_u8      = sMeasureMain[0][_SS_TURB].sVal.Scale_u8;  
+    sLCDObject[__SC1_SALINITY].Scale_u8 = sMeasureMain[0][_SS_SALT].sVal.Scale_u8;  
+    sLCDObject[__SC1_TEMP].Scale_u8     = sMeasureMain[0][_SS_TEMP].sVal.Scale_u8;  
+    sLCDObject[__SC1_EC].Scale_u8       = sMeasureMain[0][_SS_EC].sVal.Scale_u8;  
+    sLCDObject[__SC1_COD].Scale_u8     = sMeasureMain[0][_SS_COD].sVal.Scale_u8;  
+    sLCDObject[__SC1_TSS].Scale_u8     = sMeasureMain[0][_SS_TSS].sVal.Scale_u8;  
+    sLCDObject[__SC1_NH4].Scale_u8     = sMeasureMain[0][_SS_NH4].sVal.Scale_u8;  
+    sLCDObject[__SC1_DO].Scale_u8      = sMeasureMain[0][_SS_DO].sVal.Scale_u8;  
+    sLCDObject[__SC1_TDS].Scale_u8      = sMeasureMain[0][_SS_TDS].sVal.Scale_u8;  
+    sLCDObject[__SC1_NO3].Scale_u8      = sMeasureMain[0][_SS_NO3].sVal.Scale_u8;  
+    
+    sLCDObject[__SC2_CLO_DU].Scale_u8   = sMeasureMain[1][_SS_CLO].sVal.Scale_u8; 
+    sLCDObject[__SC2_PH_WATER].Scale_u8 = sMeasureMain[1][_SS_PH].sVal.Scale_u8;  
+    sLCDObject[__SC2_TURB].Scale_u8      = sMeasureMain[1][_SS_TURB].sVal.Scale_u8;  
+    sLCDObject[__SC2_SALINITY].Scale_u8 = sMeasureMain[1][_SS_SALT].sVal.Scale_u8;  
+    sLCDObject[__SC2_TEMP].Scale_u8     = sMeasureMain[1][_SS_TEMP].sVal.Scale_u8;  
+    sLCDObject[__SC2_EC].Scale_u8       = sMeasureMain[1][_SS_EC].sVal.Scale_u8;  
+    sLCDObject[__SC2_COD].Scale_u8     = sMeasureMain[1][_SS_COD].sVal.Scale_u8;  
+    sLCDObject[__SC2_TSS].Scale_u8     = sMeasureMain[1][_SS_TSS].sVal.Scale_u8;  
+    sLCDObject[__SC2_NH4].Scale_u8     = sMeasureMain[1][_SS_NH4].sVal.Scale_u8;  
+    sLCDObject[__SC2_DO].Scale_u8      = sMeasureMain[1][_SS_DO].sVal.Scale_u8;  
+    sLCDObject[__SC2_TDS].Scale_u8      = sMeasureMain[1][_SS_TDS].sVal.Scale_u8;  
+    sLCDObject[__SC2_NO3].Scale_u8      = sMeasureMain[1][_SS_NO3].sVal.Scale_u8;  
 }
 
 /*

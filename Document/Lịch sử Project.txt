@@ -3,3 +3,5 @@ Project_Master_TNMT_Ver_1_2 (Code đọc cảm biến Sao Việt gửi về TNMT
 Project_Master_TNMT_Ver_2_1 (Code đọc cảm biến Sao Việt gửi về TNMT qua Ethernet có modbus TCP Gửi nhiều bản tin cùng lúc nếu mất kết nối)
 
 Project_Master_TNMT_Ver_1_1 ModTCP (Code đọc cảm biến Âu Châu modbus TCP gửi về TNMT qua sim)
+
+Project_Master_TNMT_Ver_2_2 (Ver cuối Datalogger chưa sửa)

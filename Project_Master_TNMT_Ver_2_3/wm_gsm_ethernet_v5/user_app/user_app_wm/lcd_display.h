@@ -72,6 +72,19 @@ typedef enum
     __SC1_NO3,
     __SC1_TEMP,
     
+    __SC2_CLO_DU,
+    __SC2_PH_WATER,
+    __SC2_TURB,
+    __SC2_EC,
+    __SC2_SALINITY,
+    __SC2_COD,
+    __SC2_TSS,
+    __SC2_NH4,
+    __SC2_DO,
+    __SC2_TDS,
+    __SC2_NO3,
+    __SC2_TEMP,
+    
     __PARAM_CM44_2,
     __PARAM_CM44_3,
     
@@ -127,30 +140,11 @@ typedef enum
     
     __SET_LEVEL_SETT,
     __SET_RESTORE_DEV,
-    __SET_OPTION_SENSOR,
     __SET_CHANGE_PASS,
     __SET_MANUFACTOR,
         
     __SET_REQ_2_1,
     __SET_REQ_2_2,
-    
-    __SET_OPTION_SS_TITLE,
-    __SET_OPTION_SS_PH,
-    __SET_OPTION_SS_CLO,
-    __SET_OPTION_SS_EC,
-    __SET_OPTION_SS_TURB,
-    __SET_OPTION_SS_COD,
-    
-    __SET_OPTION_SS_TITLE_2,
-    __SET_OPTION_SS_TSS,
-    __SET_OPTION_SS_NH4,
-    __SET_OPTION_SS_DO,
-    __SET_OPTION_SS_SALT,
-    __SET_OPTION_SS_TDS,
-    
-    __SET_OPTION_SS_TITLE_3,
-    __SET_OPTION_SS_NO3,
-    __SET_OPTION_SS_TEMP,
     
     __CHECK_STATE_SETTING,
     

@@ -702,8 +702,8 @@ void _sSETTING_PARAM_5(sData *strRecv,int16_t Pos)
 
 void _rUPDATE_TIME_SERVER(sData *str_Receiv, int16_t Pos) 
 {
-    if (sMessage.pSER_Set_Time != NULL)
-        sMessage.pSER_Set_Time(str_Receiv, Pos + sMessRecv[UPDATE_TIME_SERVER].sKind.Length_u16);
+//    if (sMessage.pSER_Set_Time != NULL)
+//        sMessage.pSER_Set_Time(str_Receiv, Pos + sMessRecv[UPDATE_TIME_SERVER].sKind.Length_u16);
 }
 
 void _rRESET_DATA(sData *str_Receiv,int16_t Pos)

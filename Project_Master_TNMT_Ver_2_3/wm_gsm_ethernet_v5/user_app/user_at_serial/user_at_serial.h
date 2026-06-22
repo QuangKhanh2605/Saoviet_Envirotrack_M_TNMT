@@ -141,9 +141,6 @@ typedef enum
     _GET_USER_SENSOR,
     _SET_USER_SENSOR,
     
-    _GET_OFFSET_SENSOR,
-    _SET_OFFSET_SENSOR,
-    
     _GET_SD_CARD_FREE,
     
     _GET_MOD_TCP_MAIN,

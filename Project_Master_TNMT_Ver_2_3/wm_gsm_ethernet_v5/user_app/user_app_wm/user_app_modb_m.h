@@ -17,7 +17,7 @@
 #define ID_DEFAULT_SS_EC        3
 #define ID_DEFAULT_SS_TURB      4
 
-#define TIMEOUT_MODBUS_RTU      300
+#define TIMEOUT_MODBUS_RTU      200
 #define TIMEOUT_MODBUS_TCP      900
 
 #define ID_SS_TEMP      0
@@ -39,7 +39,7 @@
 #define DEFAULT_SCALE_EC            0x00
 
 #ifdef MODBUS_SENSOR_SAOVIET
-    #define MAX_COUNT_DISCONNECT    3
+    #define MAX_COUNT_DISCONNECT    9
 #else
     #define MAX_COUNT_DISCONNECT    8
 #endif
@@ -96,7 +96,7 @@ typedef enum
 typedef enum
 {
 #ifdef MODBUS_SENSOR_SAOVIET
-    _E_PH_VALUE,
+    _E_PH_VALUE=0,
     _E_PH_S_SENSOR,
     _E_PH_S_VALUE,
     
@@ -146,47 +146,28 @@ typedef enum
     _E_TEMP_S_SENSOR,
     _E_TEMP_S_VALUE,
 #else
-    _E_PH_VALUE,
     _E_PH_S_SENSOR,
+    _E_TEMP_S_SENSOR,
     _E_PH_S_VALUE,
-    
-    _E_CLO_VALUE,
-    _E_CLO_TEMP,
-    
-    _E_EC_VALUE,
-    _E_EC_TEMP,
-    
-    _E_TURB_VALUE,
-    _E_TURB_TEMP,
-    
-    _E_COD_VALUE,
-    _E_COD_S_SENSOR,
-    _E_COD_S_VALUE,
-    
-    _E_TSS_VALUE,
-    _E_TSS_S_SENSOR,
-    _E_TSS_S_VALUE,
-    
-    _E_NH4_VALUE,
-    _E_NH4_S_SENSOR,
-    _E_NH4_S_VALUE,
-    
-    _E_DO_VALUE,
+    _E_TEMP_S_VALUE,
+    _E_PH_VALUE,
+    _E_TEMP_VALUE,
+
     _E_DO_S_SENSOR,
     _E_DO_S_VALUE,
+    _E_DO_VALUE,
     
-    _E_SALT_VALUE,
-    _E_SALT_TEMP,
+    _E_NH4_S_SENSOR,
+    _E_NH4_S_VALUE,
+    _E_NH4_VALUE,
     
-    _E_TDS_VALUE,
-    _E_TDS_TEMP,
+    _E_TSS_S_SENSOR,
+    _E_TSS_S_VALUE,
+    _E_TSS_VALUE,
     
-    _E_NO3_VALUE,
-    _E_NO3_TEMP,
-    
-    _E_TEMP_VALUE,
-    _E_TEMP_S_SENSOR,
-    _E_TEMP_S_VALUE,
+    _E_COD_S_SENSOR,
+    _E_COD_S_VALUE,
+    _E_COD_VALUE,
 #endif
     _E_MODB_SS_END,
 }eKindStateModbReg;
@@ -213,26 +194,10 @@ typedef enum
 
 typedef struct
 {   
-    uint8_t State_u8;
+    uint8_t State_u8;   //Mat ket noi hay khong
     uint8_t Scale_u8;
     int32_t Value_i32;
 }Struct_SS_Value;
-
-typedef struct
-{
-    Struct_SS_Value sClo;
-    Struct_SS_Value spH;
-    Struct_SS_Value sTurb;
-    Struct_SS_Value sEC;
-    Struct_SS_Value sSal;
-    Struct_SS_Value sCOD;
-    Struct_SS_Value sTSS;
-    Struct_SS_Value sNH4;
-    Struct_SS_Value sDO;
-    Struct_SS_Value sTemp;
-    Struct_SS_Value sTDS;
-    Struct_SS_Value sNO3;
-}Struct_Data_Sensor_Measure;
 
 typedef struct 
 {
@@ -245,6 +210,7 @@ typedef struct
 typedef struct
 {
     uint8_t  eKind;                  //Name Register
+    uint8_t  Block;
     uint8_t  *State;                 //Trang thai su dung (On/Off)
     uint8_t  cmdRW;                  //0: Read, 1: Write
     uint8_t  idDev;                  //ID cua thiet bi
@@ -263,6 +229,9 @@ typedef struct
 {
     uint8_t eKind;
     uint8_t ID_Modbus;              // ID su dung trong giao thuc Modbus
+    char    Name[10];
+    char    Unit[10];
+    
     uint8_t sUser;                  //Trang thai su dung hay khong
     uint8_t nConnect_u8;            //Dem so lan connect
     uint8_t sConnect_u8;            //Trang thai connect
@@ -285,16 +254,27 @@ typedef struct
 typedef struct
 {
     uint8_t Flag;
-    uint8_t aData[20];
+    uint8_t aData[50];
     uint8_t length;
 }Struct_TransModbusTCP;
 
+typedef struct
+{
+    uint8_t iHandle; 
+    uint8_t iStartBlock;
+    uint8_t iEndBlock;
+    uint8_t iReg;
+    uint16_t iAddr;
+    
+    uint16_t Transaction_TCP;
+}Struct_CtrlModbM;
+
 extern sEvent_struct        sEventAppModb[];
 
-extern Struct_Data_Sensor_Measure  sDataSensorMeasure;
 extern Struct_Hanlde_Modb          sHandleModb;
 extern sData                       sDataRecvTCP;
 extern Struct_TransModbusTCP       sTransModTCP;
+extern Struct_CtrlModbM            sCtrlModbM;
 /*====================Function Handle====================*/
 
 uint8_t    AppModb_Task(void);

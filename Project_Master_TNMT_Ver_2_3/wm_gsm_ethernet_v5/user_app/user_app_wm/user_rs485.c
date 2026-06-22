@@ -407,6 +407,7 @@ uint8_t RS485_Modbus_Check_Format (uint8_t SlaveID, uint16_t nRegis,
     switch (ModFunc)
     {
         case FUN_READ_BYTE:
+        case FUN_READ_REGIS:
             ModLength = *(pSource->Data_a8 + Pos++);
             //check frame
             if ( (ModSlave != SlaveID) || (ModLength != (nRegis * 2)))
@@ -422,4 +423,29 @@ uint8_t RS485_Modbus_Check_Format (uint8_t SlaveID, uint16_t nRegis,
     
     return true;
 }
+
+void RS485_1_Trans(uint8_t *Data, uint16_t Length)
+{
+    HAL_GPIO_WritePin(DE_GPIO_PORT, DE_GPIO_PIN, GPIO_PIN_SET);
+    HAL_Delay(10);
+    // Send
+    RS485_Init_Data();
+    HAL_UART_Transmit(&uart_rs485, Data, Length, 1000); 
+    
+    //Dua DE ve Receive
+    HAL_GPIO_WritePin(DE_GPIO_PORT, DE_GPIO_PIN, GPIO_PIN_RESET);
+}
+
+void RS485_2_Trans(uint8_t *Data, uint16_t Length)
+{
+    HAL_GPIO_WritePin(DE_2_GPIO_PORT, DE_2_GPIO_PIN, GPIO_PIN_SET);
+    HAL_Delay(10);
+    // Send
+    RS485_2_Init_Data();
+    HAL_UART_Transmit(&uart_rs485_2, Data, Length, 1000); 
+    
+    //Dua DE ve Receive
+    HAL_GPIO_WritePin(DE_2_GPIO_PORT, DE_2_GPIO_PIN, GPIO_PIN_RESET);
+}
+
 

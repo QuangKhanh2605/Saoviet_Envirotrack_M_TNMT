@@ -1079,8 +1079,10 @@ void Modem_SER_Get_FTP_Main (sData *strRecei, uint16_t Pos)
 {
     char aData[128] = {0};
     
-    sprintf((char*) aData, "%s:%s   %s\r\n", sModemInfor.sServerTn.sServer.aIP,
+    sprintf((char*) aData, "%s,%s,%s,%s,%s\r\n", sModemInfor.sServerTn.sServer.aIP,
                                         sModemInfor.sServerTn.sServer.aPORT,
+                                        sModemInfor.sServerTn.sServer.aUSER,
+                                        sModemInfor.sServerTn.sServer.aPASS,
                                         sModemInfor.sServerTn.aPATH);  
     
     Modem_Respond_Str(PortConfig, aData, 0);
@@ -1173,6 +1175,25 @@ void Modem_Packet_MePDV (sData *pData)
 
     SV_Protocol_Packet_Data(pData->Data_a8, &pData->Length_u16, OBIS_SER_ADD, aTEMP, strlen((char *) aTEMP), 0xAA);
 
+#endif
+    
+#ifdef USING_APP_SENSOR
+    uint8_t NumChannel = 0;
+    for(uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
+    {
+      for(uint8_t i = 0; i < _END_SENSOR; i++)
+      {
+        if(sMeasureMain[j][i].sUser == 1)
+        {
+            NumChannel++;
+            break;
+        }
+      }
+    }
+    
+    *(pData->Data_a8 + pData->Length_u16++) = OBIS_NUM_CHANNEL_WM;  
+    *(pData->Data_a8 + pData->Length_u16++) = 0x01;   
+    *(pData->Data_a8 + pData->Length_u16++) = NumChannel;  
 #endif
 //    //Firmware version
 //    SV_Protocol_Packet_Data(pData->Data_a8, &pData->Length_u16, OBIS_FW_VERSION, sFirmVersion, strlen(sFirmVersion), 0xAA);

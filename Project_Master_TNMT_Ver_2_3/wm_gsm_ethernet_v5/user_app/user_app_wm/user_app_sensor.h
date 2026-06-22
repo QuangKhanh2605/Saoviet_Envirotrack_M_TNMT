@@ -11,6 +11,8 @@
 
 #define SCALE_SENSOR_DEFAULT        0xFE
 
+#define MAX_CHANNEL_SS               2
+
 
 #include "event_driven.h"
 #include "user_util.h"
@@ -91,16 +93,6 @@ typedef struct
 
 typedef struct
 {
-    uint8_t e_Name;
-    Struct_Modb_Measure   *sMeasureSensor;
-    Struct_SS_Value         *sMeasureHanlde;
-    uint8_t Scale_1;        //Scale 1
-    float   ParaScale;      // Measure>=ParaScale-> Scale_1, Measure<ParaScale-> Scale_2
-    uint8_t Scale_2;        //Scale 2
-}Struct_MeasureHanle;
-
-typedef struct
-{
     uint8_t Year_Before;        //Check Year log du lieu de xoa neu du lieu qua cu
     uint8_t Month_Before;       //Check Month log du lieu de xoa neu du lieu qua cu
     uint8_t Date_Before;        //Check Date log du lieu de xoa neu du lieu qua cu
@@ -112,24 +104,35 @@ typedef struct
 
 typedef struct
 {
-    uint8_t State;              //Trang thai du lieu (dang do/hieu chuan/error)
-    float Value_f;              //Gia tri trung binh
-}Struct_AverageMeasure;
-
-typedef struct
-{
     uint8_t eKind;
+    uint8_t Obis;
+    uint8_t ID_Modbus;              // ID su dung trong giao thuc Modbus
+
     char    Name[10];
     char    Unit[10];
-}Struct_NameUnitParam;
+    
+    uint8_t Scale_1;                //Scale 1
+    float   ParaScale;              // Measure>=ParaScale-> Scale_1, Measure<ParaScale-> Scale_2
+    uint8_t Scale_2;                //Scale 2
+    
+    uint8_t sUser;                  //Trang thai su dung hay khong
+    
+    Struct_SS_Value sVal;           //Gia tri hien thi
+    uint8_t State;                  //Trang thai du lieu (dang do/hieu chuan/error)
+    float   Value_f;                //Gia tri do cam bien
+    
+    uint8_t nConnect_u8;            //Dem so lan connect
+    uint8_t sConnect_u8;            //Trang thai connect
+    
+    uint8_t stateSensor;            //Trang thai cam bien
+    uint8_t stateValue;             //Trang thai do 
+}Struct_MeasureMain;
 
 extern sEvent_struct                sEventAppSensor[];
-extern Struct_Modb_Measure         sModbMeasure[];
 
 extern Struct_AverageOneHour       sAverageOneHour[];
-extern Struct_AverageMeasure       sAverageMeasure[];
 extern uint8_t                     StateCalibSensor;
-extern Struct_AverageMeasure       sAverageMeasure[_END_SENSOR];
+extern Struct_MeasureMain          sMeasureMain[MAX_CHANNEL_SS][_END_SENSOR];
 /*=============== Function handle ================*/
 
 uint8_t     AppSensor_Task(void);
@@ -142,7 +145,7 @@ void Init_TimeWarningSensor(void);
 void Save_OffsetMeasure(uint8_t KindOffset, float Var_Offset_f);
 void Init_OffsetMeasure(void);
 
-void Save_UserSensor(uint8_t KindSensor, uint8_t State);
+void Save_UserSensor(uint8_t channel, uint8_t KindSensor, uint8_t State);
 void Init_UserSensor(void);
 
 uint8_t AppSensor_Packet_Param (char *pdata, uint8_t chann);
@@ -157,7 +160,7 @@ uint32_t ConvertToHours(uint8_t year, uint8_t month, uint8_t day, uint8_t hour);
 void    AppSensor_Log_Data_TSVH (void);
 void    Sensor_Packet_Data(uint8_t *pTarget, uint16_t *LenTarget, uint8_t Obis,
                              void *pData, uint8_t Scale);
-uint8_t SensorRS485_Packet_TSVH (uint8_t *pData);
+uint8_t SensorRS485_Packet_TSVH (sData *pData, uint8_t channel);
 void AppComm_Sub_Packet_Integer (uint8_t *pTarget, uint16_t *LenTarget, void *Data, uint8_t LenData);
 
 uint8_t AppSS_iPending (void);

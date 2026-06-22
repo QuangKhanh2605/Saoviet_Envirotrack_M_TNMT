@@ -94,9 +94,14 @@
     - Using lib app water meter
     #define INC_APP_WM_FEATURE
 */
-#define INC_APP_MODB
-#ifdef INC_APP_MODB
+#define INC_APP_MODB_M
+#ifdef INC_APP_MODB_M
     #include "user_app_modb_m.h"
+#endif 
+
+#define INC_APP_MODB_S
+#ifdef INC_APP_MODB_S
+    #include "user_app_modb_s.h"
 #endif 
 
 /* 

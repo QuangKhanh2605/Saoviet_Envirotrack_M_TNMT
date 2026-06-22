@@ -39,6 +39,8 @@ static uint8_t _Cb_Recv_Data (uint8_t event);
 static uint8_t _Cb_Send_Mod_TCP (uint8_t event);
 static uint8_t _Cb_Recv_Mod_TCP (uint8_t event);
 
+static uint8_t _Cb_Slave_Mod_TCP (uint8_t event);
+
 static uint8_t _Cb_Get_Time_NTP (uint8_t event);
 
 static uint8_t _Cb_Control_Sim (uint8_t event);
@@ -94,9 +96,9 @@ uint8_t aRECEIVE_MODBUS[DATA_BUF_SIZE];
 
 /* Network Configuration default */
 wiz_NetInfo gWIZNETINFO = { .mac = {0x00,0x08,0xdc,0x12,0x34,0x56},
-							.ip = {192,168,177,120},
+							.ip = {192,168,0,100},
 							.sn = {255, 255, 255, 0},
-							.gw = {192, 168, 177, 1},
+							.gw = {192, 168, 0, 1},
 							.dns = {8, 8, 8, 8},
 							
 							.lla={0xfe,0x80,0x00,0x00,
@@ -116,7 +118,7 @@ wiz_NetInfo gWIZNETINFO = { .mac = {0x00,0x08,0xdc,0x12,0x34,0x56},
 									0x02,0x00, 0x87,0xff,
 									0xfe,0x08, 0x4c,0x81},   ///< Gateway IPv6 Address
 
-                            .ipmode = NETINFO_DHCP_V4,
+                            .ipmode = NETINFO_STATIC_V4,
 };
 
 uint8_t DHCPipver = AS_IPV4;
@@ -157,8 +159,10 @@ sEvent_struct sEventAppEth[] =
     { _EVENT_ETH_SEND_MOD_TCP,      0, 0, 100,          _Cb_Send_Mod_TCP},
     { _EVENT_ETH_RECV_MOD_TCP,      0, 0, 500,          _Cb_Recv_Mod_TCP},
     
-    { _EVENT_ETH_GET_TIME_NTP,      0, 0, 10,           _Cb_Get_Time_NTP},
+    { _EVENT_ETH_SLAVE_MOD_TCP,     0, 0, 10,           _Cb_Slave_Mod_TCP},
     
+    { _EVENT_ETH_GET_TIME_NTP,      0, 0, 10,           _Cb_Get_Time_NTP},
+
     { _EVENT_ETH_INTn_PROCESS, 		0, 0, 1, 			_Cb_INTn_Process },
     
     { _EVENT_ETH_POWER_OFF, 		0, 0, 0, 			_Cb_Power_Off }, 
@@ -529,7 +533,9 @@ static uint8_t _Cb_Running_DHCP (uint8_t event)
     sAppEthVar.LandMarkRun_u32 = RtCountSystick_u32;
     //Tat event duoi
     fevent_disable(sEventAppEth, _EVENT_ETH_SOCK_CTRL);
+    fevent_disable(sEventAppEth, _EVENT_ETH_SLAVE_MOD_TCP);
     fevent_disable(sEventAppEth, _EVENT_ETH_GET_TIME_NTP);
+    
 	switch (step)
 	{
 		case 0:
@@ -606,6 +612,7 @@ static uint8_t _Cb_Running_DHCP (uint8_t event)
             wizchip_network_infor();
             //Active event Open Socket
             fevent_active(sEventAppEth, _EVENT_ETH_SOCK_CTRL);
+            fevent_active(sEventAppEth, _EVENT_ETH_SLAVE_MOD_TCP);
             fevent_active(sEventAppEth, _EVENT_ETH_GET_TIME_NTP);
             if(sAppEthVar.rTimeNTP_u8 == PENDING)
                 sAppEthVar.rTimeNTP_u8 = false;
@@ -1178,6 +1185,90 @@ static uint8_t _Cb_Recv_Mod_TCP (uint8_t event)
     return 1;
 }
 
+
+static uint8_t _Cb_Slave_Mod_TCP (uint8_t event)
+{
+    uint16_t len;
+    uint8_t ip[4] = {0};
+    char aTEMP[200] = {0};
+    
+    uint8_t mb_rx_buf[50];
+    uint8_t mb_tx_buf[50];
+    sData sData_TCP_Recv = {mb_rx_buf, 0};
+    sData sData_TCP_Trans = {mb_tx_buf, 0};
+    static uint32_t LandMarkSock_u32 = 0;    
+
+    switch(getSn_SR(SOCKET_MODTCP))
+    {
+        case SOCK_CLOSED:
+            socket(SOCKET_MODTCP, Sn_MR_TCP, 502, 0);
+            break;
+
+        case SOCK_INIT:
+            listen(SOCKET_MODTCP);
+            break;
+
+        case SOCK_LISTEN:
+            break;
+
+        case SOCK_ESTABLISHED:   
+            if(getSn_IR(SOCKET_MODTCP) & Sn_IR_CON)
+            {
+                setSn_IRCLR(SOCKET_MODTCP, Sn_IR_CON);
+                uint8_t keepalive = 12; // 60s
+                setsockopt(SOCKET_MODTCP, SO_KEEPALIVEAUTO, &keepalive);            //Keepalive 60s;
+            }
+            
+            len = getSn_RX_RSR(SOCKET_MODTCP);
+
+            if(len > 0)
+            {
+                if(len > sizeof(mb_rx_buf))
+                    len = sizeof(mb_rx_buf);
+                Reset_Buff(&sData_TCP_Recv);
+                Reset_Buff(&sData_TCP_Trans);
+                recv(SOCKET_MODTCP, sData_TCP_Recv.Data_a8, len);
+                sData_TCP_Recv.Length_u16 = len;
+                
+                if(Modem_Check_RTU(_E_MODB_TCP, &sData_TCP_Recv, &sData_TCP_Trans) == 1)
+                {
+                    send (SOCKET_MODTCP, sData_TCP_Trans.Data_a8, sData_TCP_Trans.Length_u16);
+                    LandMarkSock_u32 = RtCountSystick_u32;
+                }
+
+                getSn_DIPR(SOCKET_MODTCP, ip);
+                sprintf (aTEMP, "u_app_eth: Client ModTCP: %d.%d.%d.%d:502\r\n",ip[0], ip[1], ip[2], ip[3]);
+                UTIL_Printf_Str (DBLEVEL_H,  aTEMP);
+                
+                UTIL_Printf_Str ( DBLEVEL_H, "u_app_eth: Client ModTCP: Hex \r\n");          
+                UTIL_Printf_Hex ( DBLEVEL_H, sData_TCP_Recv.Data_a8, sData_TCP_Recv.Length_u16);
+                UTIL_Printf_Str ( DBLEVEL_H, "\r\n");
+                
+                UTIL_Printf_Str ( DBLEVEL_H, "u_app_eth: Server ModTCP: Hex \r\n");          
+                UTIL_Printf_Hex ( DBLEVEL_H, sData_TCP_Trans.Data_a8 , sData_TCP_Trans.Length_u16);
+                UTIL_Printf_Str ( DBLEVEL_H, "\r\n");
+            }
+            break;
+
+        case SOCK_CLOSE_WAIT:
+            disconnect(SOCKET_MODTCP);
+            close(SOCKET_MODTCP);
+            break;
+
+        default:
+            break;
+    }
+    
+    if (Check_Time_Out (LandMarkSock_u32, 60000) == true) 
+    {
+        disconnect(SOCKET_MODTCP);
+        close(SOCKET_MODTCP);
+    }
+
+    fevent_enable(sEventAppEth, event);
+    return 1; 
+}
+
 static uint8_t _Cb_Get_Time_NTP (uint8_t event)
 {
     static uint8_t mGetStime_u8 = false;
@@ -1273,7 +1364,9 @@ static uint8_t _Cb_Get_Time_NTP (uint8_t event)
                 if (getSn_RX_RSR(SOCKET_COMM) >= 48)
                 {
                     recvfrom(SOCKET_COMM, ntp_rx, 48, peer_ip, &peer_port, &addrlen);
-                    if ((ntp_rx[0] & 0x07) == 4)
+                    if (((ntp_rx[0] & 0x07) == 4) &&            // Mode = Server
+                        (((ntp_rx[0] >> 6) & 0x03) != 3) &&     // LI != Alarm
+                        (ntp_rx[1] >= 1) && (ntp_rx[1] <= 15))  // Stratum hop le
                     {
                         ntp_sec =
                             ((uint32_t)ntp_rx[40] << 24) |

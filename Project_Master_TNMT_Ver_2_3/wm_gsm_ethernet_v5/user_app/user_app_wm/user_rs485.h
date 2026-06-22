@@ -101,6 +101,9 @@ void RS485_2_Rx_Callback (uint16_t Size);
 uint8_t RS485_Modbus_Check_Format (uint8_t SlaveID, uint16_t nRegis, 
                                    sData *pSource, sData *Content);
 
+void RS485_1_Trans(uint8_t *Data, uint16_t Length);
+void RS485_2_Trans(uint8_t *Data, uint16_t Length);
+
 #endif
 
 

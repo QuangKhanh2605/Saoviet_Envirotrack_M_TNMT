@@ -37,6 +37,8 @@
 #define SOCKET_MODBUS       5
 #define SOCKET_COMM         4
 
+#define SOCKET_MODTCP       7
+
 #define S_RECEIVE		    0x01		
 #define S_TRANSMITOK	    0x02	
 
@@ -84,6 +86,8 @@ typedef enum
     
     _EVENT_ETH_SEND_MOD_TCP,
     _EVENT_ETH_RECV_MOD_TCP,
+    
+    _EVENT_ETH_SLAVE_MOD_TCP,
     
     _EVENT_ETH_GET_TIME_NTP,
 

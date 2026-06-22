@@ -148,6 +148,78 @@ Struct_Queue_Type   qMemRead;
 Struct_Queue_Type   qMemWrite;
 
 static uint8_t last_type = 0;
+/* Index page helpers */
+#define INDEX_ENTRY_SIZE    16
+#define INDEX_PAGE_ENTRIES  (FLASH_PAGE_SIZE / INDEX_ENTRY_SIZE)
+
+static uint16_t sIndexNextEntry_u16 = 0;
+
+static uint8_t Mem_IndexEntry_IsEmpty(const uint8_t *entry)
+{
+    uint16_t i;
+    for (i = 0; i < INDEX_ENTRY_SIZE; i++) {
+        if (entry[i] != FLASH_BYTE_EMPTY) {
+            return false;
+        }
+    }
+    return true;
+}
+
+static uint8_t Mem_IndexEntry_IsValid(const uint8_t *entry)
+{
+    return (entry[0] == BYTE_TEMP_FIRST);
+}
+
+static void Mem_Prepare_Index_Record_Buffer(uint8_t *entry)
+{
+    memset(entry, FLASH_BYTE_EMPTY, INDEX_ENTRY_SIZE);
+
+    entry[0] = BYTE_TEMP_FIRST;
+
+    entry[1]  = (sRecTSVH.iSend_u16 >> 8) & 0xFF;
+    entry[2]  = sRecTSVH.iSend_u16 & 0xFF;
+
+    entry[3]  = (sRecTSVH.iSave_u16 >> 8) & 0xFF;
+    entry[4]  = sRecTSVH.iSave_u16 & 0xFF;
+
+    entry[5]  = (sRecEvent.iSend_u16 >> 8) & 0xFF;
+    entry[6]  = sRecEvent.iSend_u16 & 0xFF;
+
+    entry[7]  = (sRecEvent.iSave_u16 >> 8) & 0xFF;
+    entry[8]  = sRecEvent.iSave_u16 & 0xFF;
+
+    entry[9] = (sRecGPS.iSend_u16 >> 8) & 0xFF;
+    entry[10] = sRecGPS.iSend_u16 & 0xFF;
+
+    entry[11] = (sRecGPS.iSave_u16 >> 8) & 0xFF;
+    entry[12] = sRecGPS.iSave_u16 & 0xFF;
+
+    entry[13] = (sRecLog.iSave_u16 >> 8) & 0xFF;
+    entry[14] = sRecLog.iSave_u16 & 0xFF;
+}
+
+static void Mem_Load_Index_Entry(uint16_t entryIndex, uint8_t *entry)
+{
+    OnchipFlashReadData(ADDR_INDEX_REC + (uint32_t)entryIndex * INDEX_ENTRY_SIZE, entry, INDEX_ENTRY_SIZE);
+}
+
+static void Mem_Erase_Index_Page(void)
+{
+    Erase_Firmware(ADDR_INDEX_REC, 1);
+}
+
+static uint8_t Mem_Write_Index_Entry(uint16_t entryIndex, const uint8_t *entry)
+{
+    uint32_t addr = ADDR_INDEX_REC + (uint32_t)entryIndex * INDEX_ENTRY_SIZE;
+    uint8_t verify[INDEX_ENTRY_SIZE];
+
+    if (OnchipFlashWriteData(addr, (uint8_t *)entry, INDEX_ENTRY_SIZE) != HAL_OK) {
+        return false;
+    }
+
+    OnchipFlashReadData(addr, verify, INDEX_ENTRY_SIZE);
+    return (memcmp(verify, entry, INDEX_ENTRY_SIZE) == 0);
+}
 /*================ Function ===================*/
 
 uint8_t Mem_Task(void)
@@ -538,7 +610,7 @@ static uint8_t _Cb_mem_Ctrl_Request (uint8_t event)
                 //Ket thuc
                 sMemVar.sMemReq.Status_u8 = false;
 
-                VLevelDebug = DBLEVEL_DEFAULT;
+                VLevelDebug = DBLEVEL_M;
                 UTIL_ADV_TRACE_SetVerboseLevel(DBLEVEL_M);
                 
                 return 1;
@@ -562,6 +634,19 @@ static uint8_t _Cb_mem_Ctrl_Request (uint8_t event)
 
 static uint8_t _Cb_mem_Erase (uint8_t event)
 {
+    sMemVar.Status_u8 = ERROR;
+    
+    sRecTSVH.iSend_u16 = 0;
+    sRecTSVH.iSave_u16 = 0;
+    sRecEvent.iSend_u16 = 0;
+    sRecEvent.iSave_u16 = 0;
+    sRecLog.iSend_u16 = 0;
+    sRecLog.iSave_u16 = 0;
+    sRecGPS.iSend_u16 = 0;
+    sRecGPS.iSave_u16 = 0;
+    
+    Mem_Save_Index_Rec();
+    
 #ifdef MEM_REC_EX_FLASH
     eFlash_Push_Step_Erase_Chip();
 #endif
@@ -790,104 +875,106 @@ void Mem_Send_To_Queue_Write (sMemQueueWrite *qWrite)
 */
 void Mem_Init_Index_Record (void)
 {
-    uint8_t TempU8 = 0;
-    uint8_t aTEMP[24] = {0};
-    uint16_t TempU16 = 0;
-    
-//#ifdef INFOR_ON_FLASH
-    OnchipFlashReadData (ADDR_INDEX_REC, aTEMP, 24);   
-//#endif
-//    
-//#ifdef INFOR_EX_EEPROM
-//    if (CAT24Mxx_Read_Array(CAT_ADDR_INDEX_REC, aTEMP, 24) == false) {
-//        return;
-//    }
-//#endif
-//    
-//#ifdef INFOR_EX_FLASH
-//    if (eFlash_S25FL_BufferRead(aTEMP, FLASH_ADDR_INDEX_REC, 24) == false) {
-//        UTIL_Log_Str(DBLEVEL_M, "u_app_wm: read mem error...\r\n" );  
-//        return;
-//    }     
-//#endif
-    //doc 64 byte tu eeprom
-    TempU8 = aTEMP[0];
-    //Check Byte EMPTY
-    if (TempU8 == BYTE_WRITEN) {
-        //TSVH send
-        TempU16 = (aTEMP[2] << 8) | aTEMP[3];
-        sRecTSVH.iSend_u16 = MIN(TempU16, sRecTSVH.Max_u16 - 1);
-        
-        //TSVH Save
-        TempU16 = (aTEMP[4] << 8) | aTEMP[5];        
-        sRecTSVH.iSave_u16 = MIN(TempU16, sRecTSVH.Max_u16 - 1);
-        
-        //Event send
-        TempU16 = (aTEMP[6] << 8) | aTEMP[7];
-        sRecEvent.iSend_u16 = MIN(TempU16, sRecEvent.Max_u16 - 1);
+    uint8_t aTEMP[INDEX_ENTRY_SIZE];
+    uint16_t entryIndex;
+    uint16_t lastValidIndex = 0xFFFF;
+    uint16_t nextFreeIndex = 0xFFFF;
+    uint8_t pageCorrupted = false;
 
-        //Event Save
-        TempU16 = (aTEMP[8] << 8) | aTEMP[9];
-        sRecEvent.iSave_u16 = MIN(TempU16, sRecEvent.Max_u16 - 1);
-        
-        //GPS send
-        TempU16 = (aTEMP[10] << 8) | aTEMP[11];
-        sRecGPS.iSend_u16 = MIN(TempU16, sRecGPS.Max_u16 - 1);
+    for (entryIndex = 0; entryIndex < INDEX_PAGE_ENTRIES; entryIndex++) {
+        Mem_Load_Index_Entry(entryIndex, aTEMP);
 
-        //GPS Save
-        TempU16 = (aTEMP[12] << 8) | aTEMP[13];
-        sRecGPS.iSave_u16 = MIN(TempU16, sRecGPS.Max_u16 - 1);
-        
-        //log send
-        TempU16 = (aTEMP[14] << 8) | aTEMP[15];
-        sRecLog.iSend_u16 = MIN(TempU16, sRecLog.Max_u16 - 1);
-        
-        //log Save
-        TempU16 = (aTEMP[16] << 8) | aTEMP[17];
-        sRecLog.iSave_u16 = MIN(TempU16, sRecLog.Max_u16 - 1); 
+        if (Mem_IndexEntry_IsEmpty(aTEMP)) {
+            nextFreeIndex = entryIndex;
+            break;
+        }
+
+        if (Mem_IndexEntry_IsValid(aTEMP)) {
+            lastValidIndex = entryIndex;
+            continue;
+        }
+
+        pageCorrupted = true;
+        break;
     }
+
+    if (lastValidIndex != 0xFFFF) {
+        Mem_Load_Index_Entry(lastValidIndex, aTEMP);
+
+        sRecTSVH.iSend_u16 = MIN((aTEMP[1] << 8) | aTEMP[2], sRecTSVH.Max_u16 - 1);
+        sRecTSVH.iSave_u16 = MIN((aTEMP[3] << 8) | aTEMP[4], sRecTSVH.Max_u16 - 1);
+
+        sRecEvent.iSend_u16 = MIN((aTEMP[5] << 8) | aTEMP[6], sRecEvent.Max_u16 - 1);
+        sRecEvent.iSave_u16 = MIN((aTEMP[7] << 8) | aTEMP[8], sRecEvent.Max_u16 - 1);
+
+        sRecGPS.iSend_u16 = MIN((aTEMP[9] << 8) | aTEMP[10], sRecGPS.Max_u16 - 1);
+        sRecGPS.iSave_u16 = MIN((aTEMP[11] << 8) | aTEMP[12], sRecGPS.Max_u16 - 1);
+
+        sRecLog.iSave_u16 = MIN((aTEMP[13] << 8) | aTEMP[14], sRecLog.Max_u16 - 1);
+    }
+
+    if (pageCorrupted || nextFreeIndex == 0xFFFF) {
+        if (pageCorrupted || lastValidIndex != 0xFFFF) {
+            UTIL_Printf_Str(DBLEVEL_M, "u_mem: index page invalid, rebuild from last good entry\r\n");
+        }
+
+        Mem_Prepare_Index_Record_Buffer(aTEMP);
+        Mem_Erase_Index_Page();
+            
+        if (Mem_Write_Index_Entry(0, aTEMP)) {
+            sIndexNextEntry_u16 = 1;
+        } else {
+            UTIL_Printf_Str(DBLEVEL_M, "u_mem: index page recovery write failed during init\r\n");
+            sIndexNextEntry_u16 = 0;
+        }
+        
+        return;
+    }
+
+    sIndexNextEntry_u16 = nextFreeIndex;
 }
 
 
 void Mem_Save_Index_Rec (void)
 {
-    uint8_t aTEMP[24] = {0};
-    
-    aTEMP[0] = BYTE_TEMP_FIRST;
-    aTEMP[1] = 12;
+    uint8_t aTEMP[INDEX_ENTRY_SIZE];
+    uint8_t existing[INDEX_ENTRY_SIZE];
+    uint8_t targetEntryIsEmpty;
 
-    aTEMP[2] = (sRecTSVH.iSend_u16 >> 8) & 0xFF;
-    aTEMP[3] = sRecTSVH.iSend_u16 & 0xFF;
-    
-    aTEMP[4] = (sRecTSVH.iSave_u16 >> 8) & 0xFF;
-    aTEMP[5] = sRecTSVH.iSave_u16 & 0xFF;
-    
-    aTEMP[6] = (sRecEvent.iSend_u16 >> 8) & 0xFF;
-    aTEMP[7] = sRecEvent.iSend_u16 & 0xFF;
-    
-    aTEMP[8] = (sRecEvent.iSave_u16 >> 8) & 0xFF;
-    aTEMP[9] = sRecEvent.iSave_u16 & 0xFF;
-    
-    aTEMP[10] = (sRecGPS.iSend_u16 >> 8) & 0xFF;
-    aTEMP[11] = sRecGPS.iSend_u16 & 0xFF;
-    
-    aTEMP[12] = (sRecGPS.iSave_u16 >> 8) & 0xFF;
-    aTEMP[13] = sRecGPS.iSave_u16 & 0xFF;
-    
-    aTEMP[14] = (sRecLog.iSend_u16 >> 8) & 0xFF;
-    aTEMP[15] = sRecLog.iSend_u16 & 0xFF;
-    
-    aTEMP[16] = (sRecLog.iSave_u16 >> 8) & 0xFF;
-    aTEMP[17] = sRecLog.iSave_u16 & 0xFF;
+    Mem_Prepare_Index_Record_Buffer(aTEMP);
 
-#ifdef BOARD_QN_V5_0
-    Erase_Firmware(ADDR_INDEX_REC, 1);
-    OnchipFlashWriteData(ADDR_INDEX_REC, &aTEMP[0], 24);
-#endif
-    
-#ifdef BOARD_LC_V1_1
-    CAT24Mxx_Write_Buff(CAT_ADDR_INDEX_REC, aTEMP, 24); 
-#endif
+    if (sIndexNextEntry_u16 >= INDEX_PAGE_ENTRIES) {
+        targetEntryIsEmpty = false;
+    } else {
+        Mem_Load_Index_Entry(sIndexNextEntry_u16, existing);
+        targetEntryIsEmpty = Mem_IndexEntry_IsEmpty(existing);
+    }
+
+    if (sIndexNextEntry_u16 >= INDEX_PAGE_ENTRIES || !targetEntryIsEmpty) {
+        UTIL_Printf_Str(DBLEVEL_M, "u_mem: index page full/corrupted, erase and restart at entry 0\r\n");
+        Mem_Erase_Index_Page();
+        if (Mem_Write_Index_Entry(0, aTEMP)) {
+            sIndexNextEntry_u16 = 1;
+        } else {
+            UTIL_Printf_Str(DBLEVEL_M, "u_mem: index page write failed after erase\r\n");
+            sIndexNextEntry_u16 = 0;
+        }
+        return;
+    }
+
+    if (Mem_Write_Index_Entry(sIndexNextEntry_u16, aTEMP)) {
+        sIndexNextEntry_u16++;
+        return;
+    }
+
+    UTIL_Printf_Str(DBLEVEL_M, "u_mem: index entry write failed, erase and retry at entry 0\r\n");
+    Mem_Erase_Index_Page();
+    if (Mem_Write_Index_Entry(0, aTEMP)) {
+        sIndexNextEntry_u16 = 1;
+    } else {
+        UTIL_Printf_Str(DBLEVEL_M, "u_mem: index page recovery write failed\r\n");
+        sIndexNextEntry_u16 = 0;
+    }
 }
     
 
@@ -1077,18 +1164,20 @@ uint8_t Mem_Inc_Index_Save (sMemRecordInfor *sRec)
 }
 
 
-
-
 uint8_t Mem_Inc_Index_Send (sMemRecordInfor *sRec, uint8_t num)
 {       
     sMemVar.rPending_u8 = false;
     sMemVar.nSending_u16 = 0;
     
     if (sMemVar.Status_u8 != ERROR) {
-        if ( (sRec->iSend_u16 != sRec->iSave_u16) ) {
-            sRec->iSend_u16 = (sRec->iSend_u16 + num) % sRec->Max_u16;
-            Mem_Save_Index_Rec(); 
+        while (num > 0) {
+            if (sRec->iSend_u16 != sRec->iSave_u16) {
+                sRec->iSend_u16 = (sRec->iSend_u16 + 1) % sRec->Max_u16;
+            }
+            num --;
         }
+        
+        Mem_Save_Index_Rec(); 
     } else {
         fevent_enable( sEventMem, _EVENT_MEM_CTRL_WRITE);
         qQueue_Receive(&qMemWrite, NULL, 1);
@@ -1152,17 +1241,7 @@ void Mem_Cb_Erase_Chip_OK(void)
     __disable_irq();
     NVIC_SystemReset(); // Reset MCU
 #endif
-    
-    sRecTSVH.iSend_u16 = 0;
-    sRecTSVH.iSave_u16 = 0;
-    sRecEvent.iSend_u16 = 0;
-    sRecEvent.iSave_u16 = 0;
-    sRecLog.iSend_u16 = 0;
-    sRecLog.iSave_u16 = 0;
-    sRecGPS.iSend_u16 = 0;
-    sRecGPS.iSave_u16 = 0;
-    
-    Mem_Save_Index_Rec();
+
     //Reset MCU
     if (sMemVar.pReset_MCU != NULL) {
         sMemVar.pReset_MCU();

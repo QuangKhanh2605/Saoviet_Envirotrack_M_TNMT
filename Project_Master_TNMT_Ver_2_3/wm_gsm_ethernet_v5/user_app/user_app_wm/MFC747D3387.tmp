@@ -78,7 +78,7 @@ Struct_RegSensor            sRegSensor[] =
   {_E_NH4_S_SENSOR, 8,  NULL,    0,      ID_SS_NH4,  1,        0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
   {_E_NH4_S_VALUE,  8,  NULL,    0,      ID_SS_NH4,  1,        0x000B,  _ETYPE_U8, _E_BE,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
   
-  {_E_DO_SALT,      9,   NULL,    1,      ID_SS_DO,   2,        0x0008,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+  {_E_DO_SALT,      9,  NULL,    1,      ID_SS_DO,   2,        0x0008,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
   {_E_DO_VALUE,     10,  NULL,    0,      ID_SS_DO,   2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
   {_E_DO_S_SENSOR,  10,  NULL,    0,      ID_SS_DO,   1,        0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
   {_E_DO_S_VALUE,   10,  NULL,    0,      ID_SS_DO,   1,        0x000B,  _ETYPE_U8, _E_BE,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
@@ -99,28 +99,47 @@ Struct_RegSensor            sRegSensor[] =
   {_E_TEMP_S_SENSOR, 14,    NULL,    0,     ID_SS_TEMP,   1,      0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
   {_E_TEMP_S_VALUE,  14,    NULL,    0,     ID_SS_TEMP,   1,      0x000C,  _ETYPE_U8, _E_BE,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
 #else 
-  {_E_PH_S_SENSOR,  1,  NULL,    0,      ID_SS_PH,  1,        0,    _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_TEMP_S_SENSOR,1,  NULL,    0,      ID_SS_PH,  1,        0,    _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_PH_S_VALUE,   1,  NULL,    0,      ID_SS_PH,  1,        3,    _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_TEMP_S_VALUE, 1,  NULL,    0,      ID_SS_PH,  1,        3,    _ETYPE_U8, _E_BS,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_PH_VALUE,     1,  NULL,    0,      ID_SS_PH,  2,        4,    _ETYPE_F,  _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_TEMP_VALUE,   1,  NULL,    0,      ID_SS_PH,  2,        6,    _ETYPE_F,  _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_PH_VALUE,     1,  NULL,    0,      ID_SS_PH,   2,        4,      _ETYPE_F,  _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_PH_S_SENSOR,  1,  NULL,    0,      ID_SS_PH,   1,        0,      _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_PH_S_VALUE,   1,  NULL,    0,      ID_SS_PH,   1,        3,      _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+ 
+  {_E_CLO_VALUE,    2,  NULL,    0,      ID_SS_CLO,  2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+  {_E_CLO_TEMP,     2,  NULL,    0,      ID_SS_CLO,  2,        0x0004,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+    
+  {_E_EC_VALUE,     3,  NULL,    0,      ID_SS_EC,   2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+  {_E_EC_TEMP,      3,  NULL,    0,      ID_SS_EC,   2,        0x0004,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+    
+  {_E_TURB_VALUE,   4,  NULL,    0,      ID_SS_TURB, 2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+  {_E_TURB_TEMP,    4,  NULL,    0,      ID_SS_TURB, 2,        0x0004,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+    
+  {_E_COD_VALUE,    5,  NULL,    0,      ID_SS_COD,  2,        36,      _ETYPE_F,  _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_COD_S_SENSOR, 5,  NULL,    0,      ID_SS_COD,  1,        32,      _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_COD_S_VALUE,  5,  NULL,    0,      ID_SS_COD,  1,        35,      _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
   
-  {_E_DO_S_SENSOR,  1,  NULL,    0,      ID_SS_PH,   1,       8,    _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_DO_S_VALUE,   1,  NULL,    0,      ID_SS_PH,   1,       11,   _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_DO_VALUE,     1,  NULL,    0,      ID_SS_PH,   2,       12,   _ETYPE_F,  _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_TSS_VALUE,    6,  NULL,    0,      ID_SS_TSS,  2,        28,      _ETYPE_F,  _E_BE,   1000,     NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_TSS_S_SENSOR, 6,  NULL,    0,      ID_SS_TSS,  1,        24,      _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_TSS_S_VALUE,  6,  NULL,    0,      ID_SS_TSS,  1,        27,      _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
   
-  {_E_NH4_S_SENSOR, 1,  NULL,    0,      ID_SS_PH,  1,        16,   _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_NH4_S_VALUE,  1,  NULL,    0,      ID_SS_PH,  1,        19,   _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_NH4_VALUE,    1,  NULL,    0,      ID_SS_PH,  2,        20,   _ETYPE_F,  _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_NH4_VALUE,    7,  NULL,    0,      ID_SS_NH4,  2,        20,      _ETYPE_F,  _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_NH4_S_SENSOR, 7,  NULL,    0,      ID_SS_NH4,  1,        16,      _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_NH4_S_VALUE,  7,  NULL,    0,      ID_SS_NH4,  1,        19,      _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+    
+  {_E_DO_VALUE,     8,  NULL,    0,      ID_SS_DO,   2,        12,      _ETYPE_F,  _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_DO_S_SENSOR,  8,  NULL,    0,      ID_SS_DO,   1,        8,      _ETYPE_U8, _E_BE,   1,        NULL,      PORT_MODB_TCP,       NULL,      NULL},
+  {_E_DO_S_VALUE,   8,  NULL,    0,      ID_SS_DO,   1,        11,      _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
   
-  {_E_TSS_S_SENSOR, 1,  NULL,    0,      ID_SS_PH,  1,        24,   _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_TSS_S_VALUE,  1,  NULL,    0,      ID_SS_PH,  1,        27,   _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_TSS_VALUE,    1,  NULL,    0,      ID_SS_PH,  2,        28,   _ETYPE_F,  _E_BE,   1000,     NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  
-  {_E_COD_S_SENSOR, 1,  NULL,    0,      ID_SS_PH,  1,        32,   _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_COD_S_VALUE,  1,  NULL,    0,      ID_SS_PH,  1,        35,   _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
-  {_E_COD_VALUE,    1,  NULL,    0,      ID_SS_PH,  2,        36,   _ETYPE_F,  _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_SALT_VALUE,   9,  NULL,    0,      ID_SS_EC,   2,        0x0008,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+  {_E_SALT_TEMP,    9,  NULL,    0,      ID_SS_EC,   2,        0x0004,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+
+  {_E_TDS_VALUE,    10, NULL,    0,      ID_SS_EC,   2,        0x0006,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+  {_E_TDS_TEMP,     10, NULL,    0,      ID_SS_EC,   2,        0x0004,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+
+  {_E_NO3_VALUE,    11, NULL,    0,      ID_SS_NO3,  2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+  {_E_NO3_TEMP,     11, NULL,    0,      ID_SS_NO3,  2,        0x0004,  _ETYPE_F,  _E_WS,   1,        NULL,     PORT_RS485_1,       NULL,      NULL},
+
+  {_E_TEMP_VALUE,    12,    NULL,    0,      ID_SS_TEMP,  2,        6,    _ETYPE_F,  _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_TEMP_S_SENSOR, 12,    NULL,    0,      ID_SS_TEMP,  1,        0,    _ETYPE_U8, _E_BE,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
+  {_E_TEMP_S_VALUE,  12,    NULL,    0,      ID_SS_TEMP,  1,        3,    _ETYPE_U8, _E_BS,   1,        NULL,     PORT_MODB_TCP,       NULL,      NULL},
 
 #endif
 };
@@ -305,6 +324,33 @@ void       RS485_Para_Init(void)
     sRegSensor[_E_PH_S_VALUE].vReturn = &sMeasureMain[0][_SS_PH].stateValue;
     sRegSensor[_E_PH_S_VALUE].nConnect = &sMeasureMain[0][_SS_PH].nConnect_u8;
     
+    //----------------------------Clo-----------------------------
+    sRegSensor[_E_CLO_VALUE].State = &sMeasureMain[0][_SS_CLO].sUser;
+    sRegSensor[_E_CLO_VALUE].vReturn = &sMeasureMain[0][_SS_CLO].Value_f;
+    sRegSensor[_E_CLO_VALUE].nConnect = &sMeasureMain[0][_SS_CLO].nConnect_u8;
+
+    sRegSensor[_E_CLO_TEMP].State = &sMeasureMain[0][_SS_CLO].sUser;
+//    sRegSensor[_E_CLO_TEMP].vReturn = &sMeasureMain[_SS_CLO].Temp_f;
+    sRegSensor[_E_CLO_TEMP].nConnect = &sMeasureMain[0][_SS_CLO].nConnect_u8;
+
+    //----------------------------EC------------------------------
+    sRegSensor[_E_EC_VALUE].State = &sMeasureMain[0][_SS_EC].sUser;
+    sRegSensor[_E_EC_VALUE].vReturn = &sMeasureMain[0][_SS_EC].Value_f;
+    sRegSensor[_E_EC_VALUE].nConnect = &sMeasureMain[0][_SS_EC].nConnect_u8;
+
+    sRegSensor[_E_EC_TEMP].State = &sMeasureMain[0][_SS_EC].sUser;
+//    sRegSensor[_E_EC_TEMP].vReturn = &sMeasureMain[_SS_EC].Temp_f;
+    sRegSensor[_E_EC_TEMP].nConnect = &sMeasureMain[0][_SS_EC].nConnect_u8;
+    
+    //---------------------------Turb-----------------------------
+    sRegSensor[_E_TURB_VALUE].State = &sMeasureMain[0][_SS_TURB].sUser;
+    sRegSensor[_E_TURB_VALUE].vReturn = &sMeasureMain[0][_SS_TURB].Value_f;
+    sRegSensor[_E_TURB_VALUE].nConnect = &sMeasureMain[0][_SS_TURB].nConnect_u8;
+    
+    sRegSensor[_E_TURB_TEMP].State = &sMeasureMain[0][_SS_TURB].sUser;
+//    sRegSensor[_E_TURB_TEMP].vReturn = &sMeasureMain[_SS_TURB].Temp_f;
+    sRegSensor[_E_TURB_TEMP].nConnect = &sMeasureMain[0][_SS_TURB].nConnect_u8;
+    
     //----------------------------COD------------------------------
     sRegSensor[_E_COD_VALUE].State = &sMeasureMain[0][_SS_COD].sUser;
     sRegSensor[_E_COD_VALUE].vReturn = &sMeasureMain[0][_SS_COD].Value_f;
@@ -357,18 +403,45 @@ void       RS485_Para_Init(void)
     sRegSensor[_E_DO_S_VALUE].vReturn = &sMeasureMain[0][_SS_DO].stateValue;
     sRegSensor[_E_DO_S_VALUE].nConnect = &sMeasureMain[0][_SS_DO].nConnect_u8;
     
+    //---------------------------Salt-----------------------------
+    sRegSensor[_E_SALT_VALUE].State = &sMeasureMain[0][_SS_SALT].sUser;
+    sRegSensor[_E_SALT_VALUE].vReturn = &sMeasureMain[0][_SS_SALT].Value_f;
+    sRegSensor[_E_SALT_VALUE].nConnect = &sMeasureMain[0][_SS_SALT].nConnect_u8;
+
+    sRegSensor[_E_SALT_TEMP].State = &sMeasureMain[0][_SS_SALT].sUser;
+//    sRegSensor[_E_SALT_TEMP].vReturn = &sMeasureMain[_SS_SALT].Temp_f;
+    sRegSensor[_E_SALT_TEMP].nConnect = &sMeasureMain[0][_SS_SALT].nConnect_u8;
+    
+    //---------------------------TDS------------------------------
+    sRegSensor[_E_TDS_VALUE].State = &sMeasureMain[0][_SS_TDS].sUser;
+    sRegSensor[_E_TDS_VALUE].vReturn = &sMeasureMain[0][_SS_TDS].Value_f;
+    sRegSensor[_E_TDS_VALUE].nConnect = &sMeasureMain[0][_SS_TDS].nConnect_u8;
+
+    sRegSensor[_E_TDS_TEMP].State   = &sMeasureMain[0][_SS_TDS].sUser;
+//    sRegSensor[_E_TDS_TEMP].vReturn = &sMeasureMain[_SS_TDS].Temp_f;
+    sRegSensor[_E_TDS_TEMP].nConnect = &sMeasureMain[0][_SS_TDS].nConnect_u8;
+    
+    //---------------------------NO3------------------------------
+    sRegSensor[_E_NO3_VALUE].State = &sMeasureMain[0][_SS_NO3].sUser;
+    sRegSensor[_E_NO3_VALUE].vReturn = &sMeasureMain[0][_SS_NO3].Value_f;
+    sRegSensor[_E_NO3_VALUE].nConnect = &sMeasureMain[0][_SS_NO3].nConnect_u8;
+
+    sRegSensor[_E_NO3_TEMP].State   = &sMeasureMain[0][_SS_NO3].sUser;
+//    sRegSensor[_E_NO3_TEMP].vReturn = &sMeasureMain[_SS_NO3].Temp_f;
+    sRegSensor[_E_NO3_TEMP].nConnect = &sMeasureMain[0][_SS_NO3].nConnect_u8;
+    
     //---------------------------TEMP-----------------------------
-    sRegSensor[_E_TEMP_VALUE].State = &sMeasureMain[1][_SS_TEMP].sUser;
-    sRegSensor[_E_TEMP_VALUE].vReturn = &sMeasureMain[1][_SS_TEMP].Value_f;
-    sRegSensor[_E_TEMP_VALUE].nConnect = &sMeasureMain[1][_SS_TEMP].nConnect_u8;
+    sRegSensor[_E_TEMP_VALUE].State = &sMeasureMain[0][_SS_TEMP].sUser;
+    sRegSensor[_E_TEMP_VALUE].vReturn = &sMeasureMain[0][_SS_TEMP].Value_f;
+    sRegSensor[_E_TEMP_VALUE].nConnect = &sMeasureMain[0][_SS_TEMP].nConnect_u8;
     
-    sRegSensor[_E_TEMP_S_SENSOR].State = &sMeasureMain[1][_SS_TEMP].sUser;
-    sRegSensor[_E_TEMP_S_SENSOR].vReturn = &sMeasureMain[1][_SS_TEMP].stateSensor;
-    sRegSensor[_E_TEMP_S_SENSOR].nConnect = &sMeasureMain[1][_SS_TEMP].nConnect_u8;
+    sRegSensor[_E_TEMP_S_SENSOR].State = &sMeasureMain[0][_SS_TEMP].sUser;
+    sRegSensor[_E_TEMP_S_SENSOR].vReturn = &sMeasureMain[0][_SS_TEMP].stateSensor;
+    sRegSensor[_E_TEMP_S_SENSOR].nConnect = &sMeasureMain[0][_SS_TEMP].nConnect_u8;
     
-    sRegSensor[_E_TEMP_S_VALUE].State = &sMeasureMain[1][_SS_TEMP].sUser;
-    sRegSensor[_E_TEMP_S_VALUE].vReturn = &sMeasureMain[1][_SS_TEMP].stateValue;
-    sRegSensor[_E_TEMP_S_VALUE].nConnect = &sMeasureMain[1][_SS_TEMP].nConnect_u8;
+    sRegSensor[_E_TEMP_S_VALUE].State = &sMeasureMain[0][_SS_TEMP].sUser;
+    sRegSensor[_E_TEMP_S_VALUE].vReturn = &sMeasureMain[0][_SS_TEMP].stateValue;
+    sRegSensor[_E_TEMP_S_VALUE].nConnect = &sMeasureMain[0][_SS_TEMP].nConnect_u8;
 #endif
 }
 
@@ -415,16 +488,15 @@ static uint8_t fevent_modb_handle_subreg(uint8_t event)
     return 1;
 }
 
+uint16_t Transaction = 0;
 static uint8_t fevent_modb_transmit_data(uint8_t event)
 {
     uint8_t aData[4] = {0};
     uint32_t hex_Data = 0;
-    
-    uint8_t aFrame[48] = {0};
-    sData   strFrame = {(uint8_t *) &aFrame[0], 0};
+    uint8_t i = 0;
     
     if(sCtrlModbM.iHandle == _E_MODB_SS_END)
-      sCtrlModbM.iHandle = 0;
+      sCtrlModbM.iHandle = _E_PH_VALUE;
     
     while(*sRegSensor[sCtrlModbM.iHandle].State != 1)
     {
@@ -444,79 +516,97 @@ static uint8_t fevent_modb_transmit_data(uint8_t event)
     sCtrlModbM.iStartBlock = sCtrlModbM.iHandle;
     sCtrlModbM.iEndBlock   = sCtrlModbM.iHandle;
     sCtrlModbM.iReg        = sRegSensor[sCtrlModbM.iHandle].cmdLen;
-    
-    if (sRegSensor[sCtrlModbM.iStartBlock].cmdRW == 1)
+    i = sCtrlModbM.iHandle +1;
+      
+    while(i < _E_MODB_SS_END)
     {
-        if(sRegSensor[sCtrlModbM.iHandle].vFormat == _ETYPE_F)
-            hex_Data = Decode_Data_Type_f(*sRegSensor[sCtrlModbM.iHandle].subReg, sRegSensor[sCtrlModbM.iHandle].vFormat);
-        else 
-            hex_Data = (uint32_t)sRegSensor[sCtrlModbM.iHandle].subReg;
-
-        hex_Data = Endian_Format(hex_Data, sRegSensor[sCtrlModbM.iHandle].cmdLen * 2, sRegSensor[sCtrlModbM.iHandle].vBeLe);
-
-        for (uint8_t i = 0; i < sRegSensor[sCtrlModbM.iHandle].cmdLen * 2; i++)
-            aData[i] = (uint8_t)(hex_Data >> (8 * ((sRegSensor[sCtrlModbM.iHandle].cmdLen * 2 - 1) - i)));
-
-        if(sCtrlModbM.iReg == 1)
-            ModRTU_Master_Write_Frame(&strFrame, sRegSensor[sCtrlModbM.iStartBlock].idDev, FUN_WRITE_BYTE, sRegSensor[sCtrlModbM.iStartBlock].cmdAddr, sCtrlModbM.iReg, aData);
-        else
-            ModRTU_Master_Write_Frame(&strFrame, sRegSensor[sCtrlModbM.iStartBlock].idDev, FUN_WRITE_MULTI, sRegSensor[sCtrlModbM.iStartBlock].cmdAddr, sCtrlModbM.iReg, aData);
-    }
-    else
-    {
-        uint8_t i = sCtrlModbM.iHandle +1;
-        while(i < _E_MODB_SS_END)
+        if(sRegSensor[i].Block == sRegSensor[i-1].Block && sRegSensor[i].nPort == sRegSensor[i-1].nPort)
         {
-            if(sRegSensor[i].Block == sRegSensor[i-1].Block && sRegSensor[i].nPort == sRegSensor[i-1].nPort)
+            if(sRegSensor[i].cmdAddr >= sRegSensor[i-1].cmdAddr + sRegSensor[i-1].cmdLen)
             {
-                if(sRegSensor[i].cmdAddr >= sRegSensor[i-1].cmdAddr)
-                {
-                    sCtrlModbM.iEndBlock = i;
-                    sCtrlModbM.iReg = sRegSensor[i].cmdAddr - sRegSensor[sCtrlModbM.iStartBlock].cmdAddr + sRegSensor[i].cmdLen;
-                }
-                else 
-                  break;
+                sCtrlModbM.iEndBlock = i;
+                sCtrlModbM.iReg = sRegSensor[i].cmdAddr - sRegSensor[sCtrlModbM.iStartBlock].cmdAddr + sRegSensor[i].cmdLen;
             }
-            else
+            else 
               break;
-            i++;
         }
-        ModRTU_Master_Read_Frame(&strFrame, sRegSensor[sCtrlModbM.iStartBlock].idDev, 0x03, sRegSensor[sCtrlModbM.iStartBlock].cmdAddr, sCtrlModbM.iReg);
+        else
+          break;
+        i++;
     }
- 
-    if (sRegSensor[sCtrlModbM.iStartBlock].nPort == _PORT_RS485_1)
+    
+    
+    
+#ifdef MODBUS_SENSOR_SAOVIET
+    if (sRegSensor[sCtrlModbM.iStartBlock].nPort > _PORT_MODB_TCP)
     {
-        RS485_1_Trans(strFrame.Data_a8, strFrame.Length_u16);
-    }
-    else if (sRegSensor[sCtrlModbM.iStartBlock].nPort == _PORT_RS485_2)
-    {
-        RS485_2_Trans(strFrame.Data_a8, strFrame.Length_u16);
+        if (sRegSensor[sCtrlModbM.iStartBlock].cmdRW == 1)
+        {
+            if(sRegSensor[sCtrlModbM.iHandle].vFormat == _ETYPE_F)
+                hex_Data = Decode_Data_Type_f(*sRegSensor[sCtrlModbM.iHandle].subReg, sRegSensor[sCtrlModbM.iHandle].vFormat);
+            else 
+                hex_Data = (uint32_t)sRegSensor[sCtrlModbM.iHandle].subReg;
+
+            hex_Data = Endian_Format(hex_Data, sRegSensor[sCtrlModbM.iHandle].cmdLen * 2, sRegSensor[sCtrlModbM.iHandle].vBeLe);
+
+            for (uint8_t i = 0; i < sRegSensor[sCtrlModbM.iHandle].cmdLen * 2; i++)
+                aData[i] = (uint8_t)(hex_Data >> (8 * ((sRegSensor[sCtrlModbM.iHandle].cmdLen * 2 - 1) - i)));
+
+            if (sRegSensor[sCtrlModbM.iHandle].nPort == _PORT_RS485_1)
+                RS485_Modbus_Write_Value(sRegSensor[sCtrlModbM.iHandle].idDev, sRegSensor[sCtrlModbM.iHandle].cmdAddr, sRegSensor[sCtrlModbM.iHandle].cmdLen, aData);
+            else
+                RS485_2_Modbus_Write_Value(sRegSensor[sCtrlModbM.iHandle].idDev, sRegSensor[sCtrlModbM.iHandle].cmdAddr, sRegSensor[sCtrlModbM.iHandle].cmdLen, aData);
+        }
+        else
+        {
+            if (sRegSensor[sCtrlModbM.iStartBlock].nPort == _PORT_RS485_1)
+                RS485_Modbus_Read_Value(sRegSensor[sCtrlModbM.iStartBlock].idDev, sRegSensor[sCtrlModbM.iStartBlock].cmdAddr, sCtrlModbM.iReg);
+            else
+                RS485_2_Modbus_Read_Value(sRegSensor[sCtrlModbM.iStartBlock].idDev, sRegSensor[sCtrlModbM.iStartBlock].cmdAddr, sCtrlModbM.iReg);
+        }
     }
     else
     {
-        memset(sTransModTCP.aData, 0xAA, sizeof(sTransModTCP.aData));
         sTransModTCP.length = 0;
-        
-        sTransModTCP.aData[sTransModTCP.length++] = sCtrlModbM.Transaction_TCP >> 8;
-        sTransModTCP.aData[sTransModTCP.length++] = sCtrlModbM.Transaction_TCP;
-        sTransModTCP.aData[sTransModTCP.length++] = 0x00 >> 8;
+        sTransModTCP.aData[sTransModTCP.length++] = sRegSensor[sCtrlModbM.iHandle].idDev >> 8;
+        sTransModTCP.aData[sTransModTCP.length++] = sRegSensor[sCtrlModbM.iHandle].idDev;
         sTransModTCP.aData[sTransModTCP.length++] = 0x00;
-        sTransModTCP.aData[sTransModTCP.length++] = (strFrame.Length_u16 - 2) >> 8;
-        sTransModTCP.aData[sTransModTCP.length++] = (strFrame.Length_u16 - 2);
-        
-        for(uint8_t i = 0; i < strFrame.Length_u16 - 2; i++)
-            sTransModTCP.aData[sTransModTCP.length++] = strFrame.Data_a8[i];
-        
-        sTransModTCP.aData[7] = 0x04;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x06;
+        sTransModTCP.aData[sTransModTCP.length++] = sRegSensor[sCtrlModbM.iHandle].idDev;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x04;
+        sTransModTCP.aData[sTransModTCP.length++] = sRegSensor[sCtrlModbM.iHandle].cmdAddr >>8;
+        sTransModTCP.aData[sTransModTCP.length++] = sRegSensor[sCtrlModbM.iHandle].cmdAddr;
+        sTransModTCP.aData[sTransModTCP.length++] = sRegSensor[sCtrlModbM.iHandle].cmdLen >>8;
+        sTransModTCP.aData[sTransModTCP.length++] = sRegSensor[sCtrlModbM.iHandle].cmdLen;
+        sTransModTCP.Flag = 1;
         
         Reset_Buff(&sDataRecvTCP);
-        sTransModTCP.Flag = TRUE;
     }
-    
     if(sRegSensor[sCtrlModbM.iHandle].nPort == _PORT_MODB_TCP)
         sEventAppModb[_EVENT_MODBUS_RECEIVE_DATA].e_period = TIMEOUT_MODBUS_TCP;
     else
         sEventAppModb[_EVENT_MODBUS_RECEIVE_DATA].e_period = TIMEOUT_MODBUS_RTU;
+#else
+        sTransModTCP.length = 0;
+        sTransModTCP.aData[sTransModTCP.length++] = Transaction >> 8;
+        sTransModTCP.aData[sTransModTCP.length++] = Transaction;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x06;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x01;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x04;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+        sTransModTCP.aData[sTransModTCP.length++] = 0x28;
+        sTransModTCP.Flag = 1;
+        
+        Reset_Buff(&sDataRecvTCP);
+        sEventAppModb[_EVENT_MODBUS_RECEIVE_DATA].e_period = TIMEOUT_MODBUS_TCP;
+#endif
     
     fevent_enable(sEventAppModb, _EVENT_MODBUS_RECEIVE_DATA);
     return 1;
@@ -530,7 +620,14 @@ static uint8_t fevent_modbus_receive_data(uint8_t event)
     sData ModContent;
     hex_Recv = 0;
     uint8_t Result_Recv = false;
-
+    
+#ifdef MODBUS_SENSOR_SAOVIET
+    uint8_t i = 0;
+    uint16_t addr_s = 0;
+    uint16_t addr_i = 0;
+    i = sCtrlModbM.iStartBlock;
+    addr_s = sRegSensor[i].cmdAddr;
+    
     if (sRegSensor[sCtrlModbM.iHandle].nPort > _PORT_MODB_TCP)
     {
         if ((RS485Status == TRUE) && (RS485_Modbus_Check_Format(sRegSensor[sCtrlModbM.iStartBlock].idDev, sCtrlModbM.iReg, sDataReg, &ModContent) == true))
@@ -543,60 +640,58 @@ static uint8_t fevent_modbus_receive_data(uint8_t event)
     {
         if (ModbusTCP_Check_Format(sRegSensor[sCtrlModbM.iHandle].idDev, sCtrlModbM.iReg, &sDataRecvTCP, &ModContent) == true)
             Result_Recv = true;
-        
-        sCtrlModbM.Transaction_TCP++;
     }
     
-    while(sCtrlModbM.iHandle <= sCtrlModbM.iEndBlock)
+    while(i <= sCtrlModbM.iEndBlock)
     {
         if(Result_Recv == true)
         {     
-            sCtrlModbM.iAddr = sRegSensor[sCtrlModbM.iHandle].cmdAddr - sRegSensor[sCtrlModbM.iStartBlock].cmdAddr;
-            if(sRegSensor[sCtrlModbM.iHandle].cmdLen == 2)
+            addr_i = sRegSensor[i].cmdAddr - addr_s;
+            if(sRegSensor[i].cmdLen == 2)
             {
-                hex_Recv =  ((uint32_t)ModContent.Data_a8[sCtrlModbM.iAddr*2 + 0] << 24) | 
-                            ((uint32_t)ModContent.Data_a8[sCtrlModbM.iAddr*2 + 1] << 16) | 
-                            ((uint32_t)ModContent.Data_a8[sCtrlModbM.iAddr*2 + 2] << 8)  | 
-                            (uint32_t)ModContent.Data_a8[sCtrlModbM.iAddr*2 + 3];
+                hex_Recv =  ((uint32_t)ModContent.Data_a8[addr_i*2 + 0] << 24) | 
+                            ((uint32_t)ModContent.Data_a8[addr_i*2 + 1] << 16) | 
+                            ((uint32_t)ModContent.Data_a8[addr_i*2 + 2] << 8)  | 
+                            (uint32_t)ModContent.Data_a8[addr_i*2 + 3];
             }
             else
-                hex_Recv =  ((uint32_t)ModContent.Data_a8[sCtrlModbM.iAddr*2 + 0] << 8) | 
-                            (uint32_t)ModContent.Data_a8[sCtrlModbM.iAddr*2 + 1];
+                hex_Recv =  ((uint32_t)ModContent.Data_a8[addr_i*2 + 0] << 8) | 
+                            (uint32_t)ModContent.Data_a8[addr_i*2 + 1];
             
-            hex_Recv = Endian_Format(hex_Recv, sRegSensor[sCtrlModbM.iHandle].cmdLen*2, sRegSensor[sCtrlModbM.iHandle].vBeLe);
+            hex_Recv = Endian_Format(hex_Recv, sRegSensor[i].cmdLen*2, sRegSensor[i].vBeLe);
             
-            if(sRegSensor[sCtrlModbM.iHandle].vReturn != NULL)
+            if(sRegSensor[i].vReturn != NULL)
             {
-                switch(sRegSensor[sCtrlModbM.iHandle].vFormat)
+                switch(sRegSensor[i].vFormat)
                 {
                     case _ETYPE_F:  
-                        *(float*)sRegSensor[sCtrlModbM.iHandle].vReturn = Decode_Data_Type_u32(hex_Recv, sRegSensor[sCtrlModbM.iHandle].vFormat);
-                        *(float*)sRegSensor[sCtrlModbM.iHandle].vReturn *= sRegSensor[sCtrlModbM.iHandle].vScale;
+                        *(float*)sRegSensor[i].vReturn = Decode_Data_Type_u32(hex_Recv, sRegSensor[i].vFormat);
+                        *(float*)sRegSensor[i].vReturn *= sRegSensor[i].vScale;
                         break;
                         
                     case _ETYPE_U32:  
-                        *(uint32_t*)sRegSensor[sCtrlModbM.iHandle].vReturn = hex_Recv;
-                        *(uint32_t*)sRegSensor[sCtrlModbM.iHandle].vReturn *= (uint32_t)sRegSensor[sCtrlModbM.iHandle].vScale;
+                        *(uint32_t*)sRegSensor[i].vReturn = hex_Recv;
+                        *(uint32_t*)sRegSensor[i].vReturn *= (uint32_t)sRegSensor[i].vScale;
                         break;
                     case _ETYPE_I32:  
-                        *(int32_t*)sRegSensor[sCtrlModbM.iHandle].vReturn = hex_Recv;
-                        *(int32_t*)sRegSensor[sCtrlModbM.iHandle].vReturn *= (uint32_t)sRegSensor[sCtrlModbM.iHandle].vScale;
+                        *(int32_t*)sRegSensor[i].vReturn = hex_Recv;
+                        *(int32_t*)sRegSensor[i].vReturn *= (uint32_t)sRegSensor[i].vScale;
                         break;
                     case _ETYPE_U16:   
-                        *(uint16_t*)sRegSensor[sCtrlModbM.iHandle].vReturn = hex_Recv;
-                        *(uint16_t*)sRegSensor[sCtrlModbM.iHandle].vReturn *= (uint32_t)sRegSensor[sCtrlModbM.iHandle].vScale;
+                        *(uint16_t*)sRegSensor[i].vReturn = hex_Recv;
+                        *(uint16_t*)sRegSensor[i].vReturn *= (uint32_t)sRegSensor[i].vScale;
                         break;
                     case _ETYPE_I16:  
-                        *(int16_t*)sRegSensor[sCtrlModbM.iHandle].vReturn = hex_Recv;
-                        *(int16_t*)sRegSensor[sCtrlModbM.iHandle].vReturn *= (uint32_t)sRegSensor[sCtrlModbM.iHandle].vScale;
+                        *(int16_t*)sRegSensor[i].vReturn = hex_Recv;
+                        *(int16_t*)sRegSensor[i].vReturn *= (uint32_t)sRegSensor[i].vScale;
                         break;
                     case _ETYPE_U8:  
-                        *(uint8_t*)sRegSensor[sCtrlModbM.iHandle].vReturn = hex_Recv;
-                        *(uint8_t*)sRegSensor[sCtrlModbM.iHandle].vReturn *= (uint32_t)sRegSensor[sCtrlModbM.iHandle].vScale;
+                        *(uint8_t*)sRegSensor[i].vReturn = hex_Recv;
+                        *(uint8_t*)sRegSensor[i].vReturn *= (uint32_t)sRegSensor[i].vScale;
                         break;
                     case _ETYPE_I8:    
-                        *(int8_t*)sRegSensor[sCtrlModbM.iHandle].vReturn = hex_Recv;
-                        *(int8_t*)sRegSensor[sCtrlModbM.iHandle].vReturn *= (uint32_t)sRegSensor[sCtrlModbM.iHandle].vScale;
+                        *(int8_t*)sRegSensor[i].vReturn = hex_Recv;
+                        *(int8_t*)sRegSensor[i].vReturn *= (uint32_t)sRegSensor[i].vScale;
                         break;
                       
                     default:
@@ -604,34 +699,147 @@ static uint8_t fevent_modbus_receive_data(uint8_t event)
                 }
             }
             
-            if(*sRegSensor[sCtrlModbM.iHandle].nConnect < MAX_COUNT_DISCONNECT)
-                *sRegSensor[sCtrlModbM.iHandle].nConnect +=1;
+            if(*sRegSensor[i].nConnect < MAX_COUNT_DISCONNECT)
+                *sRegSensor[i].nConnect +=1;
         }
         else
         {
-            if(*sRegSensor[sCtrlModbM.iHandle].nConnect > 0)
-                *sRegSensor[sCtrlModbM.iHandle].nConnect -=1;
+            if(*sRegSensor[i].nConnect > 0)
+                *sRegSensor[i].nConnect -=1;
         }
-        sCtrlModbM.iHandle++;
+        i++;
+    }
+#else
+    uint16_t Transaction_Recv = 0;
+    uint16_t Pos = 0;
+
+   
+    if (ModbusTCP_Check_Format(0x01, 0x28, &sDataRecvTCP, &ModContent) == true)
+    {
+        Transaction_Recv = sDataRecvTCP.Data_a8[0] << 8 | sDataRecvTCP.Data_a8[1];
+        if(Transaction_Recv == Transaction)
+           Result_Recv = true;
     }
 
+    if(Result_Recv == true)
+    {
+        // pH + Temp
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sMeasureMain[0][_SS_PH].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        sMeasureMain[1][_SS_TEMP].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sMeasureMain[0][_SS_PH].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
+        sMeasureMain[1][_SS_TEMP].stateValue = 0x0F &(uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sMeasureMain[0][_SS_PH].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sMeasureMain[1][_SS_TEMP].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F);
+        
+        // Do
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sMeasureMain[0][_SS_DO].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sMeasureMain[0][_SS_DO].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sMeasureMain[0][_SS_DO].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        // NH4
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sMeasureMain[0][_SS_NH4].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sMeasureMain[0][_SS_NH4].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sMeasureMain[0][_SS_NH4].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        // TSS
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sMeasureMain[0][_SS_TSS].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sMeasureMain[0][_SS_TSS].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sMeasureMain[0][_SS_TSS].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F) * 1000;
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        // COD
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sMeasureMain[0][_SS_COD].stateSensor = (uint8_t)Endian_Format(hex_Recv, 2, _E_BE);
+
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 2);
+        sMeasureMain[0][_SS_COD].stateValue = 0x0F & (uint8_t)Endian_Format(hex_Recv, 2, _E_BS);
+        
+        hex_Recv = Read_Register_Modbus(ModContent.Data_a8, &Pos, 4);
+        hex_Recv = Endian_Format(hex_Recv, 4, _E_BE);
+        sMeasureMain[0][_SS_COD].Value_f = Decode_Data_Type_u32(hex_Recv, _ETYPE_F);
+        
+        sMeasureMain[0][_SS_PH].nConnect_u8 = MAX_COUNT_DISCONNECT;
+        sMeasureMain[1][_SS_TEMP].nConnect_u8 = MAX_COUNT_DISCONNECT;
+        sMeasureMain[0][_SS_DO].nConnect_u8 = MAX_COUNT_DISCONNECT;
+        sMeasureMain[0][_SS_NH4].nConnect_u8 = MAX_COUNT_DISCONNECT;
+        sMeasureMain[0][_SS_TSS].nConnect_u8 = MAX_COUNT_DISCONNECT;
+        sMeasureMain[0][_SS_COD].nConnect_u8 = MAX_COUNT_DISCONNECT;
+    }
+    else
+    {
+        if(sMeasureMain[0][_SS_PH].nConnect_u8 > 0)
+            sMeasureMain[0][_SS_PH].nConnect_u8 -= 1;
+        if(sMeasureMain[0][_SS_TEMP].nConnect_u8 > 0)
+            sMeasureMain[0][_SS_TEMP].nConnect_u8 -= 1;
+        if(sMeasureMain[0][_SS_DO].nConnect_u8 > 0)
+            sMeasureMain[0][_SS_DO].nConnect_u8 -= 1;
+        if(sMeasureMain[0][_SS_NH4].nConnect_u8 > 0)
+            sMeasureMain[0][_SS_NH4].nConnect_u8 -= 1;
+        if(sMeasureMain[0][_SS_TSS].nConnect_u8 > 0)
+            sMeasureMain[0][_SS_TSS].nConnect_u8 -= 1;
+        if(sMeasureMain[0][_SS_COD].nConnect_u8 > 0)
+            sMeasureMain[0][_SS_COD].nConnect_u8 -= 1;
+    }
+    
+    Transaction++;
+#endif
+    sCtrlModbM.iHandle++;
     fevent_enable(sEventAppModb, _EVENT_MODB_TRANSMIT_DATA);
     return 1;
 }
 
 static uint8_t fevent_ptr_temp(uint8_t event)
 {
+    uint8_t result = false;
     for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
     {
         for(uint8_t i = _SS_PH; i<_END_SENSOR; i++)
         {
-            if(sMeasureMain[j][i].sUser == _ACTIVE_SENSOR)
+            if(result == false)
             {
-                sRegSensor[_E_TEMP_VALUE].idDev = sMeasureMain[j][i].ID_Modbus;
-                sRegSensor[_E_TEMP_S_SENSOR].idDev = sMeasureMain[j][i].ID_Modbus;
-                sRegSensor[_E_TEMP_S_VALUE].idDev = sMeasureMain[j][i].ID_Modbus;
-                break;
+                if(sMeasureMain[j][i].sUser == _ACTIVE_SENSOR)
+                {
+                    sRegSensor[_E_TEMP_VALUE].idDev = sMeasureMain[j][i].ID_Modbus;
+                    sRegSensor[_E_TEMP_S_SENSOR].idDev = sMeasureMain[j][i].ID_Modbus;
+                    sRegSensor[_E_TEMP_S_VALUE].idDev = sMeasureMain[j][i].ID_Modbus;
+                }
             }
+            else 
+                break;
         }
     }
     fevent_enable(sEventAppModb, event);
@@ -896,10 +1104,8 @@ void Modem_SER_Get_Mod_TCP_Main (sData *strRecei, uint16_t Pos)
 {
     char aData[128] = {0};
     
-    sprintf((char*) aData, "%s,%s,%s,%s\r\n", sModemInfor.sServerModTCP.aIP,
-                                        sModemInfor.sServerModTCP.aPORT,
-                                        sModemInfor.sServerModTCP.aUSER,
-                                        sModemInfor.sServerModTCP.aPASS);  
+    sprintf((char*) aData, "%s:%s\r\n", sModemInfor.sServerModTCP.aIP,
+                                        sModemInfor.sServerModTCP.aPORT);  
     
     Modem_Respond_Str(PortConfig, aData, 0);
 }

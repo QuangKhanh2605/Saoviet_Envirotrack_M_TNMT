@@ -133,9 +133,6 @@ sATCommandList sATCmdList[] =
 
     {_GET_USER_SENSOR,      NULL,           {(uint8_t*)"at+usersensor?",14}},
     {_SET_USER_SENSOR,      NULL,           {(uint8_t*)"at+usersensor=",14}},
-
-    {_GET_OFFSET_SENSOR,    NULL,           {(uint8_t*)"at+offsetsensor?",16}},
-    {_SET_OFFSET_SENSOR,    NULL,           {(uint8_t*)"at+offsetsensor=",16}},    
     
     {_GET_SD_CARD_FREE,     NULL,           {(uint8_t*)"at+sdcardfree?",14}},
     

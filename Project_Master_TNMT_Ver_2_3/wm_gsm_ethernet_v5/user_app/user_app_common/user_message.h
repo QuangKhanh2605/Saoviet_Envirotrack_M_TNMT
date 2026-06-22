@@ -37,7 +37,7 @@
 #define	TSVH_FLASH              1
 #define	TSVH_MULTI              2
 
-#define	TSVH_OPERA_OR_FLASH		TSVH_OPERA 
+#define	TSVH_OPERA_OR_FLASH		TSVH_FLASH 
 
 /*======================== Structs var======================*/
 typedef enum {

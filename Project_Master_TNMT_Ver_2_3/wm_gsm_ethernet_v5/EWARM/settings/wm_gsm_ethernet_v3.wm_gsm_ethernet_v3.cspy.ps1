@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Saoviet_Lib\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.general.xcl" --backend -f "D:\Saoviet_Lib\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_3\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.general.xcl" --backend -f "D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_3\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.driver.xcl" 
 }
 else
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Saoviet_Lib\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.general.xcl" --debug_file=$debugfile --backend -f "D:\Saoviet_Lib\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_3\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.general.xcl" --debug_file=$debugfile --backend -f "D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_3\wm_gsm_ethernet_v5\EWARM\settings\wm_gsm_ethernet_v3.wm_gsm_ethernet_v3.driver.xcl" 
 }

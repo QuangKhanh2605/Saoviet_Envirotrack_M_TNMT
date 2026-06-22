@@ -189,12 +189,12 @@ void BUTTON_Enter_Process (void)
 //                                       sConfirm[sButton.Old_value], 0xF2);  
 //                    break;
                     
-                case __SET_OPTION_SENSOR:
-                    UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                    Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
-                                       __SET_OPTION_SS_PH, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                       NULL, 0xF1);
-                    break; 
+//                case __SET_OPTION_SENSOR:
+//                    UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                    Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
+//                                       __SET_OPTION_SS_PH, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                       NULL, 0xF1);
+//                    break; 
                     
                 case __SET_CHANGE_PASS:
                     sButton.Old_value = 0;
@@ -533,317 +533,317 @@ void BUTTON_Enter_Process (void)
                                NULL, 0xF0); 
             break;
 
-        case _LCD_SCR_SET_OPTION_SENSOR:
-            switch (sLCD.sScreenNow.Para_u8)
-            {  
-                case __SET_OPTION_SS_PH:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_PH, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_PH].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
-                                               __SET_OPTION_SS_PH, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               &sModbMeasure[_SS_PH].sUser, 0xF1);
-                            Save_UserSensor(_SS_PH, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                case __SET_OPTION_SS_CLO:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_CLO, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_CLO].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
-                                               __SET_OPTION_SS_CLO, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               &sModbMeasure[_SS_CLO].sUser, 0xF1);
-                            Save_UserSensor(_SS_CLO, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                case __SET_OPTION_SS_EC:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_EC, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_EC].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
-                                               __SET_OPTION_SS_EC, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               &sModbMeasure[_SS_EC].sUser, 0xF1);
-                            Save_UserSensor(_SS_EC, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                case __SET_OPTION_SS_TURB:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_TURB, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_TURB].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
-                                               __SET_OPTION_SS_TURB, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               &sModbMeasure[_SS_TURB].sUser, 0xF1);
-                            Save_UserSensor(_SS_TURB, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                case __SET_OPTION_SS_COD:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_COD, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_COD].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
-                                               __SET_OPTION_SS_COD, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               &sModbMeasure[_SS_COD].sUser, 0xF1);
-                            Save_UserSensor(_SS_COD, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                    default:
-                      break;
-            }
-            break;
-            
-        case _LCD_SCR_SET_OPTION_SENSOR_TAB_2:
-            switch (sLCD.sScreenNow.Para_u8)
-            {  
-                case __SET_OPTION_SS_TSS:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_TSS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_TSS].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
-                                               __SET_OPTION_SS_TSS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               &sModbMeasure[_SS_TSS].sUser, 0xF1);
-                            Save_UserSensor(_SS_TSS, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                case __SET_OPTION_SS_NH4:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_NH4, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_NH4].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
-                                               __SET_OPTION_SS_NH4, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               &sModbMeasure[_SS_NH4].sUser, 0xF1);
-                            Save_UserSensor(_SS_NH4, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                case __SET_OPTION_SS_DO:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_DO, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_DO].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
-                                               __SET_OPTION_SS_DO, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               &sModbMeasure[_SS_DO].sUser, 0xF1);
-                            Save_UserSensor(_SS_DO, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                case __SET_OPTION_SS_SALT:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_SALT, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_SALT].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
-                                               __SET_OPTION_SS_SALT, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               &sModbMeasure[_SS_SALT].sUser, 0xF1);
-                            Save_UserSensor(_SS_SALT, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                case __SET_OPTION_SS_TDS:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_TDS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_TDS].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
-                                               __SET_OPTION_SS_TDS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               &sModbMeasure[_SS_TDS].sUser, 0xF1);
-                            Save_UserSensor(_SS_TDS, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                    default:
-                      break;
-            }
-            break;
-        
-        case _LCD_SCR_SET_OPTION_SENSOR_TAB_3:
-            switch (sLCD.sScreenNow.Para_u8)
-            {  
-                case __SET_OPTION_SS_NO3:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_NO3, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_NO3].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, 0,
-                                               __SET_OPTION_SS_NO3, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
-                                               &sModbMeasure[_SS_NO3].sUser, 0xF1);
-                            Save_UserSensor(_SS_NO3, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                case __SET_OPTION_SS_TEMP:
-                    switch(sLCD.sScreenNow.SubIndex_u8)
-                    {
-                        case 0:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, (sLCD.sScreenNow.SubIndex_u8+1),
-                                               __SET_OPTION_SS_TEMP, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
-                                               &sButton.Old_value, 0xF2);
-                            sButton.Old_value = sModbMeasure[_SS_TEMP].sUser;
-                            break;
-                            
-                        case 1:
-                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, 0,
-                                               __SET_OPTION_SS_TEMP, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
-                                               &sModbMeasure[_SS_TEMP].sUser, 0xF1);
-                            Save_UserSensor(_SS_TEMP, sButton.Old_value);
-                            break;
-                        
-                        default:
-                            break;
-                    }
-                    break;
-                    
-                default:
-                  break;
-            }
-            break;
+//        case _LCD_SCR_SET_OPTION_SENSOR:
+//            switch (sLCD.sScreenNow.Para_u8)
+//            {  
+//                case __SET_OPTION_SS_PH:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_PH, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_PH].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
+//                                               __SET_OPTION_SS_PH, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                               &sMeasureMain[_SS_PH].sUser, 0xF1);
+//                            Save_UserSensor(_SS_PH, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                case __SET_OPTION_SS_CLO:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_CLO, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_CLO].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
+//                                               __SET_OPTION_SS_CLO, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                               &sMeasureMain[_SS_CLO].sUser, 0xF1);
+//                            Save_UserSensor(_SS_CLO, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                case __SET_OPTION_SS_EC:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_EC, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_EC].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
+//                                               __SET_OPTION_SS_EC, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                               &sMeasureMain[_SS_EC].sUser, 0xF1);
+//                            Save_UserSensor(_SS_EC, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                case __SET_OPTION_SS_TURB:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_TURB, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_TURB].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
+//                                               __SET_OPTION_SS_TURB, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                               &sMeasureMain[_SS_TURB].sUser, 0xF1);
+//                            Save_UserSensor(_SS_TURB, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                case __SET_OPTION_SS_COD:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_COD, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_COD].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
+//                                               __SET_OPTION_SS_COD, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                               &sMeasureMain[_SS_COD].sUser, 0xF1);
+//                            Save_UserSensor(_SS_COD, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                    default:
+//                      break;
+//            }
+//            break;
+//            
+//        case _LCD_SCR_SET_OPTION_SENSOR_TAB_2:
+//            switch (sLCD.sScreenNow.Para_u8)
+//            {  
+//                case __SET_OPTION_SS_TSS:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_TSS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_TSS].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
+//                                               __SET_OPTION_SS_TSS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                               &sMeasureMain[_SS_TSS].sUser, 0xF1);
+//                            Save_UserSensor(_SS_TSS, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                case __SET_OPTION_SS_NH4:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_NH4, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_NH4].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
+//                                               __SET_OPTION_SS_NH4, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                               &sMeasureMain[_SS_NH4].sUser, 0xF1);
+//                            Save_UserSensor(_SS_NH4, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                case __SET_OPTION_SS_DO:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_DO, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_DO].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
+//                                               __SET_OPTION_SS_DO, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                               &sMeasureMain[_SS_DO].sUser, 0xF1);
+//                            Save_UserSensor(_SS_DO, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                case __SET_OPTION_SS_SALT:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_SALT, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_SALT].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
+//                                               __SET_OPTION_SS_SALT, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                               &sMeasureMain[_SS_SALT].sUser, 0xF1);
+//                            Save_UserSensor(_SS_SALT, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                case __SET_OPTION_SS_TDS:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_TDS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_TDS].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
+//                                               __SET_OPTION_SS_TDS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                               &sMeasureMain[_SS_TDS].sUser, 0xF1);
+//                            Save_UserSensor(_SS_TDS, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                    default:
+//                      break;
+//            }
+//            break;
+//        
+//        case _LCD_SCR_SET_OPTION_SENSOR_TAB_3:
+//            switch (sLCD.sScreenNow.Para_u8)
+//            {  
+//                case __SET_OPTION_SS_NO3:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_NO3, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_NO3].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, 0,
+//                                               __SET_OPTION_SS_NO3, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
+//                                               &sMeasureMain[_SS_NO3].sUser, 0xF1);
+//                            Save_UserSensor(_SS_NO3, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                case __SET_OPTION_SS_TEMP:
+//                    switch(sLCD.sScreenNow.SubIndex_u8)
+//                    {
+//                        case 0:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, (sLCD.sScreenNow.SubIndex_u8+1),
+//                                               __SET_OPTION_SS_TEMP, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
+//                                               &sButton.Old_value, 0xF2);
+//                            sButton.Old_value = sMeasureMain[_SS_TEMP].sUser;
+//                            break;
+//                            
+//                        case 1:
+//                            UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                            Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, 0,
+//                                               __SET_OPTION_SS_TEMP, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
+//                                               &sMeasureMain[_SS_TEMP].sUser, 0xF1);
+//                            Save_UserSensor(_SS_TEMP, sButton.Old_value);
+//                            break;
+//                        
+//                        default:
+//                            break;
+//                    }
+//                    break;
+//                    
+//                default:
+//                  break;
+//            }
+//            break;
             
         case _LCD_SCR_CHANGE_PASS:
             sButton.Old_value++;
@@ -983,131 +983,6 @@ void BUTTON_Up_Process (void)
             break;
         case _LCD_SCR_SET_FREQ:
             sButton.Old_value ++; 
-            break;
-            
-         case _LCD_SCR_SET_OPTION_SENSOR:
-              if(sLCD.sScreenNow.SubIndex_u8 == 0)
-              {
-                    if (sLCD.sScreenNow.Para_u8 > sLCD.sScreenNow.ParaMin_u8 ) {
-                        sLCD.sScreenNow.Para_u8--;
-                    }
-                    Display_Set_Screen_Flag(&sLCD.sScreenNow, NULL, 0xF1);
-              }
-              else
-              {
-                switch (sLCD.sScreenNow.Para_u8)
-                {
-                    case __SET_OPTION_SS_PH:
-                    case __SET_OPTION_SS_CLO:
-                    case __SET_OPTION_SS_EC:
-                    case __SET_OPTION_SS_TURB:
-                    case __SET_OPTION_SS_COD:
-                        switch(sLCD.sScreenNow.SubIndex_u8)
-                        {
-                            case 0:
-                                break;
-                                
-                            case 1:
-                                if(sButton.Old_value == 0)
-                                  sButton.Old_value = 1;
-                                else
-                                  sButton.Old_value = 0;
-                                break;
-                            
-                            default:
-                                break;
-                        }
-                        break;
-                        
-                    default:
-                      break;
-                }
-            }
-            break;
-            
-         case _LCD_SCR_SET_OPTION_SENSOR_TAB_2:
-              if(sLCD.sScreenNow.SubIndex_u8 == 0)
-              {
-                    if (sLCD.sScreenNow.Para_u8 > sLCD.sScreenNow.ParaMin_u8 ) {
-                        sLCD.sScreenNow.Para_u8--;
-                        Display_Set_Screen_Flag(&sLCD.sScreenNow, NULL, 0xF1);
-                    } else {
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, 0,
-                                               __SET_OPTION_SS_COD, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                               NULL, 0xF1);
-                    }
-              }
-              else
-              {
-                switch (sLCD.sScreenNow.Para_u8)
-                {
-                    case __SET_OPTION_SS_TSS:
-                    case __SET_OPTION_SS_NH4:
-                    case __SET_OPTION_SS_DO:
-                    case __SET_OPTION_SS_SALT:
-                    case __SET_OPTION_SS_TDS:
-                        switch(sLCD.sScreenNow.SubIndex_u8)
-                        {
-                            case 0:
-                                break;
-                                
-                            case 1:
-                                if(sButton.Old_value == 0)
-                                  sButton.Old_value = 1;
-                                else
-                                  sButton.Old_value = 0;
-                                break;
-                            
-                            default:
-                                break;
-                        }
-                        break;
-                        
-                    default:
-                      break;
-                }
-            }
-            break;
-            
-         case _LCD_SCR_SET_OPTION_SENSOR_TAB_3:
-              if(sLCD.sScreenNow.SubIndex_u8 == 0)
-              {
-                    if (sLCD.sScreenNow.Para_u8 > sLCD.sScreenNow.ParaMin_u8 ) {
-                        sLCD.sScreenNow.Para_u8--;
-                        Display_Set_Screen_Flag(&sLCD.sScreenNow, NULL, 0xF1);
-                    } else {
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
-                                               __SET_OPTION_SS_TDS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                               NULL, 0xF1);
-                    }
-              }
-              else
-              {
-                switch (sLCD.sScreenNow.Para_u8)
-                {
-                    case __SET_OPTION_SS_NO3:
-                    case __SET_OPTION_SS_TEMP:
-                        switch(sLCD.sScreenNow.SubIndex_u8)
-                        {
-                            case 0:
-                                break;
-                                
-                            case 1:
-                                if(sButton.Old_value == 0)
-                                  sButton.Old_value = 1;
-                                else
-                                  sButton.Old_value = 0;
-                                break;
-                            
-                            default:
-                                break;
-                        }
-                        break;
-                        
-                    default:
-                      break;
-                }
-            }
             break;
             
         case _LCD_SCR_SET_PRESS_1_2:
@@ -1276,131 +1151,6 @@ void BUTTON_Down_Process (void)
             }
             break; 
             
-        case _LCD_SCR_SET_OPTION_SENSOR:
-              if(sLCD.sScreenNow.SubIndex_u8 == 0)
-              {
-                    if (sLCD.sScreenNow.Para_u8 == sLCD.sScreenNow.ParaMax_u8) {
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, 0,
-                                            __SET_OPTION_SS_TSS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                            NULL, 0xF1);
-                    } else {
-                        sLCD.sScreenNow.Para_u8++;
-                        Display_Set_Screen_Flag(&sLCD.sScreenNow, NULL, 0xF1);
-                    }
-              }
-              else
-              {
-                switch (sLCD.sScreenNow.Para_u8)
-                {
-                    case __SET_OPTION_SS_PH:
-                    case __SET_OPTION_SS_CLO:
-                    case __SET_OPTION_SS_EC:
-                    case __SET_OPTION_SS_TURB:
-                    case __SET_OPTION_SS_COD:
-                        switch(sLCD.sScreenNow.SubIndex_u8)
-                        {
-                            case 0:
-                                break;
-                                
-                            case 1:
-                                if(sButton.Old_value == 0)
-                                  sButton.Old_value = 1;
-                                else
-                                  sButton.Old_value = 0;
-                                break;
-                            
-                            default:
-                                break;
-                        }
-                        break;
-                        
-                    default:
-                      break;
-                }
-            }
-            break;
-            
-        case _LCD_SCR_SET_OPTION_SENSOR_TAB_2:
-              if(sLCD.sScreenNow.SubIndex_u8 == 0)
-              {
-                    if (sLCD.sScreenNow.Para_u8 == sLCD.sScreenNow.ParaMax_u8) {
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, 0,
-                                            __SET_OPTION_SS_NO3, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
-                                            NULL, 0xF1);
-                    } else {
-                        sLCD.sScreenNow.Para_u8++;
-                        Display_Set_Screen_Flag(&sLCD.sScreenNow, NULL, 0xF1);
-                    }
-              }
-              else
-              {
-                switch (sLCD.sScreenNow.Para_u8)
-                {
-                    case __SET_OPTION_SS_TSS:
-                    case __SET_OPTION_SS_NH4:
-                    case __SET_OPTION_SS_DO:
-                    case __SET_OPTION_SS_SALT:
-                    case __SET_OPTION_SS_TDS:
-                        switch(sLCD.sScreenNow.SubIndex_u8)
-                        {
-                            case 0:
-                                break;
-                                
-                            case 1:
-                                if(sButton.Old_value == 0)
-                                  sButton.Old_value = 1;
-                                else
-                                  sButton.Old_value = 0;
-                                break;
-                            
-                            default:
-                                break;
-                        }
-                        break;
-                        
-                    default:
-                      break;
-                }
-            }
-            break;
-            
-        case _LCD_SCR_SET_OPTION_SENSOR_TAB_3:
-              if(sLCD.sScreenNow.SubIndex_u8 == 0)
-              {
-                    if (sLCD.sScreenNow.Para_u8 < sLCD.sScreenNow.ParaMax_u8 ) {
-                        sLCD.sScreenNow.Para_u8++;
-                    }
-                    Display_Set_Screen_Flag(&sLCD.sScreenNow, NULL, 0xF1);
-              }
-              else
-              {
-                switch (sLCD.sScreenNow.Para_u8)
-                {
-                    case __SET_OPTION_SS_NO3:
-                    case __SET_OPTION_SS_TEMP:
-                        switch(sLCD.sScreenNow.SubIndex_u8)
-                        {
-                            case 0:
-                                break;
-                                
-                            case 1:
-                                if(sButton.Old_value == 0)
-                                  sButton.Old_value = 1;
-                                else
-                                  sButton.Old_value = 0;
-                                break;
-                            
-                            default:
-                                break;
-                        }
-                        break;
-                        
-                    default:
-                      break;
-                }
-            }
-            break;
-            
         case _LCD_SCR_SET_PRESS_1:
             if (sLCD.sScreenNow.Para_u8 == sLCD.sScreenNow.ParaMax_u8) {
                 Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_PRESS_1_2, 0,
@@ -1490,293 +1240,293 @@ void BUTTON_ESC_Process (void)
             sLCD.sScreenNow.Index_u8 = _LCD_SCREEN_1;
             break;
 
-        case _LCD_SCR_SET_OPTION_SENSOR:   
-          switch(sLCD.sScreenNow.Para_u8)
-          {
-            case __SET_OPTION_SS_PH:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_PH, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                           &sModbMeasure[_SS_PH].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-            case __SET_OPTION_SS_CLO:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_CLO, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                           &sModbMeasure[_SS_CLO].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-            case __SET_OPTION_SS_EC:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_EC, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                           &sModbMeasure[_SS_EC].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-            case __SET_OPTION_SS_TURB:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_TURB, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                           &sModbMeasure[_SS_TURB].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-            case __SET_OPTION_SS_COD:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_COD, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
-                                           &sModbMeasure[_SS_COD].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-              default:
-                break;
-          }
-          break;
-          
-        case _LCD_SCR_SET_OPTION_SENSOR_TAB_2:   
-          switch(sLCD.sScreenNow.Para_u8)
-          {
-            case __SET_OPTION_SS_TSS:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_TSS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                           &sModbMeasure[_SS_TSS].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-            case __SET_OPTION_SS_NH4:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_NH4, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                           &sModbMeasure[_SS_NH4].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-            case __SET_OPTION_SS_DO:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_DO, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                           &sModbMeasure[_SS_DO].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-            case __SET_OPTION_SS_SALT:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_SALT, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                           &sModbMeasure[_SS_SALT].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-            case __SET_OPTION_SS_TDS:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_TDS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
-                                           &sModbMeasure[_SS_TDS].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-              default:
-                break;
-          }
-          break;
-          
-        case _LCD_SCR_SET_OPTION_SENSOR_TAB_3:   
-          switch(sLCD.sScreenNow.Para_u8)
-          {
-            case __SET_OPTION_SS_NO3:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_NO3, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
-                                           &sModbMeasure[_SS_NO3].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
-                
-            case __SET_OPTION_SS_TEMP:
-                switch(sLCD.sScreenNow.SubIndex_u8)
-                {
-                    case 0:
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
-                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
-                                           NULL, 0xF1);
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        break;        
-                      
-                    case 1:
-                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
-                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, (sLCD.sScreenNow.SubIndex_u8-1),
-                                           __SET_OPTION_SS_TEMP, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
-                                           &sModbMeasure[_SS_TEMP].sUser, 0xF1);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                break;
- 
-              default:
-                break;
-          }
-          break;
+//        case _LCD_SCR_SET_OPTION_SENSOR:   
+//          switch(sLCD.sScreenNow.Para_u8)
+//          {
+//            case __SET_OPTION_SS_PH:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_PH, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                           &sMeasureMain[_SS_PH].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//            case __SET_OPTION_SS_CLO:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_CLO, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                           &sMeasureMain[_SS_CLO].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//            case __SET_OPTION_SS_EC:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_EC, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                           &sMeasureMain[_SS_EC].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//            case __SET_OPTION_SS_TURB:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_TURB, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                           &sMeasureMain[_SS_TURB].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//            case __SET_OPTION_SS_COD:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_COD, __SET_OPTION_SS_PH, __SET_OPTION_SS_COD,
+//                                           &sMeasureMain[_SS_COD].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//              default:
+//                break;
+//          }
+//          break;
+//          
+//        case _LCD_SCR_SET_OPTION_SENSOR_TAB_2:   
+//          switch(sLCD.sScreenNow.Para_u8)
+//          {
+//            case __SET_OPTION_SS_TSS:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_TSS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                           &sMeasureMain[_SS_TSS].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//            case __SET_OPTION_SS_NH4:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_NH4, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                           &sMeasureMain[_SS_NH4].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//            case __SET_OPTION_SS_DO:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_DO, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                           &sMeasureMain[_SS_DO].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//            case __SET_OPTION_SS_SALT:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_SALT, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                           &sMeasureMain[_SS_SALT].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//            case __SET_OPTION_SS_TDS:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_2, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_TDS, __SET_OPTION_SS_TSS, __SET_OPTION_SS_TDS,
+//                                           &sMeasureMain[_SS_TDS].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//              default:
+//                break;
+//          }
+//          break;
+//          
+//        case _LCD_SCR_SET_OPTION_SENSOR_TAB_3:   
+//          switch(sLCD.sScreenNow.Para_u8)
+//          {
+//            case __SET_OPTION_SS_NO3:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_NO3, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
+//                                           &sMeasureMain[_SS_NO3].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+//                
+//            case __SET_OPTION_SS_TEMP:
+//                switch(sLCD.sScreenNow.SubIndex_u8)
+//                {
+//                    case 0:
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,
+//                                           __SET_OPTION_SENSOR, __SET_LEVEL_SETT, __SET_MANUFACTOR,
+//                                           NULL, 0xF1);
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        break;        
+//                      
+//                    case 1:
+//                        UTIL_MEM_cpy(&sLCD.sScreenBack, &sLCD.sScreenNow, sizeof(sScreenInformation));
+//                        Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SET_OPTION_SENSOR_TAB_3, (sLCD.sScreenNow.SubIndex_u8-1),
+//                                           __SET_OPTION_SS_TEMP, __SET_OPTION_SS_NO3, __SET_OPTION_SS_TEMP,
+//                                           &sMeasureMain[_SS_TEMP].sUser, 0xF1);
+//                        break;
+//                        
+//                    default:
+//                        break;
+//                }
+//                break;
+// 
+//              default:
+//                break;
+//          }
+//          break;
           
        case _LCD_SCR_CHANGE_PASS:
           Display_Set_Screen(&sLCD.sScreenNow, _LCD_SCR_SETTING_2, 0,

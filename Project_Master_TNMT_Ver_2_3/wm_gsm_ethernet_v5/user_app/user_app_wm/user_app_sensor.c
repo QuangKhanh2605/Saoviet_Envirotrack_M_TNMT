@@ -42,79 +42,79 @@ uint8_t _Cb_Handle_SS_SALT(uint8_t State);
 uint8_t _Cb_Handle_SS_TDS(uint8_t State);
 uint8_t _Cb_Handle_SS_NO3(uint8_t State);
 
-Struct_NameUnitParam    sNameUnitParam[_END_SENSOR] = 
-{
-    //eKind          Name           Unit
-  {_SS_TEMP,        "Temp",         "°C"        },       // 0 Temperature
-  {_SS_PH,          "pH",           "-"         },       // 1 pH
-  {_SS_CLO,         "CLO",          "mg/l"      },       // 2 Clo
-  {_SS_EC,          "EC",           "µS/cm"     },       // 3 EC
-  {_SS_TURB,        "TURB",         "NTU"       },       // 4 Turb
-  {_SS_COD,         "COD",          "mg/l"      },       // 5 COD
-  {_SS_TSS,         "TSS",          "mg/l"      },       // 6 TSS
-  {_SS_NH4,         "NH4-N",        "mg/l"      },       // 7 NH4
-  {_SS_DO,          "DO",           "mg/l"      },       // 8 DO
-  {_SS_SALT,        "SALT",         "%"         },       // 9 SALT
-  {_SS_TDS,         "TDS",          "mg/l"      },       //10 TDS
-  {_SS_NO3,         "NO3-N",        "mg/l"      },       //11 NO3
-};
-
 Struct_AverageOneHour       sAverageOneHour[_END_SENSOR] = {0};     //Struct tinh gia tri trung binh trong 1 gio
-Struct_AverageMeasure       sAverageMeasure[_END_SENSOR] = {0};     //Struct luu gia tri trung binh
 
-Struct_Modb_Measure            sModbMeasure[]=
+//Struct_MeasureMain          sMeasureMain[] = 
+//{
+//  {_SS_TEMP,    OBIS_ENVI_TEMP,     ID_SS_TEMP,         "Temp",         "°C",       0xFE,       0,      0xFE},       // 0 Temperature       
+//  {_SS_PH,      OBIS_ENVI_PH_WATER, ID_SS_PH,           "pH",           "-",        0xFE,       0,      0xFE},       // 1 pH          
+//  {_SS_CLO,     OBIS_ENVI_CLO,      ID_SS_CLO,          "CLO",          "mg/l",     0xFE,       0,      0xFE},       // 2 Clo        
+//  {_SS_EC,      OBIS_ENVI_EC,       ID_SS_EC,           "EC",           "µS/cm",    0x00,       0,      0x00},       // 3 EC          
+//  {_SS_TURB,    OBIS_ENVI_TURB,     ID_SS_TURB,         "TURB",         "NTU",      0xFE,       10,     0xFF},       // 4 Turb        
+//  {_SS_COD,     OBIS_ENVI_COD,      ID_SS_COD,          "COD",          "mg/l",     0xFE,       0,      0xFE},       // 5 COD         
+//  {_SS_TSS,     OBIS_ENVI_TSS,      ID_SS_TSS,          "TSS",          "mg/l",     0xFF,       0,      0xFF},       // 6 TSS             
+//  {_SS_NH4,     OBIS_ENVI_NH4,      ID_SS_NH4,          "NH4-N",        "mg/l",     0xFE,       0,      0xFE},       // 7 NH4        
+//  {_SS_DO,      OBIS_ENVI_OXY_MG_L, ID_SS_DO,           "DO",           "mg/l",     0xFE,       0,      0xFE},       // 8 DO          
+//  {_SS_SALT,    OBIS_ENVI_SALT_UNIT,ID_SS_EC,           "SALT",         "%",        0xFE,       0,      0xFE},       // 9 SALT         
+//  {_SS_TDS,     OBIS_ENVI_TDS,      ID_SS_EC,           "TDS",          "mg/l",     0x00,       0,      0x00},       //10 TDS
+//  {_SS_NO3,     OBIS_ENVI_NO3,      ID_SS_NO3,          "NO3-N",        "mg/l",     0xFE,       0,      0xFE},       //11 NO3        
+//};
+
+Struct_MeasureMain sMeasureMain[MAX_CHANNEL_SS][_END_SENSOR] = 
 {
-  {_SS_TEMP,    ID_SS_TEMP},        // 0 Temperature
-  {_SS_PH,      ID_SS_PH},          // 1 pH
-  {_SS_CLO,     ID_SS_CLO},         // 2 Clo
-  {_SS_EC,      ID_SS_EC},          // 3 EC
-  {_SS_TURB,    ID_SS_TURB},        // 4 Turb
-  {_SS_COD,     ID_SS_COD},         // 5 COD
-  {_SS_TSS,     ID_SS_TSS},         // 6 TSS
-  {_SS_NH4,     ID_SS_NH4},         // 7 NH4
-  {_SS_DO,      ID_SS_DO},          // 8 DO
-  {_SS_SALT,    ID_SS_EC},          // 9 SALT
-  {_SS_TDS,     ID_SS_EC},          //10 TDS
-  {_SS_NO3,     ID_SS_NO3},         //11 NO3
+    // ==================== KÊNH 1 (CH1) ====================
+    {
+      {_SS_TEMP,    OBIS_ENVI_TEMP,     ID_SS_TEMP,         "Temp",         "°C",       0xFE,       0,      0xFE},       // 0 Temperature       
+      {_SS_PH,      OBIS_ENVI_PH_WATER, ID_SS_PH,           "pH",           "-",        0xFE,       0,      0xFE},       // 1 pH          
+      {_SS_CLO,     OBIS_ENVI_CLO,      ID_SS_CLO,          "CLO",          "mg/l",     0xFE,       0,      0xFE},       // 2 Clo        
+      {_SS_EC,      OBIS_ENVI_EC,       ID_SS_EC,           "EC",           "µS/cm",    0x00,       0,      0x00},       // 3 EC          
+      {_SS_TURB,    OBIS_ENVI_TURB,     ID_SS_TURB,         "TURB",         "NTU",      0xFE,       10,     0xFF},       // 4 Turb        
+      {_SS_COD,     OBIS_ENVI_COD,      ID_SS_COD,          "COD",          "mg/l",     0xFE,       0,      0xFE},       // 5 COD         
+      {_SS_TSS,     OBIS_ENVI_TSS,      ID_SS_TSS,          "TSS",          "mg/l",     0xFF,       0,      0xFF},       // 6 TSS             
+      {_SS_NH4,     OBIS_ENVI_NH4,      ID_SS_NH4,          "NH4-N",        "mg/l",     0xFE,       0,      0xFE},       // 7 NH4        
+      {_SS_DO,      OBIS_ENVI_OXY_MG_L, ID_SS_DO,           "DO",           "mg/l",     0xFE,       0,      0xFE},       // 8 DO          
+      {_SS_SALT,    OBIS_ENVI_SALT_UNIT,ID_SS_EC,           "SALT",         "%",        0xFE,       0,      0xFE},       // 9 SALT         
+      {_SS_TDS,     OBIS_ENVI_TDS,      ID_SS_EC,           "TDS",          "mg/l",     0x00,       0,      0x00},       //10 TDS
+      {_SS_NO3,     OBIS_ENVI_NO3,      ID_SS_NO3,          "NO3-N",        "mg/l",     0xFE,       0,      0xFE},       //11 NO3        
+    },
+    
+    // ==================== KÊNH 2 (CH2) ====================
+    {
+      {_SS_TEMP,    OBIS_ENVI_TEMP,     50 + ID_SS_TEMP,         "Temp",         "°C",       0xFE,       0,      0xFE},       // 0 Temperature       
+      {_SS_PH,      OBIS_ENVI_PH_WATER, 50 + ID_SS_PH,           "pH",           "-",        0xFE,       0,      0xFE},       // 1 pH          
+      {_SS_CLO,     OBIS_ENVI_CLO,      50 + ID_SS_CLO,          "CLO",          "mg/l",     0xFE,       0,      0xFE},       // 2 Clo        
+      {_SS_EC,      OBIS_ENVI_EC,       50 + ID_SS_EC,           "EC",           "µS/cm",    0x00,       0,      0x00},       // 3 EC          
+      {_SS_TURB,    OBIS_ENVI_TURB,     50 + ID_SS_TURB,         "TURB",         "NTU",      0xFE,       10,     0xFF},       // 4 Turb        
+      {_SS_COD,     OBIS_ENVI_COD,      50 + ID_SS_COD,          "COD",          "mg/l",     0xFE,       0,      0xFE},       // 5 COD         
+      {_SS_TSS,     OBIS_ENVI_TSS,      50 + ID_SS_TSS,          "TSS",          "mg/l",     0xFF,       0,      0xFF},       // 6 TSS             
+      {_SS_NH4,     OBIS_ENVI_NH4,      50 + ID_SS_NH4,          "NH4-N",        "mg/l",     0xFE,       0,      0xFE},       // 7 NH4        
+      {_SS_DO,      OBIS_ENVI_OXY_MG_L, 50 + ID_SS_DO,           "DO",           "mg/l",     0xFE,       0,      0xFE},       // 8 DO          
+      {_SS_SALT,    OBIS_ENVI_SALT_UNIT,50 + ID_SS_EC,           "SALT",         "%",        0xFE,       0,      0xFE},       // 9 SALT         
+      {_SS_TDS,     OBIS_ENVI_TDS,      50 + ID_SS_EC,           "TDS",          "mg/l",     0x00,       0,      0x00},       //10 TDS
+      {_SS_NO3,     OBIS_ENVI_NO3,      50 + ID_SS_NO3,          "NO3-N",        "mg/l",     0xFE,       0,      0xFE},       //11 NO3        
+    },
+    
+    // ==================== KÊNH 3 (CH3) ====================
 };
 
-Struct_SensorWarning        sSensorWarning[] = 
-{
-    //e_Name        State_Active             State_Connect_Now                   State_Connect_Befor    Gettick_Handle  _Cb_Handler_SS_Connect
-  {_SS_TEMP,    &sModbMeasure[_SS_TEMP].sUser, &sModbMeasure[_SS_TEMP].sConnect_u8, _SENSOR_DISCONNECT,    0,               _Cb_Handle_Detect_Power},
-  {_SS_PH,      &sModbMeasure[_SS_PH].sUser,   &sModbMeasure[_SS_PH].sConnect_u8,   _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_pH},
-  {_SS_CLO,     &sModbMeasure[_SS_CLO].sUser,  &sModbMeasure[_SS_CLO].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_Clo},
-  {_SS_EC,      &sModbMeasure[_SS_EC].sUser,   &sModbMeasure[_SS_EC].sConnect_u8,   _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_EC},
-  {_SS_TURB,    &sModbMeasure[_SS_TURB].sUser, &sModbMeasure[_SS_TURB].sConnect_u8, _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_Turb},
-  
-  {_SS_COD,     &sModbMeasure[_SS_COD].sUser,  &sModbMeasure[_SS_COD].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_COD},
-  {_SS_TSS,     &sModbMeasure[_SS_TSS].sUser,  &sModbMeasure[_SS_TSS].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_TSS},
-  {_SS_NH4,     &sModbMeasure[_SS_NH4].sUser,  &sModbMeasure[_SS_NH4].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_NH4},
-  {_SS_DO,      &sModbMeasure[_SS_DO].sUser,   &sModbMeasure[_SS_DO].sConnect_u8,   _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_DO},
-  {_SS_SALT,    &sModbMeasure[_SS_SALT].sUser, &sModbMeasure[_SS_SALT].sConnect_u8, _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_SALT},
-  
-  {_SS_TDS,     &sModbMeasure[_SS_TDS].sUser,  &sModbMeasure[_SS_TDS].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_TDS},
-  {_SS_NO3,     &sModbMeasure[_SS_NO3].sUser,  &sModbMeasure[_SS_NO3].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_NO3},
-};
-
-Struct_MeasureHanle         sMeasureHandle [] =
-{
-    //e_Name        sMeasureSensor            sMeasureHanlde              Scale_1  ParaScale  Scale_2
-  {_SS_TEMP,    &sModbMeasure[_SS_TEMP],      &sDataSensorMeasure.sTemp,    0xFE,       0,      0xFE},       //Temperature
-  {_SS_PH,      &sModbMeasure[_SS_PH],        &sDataSensorMeasure.spH,      0xFE,       0,      0xFE},
-  {_SS_CLO,     &sModbMeasure[_SS_CLO],       &sDataSensorMeasure.sClo,     0xFE,       0,      0xFE},
-  {_SS_EC,      &sModbMeasure[_SS_EC],        &sDataSensorMeasure.sEC,      0x00,       0,      0x00},
-  {_SS_TURB,    &sModbMeasure[_SS_TURB],      &sDataSensorMeasure.sTurb,    0xFE,       10,     0xFF},
-  
-  {_SS_COD,     &sModbMeasure[_SS_COD],       &sDataSensorMeasure.sCOD,     0xFE,       0,      0xFE},
-  {_SS_TSS,     &sModbMeasure[_SS_TSS],       &sDataSensorMeasure.sTSS,     0xFF,       0,      0xFF},
-  {_SS_NH4,     &sModbMeasure[_SS_NH4],       &sDataSensorMeasure.sNH4,     0xFE,       0,      0xFE},
-  {_SS_DO,      &sModbMeasure[_SS_DO],        &sDataSensorMeasure.sDO,      0xFE,       0,      0xFE},
-  {_SS_SALT,    &sModbMeasure[_SS_SALT],      &sDataSensorMeasure.sSal,     0xFE,       0,      0xFE},
-  
-  {_SS_TDS,     &sModbMeasure[_SS_TDS],       &sDataSensorMeasure.sTDS,     0x00,       0,      0x00},
-  {_SS_NO3,     &sModbMeasure[_SS_NO3],       &sDataSensorMeasure.sNO3,     0xFE,       0,      0xFE},
-};
+//Struct_SensorWarning        sSensorWarning[] = 
+//{
+//    //e_Name        State_Active             State_Connect_Now                   State_Connect_Befor    Gettick_Handle  _Cb_Handler_SS_Connect
+//  {_SS_TEMP,    &sMeasureMain[_SS_TEMP].sUser, &sMeasureMain[_SS_TEMP].sConnect_u8, _SENSOR_DISCONNECT,    0,               _Cb_Handle_Detect_Power},
+//  {_SS_PH,      &sMeasureMain[_SS_PH].sUser,   &sMeasureMain[_SS_PH].sConnect_u8,   _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_pH},
+//  {_SS_CLO,     &sMeasureMain[_SS_CLO].sUser,  &sMeasureMain[_SS_CLO].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_Clo},
+//  {_SS_EC,      &sMeasureMain[_SS_EC].sUser,   &sMeasureMain[_SS_EC].sConnect_u8,   _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_EC},
+//  {_SS_TURB,    &sMeasureMain[_SS_TURB].sUser, &sMeasureMain[_SS_TURB].sConnect_u8, _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_Turb},
+//  
+//  {_SS_COD,     &sMeasureMain[_SS_COD].sUser,  &sMeasureMain[_SS_COD].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_COD},
+//  {_SS_TSS,     &sMeasureMain[_SS_TSS].sUser,  &sMeasureMain[_SS_TSS].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_TSS},
+//  {_SS_NH4,     &sMeasureMain[_SS_NH4].sUser,  &sMeasureMain[_SS_NH4].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_NH4},
+//  {_SS_DO,      &sMeasureMain[_SS_DO].sUser,   &sMeasureMain[_SS_DO].sConnect_u8,   _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_DO},
+//  {_SS_SALT,    &sMeasureMain[_SS_SALT].sUser, &sMeasureMain[_SS_SALT].sConnect_u8, _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_SALT},
+//  
+//  {_SS_TDS,     &sMeasureMain[_SS_TDS].sUser,  &sMeasureMain[_SS_TDS].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_TDS},
+//  {_SS_NO3,     &sMeasureMain[_SS_NO3].sUser,  &sMeasureMain[_SS_NO3].sConnect_u8,  _SENSOR_DISCONNECT,    0,               _Cb_Handle_SS_NO3},
+//};
 
 //======================================================
 static inline void clear_measure_block(Struct_SS_Value *blk)
@@ -124,9 +124,9 @@ static inline void clear_measure_block(Struct_SS_Value *blk)
     blk->Scale_u8 = 0;
 }
 
-static inline void set_measure_block(Struct_SS_Value *blk, float value, float offset, uint8_t scale)
+static inline void set_measure_block(Struct_SS_Value *blk, float value, uint8_t scale)
 {
-    float stamp  = value + offset;
+    float stamp  = value;
     float factor = Calculator_Scale(scale);
 
     int32_t result = (int32_t)roundf(stamp * factor * 10);
@@ -140,7 +140,7 @@ static inline void set_measure_block(Struct_SS_Value *blk, float value, float of
 /*================= Function Handle ==============*/
 static uint8_t fevent_sensor_entry(uint8_t event)
 {
-    fevent_enable(sEventAppSensor, _EVENT_SENSOR_HANDLE_STATE);
+//    fevent_enable(sEventAppSensor, _EVENT_SENSOR_HANDLE_STATE);
     return 1;
 }
 
@@ -165,24 +165,26 @@ static uint8_t fevent_sensor_log_tsvh(uint8_t event)
 
 static uint8_t fevent_sensor_data_measure(uint8_t event)
 {
-    for(uint8_t i = _SS_TEMP; i<_END_SENSOR; i++)
+    for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
     {
-        if (sMeasureHandle[i].sMeasureSensor->nConnect_u8 == 0) 
-        {                                
-            sMeasureHandle[i].sMeasureSensor->sConnect_u8 = _SENSOR_DISCONNECT;             
-            sMeasureHandle[i].sMeasureSensor->Temp_f = 0;
-            sMeasureHandle[i].sMeasureSensor->Value_f = 0;
-        } else if (sMeasureHandle[i].sMeasureSensor->nConnect_u8 >= MAX_COUNT_DISCONNECT) 
+        for(uint8_t i = _SS_TEMP; i<_END_SENSOR; i++)
         {
-            sMeasureHandle[i].sMeasureSensor->sConnect_u8 = _SENSOR_CONNECT;                
-        }   
-        
-        if (sMeasureHandle[i].sMeasureSensor->sConnect_u8 == _SENSOR_CONNECT)
-        {
-            uint8_t sc = (sMeasureHandle[i].sMeasureSensor->Value_f <= sMeasureHandle[i].ParaScale) ? sMeasureHandle[i].Scale_1 : sMeasureHandle[i].Scale_2;
-            set_measure_block(sMeasureHandle[i].sMeasureHanlde, sMeasureHandle[i].sMeasureSensor->Value_f, sMeasureHandle[i].sMeasureSensor->Offset_f, sc);
+            if (sMeasureMain[j][i].nConnect_u8 == 0) 
+            {                                
+                sMeasureMain[j][i].sConnect_u8 = _SENSOR_DISCONNECT;             
+                sMeasureMain[j][i].Value_f = 0;
+            } else if (sMeasureMain[j][i].nConnect_u8 >= MAX_COUNT_DISCONNECT) 
+            {
+                sMeasureMain[j][i].sConnect_u8 = _SENSOR_CONNECT;                
+            }   
+            
+            if (sMeasureMain[j][i].sConnect_u8 == _SENSOR_CONNECT)
+            {
+                uint8_t sc = (sMeasureMain[j][i].Value_f <= sMeasureMain[j][i].ParaScale) ? sMeasureMain[j][i].Scale_1 : sMeasureMain[j][i].Scale_2;
+                set_measure_block(&sMeasureMain[j][i].sVal, sMeasureMain[j][i].Value_f, sc);
+            }
+            else clear_measure_block(&sMeasureMain[j][i].sVal);
         }
-        else clear_measure_block(sMeasureHandle[i].sMeasureHanlde);
     }
 
     fevent_enable(sEventAppSensor, event);
@@ -191,37 +193,37 @@ static uint8_t fevent_sensor_data_measure(uint8_t event)
 
 static uint8_t fevent_sensor_handle_state(uint8_t event)
 {   
-    static uint8_t i = _SS_TEMP;
-    
-    if(*sSensorWarning[i].State_Active == _ACTIVE_SENSOR)
-    {
-        if(*sSensorWarning[i].State_Connect_Now != sSensorWarning[i].State_Connect_Befor)
-        {
-            sSensorWarning[i].Gettick_Handle = HAL_GetTick();
-            if(*sSensorWarning[i].State_Connect_Now == _SENSOR_DISCONNECT)
-                sSensorWarning[i]._Cb_Handler_SS_Connect(*sSensorWarning[i].State_Connect_Now);
-            
-            sSensorWarning[i].State_Connect_Befor = *sSensorWarning[i].State_Connect_Now;
-        }
-        
-        if(sSensorWarning[i].State_Connect_Now == _SENSOR_DISCONNECT)
-        {
-            if(HAL_GetTick() - sSensorWarning[i].Gettick_Handle >= DurationTimeWarningSensor*60000)
-            {
-                sSensorWarning[i].Gettick_Handle = HAL_GetTick();
-                sSensorWarning[i]._Cb_Handler_SS_Connect(*sSensorWarning[i].State_Connect_Now);
-            }
-        }
-    }
-    else
-    {
-        sSensorWarning[i].Gettick_Handle = HAL_GetTick();
-    }
-    
-    if(i+1 < _END_SENSOR)
-        i++;
-    else
-        i = _SS_TEMP;
+//    static uint8_t i = _SS_TEMP;
+//    
+//    if(*sSensorWarning[i].State_Active == _ACTIVE_SENSOR)
+//    {
+//        if(*sSensorWarning[i].State_Connect_Now != sSensorWarning[i].State_Connect_Befor)
+//        {
+//            sSensorWarning[i].Gettick_Handle = HAL_GetTick();
+//            if(*sSensorWarning[i].State_Connect_Now == _SENSOR_DISCONNECT)
+//                sSensorWarning[i]._Cb_Handler_SS_Connect(*sSensorWarning[i].State_Connect_Now);
+//            
+//            sSensorWarning[i].State_Connect_Befor = *sSensorWarning[i].State_Connect_Now;
+//        }
+//        
+//        if(sSensorWarning[i].State_Connect_Now == _SENSOR_DISCONNECT)
+//        {
+//            if(HAL_GetTick() - sSensorWarning[i].Gettick_Handle >= DurationTimeWarningSensor*60000)
+//            {
+//                sSensorWarning[i].Gettick_Handle = HAL_GetTick();
+//                sSensorWarning[i]._Cb_Handler_SS_Connect(*sSensorWarning[i].State_Connect_Now);
+//            }
+//        }
+//    }
+//    else
+//    {
+//        sSensorWarning[i].Gettick_Handle = HAL_GetTick();
+//    }
+//    
+//    if(i+1 < _END_SENSOR)
+//        i++;
+//    else
+//        i = _SS_TEMP;
 
     fevent_enable(sEventAppSensor, event);
     return 0;
@@ -232,39 +234,44 @@ static uint8_t fevent_sensor_handle_status(uint8_t event)
 //#ifdef MODBUS_SENSOR_SAOVIET
 //    for(uint8_t i = 0; i < _END_SENSOR; i++)
 //    {
-//        if(sModbMeasure[i].nConnect_u8 == _SENSOR_DISCONNECT)
-//            sAverageMeasure[i].State = _E_BAO_LOI_THIET_BI;
+//        if(sMeasureMain[i].nConnect_u8 == _SENSOR_DISCONNECT)
+//            sMeasureMain[i].State = _E_BAO_LOI_THIET_BI;
 //        else
 //        {
 //            if(StateCalibSensor == 0)
-//                sAverageMeasure[i].State = _E_DANG_DO;        
+//                sMeasureMain[i].State = _E_DANG_DO;        
 //            else
-//                sAverageMeasure[i].State = _E_HIEU_CHUAN;
+//                sMeasureMain[i].State = _E_HIEU_CHUAN;
 //        }
 //        
-//        sAverageMeasure[i].Value_f = sModbMeasure[i].Value_f;
+//        sMeasureMain[i].Value_f = sMeasureMain[i].Value_f;
 //    }
 //#else
-    for(uint8_t i = 0; i < _END_SENSOR; i++)
+    for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
     {
-        if(sModbMeasure[i].nConnect_u8 == _SENSOR_DISCONNECT)
-            sAverageMeasure[i].State = _E_BAO_LOI_THIET_BI;
-        else
+        for(uint8_t i = 0; i < _END_SENSOR; i++)
         {
-            if(sModbMeasure[i].stateSensor == 0x03)
-                sAverageMeasure[i].State = _E_HIEU_CHUAN;        
-            else if(sModbMeasure[i].stateSensor == 0x02)
-            {
-                if(sModbMeasure[i].stateValue== 0x01)
-                  sAverageMeasure[i].State = _E_DANG_DO;    
-                else
-                  sAverageMeasure[i].State = _E_BAO_LOI_THIET_BI;
-            }
+            #ifdef MODBUS_SENSOR_SAOVIET
+            #else
+                      sMeasureMain[j][i].stateValue = 0x0F & sMeasureMain[j][i].stateValue;
+            #endif
+            if(sMeasureMain[j][i].nConnect_u8 == _SENSOR_DISCONNECT)
+                sMeasureMain[j][i].State = _E_BAO_LOI_THIET_BI;
             else
-              sAverageMeasure[i].State = _E_BAO_LOI_THIET_BI;
+            {
+                if(sMeasureMain[j][i].stateSensor == 0x03)
+                    sMeasureMain[j][i].State = _E_HIEU_CHUAN;        
+                else if(sMeasureMain[j][i].stateSensor == 0x02)
+                {
+                    if(sMeasureMain[j][i].stateValue== 0x01)
+                      sMeasureMain[j][i].State = _E_DANG_DO;    
+                    else
+                      sMeasureMain[j][i].State = _E_BAO_LOI_THIET_BI;
+                }
+                else
+                  sMeasureMain[j][i].State = _E_BAO_LOI_THIET_BI;
+            }
         }
-        
-        sAverageMeasure[i].Value_f = sModbMeasure[i].Value_f;
     }
 //#endif
 
@@ -473,13 +480,13 @@ void AppSensor_Packet_TNMT(void)
     {
         for(uint8_t i = _SS_TEMP; i<_END_SENSOR; i++)
         {
-            if(sModbMeasure[i].sUser == 1)
+            if(sMeasureMain[0][i].sUser == 1)
             {
                 c_pack++;
-                tnstatus_u8 = sAverageMeasure[i].State;
+                tnstatus_u8 = sMeasureMain[0][i].State;
                 AppSensor_Packet_Param(aTEMP, i);
                 sprintf(aPAY_LOAD + strlen(aPAY_LOAD), "%s\t%s\t%04d%02d%02d%02d%02d%02d\t%02d\n", 
-                                        sNameUnitParam[i].Name, aTEMP,
+                                        sMeasureMain[0][i].Name, aTEMP,
                                         sRTC.year + 2000, sRTC.month, sRTC.date,
                                         sRTC.hour, sRTC.min, sRTC.sec,
                                         tnstatus_u8);
@@ -514,7 +521,7 @@ void AppSensor_Packet_TNMT(void)
 
 uint8_t AppSensor_Packet_Param (char *pdata, uint8_t chann)
 {
-    sprintf(pdata, "%.3lf\t%s", sAverageMeasure[chann].Value_f , sNameUnitParam[chann].Unit);
+    sprintf(pdata, "%.3lf\t%s", sMeasureMain[0][chann].Value_f , sMeasureMain[0][chann].Unit);
 
 #ifdef USING_NUMBER_COMMA
     // doi dau '.' thanh dau ','
@@ -577,13 +584,17 @@ void AT_CMD_Get_State_Sensor(sData *str, uint16_t Pos)
     uint8_t aTemp[200] = "State: ";   //11 ki tu dau tien
     uint16_t length = 7;
     
-    for (uint8_t i = 1; i < _END_SENSOR; i++)   
+    for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
     {
-        Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
-        Insert_String_To_String(aTemp, &length,(uint8_t*)sNameUnitParam[i].Name, 0,strlen(sNameUnitParam[i].Name));
-        Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
+        for (uint8_t i = 1; i < _END_SENSOR; i++)   
+        {
+            Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
+            Insert_String_To_String(aTemp, &length,(uint8_t*)sMeasureMain[j][i].Name, 0,strlen(sMeasureMain[j][i].Name));
+            Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
 
-        Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sModbMeasure[i].sConnect_u8), 0x00);     
+            Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sMeasureMain[j][i].sConnect_u8), 0x00);     
+        }
+        Insert_String_To_String(aTemp, &length,(uint8_t*)"\r\n", 0, 2);
     }
 
 //    Modem_Respond(PortConfig, aTemp, length, 0);
@@ -594,14 +605,17 @@ void AT_CMD_Get_Measure_Value (sData *str_Receiv, uint16_t Pos)
 {
     uint8_t aTemp[300] = "Measure_Value: ";   //11 ki tu dau tien
     uint16_t length = 15;
-
-    for (uint8_t i = 1; i < _END_SENSOR; i++)   
+    for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
     {
-        Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
-        Insert_String_To_String(aTemp, &length,(uint8_t*)sNameUnitParam[i].Name, 0,strlen(sNameUnitParam[i].Name));
-        Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
+        for (uint8_t i = 1; i < _END_SENSOR; i++)   
+        {
+            Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
+            Insert_String_To_String(aTemp, &length,(uint8_t*)sMeasureMain[j][i].Name, 0,strlen(sMeasureMain[j][i].Name));
+            Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
 
-        Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sModbMeasure[i].Value_f*100), 0xFE);  
+            Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sMeasureMain[j][i].Value_f*100), 0xFE);  
+        }
+        Insert_String_To_String(aTemp, &length,(uint8_t*)"\r\n", 0, 2);
     }
 
 //    Modem_Respond(PortConfig, aTemp, length, 0);
@@ -612,16 +626,18 @@ void AT_CMD_Get_Measure_Filter (sData *str_Receiv, uint16_t Pos)
 {
     uint8_t aTemp[300] = "Measure_Filter: ";   //11 ki tu dau tien
     uint16_t length = 16;
-    
-    for (uint8_t i = 1; i < _END_SENSOR; i++)   
+    for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
     {
-        Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
-        Insert_String_To_String(aTemp, &length,(uint8_t*)sNameUnitParam[i].Name, 0,strlen(sNameUnitParam[i].Name));
-        Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
+        for (uint8_t i = 1; i < _END_SENSOR; i++)   
+        {
+            Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
+            Insert_String_To_String(aTemp, &length,(uint8_t*)sMeasureMain[j][i].Name, 0,strlen(sMeasureMain[j][i].Name));
+            Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
 
-        Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sMeasureHandle[i].sMeasureHanlde->Value_i32), sMeasureHandle[i].sMeasureHanlde->Scale_u8);
+            Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sMeasureMain[j][i].sVal.Value_i32), sMeasureMain[j][i].sVal.Scale_u8);
+        }
+        Insert_String_To_String(aTemp, &length,(uint8_t*)"\r\n", 0, 2);
     }
-
 //    Modem_Respond(PortConfig, aTemp, length, 0);
     Modem_Respond_Str(PortConfig, (char*)aTemp, 0);
 }
@@ -631,13 +647,17 @@ void AT_CMD_Get_Measure_Average (sData *str_Receiv, uint16_t Pos)
     uint8_t aTemp[300] = "Measure_Average: ";   //11 ki tu dau tien
     uint16_t length = 17;
     
-    for (uint8_t i = 1; i < _END_SENSOR; i++)   
+    for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
     {
-        Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
-        Insert_String_To_String(aTemp, &length,(uint8_t*)sNameUnitParam[i].Name, 0,strlen(sNameUnitParam[i].Name));
-        Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
+        for (uint8_t i = 1; i < _END_SENSOR; i++)   
+        {
+            Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
+            Insert_String_To_String(aTemp, &length,(uint8_t*)sMeasureMain[j][i].Name, 0,strlen(sMeasureMain[j][i].Name));
+            Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
 
-        Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sAverageMeasure[i].Value_f*100), 0xFE); 
+            Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sMeasureMain[j][i].Value_f*100), 0xFE); 
+        }
+        Insert_String_To_String(aTemp, &length,(uint8_t*)"\r\n", 0, 2);
     }
 
 //    Modem_Respond(PortConfig, aTemp, length, 0);
@@ -664,13 +684,17 @@ void AT_CMD_Get_User_Sensor (sData *str_Receiv, uint16_t Pos)
     uint8_t aTemp[200] = "User: ";   //11 ki tu dau tien
     uint16_t length = 6;
     
-    for (uint8_t i = 1; i < _END_SENSOR; i++)   
+    for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
     {
-        Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
-        Insert_String_To_String(aTemp, &length,(uint8_t*)sNameUnitParam[i].Name, 0,strlen(sNameUnitParam[i].Name));
-        Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
+        for (uint8_t i = 1; i < _END_SENSOR; i++)   
+        {
+            Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
+            Insert_String_To_String(aTemp, &length,(uint8_t*)sMeasureMain[j][i].Name, 0,strlen(sMeasureMain[j][i].Name));
+            Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
 
-        Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sModbMeasure[i].sUser), 0x00);
+            Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sMeasureMain[j][i].sUser), 0x00);
+        }
+        Insert_String_To_String(aTemp, &length,(uint8_t*)"\r\n", 0, 2);
     }
 
 //    Modem_Respond(PortConfig, aTemp, length, 0);
@@ -680,99 +704,41 @@ void AT_CMD_Get_User_Sensor (sData *str_Receiv, uint16_t Pos)
             
 void AT_CMD_Set_User_Sensor (sData *str_Receiv, uint16_t Pos)
 {
+    uint32_t TempU32_0 = 255;
     uint32_t TempU32_1 = 255; 
     uint32_t TempU32_2 = 255;
     if( str_Receiv->Data_a8[0] >= '0' && str_Receiv->Data_a8[0] <= '9')
     {
+        uint8_t length_0 = 0;
         uint8_t length_1 = 0;
         uint8_t length_2 = 0;
         for(uint8_t i = 0; i < str_Receiv->Length_u16; i++)
         {
             if( str_Receiv->Data_a8[i] < '0' || str_Receiv->Data_a8[i]>'9') break;
+            else length_0++;
+        }
+        if(length_0 > 0)
+            TempU32_0 = Convert_String_To_Dec(str_Receiv->Data_a8 , length_0);
+
+        for(uint8_t i = length_0+1; i < str_Receiv->Length_u16; i++)
+        {
+            if( str_Receiv->Data_a8[i] < '0' || str_Receiv->Data_a8[i]>'9') break;
             else length_1++;
         }
         if(length_1 > 0)
-            TempU32_1 = Convert_String_To_Dec(str_Receiv->Data_a8 , length_1);
-
+            TempU32_1 = Convert_String_To_Dec(&str_Receiv->Data_a8[length_0+1] , length_1);
+        
         for(uint8_t i = length_1+1; i < str_Receiv->Length_u16; i++)
         {
             if( str_Receiv->Data_a8[i] < '0' || str_Receiv->Data_a8[i]>'9') break;
             else length_2++;
         }
         if(length_2 > 0)
-            TempU32_2 = Convert_String_To_Dec(&str_Receiv->Data_a8[length_1+1] , length_2);
+            TempU32_2 = Convert_String_To_Dec(&str_Receiv->Data_a8[length_0 + 1 + length_1+1] , length_2);
         
-        if(TempU32_1 <= _END_SENSOR && TempU32_1 > 0 && TempU32_2 <= 1)
+        if(TempU32_0 < MAX_CHANNEL_SS && TempU32_1 < _END_SENSOR && TempU32_2 <= 1)
         {
-            Save_UserSensor(TempU32_1, TempU32_2);
-            Modem_Respond_Str(PortConfig, (char*)"OK", 0);
-        }
-        else
-        {
-            Modem_Respond_Str(PortConfig, (char*)"ERROR", 0);
-        }
-    }
-    else
-    {
-        Modem_Respond_Str(PortConfig, (char*)"ERROR", 0);
-    }
-}
-
-void AT_CMD_Get_Offset_Sensor (sData *str_Receiv, uint16_t Pos)
-{
-    uint8_t aTemp[200] = "Offset: ";
-    uint16_t length = 8;
-
-    for (uint8_t i = 1; i < _END_SENSOR; i++)   
-    {
-        Insert_String_To_String(aTemp, &length,(uint8_t*)" ", 0, 1);
-        Insert_String_To_String(aTemp, &length,(uint8_t*)sNameUnitParam[i].Name, 0,strlen(sNameUnitParam[i].Name));
-        Insert_String_To_String(aTemp, &length,(uint8_t*)":", 0, 1);
-
-        Convert_Point_Int_To_String_Scale(aTemp,&length,(int)(sModbMeasure[i].Offset_f * 100), 0xFE);
-    }
-
-//    Modem_Respond(PortConfig, aTemp, length, 0);
-    Modem_Respond_Str(PortConfig, (char*)aTemp, 0);
-}
-
-            
-void AT_CMD_Set_Offset_Sensor (sData *str_Receiv, uint16_t Pos)
-{
-    uint32_t Temp_U32 = 0;
-    int32_t  Temp_I32 = 0;
-    float    Temp_f = 0;
-    uint8_t checkTemp = 0;
-    if( str_Receiv->Data_a8[0] >= '0' && str_Receiv->Data_a8[0] <= '9')
-    {
-        uint8_t length_1 = 0;
-        uint8_t length_2 = 0;
-        for(uint8_t i = 0; i < str_Receiv->Length_u16; i++)
-        {
-            if( str_Receiv->Data_a8[i] < '0' || str_Receiv->Data_a8[i]>'9') break;
-            else length_1++;
-        }
-        if(length_1 > 0)
-            Temp_U32 = Convert_String_To_Dec(str_Receiv->Data_a8 , length_1);
-        
-        if(str_Receiv->Data_a8[length_1 + 1] == '-')
-            checkTemp = 1;
-
-        for(uint8_t i = length_1+checkTemp+1; i < str_Receiv->Length_u16; i++)
-        {
-            if( str_Receiv->Data_a8[i] < '0' || str_Receiv->Data_a8[i]>'9') break;
-            else length_2++;
-        }
-        if(length_2 > 0)
-            Temp_I32 = Convert_String_To_Dec(&str_Receiv->Data_a8[length_1+checkTemp+1] , length_2);
-        
-        if(checkTemp == 1)
-          Temp_I32 = 0 - Temp_I32;
-
-        if(Temp_U32 <= _END_SENSOR && Temp_U32 > 0 && length_2 > 0)
-        {
-            Temp_f = Handle_int32_To_Float_Scale(Temp_I32, 0xFE);
-            Save_OffsetMeasure(Temp_U32, Temp_f);
+            Save_UserSensor(TempU32_0, TempU32_1, TempU32_2);
             Modem_Respond_Str(PortConfig, (char*)"OK", 0);
         }
         else
@@ -803,17 +769,20 @@ void AT_CMD_Get_Send_GPS(sData *str, uint16_t Pos)
 #endif
 
 /*---------------------Save and Init User Sensor----------------------*/
-void Save_UserSensor(uint8_t KindSensor, uint8_t State)
+void Save_UserSensor(uint8_t channel, uint8_t KindSensor, uint8_t State)
 {
     uint8_t aData[30] = {0};
     uint8_t length = 0;
            
     if(KindSensor < _END_SENSOR)
-        sModbMeasure[KindSensor].sUser = State;
+        sMeasureMain[channel][KindSensor].sUser = State;
     
-    for(uint8_t i = 0; i < _END_SENSOR; i++)
+    for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
     {
-        aData[length++] = sModbMeasure[i].sUser;
+        for(uint8_t i = 0; i < _END_SENSOR; i++)
+        {
+            aData[length++] = sMeasureMain[j][i].sUser;
+        }
     }
 
     Save_Array(ADDR_USER_SENSOR, aData, length);
@@ -824,18 +793,24 @@ void Init_UserSensor(void)
 #ifdef USING_INTERNAL_MEM
     if(*(__IO uint8_t*)(ADDR_USER_SENSOR) != FLASH_BYTE_EMPTY)
     {
-        for(uint8_t i = 0; i < _END_SENSOR; i++)
+        for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
         {
-            sModbMeasure[i].sUser = *(__IO uint8_t*)(ADDR_USER_SENSOR+ 2 + i);
-            if(sModbMeasure[i].sUser > 1)
-                sModbMeasure[i].sUser = 0;
+            for(uint8_t i = 0; i < _END_SENSOR; i++)
+            {
+                sMeasureMain[j][i].sUser = *(__IO uint8_t*)(ADDR_USER_SENSOR+2 +i +j*_END_SENSOR);
+                if(sMeasureMain[j][i].sUser > 1)
+                    sMeasureMain[j][i].sUser = 0;
+            }
         }
     }
     else
     {
-        for(uint8_t i = 0; i < _END_SENSOR; i++)
+        for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
         {
-            sModbMeasure[i].sUser = 0;
+            for(uint8_t i = 0; i < _END_SENSOR; i++)
+            {
+                sMeasureMain[j][i].sUser = 0;
+            }
         }
     }
 #endif    
@@ -844,51 +819,51 @@ void Init_UserSensor(void)
 void Save_OffsetMeasure(uint8_t KindOffset, float Var_Offset_f)
 {
 #ifdef USING_INTERNAL_MEM
-    uint8_t aData[300] = {0};
-    uint8_t length = 0;
-    
-    uint32_t Stamp_Hex = 0;
-   
-    if(KindOffset < _END_SENSOR && KindOffset > 0)
-        sModbMeasure[KindOffset].Offset_f = Var_Offset_f;
-    
-    for(uint8_t i = _SS_PH; i < _END_SENSOR; i++)
-    {
-        Stamp_Hex = Handle_Float_To_hexUint32(sModbMeasure[i].Offset_f);
-        aData[length++] = Stamp_Hex >> 24;
-        aData[length++] = Stamp_Hex >> 16;
-        aData[length++] = Stamp_Hex >> 8;
-        aData[length++] = Stamp_Hex ;
-    }
-    
-    Save_Array(ADDR_OFFSET_MEASURE, aData, length);
+//    uint8_t aData[300] = {0};
+//    uint8_t length = 0;
+//    
+//    uint32_t Stamp_Hex = 0;
+//   
+//    if(KindOffset < _END_SENSOR && KindOffset > 0)
+//        sMeasureMain[KindOffset].Offset_f = Var_Offset_f;
+//    
+//    for(uint8_t i = _SS_PH; i < _END_SENSOR; i++)
+//    {
+//        Stamp_Hex = Handle_Float_To_hexUint32(sMeasureMain[i].Offset_f);
+//        aData[length++] = Stamp_Hex >> 24;
+//        aData[length++] = Stamp_Hex >> 16;
+//        aData[length++] = Stamp_Hex >> 8;
+//        aData[length++] = Stamp_Hex ;
+//    }
+//    
+//    Save_Array(ADDR_OFFSET_MEASURE, aData, length);
 #endif
 }
 
 void Init_OffsetMeasure(void)
 {
 #ifdef USING_INTERNAL_MEM
-    uint32_t Stamp_Hex = 0;
-    
-    if(*(__IO uint8_t*)(ADDR_OFFSET_MEASURE) != FLASH_BYTE_EMPTY)
-    {
-        for(uint8_t i = _SS_PH; i < _END_SENSOR; i++)
-        {
-            Stamp_Hex   = *(__IO uint8_t*)(ADDR_OFFSET_MEASURE+2 + (i-1)*4) << 24;
-            Stamp_Hex  |= *(__IO uint8_t*)(ADDR_OFFSET_MEASURE+3 + (i-1)*4)<< 16;
-            Stamp_Hex  |= *(__IO uint8_t*)(ADDR_OFFSET_MEASURE+4 + (i-1)*4)<< 8;
-            Stamp_Hex  |= *(__IO uint8_t*)(ADDR_OFFSET_MEASURE+5 + (i-1)*4);
-            if(Stamp_Hex != 0xFFFFFFFF)
-                Convert_uint32Hex_To_Float(Stamp_Hex,  &sModbMeasure[i].Offset_f);
-            else
-                sModbMeasure[i].Offset_f = 0;
-        }
-    }
-    else
-    {
-        for(uint8_t i = _SS_PH; i < _END_SENSOR; i++)
-            sModbMeasure[i].Offset_f = 0;
-    }
+//    uint32_t Stamp_Hex = 0;
+//    
+//    if(*(__IO uint8_t*)(ADDR_OFFSET_MEASURE) != FLASH_BYTE_EMPTY)
+//    {
+//        for(uint8_t i = _SS_PH; i < _END_SENSOR; i++)
+//        {
+//            Stamp_Hex   = *(__IO uint8_t*)(ADDR_OFFSET_MEASURE+2 + (i-1)*4) << 24;
+//            Stamp_Hex  |= *(__IO uint8_t*)(ADDR_OFFSET_MEASURE+3 + (i-1)*4)<< 16;
+//            Stamp_Hex  |= *(__IO uint8_t*)(ADDR_OFFSET_MEASURE+4 + (i-1)*4)<< 8;
+//            Stamp_Hex  |= *(__IO uint8_t*)(ADDR_OFFSET_MEASURE+5 + (i-1)*4);
+//            if(Stamp_Hex != 0xFFFFFFFF)
+//                Convert_uint32Hex_To_Float(Stamp_Hex,  &sMeasureMain[i].Offset_f);
+//            else
+//                sMeasureMain[i].Offset_f = 0;
+//        }
+//    }
+//    else
+//    {
+//        for(uint8_t i = _SS_PH; i < _END_SENSOR; i++)
+//            sMeasureMain[i].Offset_f = 0;
+//    }
 #endif    
 }
 
@@ -1054,10 +1029,10 @@ void Average_One_Hour(void)
 //        
 //        for(uint8_t i = 1; i< _END_SENSOR; i++)
 //        {
-//            if(sMeasureHandle[i].sMeasureHanlde->State_u8 == 1)
+//            if(sMeasureMain[i].sMeasureHanlde->State_u8 == 1)
 //            {
-//                temp_f = (float)sMeasureHandle[i].sMeasureHanlde->Value_i32;
-//                Scale = sMeasureHandle[i].sMeasureHanlde->Scale_u8;
+//                temp_f = (float)sMeasureMain[i].sMeasureHanlde->Value_i32;
+//                Scale = sMeasureMain[i].sMeasureHanlde->Scale_u8;
 //                sAverageOneHour[i].Sum_Value_f += temp_f/(float)Calculator_Scale(Scale);
 //                sAverageOneHour[i].Num_Success++;
 //            }
@@ -1075,20 +1050,20 @@ void Average_One_Hour(void)
 //        {
 //            if(sAverageOneHour[i].Num_Success > 0 && sAverageOneHour[i].Num_Success >= sAverageOneHour[i].Num_Error)
 //            {
-//                sAverageMeasure[i].State = _E_DANG_DO;
-//                sAverageMeasure[i].Value_f = sAverageOneHour[i].Sum_Value_f/sAverageOneHour[i].Num_Success;
+//                sMeasureMain[i].State = _E_DANG_DO;
+//                sMeasureMain[i].Value_f = sAverageOneHour[i].Sum_Value_f/sAverageOneHour[i].Num_Success;
 //            }
 //            else
 //            {
-//                sAverageMeasure[i].State = _E_BAO_LOI_THIET_BI;
-//                sAverageMeasure[i].Value_f = 0;
+//                sMeasureMain[i].State = _E_BAO_LOI_THIET_BI;
+//                sMeasureMain[i].Value_f = 0;
 //            }
 //        }
 //    }
 //    else
 //    {
 //        for(uint8_t i = 0; i < _END_SENSOR; i++)
-//            sAverageMeasure[i].State = StateCalibSensor;
+//            sMeasureMain[i].State = StateCalibSensor;
 //    }
 //    
 //    if(sRTC.min % 2 == 0 || Count_Handle > 120)
@@ -1111,94 +1086,95 @@ void Average_One_Hour(void)
 */
 void AppSensor_Log_Data_TSVH (void)
 {
-  if(sRTC.year > 20)
-  {
-    uint8_t     aMessData[256] = {0};
-    uint8_t     Length = 0;
+//  if(sRTC.year > 20)
+//  {
+//    uint8_t     aMessData[256] = {0};
+//    uint8_t     Length = 0;
+//
+//    Length = SensorRS485_Packet_TSVH (&aMessData[0]);
+//    Mem_Write_Data(sMemVar.Type_u8, _MEM_DATA_TSVH, 0, aMessData, Length, sRecTSVH.Size_u16);
+//  }
+  
+    uint8_t aTEMP_PAYLOAD[512] = {0};
+    sData pData = {aTEMP_PAYLOAD, 0};
+    uint16_t i = 0, posindex = 0, length = 0;
+    uint8_t count = 0;
+    static uint16_t size_pack = 0;
     
-//    if (sRTC.year <= 20)
-//        return;
-    
-    Length = SensorRS485_Packet_TSVH (&aMessData[0]);
-//#ifdef USING_APP_MEM
-//    AppMem_Write_Data(_MEM_DATA_TSVH_A, &aMessData[0], Length, sRecTSVH.SizeRecord_u16);
-//#endif
+    for (i = 0; i < MAX_CHANNEL_SS; i++)
+    {
+        posindex = pData.Length_u16;
+        pData.Length_u16 += 2;
         
-//#ifdef USING_APP_MEM
+        length = SensorRS485_Packet_TSVH(&pData, i);
+        
+        *(pData.Data_a8 + posindex) = count + 1;
+        *(pData.Data_a8 + posindex + 1) = length;
     
-    Mem_Write_Data(sMemVar.Type_u8, _MEM_DATA_TSVH, 0, aMessData, Length, sRecTSVH.Size_u16);
-//#endif
-  }
+        if (count == 0) {
+            size_pack = pData.Length_u16;
+        }
+        
+        count++;
+
+        //gop 2 ban tin voi nhau. hoac cuoi cung
+        if ( (count > 0) &&
+            ( (size_pack + pData.Length_u16 + 5) > sRecTSVH.Size_u16 ) ||  ( (i + 1) >= MAX_CHANNEL_SS ) )
+        {
+            count = 0;
+            
+            Mem_Write_Data(sMemVar.Type_u8, _MEM_DATA_TSVH, 0, 
+                      pData.Data_a8, pData.Length_u16, sRecTSVH.Size_u16);
+            
+            //reset buff 
+            Reset_Buff(&pData);
+        }
+    }
 }
 /*
     @brief  Packet TSVH
 */
-uint8_t SensorRS485_Packet_TSVH (uint8_t *pData)
+uint8_t SensorRS485_Packet_TSVH (sData *pData, uint8_t channel)
 {
-    uint16_t    length = 0;
+    uint8_t Result = 0;
+    for(uint8_t i = 0; i < _END_SENSOR; i++)
+    {
+        if(sMeasureMain[channel][i].sVal.State_u8 == 1)
+            Result = 1;
+    }
     
+    if(Result == 0)
+        return 0;
+  
+    uint16_t FistPos = pData->Length_u16;
+    uint16_t i = 0;
+    uint8_t TempCrc = 0;
+    uint8_t strChanel[] = {"0001"};
     //----------sTime--------------------
-    SV_Protocol_Packet_Data(pData, &length, OBIS_TIME_DEVICE, &sRTC, 6, 0xAA);
-      
-    //----------  Clo_Du ------
-    if(sDataSensorMeasure.sClo.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_CLO_DU, &sDataSensorMeasure.sClo.Value_i32, sDataSensorMeasure.sClo.Scale_u8);
+    SV_Protocol_Packet_Data(pData->Data_a8, &pData->Length_u16, OBIS_TIME_DEVICE, &sRTC, 6, 0xAA);
+    //Channel ID
+    strChanel[3] = 0x31 + channel;
+    SV_Protocol_Packet_Data(pData->Data_a8, &pData->Length_u16, OBIS_SERI_SENSOR, &strChanel, 4, 0xAA);
     
-    //----------  pH ------
-    if(sDataSensorMeasure.spH.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_PH_WATER, &sDataSensorMeasure.spH.Value_i32, sDataSensorMeasure.spH.Scale_u8);
-    
-    //----------  Do Duc------
-    if(sDataSensorMeasure.sTurb.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_NTU, &sDataSensorMeasure.sTurb.Value_i32, sDataSensorMeasure.sTurb.Scale_u8);
-    
-    //----------  SALINITY %------
-    if(sDataSensorMeasure.sSal.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_SALINITY_UNIT, &sDataSensorMeasure.sSal.Value_i32, sDataSensorMeasure.sSal.Scale_u8);
-    
-    //----------  Temperature ------
-    if(sDataSensorMeasure.sTemp.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_OXY_TEMPERATURE, &sDataSensorMeasure.sTemp.Value_i32, sDataSensorMeasure.sTemp.Scale_u8);
-    
-    //----------  EC ------
-    if(sDataSensorMeasure.sEC.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_EC, &sDataSensorMeasure.sEC.Value_i32, sDataSensorMeasure.sEC.Scale_u8);
-
-    //----------  COD ------
-    if(sDataSensorMeasure.sCOD.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_COD, &sDataSensorMeasure.sCOD.Value_i32, sDataSensorMeasure.sCOD.Scale_u8);
-    
-    //----------  NH4------
-    if(sDataSensorMeasure.sNH4.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_NH4, &sDataSensorMeasure.sNH4.Value_i32, sDataSensorMeasure.sNH4.Scale_u8);
-    
-    //----------  DO------
-    if(sDataSensorMeasure.sDO.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_OXY_MG_L, &sDataSensorMeasure.sDO.Value_i32, sDataSensorMeasure.sDO.Scale_u8);
-    
-    //----------  TSS ------
-    if(sDataSensorMeasure.sTSS.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_TSS, &sDataSensorMeasure.sTSS.Value_i32, sDataSensorMeasure.sTSS.Scale_u8);
-    
-    //----------  TDS ------
-    if(sDataSensorMeasure.sTDS.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_TDS, &sDataSensorMeasure.sTDS.Value_i32, sDataSensorMeasure.sTDS.Scale_u8);
-    
-    //----------  NO3 ------
-    if(sDataSensorMeasure.sNO3.State_u8 == 1)
-        Sensor_Packet_Data(pData, &length, OBIS_ENVI_NO3, &sDataSensorMeasure.sNO3.Value_i32, sDataSensorMeasure.sNO3.Scale_u8);
+    for(uint8_t i = 0; i < _END_SENSOR; i++)
+    {
+        if(sMeasureMain[channel][i].sVal.State_u8 == 1)
+            Sensor_Packet_Data(pData->Data_a8, &pData->Length_u16, sMeasureMain[channel][i].Obis, 
+                               &sMeasureMain[channel][i].sVal.Value_i32, sMeasureMain[channel][i].sVal.Scale_u8);
+    }
     
     //----------Tan suat--------------------
-    SV_Protocol_Packet_Data(pData, &length, OBIS_RSSI_1, &sSimCommInfor.RSSI_u8, 1, 0x00);
-    SV_Protocol_Packet_Data(pData, &length, OBIS_FREQ_SEND, &sModemInfor.sFrequence.DurOnline_u32 , 2, 0x00);
-    // caculator crc
-//    length++;
-//	for (i = 0; i < (length - 1); i++)
-//		TempCrc ^= pData[i];
-//
-//    pData[length-1] = TempCrc;
+//    SV_Protocol_Packet_Data(pData->Data_a8, &pData->Length_u16, OBIS_RSSI_1, &sSimCommInfor.RSSI_u8, 1, 0x00);
+    SV_Protocol_Packet_Data(pData->Data_a8, &pData->Length_u16, OBIS_FREQ_SEND, &sModemInfor.sFrequence.DurOnline_u32 , 2, 0x00);
     
-    return length;
+    // caculator crc
+    pData->Length_u16++;
+	for (i = FistPos; i < (pData->Length_u16 - 1); i++)
+		TempCrc ^= pData->Data_a8[i];
+
+    pData->Data_a8[pData->Length_u16-1] = TempCrc;
+    
+    return  (pData->Length_u16- FistPos);
 }
 
 /*
@@ -1227,13 +1203,13 @@ void Sensor_Packet_Data(uint8_t *pTarget, uint16_t *LenTarget, uint8_t Obis,
     {
         case OBIS_ENVI_OXY_MG_L:
         case OBIS_ENVI_OXY_PERCENT:
-        case OBIS_ENVI_OXY_TEMPERATURE:
+        case OBIS_ENVI_TEMP:
         case OBIS_ENVI_EC:
-        case OBIS_ENVI_SALINITY:
+        case OBIS_ENVI_SALT:
         case OBIS_ENVI_PH_WATER:
-        case OBIS_ENVI_SALINITY_UNIT:
-        case OBIS_ENVI_CLO_DU:
-        case OBIS_ENVI_NTU:
+        case OBIS_ENVI_SALT_UNIT:
+        case OBIS_ENVI_CLO:
+        case OBIS_ENVI_TURB:
         case OBIS_ENVI_NH4:
         case OBIS_ENVI_COD:
         case OBIS_ENVI_TSS:
@@ -1319,9 +1295,6 @@ void Init_AppSensor(void)
     
     sATCmdList[_GET_USER_SENSOR].CallBack = AT_CMD_Get_User_Sensor;
     sATCmdList[_SET_USER_SENSOR].CallBack = AT_CMD_Set_User_Sensor;
-    
-    sATCmdList[_GET_OFFSET_SENSOR].CallBack = AT_CMD_Get_Offset_Sensor;
-    sATCmdList[_SET_OFFSET_SENSOR].CallBack = AT_CMD_Set_Offset_Sensor;
     
     sATCmdList[_GET_SEND_GPS].CallBack = AT_CMD_Get_Send_GPS;
 #endif

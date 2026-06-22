@@ -75,10 +75,10 @@
 //#define OBIS_ENVI_HUMI_1            0x72
 //#define OBIS_ENVI_HUMI_2            0x6E
 
-#define OBIS_ENVI_OXY_TEMPERATURE   0x70
+#define OBIS_ENVI_TEMP              0x70
 #define OBIS_ENVI_PH_WATER          0x73
 #define OBIS_ENVI_OXY_MG_L          0x74
-#define OBIS_ENVI_SALINITY          0x75    //(ppt)
+#define OBIS_ENVI_SALT              0x75    //(ppt)
 #define OBIS_ENVI_NH4               0x79
 #define OBIS_ENVI_TDS               0x7A
 #define OBIS_ENVI_EC                0x7F    //(uS/cm)
@@ -86,9 +86,9 @@
 #define OBIS_ENVI_TSS               0x89    
 #define OBIS_ENVI_NO3               0x8A    
 #define OBIS_ENVI_OXY_PERCENT       0x8B
-#define OBIS_ENVI_SALINITY_UNIT     0x8C    //(%)
-#define OBIS_ENVI_CLO_DU            0x8D
-#define OBIS_ENVI_NTU               0x8E
+#define OBIS_ENVI_SALT_UNIT         0x8C    //(%)
+#define OBIS_ENVI_CLO               0x8D
+#define OBIS_ENVI_TURB              0x8E
 
 #define OBIS_CONTACT_STATUS         0x90
 #define OBIS_MODBUS_RTU             0xA0

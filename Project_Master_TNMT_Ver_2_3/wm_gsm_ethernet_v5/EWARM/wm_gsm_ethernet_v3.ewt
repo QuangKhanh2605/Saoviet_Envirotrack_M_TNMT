@@ -1211,6 +1211,9 @@
                     <name>$PROJ_DIR$\..\Core\Src\i2c.c</name>
                 </file>
                 <file>
+                    <name>$PROJ_DIR$\..\Core\Src\iwdg.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Core\Src\lptim.c</name>
                 </file>
                 <file>
@@ -1300,6 +1303,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_i2c_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_iwdg.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_lptim.c</name>
@@ -1435,6 +1441,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\user_app\user_app_wm\user_app_modb_m.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\user_app\user_app_wm\user_app_modb_s.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\user_app\user_app_wm\user_app_modb_s.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\user_app\user_app_wm\user_app_sensor.c</name>
