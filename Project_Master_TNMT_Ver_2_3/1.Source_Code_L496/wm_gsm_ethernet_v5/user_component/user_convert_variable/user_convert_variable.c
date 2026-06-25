@@ -609,3 +609,103 @@ void Scale_String_Dec (sData *StrDec, uint8_t Scale)
         *(StrDec->Data_a8 + StrDec->Length_u16++) = aRESULT[i];
 }
 
+/*========================Handle Data========================*/
+uint32_t Endian_Format(uint32_t Hex_Data, uint8_t length, uint8_t Type)
+{
+    uint8_t b1 = (Hex_Data >> 24) & 0xFF;
+    uint8_t b2 = (Hex_Data >> 16) & 0xFF;
+    uint8_t b3 = (Hex_Data >> 8)  & 0xFF;
+    uint8_t b4 = (Hex_Data)       & 0xFF;
+
+    uint32_t Result = Hex_Data;
+
+    if(length == 4)
+    {
+        switch(Type)
+        {
+            case _E_BE: // ABCD
+                Result = (b1<<24)|(b2<<16)|(b3<<8)|b4;
+                break;
+
+            case _E_LE: // DCBA
+                Result = (b4<<24)|(b3<<16)|(b2<<8)|b1;
+                break;
+
+            case _E_BS: // BADC
+                Result = (b2<<24)|(b1<<16)|(b4<<8)|b3;
+                break;
+
+            case _E_WS: // CDAB
+                Result = (b3<<24)|(b4<<16)|(b1<<8)|b2;
+                break;
+
+            default:
+                return 0;
+        }
+    }
+    else if(length == 2)
+    {
+        switch(Type)
+        {
+            case _E_BE: // 12 23 56 78 -> 12 34 56 78
+                Result = (b1<<24)|(b2<<16)|(b3<<8)|b4;
+                break;
+
+            case _E_LE: // 12 32 56 78 -> 12 34 78 56
+                Result = (b1<<24)|(b2<<16)|(b4<<8)|b3;
+                break;
+
+            case _E_BS: // 12 34 56 78 -> 12 34 65 87 
+                Result = (b1<<24) | (b2<<16) |
+                         ((((b3 & 0x0F) << 4) | ((b3 & 0xF0) >> 4)) << 8) |
+                         (((b4 & 0x0F) << 4) | ((b4 & 0xF0) >> 4));
+                break;
+
+            case _E_WS: // 12 34 56 78 -> 12 34 87 65
+                Result = (b1<<24) | (b2<<16) |
+                         ((((b4 & 0x0F) << 4) | ((b4 & 0xF0) >> 4)) << 8) |
+                         (((b3 & 0x0F) << 4) | ((b3 & 0xF0) >> 4));
+                break;
+
+            default:
+                return 0;
+        }
+    }
+
+    return Result;
+}
+
+float Decode_Data_Type_u32_to_f(uint32_t Hex_Data, uint8_t Type)
+{
+    float Result = 0;
+    if(Type == _ETYPE_U32)
+        Result = (float)((uint32_t)Hex_Data);
+    else if(Type == _ETYPE_I32)
+        Result = (float)((int32_t)Hex_Data);
+    else if(Type == _ETYPE_U16)
+        Result = (float)((uint16_t)Hex_Data);
+    else if(Type == _ETYPE_U32)
+        Result = (float)((int16_t)Hex_Data);
+    else
+        Convert_uint32Hex_To_Float(Hex_Data, &Result);
+    
+    return Result;
+}
+
+uint32_t Decode_Data_Type_f_to_u32(float Data_f, uint8_t Type)
+{
+    uint32_t Result = 0;
+    if(Type == _ETYPE_U32)
+        Result = (uint32_t)Data_f;
+    else if(Type == _ETYPE_I32)
+        Result = (int32_t)Data_f;
+    else if(Type == _ETYPE_U16)
+        Result = (uint16_t)Data_f;
+    else if(Type == _ETYPE_U32)
+        Result = (int16_t)Data_f;
+    else
+        Result = Handle_Float_To_hexUint32(Data_f);
+    
+    return Result;
+}
+

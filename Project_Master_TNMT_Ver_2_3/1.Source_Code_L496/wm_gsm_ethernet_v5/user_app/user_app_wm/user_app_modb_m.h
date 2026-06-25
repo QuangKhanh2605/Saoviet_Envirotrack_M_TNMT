@@ -7,7 +7,7 @@
 #include "user_util.h"
 #include "event_driven.h"
 
-//#define MODBUS_SENSOR_SAOVIET
+#define MODBUS_SENSOR_SAOVIET
 
 #define ID_DEFAULT_OXY          5
 #define ID_DEFAULT_PH           3
@@ -43,10 +43,6 @@
 #else
     #define MAX_COUNT_DISCONNECT    8
 #endif
-
-#define PORT_MODB_TCP   0
-#define PORT_RS485_1    1
-#define PORT_RS485_2    2
     
 typedef enum
 {
@@ -60,6 +56,15 @@ typedef enum
     _EVENT_MODB_TRANSMIT_DATA,
     _EVENT_MODBUS_RECEIVE_DATA,
     
+    _EVENT_MODB_RS485_1_TRANS,
+    _EVENT_MODB_RS485_1_RECV,
+    
+    _EVENT_MODB_RS485_2_TRANS,
+    _EVENT_MODB_RS485_2_RECV,
+    
+    _EVENT_MODB_TCP_TRANS,
+    _EVENT_MODB_TCP_RECV,
+    
     _EVENT_PTR_TEMP,
     
     _EVENT_MODB_END,
@@ -67,7 +72,7 @@ typedef enum
 
 typedef enum
 {
-    _PORT_MODB_TCP,  
+    _PORT_ETH_TCP,  
     _PORT_RS485_1,   
     _PORT_RS485_2,    
 }eKindEPortModbus;
@@ -145,6 +150,11 @@ typedef enum
     _E_TEMP_VALUE,
     _E_TEMP_S_SENSOR,
     _E_TEMP_S_VALUE,
+    
+    _E_PH1_WRITE,
+    _E_PH2_WRITE,
+    _E_TURB1_WRITE,
+    _E_TURB2_WRITE,
 #else
     _E_PH_S_SENSOR,
     _E_TEMP_S_SENSOR,
@@ -172,26 +182,6 @@ typedef enum
     _E_MODB_SS_END,
 }eKindStateModbReg;
 
-typedef enum
-{
-    _E_BE,              //Big Endian
-    _E_LE,              //Little Endian
-    _E_BS,              //Big Endian Swap (Byte Swap)
-    _E_WS,              //Little Endian Word Swap (Word Swap)
-}eKindEndianFormat;
-
-typedef enum
-{
-    _ETYPE_F,           //Kieu du lieu float
-    _ETYPE_U32,         //Kieu du lieu uint32_t
-    _ETYPE_I32,         //Kieu du lieu int32_t
-    _ETYPE_U16,         //Kieu du lieu uint16_t
-    _ETYPE_I16,         //Kieu du lieu int16_t
-    _ETYPE_U8,          //Kieu du lieu uint8_t
-    _ETYPE_I8,          //Kieu du lieu int8_t
-}eKindTypeValue;
-
-
 typedef struct
 {   
     uint8_t State_u8;   //Mat ket noi hay khong
@@ -213,13 +203,13 @@ typedef struct
     uint8_t  Block;
     uint8_t  *State;                 //Trang thai su dung (On/Off)
     uint8_t  cmdRW;                  //0: Read, 1: Write
-    uint8_t  idDev;                  //ID cua thiet bi
+    uint8_t  *idDev;                  //ID cua thiet bi
     uint8_t  cmdLen;                 //So thanh ghi can doc
     uint16_t cmdAddr;                //Addr thanh ghi 1234(Dec)
     uint8_t  vFormat;                //Kieu du lieu(float, uint32_t, int32_t, uint16_t, int16_t)
     uint8_t  vBeLe;                  //Kieu giai ma
     float    vScale;                 //Scale du lieu 0.01, 0.1, 1, 10 (ket qua do nhan voi scale)
-    float    *subReg;                //Gia tri viet vao thanh ghi lay tu thiet bi so 1|2|3...
+    void    *subReg;                //Gia tri viet vao thanh ghi lay tu thiet bi so 1|2|3...
     uint8_t  nPort;                  //Modbus port: 1
     void    *vReturn;                  
     uint8_t  *nConnect;
@@ -274,7 +264,7 @@ extern sEvent_struct        sEventAppModb[];
 extern Struct_Hanlde_Modb          sHandleModb;
 extern sData                       sDataRecvTCP;
 extern Struct_TransModbusTCP       sTransModTCP;
-extern Struct_CtrlModbM            sCtrlModbM;
+extern Struct_CtrlModbM            sCtrlModbM[];
 /*====================Function Handle====================*/
 
 uint8_t    AppModb_Task(void);
@@ -286,15 +276,14 @@ void       Init_Parameter_Sensor(void);
 
 void       Init_UartRs485(void);
 void       Init_UartRs485_2(void);
-void       Send_RS458_Sensor(uint8_t *aData, uint16_t Length_u16);
 
-uint32_t   Read_Register_Modb(uint8_t aData[], uint16_t *pos, uint8_t LengthData);
-
-uint32_t   Endian_Format(uint32_t Hex_Data, uint8_t length, uint8_t Type);
-float      Decode_Data_Type_u32(uint32_t Hex_Data, uint8_t Type);
-uint32_t   Decode_Data_Type_f(float Data_f, uint8_t Type);
-uint8_t ModbusTCP_Check_Format(uint8_t SlaveID, uint16_t nRegis,
-                               sData *pSource, sData *Content);
-uint32_t   Read_Register_Modbus(uint8_t aData[], uint16_t *pos, uint8_t LengthData);
+uint8_t    ModbusTCP_Check_Format(uint8_t SlaveID, uint16_t nRegis,
+                                  sData *pSource, sData *Content);
+uint8_t    Modbus_RTU_Check_Format(uint8_t SlaveID, uint16_t nRegis,
+                                  sData *pSource, sData *Content);
+uint8_t    Handle_Trans_Modb(uint8_t Port, Struct_RegSensor  sReg[], Struct_CtrlModbM  *sCtrl, sData *sFrame);
+void       Handle_Recv_Modb(Struct_RegSensor  sReg[], Struct_CtrlModbM  *sCtrl);
+void       Config_RegSen_Read(uint8_t Kind,uint8_t *ID, uint8_t *User, void *Return, uint8_t *nConnect);
+void       Config_RegSen_Write(uint8_t Kind,uint8_t *ID, uint8_t *User, void *subReg, uint8_t *nConnect);
 #endif
 

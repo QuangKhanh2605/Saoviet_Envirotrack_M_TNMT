@@ -410,13 +410,14 @@ uint8_t RS485_Modbus_Check_Format (uint8_t SlaveID, uint16_t nRegis,
         case FUN_READ_REGIS:
             ModLength = *(pSource->Data_a8 + Pos++);
             //check frame
-            if ( (ModSlave != SlaveID) || (ModLength != (nRegis * 2)))
+            if ((ModSlave != SlaveID) && ModLength != (nRegis * 2))
                 return false;
             
             //tro content vao data
             Content->Data_a8 = pSource->Data_a8 + Pos;
             Content->Length_u16 = ModLength;   
             break;
+      
         default:
             break;
     }

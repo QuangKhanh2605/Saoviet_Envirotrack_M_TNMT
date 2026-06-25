@@ -469,23 +469,6 @@ uint8_t _Cb_R_ModbusRTU_REG_TURB_2(sData *sDes, uint8_t Length)
     return 1;
 }
 
-/*===================== Send Data RS485 ======================*/
-/*
-    @brief Send 485 sensor
-*/
-//void        Send_RS458_Sensor(uint8_t *aData, uint16_t Length_u16) 
-//{
-//
-//    HAL_GPIO_WritePin(DE_GPIO_PORT, DE_GPIO_PIN, GPIO_PIN_SET);
-//    HAL_Delay(10);
-//    // Send
-////    RS485_Init_Data();
-//    HAL_UART_Transmit(&uart_rs485, aData , Length_u16, 1000); 
-//    
-//    //Dua DE ve Receive
-//    HAL_GPIO_WritePin(DE_GPIO_PORT, DE_GPIO_PIN, GPIO_PIN_RESET);
-//}
-
 /*====================== Handle Function =======================*/
 void Reset_sData(sData *str)
 {

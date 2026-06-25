@@ -118,7 +118,7 @@ wiz_NetInfo gWIZNETINFO = { .mac = {0x00,0x08,0xdc,0x12,0x34,0x56},
 									0x02,0x00, 0x87,0xff,
 									0xfe,0x08, 0x4c,0x81},   ///< Gateway IPv6 Address
 
-                            .ipmode = NETINFO_STATIC_V4,
+                            .ipmode = NETINFO_DHCP_V4,
 };
 
 uint8_t DHCPipver = AS_IPV4;
