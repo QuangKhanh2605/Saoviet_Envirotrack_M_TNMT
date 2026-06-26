@@ -17,8 +17,8 @@
 #define ID_DEFAULT_SS_EC        3
 #define ID_DEFAULT_SS_TURB      4
 
-#define TIMEOUT_MODBUS_RTU      200
-#define TIMEOUT_MODBUS_TCP      900
+#define TIMEOUT_MODB_RTU        200
+#define TIMEOUT_MODB_TCP        900
 
 #define ID_SS_TEMP      0
 #define ID_SS_PH        1
@@ -52,18 +52,10 @@ typedef enum
     _EVENT_MODB_REFRESH,
     
     _EVENT_MODB_HANDLE_SUBREG,
-    
-    _EVENT_MODB_TRANSMIT_DATA,
-    _EVENT_MODBUS_RECEIVE_DATA,
-    
-    _EVENT_MODB_RS485_1_TRANS,
-    _EVENT_MODB_RS485_1_RECV,
-    
-    _EVENT_MODB_RS485_2_TRANS,
-    _EVENT_MODB_RS485_2_RECV,
-    
-    _EVENT_MODB_TCP_TRANS,
-    _EVENT_MODB_TCP_RECV,
+
+    _EVENT_MODB_RS485_1_HANDLE,
+    _EVENT_MODB_RS485_2_HANDLE,
+    _EVENT_MODB_TCP_HANDLE,
     
     _EVENT_PTR_TEMP,
     
@@ -264,7 +256,6 @@ extern sEvent_struct        sEventAppModb[];
 extern Struct_Hanlde_Modb          sHandleModb;
 extern sData                       sDataRecvTCP;
 extern Struct_TransModbusTCP       sTransModTCP;
-extern Struct_CtrlModbM            sCtrlModbM[];
 /*====================Function Handle====================*/
 
 uint8_t    AppModb_Task(void);

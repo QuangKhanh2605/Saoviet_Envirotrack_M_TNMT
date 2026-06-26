@@ -36,10 +36,8 @@ static uint8_t _Cb_Send_OK (uint8_t event);
 static uint8_t _Cb_Send_Timeout (uint8_t event);
 static uint8_t _Cb_Recv_Data (uint8_t event);
 
-static uint8_t _Cb_Send_Mod_TCP (uint8_t event);
-static uint8_t _Cb_Recv_Mod_TCP (uint8_t event);
-
-static uint8_t _Cb_Slave_Mod_TCP (uint8_t event);
+static uint8_t _Cb_ModbTCP_Client (uint8_t event);
+static uint8_t _Cb_ModbTCP_Server (uint8_t event);
 
 static uint8_t _Cb_Get_Time_NTP (uint8_t event);
 
@@ -156,10 +154,8 @@ sEvent_struct sEventAppEth[] =
     { _EVENT_ETH_SEND_TIMEOUT, 		0, 0, 10000, 		_Cb_Send_Timeout },
     { _EVENT_ETH_RECV_DATA, 		0, 0, 0, 		    _Cb_Recv_Data },
     
-    { _EVENT_ETH_SEND_MOD_TCP,      0, 0, 100,          _Cb_Send_Mod_TCP},
-    { _EVENT_ETH_RECV_MOD_TCP,      0, 0, 500,          _Cb_Recv_Mod_TCP},
-    
-    { _EVENT_ETH_SLAVE_MOD_TCP,     0, 0, 10,           _Cb_Slave_Mod_TCP},
+    { _EVENT_ETH_MODBTCP_CLIENT,    0, 0, 100,          _Cb_ModbTCP_Client},
+    { _EVENT_ETH_MODBTCP_SERVER,    0, 0, 10,           _Cb_ModbTCP_Server},
     
     { _EVENT_ETH_GET_TIME_NTP,      0, 0, 10,           _Cb_Get_Time_NTP},
 
@@ -533,7 +529,7 @@ static uint8_t _Cb_Running_DHCP (uint8_t event)
     sAppEthVar.LandMarkRun_u32 = RtCountSystick_u32;
     //Tat event duoi
     fevent_disable(sEventAppEth, _EVENT_ETH_SOCK_CTRL);
-    fevent_disable(sEventAppEth, _EVENT_ETH_SLAVE_MOD_TCP);
+    fevent_disable(sEventAppEth, _EVENT_ETH_MODBTCP_SERVER);
     fevent_disable(sEventAppEth, _EVENT_ETH_GET_TIME_NTP);
     
 	switch (step)
@@ -612,7 +608,7 @@ static uint8_t _Cb_Running_DHCP (uint8_t event)
             wizchip_network_infor();
             //Active event Open Socket
             fevent_active(sEventAppEth, _EVENT_ETH_SOCK_CTRL);
-            fevent_active(sEventAppEth, _EVENT_ETH_SLAVE_MOD_TCP);
+            fevent_active(sEventAppEth, _EVENT_ETH_MODBTCP_SERVER);
             fevent_active(sEventAppEth, _EVENT_ETH_GET_TIME_NTP);
             if(sAppEthVar.rTimeNTP_u8 == PENDING)
                 sAppEthVar.rTimeNTP_u8 = false;
@@ -880,7 +876,7 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
             if(sTransModTCP.Flag == TRUE)
             {
                 sTransModTCP.Flag = PENDING;
-                fevent_enable(sEventAppEth, _EVENT_ETH_SEND_MOD_TCP);
+                fevent_enable(sEventAppEth, _EVENT_ETH_MODBTCP_CLIENT);
             }
             
         } 
@@ -1132,61 +1128,76 @@ static uint8_t _Cb_Recv_Data (uint8_t event)
 	return 1;
 }
 
-static uint8_t _Cb_Send_Mod_TCP (uint8_t event)
+static uint8_t _Cb_ModbTCP_Client (uint8_t event)
 {
-    if(sTransModTCP.Flag == PENDING)
-    {
-        send (SOCKET_MODBUS, sTransModTCP.aData, sTransModTCP.length);
-        UTIL_Printf_Str(DBLEVEL_H, "\r\nu_app_eth: ModbusTCP tranfer: \r\n");
-        UTIL_Printf_Hex (DBLEVEL_H, sTransModTCP.aData, sTransModTCP.length);
-        UTIL_Printf_Str(DBLEVEL_H, "\r\n");
-        
-        fevent_enable(sEventAppEth, _EVENT_ETH_RECV_MOD_TCP);
-    }
-    return 1;
-}
-
-static uint8_t _Cb_Recv_Mod_TCP (uint8_t event)
-{
+    static uint8_t step = 0;
     uint16_t size = 0;
-    
     sData   strSource = {&aRECEIVE_MODBUS[0], 0};
-
-    if ((size = getSn_RX_RSR(SOCKET_MODBUS)) > 0)
-    {
-        if (size > DATA_BUF_SIZE) 
-            size = DATA_BUF_SIZE - 1;
-        
-        LengthRecv = recv (SOCKET_MODBUS, aRECEIVE_MODBUS, size);
-        strSource.Length_u16 = LengthRecv;
-        
-        if (LengthRecv != size)
-        {
-            return 0;
-        }
-    }
-
-    if (LengthRecv > 0)
-    {
-        UTIL_Printf_Str ( DBLEVEL_H, "u_app_eth: ModbusTCP recv: Hex \r\n");          
-        UTIL_Printf_Hex ( DBLEVEL_H, strSource.Data_a8, strSource.Length_u16);
-        UTIL_Printf_Str (DBLEVEL_H, "\r\n");
-        
-        for(uint16_t i = 0; i < strSource.Length_u16; i++)
-            sDataRecvTCP.Data_a8[i] = strSource.Data_a8[i];
-        
-        sDataRecvTCP.Length_u16 = strSource.Length_u16;
-    }
-    //Clear
-    LengthRecv = 0;
-    memset(aRECEIVE_MODBUS, 0, sizeof(aRECEIVE_MODBUS));  
+    uint16_t Length = 0;
     
-	sTransModTCP.Flag = FALSE;
-    return 1;
+    switch(step)
+    {
+        case 0:
+            if(sTransModTCP.Flag == PENDING)
+            {
+                send (SOCKET_MODBUS, sTransModTCP.aData, sTransModTCP.length);
+                UTIL_Printf_Str(DBLEVEL_H, "\r\nu_app_eth: ModbusTCP tranfer: \r\n");
+                UTIL_Printf_Hex (DBLEVEL_H, sTransModTCP.aData, sTransModTCP.length);
+                UTIL_Printf_Str(DBLEVEL_H, "\r\n");
+                
+                sEventAppEth[_EVENT_ETH_MODBTCP_CLIENT].e_period = 500;
+                step = 1;
+            }
+            return 1;
+            break;
+            
+        case 1:
+            if ((size = getSn_RX_RSR(SOCKET_MODBUS)) > 0)
+            {
+                if (size > DATA_BUF_SIZE) 
+                    size = DATA_BUF_SIZE - 1;
+                
+                Length = recv (SOCKET_MODBUS, aRECEIVE_MODBUS, size);
+                strSource.Length_u16 = Length;
+                
+                if (Length != size)
+                {
+                    return 0;
+                }
+            }
+
+            if (Length > 0)
+            {
+                UTIL_Printf_Str ( DBLEVEL_H, "u_app_eth: ModbusTCP recv: Hex \r\n");          
+                UTIL_Printf_Hex ( DBLEVEL_H, strSource.Data_a8, strSource.Length_u16);
+                UTIL_Printf_Str (DBLEVEL_H, "\r\n");
+                
+                for(uint16_t i = 0; i < strSource.Length_u16; i++)
+                    sDataRecvTCP.Data_a8[i] = strSource.Data_a8[i];
+                
+                sDataRecvTCP.Length_u16 = strSource.Length_u16;
+            }
+            //Clear
+            Length = 0;
+            memset(aRECEIVE_MODBUS, 0, sizeof(aRECEIVE_MODBUS));  
+            
+            sTransModTCP.Flag = FALSE;
+            
+            sEventAppEth[_EVENT_ETH_MODBTCP_CLIENT].e_period = 100;
+            step = 0;
+            return 1; 
+            break;
+            
+        default:
+            break;
+    }
+    
+    fevent_enable(sEventAppEth, event);
+    return 1; 
 }
 
 
-static uint8_t _Cb_Slave_Mod_TCP (uint8_t event)
+static uint8_t _Cb_ModbTCP_Server (uint8_t event)
 {
     uint16_t len;
     uint8_t ip[4] = {0};

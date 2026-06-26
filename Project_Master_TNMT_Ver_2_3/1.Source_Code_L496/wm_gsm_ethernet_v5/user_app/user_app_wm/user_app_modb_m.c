@@ -12,17 +12,10 @@ static uint8_t fevent_modb_wait_calib(uint8_t event);
 static uint8_t fevent_modb_refresh(uint8_t event);
 
 static uint8_t fevent_modb_handle_subreg(uint8_t event);
-static uint8_t fevent_modb_transmit_data(uint8_t event);
-static uint8_t fevent_modbus_receive_data(uint8_t event);
 
-static uint8_t fevent_modb_rs485_1_trans(uint8_t event);
-static uint8_t fevent_modb_rs485_1_recv(uint8_t event);
-
-static uint8_t fevent_modb_rs485_2_trans(uint8_t event);
-static uint8_t fevent_modb_rs485_2_recv(uint8_t event);
-
-static uint8_t fevent_modb_tcp_trans(uint8_t event);
-static uint8_t fevent_modb_tcp_recv(uint8_t event);
+static uint8_t fevent_modb_rs485_1_handle(uint8_t event);
+static uint8_t fevent_modb_rs485_2_handle(uint8_t event);
+static uint8_t fevent_modb_tcp_handle(uint8_t event);
 
 static uint8_t fevent_ptr_temp(uint8_t event);
 /*==============================Struct=============================*/
@@ -35,17 +28,9 @@ sEvent_struct               sEventAppModb[]=
   
   {_EVENT_MODB_HANDLE_SUBREG,      1, 5, 500,              fevent_modb_handle_subreg},
   
-  {_EVENT_MODB_TRANSMIT_DATA,      0, 5, 100,              fevent_modb_transmit_data},
-  {_EVENT_MODBUS_RECEIVE_DATA,     0, 5, 900,              fevent_modbus_receive_data},
-  
-  {_EVENT_MODB_RS485_1_TRANS,      1, 5, 100,              fevent_modb_rs485_1_trans},
-  {_EVENT_MODB_RS485_1_RECV,       0, 5, 200,              fevent_modb_rs485_1_recv},
-  
-  {_EVENT_MODB_RS485_2_TRANS,      1, 5, 100,              fevent_modb_rs485_2_trans},
-  {_EVENT_MODB_RS485_2_RECV,       0, 5, 200,              fevent_modb_rs485_2_recv},
-  
-  {_EVENT_MODB_TCP_TRANS,          1, 5, 100,              fevent_modb_tcp_trans},
-  {_EVENT_MODB_TCP_RECV,           0, 5, 900,              fevent_modb_tcp_recv},
+  {_EVENT_MODB_RS485_1_HANDLE,     1, 5, 100,              fevent_modb_rs485_1_handle},
+  {_EVENT_MODB_RS485_2_HANDLE,     1, 5, 100,              fevent_modb_rs485_2_handle},
+  {_EVENT_MODB_TCP_HANDLE,         1, 5, 100,              fevent_modb_tcp_handle},
   
   {_EVENT_PTR_TEMP,                1, 5, 100,              fevent_ptr_temp},
 };
@@ -61,8 +46,6 @@ Struct_TransModbusTCP       sTransModTCP = {0};
 
 Struct_Modb_SubReg          sModbSubReg = {0};
 Struct_Hanlde_Modb          sHandleModb = {0};
-
-Struct_CtrlModbM            sCtrlModbM[3]= {0};
 
 float pH1_Test = 7.23;
 float pH2_Test = 8.34;
@@ -381,226 +364,117 @@ static uint8_t fevent_modb_handle_subreg(uint8_t event)
     return 1;
 }
 
-static uint8_t fevent_modb_transmit_data(uint8_t event)
+static uint8_t fevent_modb_rs485_1_handle(uint8_t event)
 {
-//    uint32_t hex_Data = 0;
-//    
-//    uint8_t aFrame[48] = {0};
-//    sData   strFrame = {(uint8_t *) &aFrame[0], 0};
-//    
-//    if(sCtrlModbM.iHandle == _E_MODB_SS_END)
-//      sCtrlModbM.iHandle = 0;
-//    
-//    while(*sRegSensor[sCtrlModbM.iHandle].State != 1)
-//    {
-//        if(sRegSensor[sCtrlModbM.iHandle].nConnect != NULL)
-//            *sRegSensor[sCtrlModbM.iHandle].nConnect = 0;
-//        
-//        sCtrlModbM.iHandle++;
-//        if(sCtrlModbM.iHandle == _E_MODB_SS_END) 
-//        {
-//            fevent_enable(sEventAppModb, event);
-//            return 1;
-//        }
-//    }
-//     
-//    sTransModTCP.Flag = 0;
-//    
-//    sCtrlModbM.iStartBlock = sCtrlModbM.iHandle;
-//    sCtrlModbM.iEndBlock   = sCtrlModbM.iHandle;
-//    sCtrlModbM.iReg        = sRegSensor[sCtrlModbM.iHandle].cmdLen;
-//    
-//    if (sRegSensor[sCtrlModbM.iStartBlock].cmdRW == 1)
-//    {
-//        uint8_t aData[50] = {0};
-//        uint8_t Length = 0;
-//        uint8_t i = sCtrlModbM.iHandle;
-//        while(1)
-//        {
-//            if(sRegSensor[i].vFormat == _ETYPE_F)
-//                hex_Data = Decode_Data_Type_f_to_u32(*sRegSensor[i].subReg, sRegSensor[i].vFormat);
-//            else 
-//                hex_Data = (uint32_t)sRegSensor[i].subReg;
-//
-//            hex_Data = Endian_Format(hex_Data, sRegSensor[i].cmdLen * 2, sRegSensor[i].vBeLe);
-//
-//            for (uint8_t j = 0; j < sRegSensor[i].cmdLen * 2; j++)
-//                aData[Length++] = (uint8_t)(hex_Data >> (8 * ((sRegSensor[i].cmdLen * 2 - 1) - j)));
-//            
-//            i++;
-//            if((i < _E_MODB_SS_END) &&
-//               (sRegSensor[i].Block == sRegSensor[i-1].Block) && 
-//               (sRegSensor[i].nPort == sRegSensor[i-1].nPort))
-//            {
-//                if(sRegSensor[i].cmdAddr == sRegSensor[i-1].cmdAddr + sRegSensor[i-1].cmdLen)
-//                {
-//                    sCtrlModbM.iEndBlock = i;
-//                    sCtrlModbM.iReg = sRegSensor[i].cmdAddr - sRegSensor[sCtrlModbM.iStartBlock].cmdAddr + sRegSensor[i].cmdLen;
-//                }
-//                else 
-//                  break;
-//            }
-//            else
-//              break;
-//
-//        }
-//
-//        if(sCtrlModbM.iReg == 1)
-//            ModRTU_Master_Write_Frame(&strFrame, sRegSensor[sCtrlModbM.iStartBlock].idDev, FUN_WRITE_BYTE, sRegSensor[sCtrlModbM.iStartBlock].cmdAddr, sCtrlModbM.iReg, aData);
-//        else
-//            ModRTU_Master_Write_Frame(&strFrame, sRegSensor[sCtrlModbM.iStartBlock].idDev, FUN_WRITE_MULTI, sRegSensor[sCtrlModbM.iStartBlock].cmdAddr, sCtrlModbM.iReg, aData);
-//    }
-//    else
-//    {
-//        uint8_t i = sCtrlModbM.iHandle +1;
-//        while(i < _E_MODB_SS_END)
-//        {
-//            if(sRegSensor[i].Block == sRegSensor[i-1].Block && sRegSensor[i].nPort == sRegSensor[i-1].nPort)
-//            {
-//                if(sRegSensor[i].cmdAddr >= sRegSensor[i-1].cmdAddr)
-//                {
-//                    sCtrlModbM.iEndBlock = i;
-//                    sCtrlModbM.iReg = sRegSensor[i].cmdAddr - sRegSensor[sCtrlModbM.iStartBlock].cmdAddr + sRegSensor[i].cmdLen;
-//                }
-//                else 
-//                  break;
-//            }
-//            else
-//              break;
-//            i++;
-//        }
-//        ModRTU_Master_Read_Frame(&strFrame, sRegSensor[sCtrlModbM.iStartBlock].idDev, 0x03, sRegSensor[sCtrlModbM.iStartBlock].cmdAddr, sCtrlModbM.iReg);
-//    }
-// 
-//    if (sRegSensor[sCtrlModbM.iStartBlock].nPort == _PORT_RS485_1)
-//    {
-//        RS485_1_Trans(strFrame.Data_a8, strFrame.Length_u16);
-//    }
-//    else if (sRegSensor[sCtrlModbM.iStartBlock].nPort == _PORT_RS485_2)
-//    {
-//        RS485_2_Trans(strFrame.Data_a8, strFrame.Length_u16);
-//    }
-//    else
-//    {
-//        memset(sTransModTCP.aData, 0xAA, sizeof(sTransModTCP.aData));
-//        sTransModTCP.length = 0;
-//        
-//        sTransModTCP.aData[sTransModTCP.length++] = sCtrlModbM.Transaction_TCP >> 8;
-//        sTransModTCP.aData[sTransModTCP.length++] = sCtrlModbM.Transaction_TCP;
-//        sTransModTCP.aData[sTransModTCP.length++] = 0x00 >> 8;
-//        sTransModTCP.aData[sTransModTCP.length++] = 0x00;
-//        sTransModTCP.aData[sTransModTCP.length++] = (strFrame.Length_u16 - 2) >> 8;
-//        sTransModTCP.aData[sTransModTCP.length++] = (strFrame.Length_u16 - 2);
-//        
-//        for(uint8_t i = 0; i < strFrame.Length_u16 - 2; i++)
-//            sTransModTCP.aData[sTransModTCP.length++] = strFrame.Data_a8[i];
-//
-//        Reset_Buff(&sDataRecvTCP);
-//        sTransModTCP.Flag = TRUE;
-//    }
-//    
-//    if(sRegSensor[sCtrlModbM.iHandle].nPort == _PORT_ETH_TCP)
-//        sEventAppModb[_EVENT_MODBUS_RECEIVE_DATA].e_period = TIMEOUT_MODBUS_TCP;
-//    else
-//        sEventAppModb[_EVENT_MODBUS_RECEIVE_DATA].e_period = TIMEOUT_MODBUS_RTU;
-//    
-//    fevent_enable(sEventAppModb, _EVENT_MODBUS_RECEIVE_DATA);
-    return 1;
-}
-
-static uint8_t fevent_modbus_receive_data(uint8_t event)
-{
-//    Handle_Recv_Modb(sRegSensor, &sCtrlModbM);
-//
-//    fevent_enable(sEventAppModb, _EVENT_MODB_TRANSMIT_DATA);
-    return 1;
-}
-
-static uint8_t fevent_modb_rs485_1_trans(uint8_t event)
-{
-    uint8_t aFrame[48] = {0};
-    sData   strFrame = {(uint8_t *) &aFrame[0], 0};
-
-    if(Handle_Trans_Modb(_PORT_RS485_1, sRegSensor, &sCtrlModbM[_PORT_RS485_1], &strFrame) == 0)
-    {
-        fevent_enable(sEventAppModb, event);
-        return 1;
-    }
-
-    RS485_1_Trans(strFrame.Data_a8, strFrame.Length_u16);
-    
-    fevent_enable(sEventAppModb, _EVENT_MODB_RS485_1_RECV);
-    return 1;
-}
-
-static uint8_t fevent_modb_rs485_1_recv(uint8_t event)
-{
-    Handle_Recv_Modb(sRegSensor, &sCtrlModbM[_PORT_RS485_1]);
-
-    fevent_enable(sEventAppModb, _EVENT_MODB_RS485_1_TRANS);
-    return 1;
-}
-
-static uint8_t fevent_modb_rs485_2_trans(uint8_t event)
-{
+    static uint8_t step = 0;
+    static Struct_CtrlModbM     sCtrlModbM = {0};
     uint8_t aFrame[48] = {0};
     sData   strFrame = {(uint8_t *) &aFrame[0], 0};
     
-    if(Handle_Trans_Modb(_PORT_RS485_2, sRegSensor, &sCtrlModbM[_PORT_RS485_2], &strFrame) == 0)
+    switch(step)
     {
-        fevent_enable(sEventAppModb, event);
-        return 1;
+        case 0:
+            if(Handle_Trans_Modb(_PORT_RS485_1, sRegSensor, &sCtrlModbM, &strFrame) == 1)
+            {
+                RS485_1_Trans(strFrame.Data_a8, strFrame.Length_u16);
+                sEventAppModb[_EVENT_MODB_RS485_1_HANDLE].e_period = TIMEOUT_MODB_RTU;
+                step = 1;
+            }
+            break;
+          
+        case 1:
+            Handle_Recv_Modb(sRegSensor, &sCtrlModbM);
+            
+            sEventAppModb[_EVENT_MODB_RS485_1_HANDLE].e_period = 100;
+            step = 0;
+            break;
+          
+        default:
+            break;
     }
 
-    RS485_2_Trans(strFrame.Data_a8, strFrame.Length_u16);
-    
-    fevent_enable(sEventAppModb, _EVENT_MODB_RS485_2_RECV);
-    return 1;
-}
-static uint8_t fevent_modb_rs485_2_recv(uint8_t event)
-{
-    Handle_Recv_Modb(sRegSensor, &sCtrlModbM[_PORT_RS485_2]);
-
-    fevent_enable(sEventAppModb, _EVENT_MODB_RS485_2_TRANS);
+    fevent_enable(sEventAppModb, event);
     return 1;
 }
 
-static uint8_t fevent_modb_tcp_trans(uint8_t event)
+static uint8_t fevent_modb_rs485_2_handle(uint8_t event)
 {
+    static uint8_t step = 0;
+    static Struct_CtrlModbM     sCtrlModbM = {0};
     uint8_t aFrame[48] = {0};
     sData   strFrame = {(uint8_t *) &aFrame[0], 0};
     
-    if(Handle_Trans_Modb(_PORT_ETH_TCP, sRegSensor, &sCtrlModbM[_PORT_ETH_TCP], &strFrame) == 0)
+    switch(step)
     {
-        fevent_enable(sEventAppModb, event);
-        return 1;
+        case 0:
+            if(Handle_Trans_Modb(_PORT_RS485_2, sRegSensor, &sCtrlModbM, &strFrame) == 1)
+            {
+                RS485_2_Trans(strFrame.Data_a8, strFrame.Length_u16);
+                sEventAppModb[_EVENT_MODB_RS485_2_HANDLE].e_period = TIMEOUT_MODB_RTU;
+                step = 1;
+            }
+            break;
+          
+        case 1:
+            Handle_Recv_Modb(sRegSensor, &sCtrlModbM);
+            
+            sEventAppModb[_EVENT_MODB_RS485_2_HANDLE].e_period = 100;
+            step = 0;
+            break;
+          
+        default:
+            break;
     }
-    
-    memset(sTransModTCP.aData, 0xAA, sizeof(sTransModTCP.aData));
-    sTransModTCP.length = 0;
-    
-    sTransModTCP.aData[sTransModTCP.length++] = sCtrlModbM[_PORT_ETH_TCP].Transaction_TCP >> 8;
-    sTransModTCP.aData[sTransModTCP.length++] = sCtrlModbM[_PORT_ETH_TCP].Transaction_TCP;
-    sTransModTCP.aData[sTransModTCP.length++] = 0x00 >> 8;
-    sTransModTCP.aData[sTransModTCP.length++] = 0x00;
-    sTransModTCP.aData[sTransModTCP.length++] = (strFrame.Length_u16 - 2) >> 8;
-    sTransModTCP.aData[sTransModTCP.length++] = (strFrame.Length_u16 - 2);
-    
-    for(uint8_t i = 0; i < strFrame.Length_u16 - 2; i++)
-        sTransModTCP.aData[sTransModTCP.length++] = strFrame.Data_a8[i];
 
-    Reset_Buff(&sDataRecvTCP);
-    sTransModTCP.Flag = TRUE;
-        
-    fevent_enable(sEventAppModb, _EVENT_MODB_TCP_RECV);
+    fevent_enable(sEventAppModb, event);
     return 1;
 }
 
-static uint8_t fevent_modb_tcp_recv(uint8_t event)
+static uint8_t fevent_modb_tcp_handle(uint8_t event)
 {
-    Handle_Recv_Modb(sRegSensor, &sCtrlModbM[_PORT_ETH_TCP]);
+    static uint8_t step = 0;
+    static Struct_CtrlModbM     sCtrlModbM = {0};
+    uint8_t aFrame[48] = {0};
+    sData   strFrame = {(uint8_t *) &aFrame[0], 0};
+    
+    switch(step)
+    {
+        case 0:
+            if(Handle_Trans_Modb(_PORT_ETH_TCP, sRegSensor, &sCtrlModbM, &strFrame) == 1)
+            {
+                memset(sTransModTCP.aData, 0xAA, sizeof(sTransModTCP.aData));
+                sTransModTCP.length = 0;
+                
+                sTransModTCP.aData[sTransModTCP.length++] = sCtrlModbM.Transaction_TCP >> 8;
+                sTransModTCP.aData[sTransModTCP.length++] = sCtrlModbM.Transaction_TCP;
+                sTransModTCP.aData[sTransModTCP.length++] = 0x00 >> 8;
+                sTransModTCP.aData[sTransModTCP.length++] = 0x00;
+                sTransModTCP.aData[sTransModTCP.length++] = (strFrame.Length_u16 - 2) >> 8;
+                sTransModTCP.aData[sTransModTCP.length++] = (strFrame.Length_u16 - 2);
+                
+                for(uint8_t i = 0; i < strFrame.Length_u16 - 2; i++)
+                    sTransModTCP.aData[sTransModTCP.length++] = strFrame.Data_a8[i];
 
-    fevent_enable(sEventAppModb, _EVENT_MODB_TCP_TRANS);
+                Reset_Buff(&sDataRecvTCP);
+                sTransModTCP.Flag = TRUE;
+                
+                sEventAppModb[_EVENT_MODB_TCP_HANDLE].e_period = TIMEOUT_MODB_TCP;
+                step = 1;
+            }
+            break;
+          
+        case 1:
+            Handle_Recv_Modb(sRegSensor, &sCtrlModbM);
+            
+            sEventAppModb[_EVENT_MODB_TCP_HANDLE].e_period = 100;
+            step = 0;
+            break;
+          
+        default:
+            break;
+    }
+
+    fevent_enable(sEventAppModb, event);
     return 1;
 }
 
