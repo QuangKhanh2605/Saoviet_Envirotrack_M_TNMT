@@ -1,0 +1,1476 @@
+###############################################################################
+#
+# IAR ELF Linker V8.40.2.214/W32 for ARM                  26/Jun/2026  10:03:40
+# Copyright 2007-2019 IAR Systems AB.
+#
+#    Output file  =
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Exe\Project_Slave_Sensor_EnviroTrack.out
+#    Map file     =
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\List\Project_Slave_Sensor_EnviroTrack.map
+#    Command line =
+#        -f C:\Users\PC\AppData\Local\Temp\EWF4EE.tmp
+#        (D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\button.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\dma.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\event_driven.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\glcd.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\gpio.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\graphics.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\graphs.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\lcd_display.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\main.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\NT75451.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\onchipflash.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\PCD8544.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\queue_p.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\rtc.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\spi.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\ST7565R.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\startup_stm32l433xx.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\STM32F0xx.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\STM32F10x.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\STM32F4.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\STM32L4.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_cortex.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_dma.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_dma_ex.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_exti.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_flash.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_flash_ex.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_flash_ramfunc.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_gpio.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_i2c.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_i2c_ex.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_msp.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_pwr.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_pwr_ex.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_rcc.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_rcc_ex.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_rtc.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_rtc_ex.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_spi.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_spi_ex.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_uart.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_hal_uart_ex.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\stm32l4xx_it.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\system_stm32l4xx.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\text.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\text_tiny.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\unit_tests.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\usart.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_adv_trace.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_app_comm.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_app_modbus_rtu.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_app_rs485.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_app_sensor.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_at_serial.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_connect_sensor.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_convert_variable.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_internal_mem.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_mem_comm.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_modbus_rtu.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_obis_sv.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_rs485.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_rtc.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_string.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_time.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_timer.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_tiny_vsnprintf.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_uart.o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj\user_util.o
+#        --no_out_extension -o
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Exe\Project_Slave_Sensor_EnviroTrack.out
+#        --redirect _Printf=_PrintfFullNoMb --redirect _Scanf=_ScanfFullNoMb
+#        --map
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\List\Project_Slave_Sensor_EnviroTrack.map
+#        --config
+#        D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM/stm32l433xx_flash.icf
+#        --semihosting --entry __iar_program_start --vfe --text_out locale)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__Heap_Handler  = DLMalloc
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The advanced heap was selected because the application calls memory
+allocation functions outside of system library functions, and there
+are calls to deallocation functions in the application.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at address 0x800'0000 { ro section .intvec };
+"P1":  place in [from 0x800'0000 to 0x803'ffff] { ro };
+define block CSTACK with size = 1K, alignment = 8 { };
+define block HEAP with size = 512, alignment = 8 { };
+"P2":  place in [from 0x2000'0000 to 0x2000'ffff] {
+          rw, block CSTACK, block HEAP };
+initialize by copy { rw };
+
+  Section            Kind         Address      Size  Object
+  -------            ----         -------      ----  ------
+"A0":                                         0x18c
+  .intvec            ro code   0x800'0000     0x18c  startup_stm32l433xx.o [1]
+                             - 0x800'018c     0x18c
+
+"P1":                                      0x1'31c2
+  .text              ro code   0x800'018c    0x2d40  user_app_sensor.o [1]
+  .text              ro code   0x800'2ecc      0x54  event_driven.o [1]
+  .text              ro code   0x800'2f20      0x66  ABImemset.o [4]
+  .text              ro code   0x800'2f86     0x350  user_modbus_rtu.o [1]
+  .text              ro code   0x800'32d6      0x3a  zero_init3.o [4]
+  .text              ro code   0x800'3310     0x380  stm32l4xx_hal_gpio.o [1]
+  .text              ro code   0x800'3690     0x39c  usart.o [1]
+  .text              ro code   0x800'3a2c      0x74  user_connect_sensor.o [1]
+  .text              ro code   0x800'3aa0     0x40c  user_convert_variable.o [1]
+  .text              ro code   0x800'3eac     0xf40  lcd_display.o [1]
+  .text              ro code   0x800'4dec     0x21c  user_util.o [1]
+  .text              ro code   0x800'5008      0x28  stm32l4xx_hal.o [1]
+  .text              ro code   0x800'5030     0xfc8  stm32l4xx_hal_uart.o [1]
+  .text              ro code   0x800'5ff8      0x48  FltToDbl.o [3]
+  .text              ro code   0x800'6040      0x22  math_wrappers64.o [3]
+  .text              ro code   0x800'6062       0xa  xsprout.o [2]
+  .text              ro code   0x800'606c      0x68  DblToFlt.o [3]
+  .text              ro code   0x800'60d4     0x172  onchipflash.o [1]
+  .rodata            const     0x800'6246       0x2  xlocale_c.o [2]
+  .text              ro code   0x800'6248     0xad4  user_app_modbus_rtu.o [1]
+  .text              ro code   0x800'6d1c      0xa6  ABImemcpy.o [4]
+  .rodata            const     0x800'6dc2       0x1  xlocale_c.o [2]
+  .text              ro code   0x800'6dc4       0xc  stm32l4xx_hal.o [1]
+  .text              ro code   0x800'6dd0      0xc2  main.o [1]
+  .text              ro code   0x800'6e92      0x14  memset.o [4]
+  .text              ro code   0x800'6ea8     0x4e8  stm32l4xx_hal_rcc_ex.o [1]
+  .text              ro code   0x800'7390     0x422  stm32l4xx_hal_dma.o [1]
+  .text              ro code   0x800'77b4     0x194  stm32l4xx_hal_cortex.o [1]
+  .text              ro code   0x800'7948     0x230  I64DivMod.o [4]
+  .text              ro code   0x800'7b78      0x1a  U32ToDbl.o [3]
+  .text              ro code   0x800'7b94      0x22  S32ToDbl.o [3]
+  .text              ro code   0x800'7bb8     0x1a2  DblMul.o [3]
+  .text              ro code   0x800'7d5c     0x17a  DblAdd.o [3]
+  .text              ro code   0x800'7ed8      0x3a  DblToS32.o [3]
+  .text              ro code   0x800'7f14      0xb0  STM32L4.o [1]
+  .text              ro code   0x800'7fc4     0x290  text_tiny.o [1]
+  .text              ro code   0x800'8254      0x14  unit_tests.o [1]
+  .text              ro code   0x800'8268     0x110  glcd.o [1]
+  .text              ro code   0x800'8378     0x15c  ST7565R.o [1]
+  .text              ro code   0x800'84d4    0x2af0  button.o [1]
+  .text              ro code   0x800'afc4      0x36  strlen.o [4]
+  .text              ro code   0x800'affc     0x390  text.o [1]
+  .text              ro code   0x800'b38c     0x200  graphics.o [1]
+  .text              ro code   0x800'b58c     0x246  DblDiv.o [3]
+  .text              ro code   0x800'b7d4      0x40  sprintf.o [2]
+  .text              ro code   0x800'b814     0x128  user_uart.o [1]
+  .text              ro code   0x800'b93c      0x72  stm32l4xx_hal_uart_ex.o [1]
+  .text              ro code   0x800'b9b0     0x9fc  stm32l4xx_hal_rcc.o [1]
+  .text              ro code   0x800'c3ac       0x2  stm32l4xx_hal_uart.o [1]
+  .text              ro code   0x800'c3ae       0x2  stm32l4xx_hal_uart.o [1]
+  .text              ro code   0x800'c3b0     0x31c  logx64.o [3]
+  .text              ro code   0x800'c6cc     0x6ec  pow64.o [3]
+  .text              ro code   0x800'cdb8     0x1b8  stm32l4xx_hal_flash.o [1]
+  .text              ro code   0x800'cf70      0xa0  stm32l4xx_hal_flash_ex.o [1]
+  .text              ro code   0x800'd010      0x24  stm32l4xx_hal.o [1]
+  .text              ro code   0x800'd034     0x1d0  gpio.o [1]
+  .text              ro code   0x800'd204      0x60  dma.o [1]
+  .text              ro code   0x800'd264     0x150  rtc.o [1]
+  .text              ro code   0x800'd3b4      0xc8  spi.o [1]
+  .text              ro code   0x800'd47c     0x4b0  user_app_comm.o [1]
+  .text              ro code   0x800'd92c      0x94  stm32l4xx_hal_pwr_ex.o [1]
+  .text              ro code   0x800'd9c0       0x2  I64DivZer.o [4]
+  .text              ro code   0x800'd9c4      0xe2  DblSub.o [3]
+  .text              ro code   0x800'daa8     0x52a  stm32l4xx_hal_spi.o [1]
+  .text              ro code   0x800'dfd2       0x8  abs.o [2]
+  .text              ro code   0x800'dfdc     0xfc6  xprintffull_nomb.o [2]
+  .text              ro code   0x800'efa4      0x70  user_rs485.o [1]
+  .text              ro code   0x800'f014     0x23a  user_adv_trace.o [1]
+  .text              ro code   0x800'f250      0x60  stm32l4xx_hal.o [1]
+  .text              ro code   0x800'f2b0      0x70  frexp.o [3]
+  .text              ro code   0x800'f320      0x2e  DblCmpLe.o [3]
+  .text              ro code   0x800'f350      0x20  DblCmpEq.o [3]
+  .text              ro code   0x800'f370      0x2e  DblCmpGe.o [3]
+  .text              ro code   0x800'f3a0     0x3e8  iar_Exp64.o [3]
+  .text              ro code   0x800'f788      0x38  stm32l4xx_hal_msp.o [1]
+  .text              ro code   0x800'f7c0     0x78e  stm32l4xx_hal_rtc.o [1]
+  .text              ro code   0x800'ff50     0x310  user_timer.o [1]
+  .text              ro code   0x801'0260     0x1dc  user_at_serial.o [1]
+  .text              ro code   0x801'043c      0x58  user_time.o [1]
+  .text              ro code   0x801'0494     0x180  user_app_rs485.o [1]
+  .text              ro code   0x801'0614      0x16  strchr.o [4]
+  .text              ro code   0x801'062c      0x40  xfail_s.o [2]
+  .text              ro code   0x801'066c      0x58  memchr.o [4]
+  .text              ro code   0x801'06c4     0x13a  ldexp.o [3]
+  .text              ro code   0x801'0800      0x28  DblToU32.o [3]
+  .text              ro code   0x801'0828       0x8  xlocale_c.o [2]
+  .text              ro code   0x801'0830     0x350  user_tiny_vsnprintf.o [1]
+  .text              ro code   0x801'0b80     0x3a8  user_rtc.o [1]
+  .text              ro code   0x801'0f28       0x2  stm32l4xx_hal_rtc_ex.o [1]
+  .text              ro code   0x801'0f2a     0x1e6  user_string.o [1]
+  .text              ro code   0x801'1110       0x6  abort.o [2]
+  .text              ro code   0x801'1118      0x48  stm32l4xx_hal_rtc_ex.o [1]
+  .text              ro code   0x801'1160      0x14  exit.o [5]
+  .rodata            const     0x801'1178     0x420  pow64.o [3]
+  .rodata            const     0x801'1598     0x400  unit_tests.o [1]
+  .rodata            const     0x801'1998     0x228  lcd_display.o [1]
+  .rodata            const     0x801'1bc0     0x214  lcd_display.o [1]
+  .rodata            const     0x801'1dd4     0x12c  user_app_sensor.o [1]
+  .rodata            const     0x801'1f00     0x12c  user_app_sensor.o [1]
+  .text              ro code   0x801'202c      0xd4  stm32l4xx_it.o [1]
+  .text              ro code   0x801'2100      0x18  stm32l4xx_hal.o [1]
+  .text              ro code   0x801'2118      0x78  lz77_init_single.o [4]
+  .rodata            const     0x801'2190      0x34  user_app_sensor.o [1]
+  .rodata            const     0x801'21c4      0x34  user_app_sensor.o [1]
+  .rodata            const     0x801'21f8      0x30  system_stm32l4xx.o [1]
+  .rodata            const     0x801'2228      0x2c  user_rtc.o [1]
+  .rodata            const     0x801'2254      0x28  user_tiny_vsnprintf.o [1]
+  .rodata            const     0x801'227c      0x28  user_tiny_vsnprintf.o [1]
+  .text              ro code   0x801'22a4      0x28  data_init.o [4]
+  .text              ro code   0x801'22cc      0x22  fpinit_M.o [3]
+  .iar.init_table    const     0x801'22f0      0x20  - Linker created -
+  .rodata            const     0x801'2310      0x20  user_rtc.o [1]
+  .text              ro code   0x801'2330      0x1e  cmain.o [4]
+  .text              ro code   0x801'234e       0x4  low_level_init.o [2]
+  .text              ro code   0x801'2352       0x4  exit.o [2]
+  .text              ro code   0x801'2358       0xa  cexit.o [4]
+  .rodata            const     0x801'2364      0x1c  user_app_comm.o [1]
+  .rodata            const     0x801'2380      0x1c  user_uart.o [1]
+  .rodata            const     0x801'239c      0x18  user_app_comm.o [1]
+  .rodata            const     0x801'23b4      0x14  lcd_display.o [1]
+  .rodata            const     0x801'23c8      0x14  lcd_display.o [1]
+  .rodata            const     0x801'23dc      0x14  user_app_comm.o [1]
+  .rodata            const     0x801'23f0      0x14  user_at_serial.o [1]
+  .rodata            const     0x801'2404      0x14  user_at_serial.o [1]
+  .rodata            const     0x801'2418      0x14  user_at_serial.o [1]
+  .rodata            const     0x801'242c      0x14  user_at_serial.o [1]
+  .rodata            const     0x801'2440      0x14  user_at_serial.o [1]
+  .rodata            const     0x801'2454      0x10  lcd_display.o [1]
+  .rodata            const     0x801'2464      0x10  lcd_display.o [1]
+  .rodata            const     0x801'2474      0x10  lcd_display.o [1]
+  .rodata            const     0x801'2484      0x10  lcd_display.o [1]
+  .rodata            const     0x801'2494      0x10  lcd_display.o [1]
+  .rodata            const     0x801'24a4      0x10  lcd_display.o [1]
+  .rodata            const     0x801'24b4      0x10  lcd_display.o [1]
+  .rodata            const     0x801'24c4      0x10  lcd_display.o [1]
+  .rodata            const     0x801'24d4      0x10  lcd_display.o [1]
+  .rodata            const     0x801'24e4      0x10  lcd_display.o [1]
+  .rodata            const     0x801'24f4      0x10  lcd_display.o [1]
+  .rodata            const     0x801'2504      0x10  lcd_display.o [1]
+  .rodata            const     0x801'2514      0x10  system_stm32l4xx.o [1]
+  .rodata            const     0x801'2524      0x10  user_app_sensor.o [1]
+  .rodata            const     0x801'2534      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2544      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2554      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2564      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2574      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2584      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2594      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'25a4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'25b4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'25c4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'25d4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'25e4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'25f4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2604      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2614      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2624      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2634      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2644      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2654      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2664      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2674      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2684      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2694      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'26a4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'26b4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'26c4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'26d4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'26e4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'26f4      0x10  user_at_serial.o [1]
+  .rodata            const     0x801'2704      0x10  user_at_serial.o [1]
+  .text              ro code   0x801'2714      0x10  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2724      0x10  system_stm32l4xx.o [1]
+  .rodata            const     0x801'2734       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2740       0xc  lcd_display.o [1]
+  .rodata            const     0x801'274c       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2758       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2764       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2770       0xc  lcd_display.o [1]
+  .rodata            const     0x801'277c       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2788       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2794       0xc  lcd_display.o [1]
+  .rodata            const     0x801'27a0       0xc  lcd_display.o [1]
+  .rodata            const     0x801'27ac       0xc  lcd_display.o [1]
+  .rodata            const     0x801'27b8       0xc  lcd_display.o [1]
+  .rodata            const     0x801'27c4       0xc  lcd_display.o [1]
+  .rodata            const     0x801'27d0       0xc  lcd_display.o [1]
+  .rodata            const     0x801'27dc       0xc  lcd_display.o [1]
+  .rodata            const     0x801'27e8       0xc  lcd_display.o [1]
+  .rodata            const     0x801'27f4       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2800       0xc  lcd_display.o [1]
+  .rodata            const     0x801'280c       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2818       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2824       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2830       0xc  lcd_display.o [1]
+  .rodata            const     0x801'283c       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2848       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2854       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2860       0xc  lcd_display.o [1]
+  .rodata            const     0x801'286c       0xc  lcd_display.o [1]
+  .rodata            const     0x801'2878       0xc  user_app_comm.o [1]
+  .rodata            const     0x801'2884       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'2890       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'289c       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'28a8       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'28b4       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'28c0       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'28cc       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'28d8       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'28e4       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'28f0       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'28fc       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'2908       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'2914       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'2920       0xc  user_app_sensor.o [1]
+  .rodata            const     0x801'292c       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2938       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2944       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2950       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'295c       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2968       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2974       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2980       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'298c       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2998       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'29a4       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'29b0       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'29bc       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'29c8       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'29d4       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'29e0       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'29ec       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'29f8       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a04       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a10       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a1c       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a28       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a34       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a40       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a4c       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a58       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a64       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a70       0xc  user_at_serial.o [1]
+  .rodata            const     0x801'2a7c       0xc  user_rtc.o [1]
+  .rodata            const     0x801'2a88       0xc  user_rtc.o [1]
+  .text              ro code   0x801'2a94       0xc  cstartup_M.o [4]
+  .rodata            const     0x801'2aa0       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2aa8       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2ab0       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2ab8       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2ac0       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2ac8       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2ad0       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2ad8       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2ae0       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2ae8       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2af0       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2af8       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2b00       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2b08       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2b10       0x8  lcd_display.o [1]
+  .rodata            const     0x801'2b18       0x8  system_stm32l4xx.o [1]
+  .rodata            const     0x801'2b20       0x8  user_app_modbus_rtu.o [1]
+  .rodata            const     0x801'2b28       0x8  user_app_modbus_rtu.o [1]
+  .rodata            const     0x801'2b30       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b38       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b40       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b48       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b50       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b58       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b60       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b68       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b70       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b78       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b80       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b88       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b90       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2b98       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2ba0       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2ba8       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2bb0       0x8  user_app_sensor.o [1]
+  .rodata            const     0x801'2bb8       0x8  user_at_serial.o [1]
+  .rodata            const     0x801'2bc0       0x8  user_at_serial.o [1]
+  .rodata            const     0x801'2bc8       0x8  user_at_serial.o [1]
+  .rodata            const     0x801'2bd0       0x8  user_at_serial.o [1]
+  .rodata            const     0x801'2bd8       0x8  user_at_serial.o [1]
+  .rodata            const     0x801'2be0       0x8  user_tiny_vsnprintf.o [1]
+  .rodata            const     0x801'2be8       0x8  user_util.o [1]
+  .rodata            const     0x801'2bf0       0x8  xprintffull_nomb.o [2]
+  .rodata            const     0x801'2bf8       0x4  lcd_display.o [1]
+  .rodata            const     0x801'2bfc       0x4  lcd_display.o [1]
+  .rodata            const     0x801'2c00       0x4  lcd_display.o [1]
+  .rodata            const     0x801'2c04       0x4  lcd_display.o [1]
+  .rodata            const     0x801'2c08       0x4  lcd_display.o [1]
+  .text              ro code   0x801'2c0c       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c10       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c14       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c18       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c1c       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c20       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c24       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c28       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c2c       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c30       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c34       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c38       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c3c       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c40       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c44       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c48       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c4c       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c50       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c54       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c58       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c5c       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c60       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c64       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c68       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c6c       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c70       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c74       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c78       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c7c       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c80       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c84       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c88       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c8c       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c90       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c94       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c98       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2c9c       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2ca0       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2ca4       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2ca8       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cac       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cb0       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cb4       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cb8       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cbc       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cc0       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cc4       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cc8       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2ccc       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cd0       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cd4       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cd8       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cdc       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2ce0       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2ce4       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2ce8       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cec       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cf0       0x4  startup_stm32l433xx.o [1]
+  .text              ro code   0x801'2cf4       0x4  startup_stm32l433xx.o [1]
+  .rodata            const     0x801'2cf8       0x0  zero_init3.o [4]
+  .rodata            const     0x801'2cf8       0x0  lz77_init_single.o [4]
+  Initializer bytes  const     0x801'2cf8     0x656  <for P2-1>
+                             - 0x801'334e  0x1'31c2
+
+"P2", part 1 of 3:                            0xf51
+  P2-1                        0x2000'0000     0xf51  <Init block>
+    .data            inited   0x2000'0000       0xc  button.o [1]
+    .data            inited   0x2000'000c      0x70  lcd_display.o [1]
+    .data            inited   0x2000'007c      0x88  lcd_display.o [1]
+    .data            inited   0x2000'0104       0x8  lcd_display.o [1]
+    .data            inited   0x2000'010c       0x4  lcd_display.o [1]
+    .data            inited   0x2000'0110      0x10  lcd_display.o [1]
+    .data            inited   0x2000'0120      0x10  lcd_display.o [1]
+    .data            inited   0x2000'0130      0x10  lcd_display.o [1]
+    .data            inited   0x2000'0140      0x10  lcd_display.o [1]
+    .data            inited   0x2000'0150      0x10  lcd_display.o [1]
+    .data            inited   0x2000'0160       0x8  lcd_display.o [1]
+    .data            inited   0x2000'0168     0x678  lcd_display.o [1]
+    .data            inited   0x2000'07e0       0x4  stm32l4xx_hal.o [1]
+    .data            inited   0x2000'07e4      0x20  stm32l4xx_hal_flash.o [1]
+    .data            inited   0x2000'0804       0x4  system_stm32l4xx.o [1]
+    .data            inited   0x2000'0808      0x70  user_app_comm.o [1]
+    .data            inited   0x2000'0878       0x8  user_app_comm.o [1]
+    .data            inited   0x2000'0880       0x8  user_app_comm.o [1]
+    .data            inited   0x2000'0888     0x12c  user_app_modbus_rtu.o [1]
+    .data            inited   0x2000'09b4      0x2c  user_app_modbus_rtu.o [1]
+    .data            inited   0x2000'09e0       0x8  user_app_modbus_rtu.o [1]
+    .data            inited   0x2000'09e8      0x40  user_app_rs485.o [1]
+    .data            inited   0x2000'0a28      0x90  user_app_sensor.o [1]
+    .data            inited   0x2000'0ab8       0x8  user_app_sensor.o [1]
+    .data            inited   0x2000'0ac0       0x4  user_app_sensor.o [1]
+    .data            inited   0x2000'0ac4       0x8  user_at_serial.o [1]
+    .data            inited   0x2000'0acc     0x430  user_at_serial.o [1]
+    .data            inited   0x2000'0efc       0x8  user_connect_sensor.o [1]
+    .data            inited   0x2000'0f04       0x8  user_rs485.o [1]
+    .data            inited   0x2000'0f0c       0x4  user_tiny_vsnprintf.o [1]
+    .data            inited   0x2000'0f10       0x4  user_tiny_vsnprintf.o [1]
+    .data            inited   0x2000'0f14      0x38  xlocale_c.o [2]
+    .data            inited   0x2000'0f4c       0x2  user_app_modbus_rtu.o [1]
+    .data            inited   0x2000'0f4e       0x1  lcd_display.o [1]
+    .data            inited   0x2000'0f4f       0x1  stm32l4xx_hal.o [1]
+    .data            inited   0x2000'0f50       0x1  user_util.o [1]
+                            - 0x2000'0f51     0xf51
+
+"P2", part 2 of 3:                           0x1ebc
+  .bss               zero     0x2000'0f54     0x4b0  user_app_comm.o [1]
+  .bss               zero     0x2000'1404     0x400  glcd.o [1]
+  .bss               zero     0x2000'1804     0x400  user_adv_trace.o [1]
+  .bss               zero     0x2000'1c04     0x33c  lcd_display.o [1]
+  .bss               zero     0x2000'1f40     0x200  user_adv_trace.o [1]
+  .bss               zero     0x2000'2140     0x200  user_connect_sensor.o [1]
+  .bss               zero     0x2000'2340     0x200  user_rs485.o [1]
+  .bss               zero     0x2000'2540      0xd0  lcd_display.o [1]
+  .bss               zero     0x2000'2610      0x88  usart.o [1]
+  .bss               zero     0x2000'2698      0x88  usart.o [1]
+  .bss               zero     0x2000'2720      0x88  usart.o [1]
+  .bss               zero     0x2000'27a8      0x80  user_app_modbus_rtu.o [1]
+  .bss               zero     0x2000'2828      0x80  user_app_modbus_rtu.o [1]
+  .bss               zero     0x2000'28a8      0x80  user_app_modbus_rtu.o [1]
+  .bss               zero     0x2000'2928      0x80  user_at_serial.o [1]
+  .bss               zero     0x2000'29a8      0x80  user_at_serial.o [1]
+  .bss               zero     0x2000'2a28      0x64  spi.o [1]
+  .bss               zero     0x2000'2a8c      0x64  user_app_comm.o [1]
+  .bss               zero     0x2000'2af0      0x48  usart.o [1]
+  .bss               zero     0x2000'2b38      0x48  usart.o [1]
+  .bss               zero     0x2000'2b80      0x48  usart.o [1]
+  .bss               zero     0x2000'2bc8      0x48  user_app_sensor.o [1]
+  .bss               zero     0x2000'2c10      0x38  user_app_sensor.o [1]
+  .bss               zero     0x2000'2c48      0x30  user_app_sensor.o [1]
+  .bss               zero     0x2000'2c78      0x2c  user_rtc.o [1]
+  .bss               zero     0x2000'2ca4      0x24  rtc.o [1]
+  .bss               zero     0x2000'2cc8      0x1c  user_rtc.o [1]
+  .bss               zero     0x2000'2ce4      0x18  button.o [1]
+  .bss               zero     0x2000'2cfc      0x18  user_adv_trace.o [1]
+  .bss               zero     0x2000'2d14      0x18  user_app_comm.o [1]
+  .bss               zero     0x2000'2d2c      0x14  user_app_sensor.o [1]
+  .bss               zero     0x2000'2d40      0x14  user_app_sensor.o [1]
+  .bss               zero     0x2000'2d54      0x10  lcd_display.o [1]
+  .bss               zero     0x2000'2d64      0x10  user_app_sensor.o [1]
+  .bss               zero     0x2000'2d74       0xc  text.o [1]
+  .bss               zero     0x2000'2d80       0xc  user_app_sensor.o [1]
+  .bss               zero     0x2000'2d8c       0xc  user_app_sensor.o [1]
+  .bss               zero     0x2000'2d98       0xc  user_util.o [1]
+  .bss               zero     0x2000'2da4       0x4  button.o [1]
+  .bss               zero     0x2000'2da8       0x4  button.o [1]
+  .bss               zero     0x2000'2dac       0x4  button.o [1]
+  .bss               zero     0x2000'2db0       0x4  glcd.o [1]
+  .bss               zero     0x2000'2db4       0x4  glcd.o [1]
+  .bss               zero     0x2000'2db8       0x4  glcd.o [1]
+  .bss               zero     0x2000'2dbc       0x4  lcd_display.o [1]
+  .bss               zero     0x2000'2dc0       0x4  stm32l4xx_hal.o [1]
+  .bss               zero     0x2000'2dc4       0x4  stm32l4xx_it.o [1]
+  .bss               zero     0x2000'2dc8       0x4  user_app_comm.o [1]
+  .bss               zero     0x2000'2dcc       0x4  user_app_sensor.o [1]
+  .bss               zero     0x2000'2dd0       0x4  user_app_sensor.o [1]
+  .bss               zero     0x2000'2dd4       0x4  user_app_sensor.o [1]
+  .bss               zero     0x2000'2dd8       0x4  user_rtc.o [1]
+  .bss               zero     0x2000'2ddc       0x4  user_timer.o [1]
+  .bss               zero     0x2000'2de0       0x4  user_util.o [1]
+  .bss               zero     0x2000'2de4       0x4  user_util.o [1]
+  .bss               zero     0x2000'2de8       0x4  user_util.o [1]
+  .bss               zero     0x2000'2dec       0x4  xfail_s.o [2]
+  .bss               zero     0x2000'2df0       0x2  button.o [1]
+  .bss               zero     0x2000'2df2       0x2  lcd_display.o [1]
+  .bss               zero     0x2000'2df4       0x2  user_app_comm.o [1]
+  .bss               zero     0x2000'2df6       0x2  user_app_comm.o [1]
+  .bss               zero     0x2000'2df8       0x2  user_app_sensor.o [1]
+  .bss               zero     0x2000'2dfa       0x2  user_app_sensor.o [1]
+  .bss               zero     0x2000'2dfc       0x2  user_uart.o [1]
+  .bss               zero     0x2000'2dfe       0x1  button.o [1]
+  .bss               zero     0x2000'2dff       0x1  lcd_display.o [1]
+  .bss               zero     0x2000'2e00       0x1  lcd_display.o [1]
+  .bss               zero     0x2000'2e01       0x1  lcd_display.o [1]
+  .bss               zero     0x2000'2e02       0x1  stm32l4xx_it.o [1]
+  .bss               zero     0x2000'2e03       0x1  user_app_comm.o [1]
+  .bss               zero     0x2000'2e04       0x1  user_app_comm.o [1]
+  .bss               zero     0x2000'2e05       0x1  user_app_rs485.o [1]
+  .bss               zero     0x2000'2e06       0x1  user_app_sensor.o [1]
+  .bss               zero     0x2000'2e07       0x1  user_app_sensor.o [1]
+  .bss               zero     0x2000'2e08       0x1  user_app_sensor.o [1]
+  .bss               zero     0x2000'2e09       0x1  user_at_serial.o [1]
+  .bss               zero     0x2000'2e0a       0x1  user_connect_sensor.o [1]
+  .bss               zero     0x2000'2e0b       0x1  user_connect_sensor.o [1]
+  .bss               zero     0x2000'2e0c       0x1  user_rs485.o [1]
+  .bss               zero     0x2000'2e0d       0x1  user_rs485.o [1]
+  .bss               zero     0x2000'2e0e       0x1  user_rtc.o [1]
+  .bss               zero     0x2000'2e0f       0x1  user_uart.o [1]
+                            - 0x2000'2e10    0x1ebc
+
+"P2", part 3 of 3:                            0x400
+  CSTACK                      0x2000'2e10     0x400  <Block>
+    CSTACK           uninit   0x2000'2e10     0x400  <Block tail>
+                            - 0x2000'3210     0x400
+
+Unused ranges:
+
+         From           To      Size
+         ----           --      ----
+   0x801'334e   0x803'ffff  0x2'ccb2
+  0x2000'0f51  0x2000'0f53       0x3
+  0x2000'3210  0x2000'ffff    0xcdf0
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address      Size
+          -------      ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x1ebc:
+          0x2000'0f54  0x1ebc
+
+Copy/lz77 (__iar_lz77_init_single3)
+    1 source range, total size 0x656 (41% of destination):
+           0x801'2cf8   0x656
+    1 destination range, total size 0xf51:
+          0x2000'0000   0xf51
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                    ro code  ro data  rw data
+    ------                    -------  -------  -------
+command line/config:
+    ---------------------------------------------------
+    Total:
+
+D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj: [1]
+    ST7565R.o                     348
+    STM32L4.o                     176
+    button.o                   10'992        4       51
+    dma.o                          96
+    event_driven.o                 84
+    glcd.o                        272             1'036
+    gpio.o                        464
+    graphics.o                    512
+    lcd_display.o               3'904    2'610    3'066
+    main.o                        194
+    onchipflash.o                 370
+    rtc.o                         336                36
+    spi.o                         200               100
+    startup_stm32l433xx.o         648
+    stm32l4xx_hal.o               208        2        9
+    stm32l4xx_hal_cortex.o        404
+    stm32l4xx_hal_dma.o         1'058
+    stm32l4xx_hal_flash.o         440       13       32
+    stm32l4xx_hal_flash_ex.o      160
+    stm32l4xx_hal_gpio.o          896
+    stm32l4xx_hal_msp.o            56
+    stm32l4xx_hal_pwr_ex.o        148
+    stm32l4xx_hal_rcc.o         2'556
+    stm32l4xx_hal_rcc_ex.o      1'256
+    stm32l4xx_hal_rtc.o         1'934
+    stm32l4xx_hal_rtc_ex.o         74
+    stm32l4xx_hal_spi.o         1'322
+    stm32l4xx_hal_uart.o        4'044
+    stm32l4xx_hal_uart_ex.o       114
+    stm32l4xx_it.o                212                 5
+    system_stm32l4xx.o             16       74        4
+    text.o                        912                12
+    text_tiny.o                   656
+    unit_tests.o                   20    1'024
+    usart.o                       924               624
+    user_adv_trace.o              570             1'560
+    user_app_comm.o             1'200      137    1'462
+    user_app_modbus_rtu.o       2'772      163      738
+    user_app_rs485.o              384       26       65
+    user_app_sensor.o          11'584    1'089      431
+    user_at_serial.o              476    1'402    1'337
+    user_connect_sensor.o         116        4      522
+    user_convert_variable.o     1'036
+    user_modbus_rtu.o             848
+    user_rs485.o                  112        3      522
+    user_rtc.o                    936      100       77
+    user_string.o                 486
+    user_time.o                    88
+    user_timer.o                  784                 4
+    user_tiny_vsnprintf.o         848       91        8
+    user_uart.o                   296       28        3
+    user_util.o                   540        9       25
+    ---------------------------------------------------
+    Total:                     59'082    6'779   11'729
+
+dl7M_tlf.a: [2]
+    abort.o                         6
+    abs.o                           8
+    exit.o                          4
+    low_level_init.o                4
+    sprintf.o                      64
+    xfail_s.o                      64                 4
+    xlocale_c.o                     8       26       56
+    xprintffull_nomb.o          4'038        8
+    xsprout.o                      10
+    ---------------------------------------------------
+    Total:                      4'206       34       60
+
+m7M_tls.a: [3]
+    DblAdd.o                      378
+    DblCmpEq.o                     32
+    DblCmpGe.o                     46
+    DblCmpLe.o                     46
+    DblDiv.o                      582
+    DblMul.o                      418
+    DblSub.o                      226
+    DblToFlt.o                    104
+    DblToS32.o                     58
+    DblToU32.o                     40
+    FltToDbl.o                     72
+    S32ToDbl.o                     34
+    U32ToDbl.o                     26
+    fpinit_M.o                     34
+    frexp.o                       112
+    iar_Exp64.o                 1'000
+    ldexp.o                       314
+    logx64.o                      796
+    math_wrappers64.o              34
+    pow64.o                     1'772    1'056
+    ---------------------------------------------------
+    Total:                      6'124    1'056
+
+rt7M_tl.a: [4]
+    ABImemcpy.o                   166
+    ABImemset.o                   102
+    I64DivMod.o                   560
+    I64DivZer.o                     2
+    cexit.o                        10
+    cmain.o                        30
+    cstartup_M.o                   12
+    data_init.o                    40
+    lz77_init_single.o            120
+    memchr.o                       88
+    memset.o                       20
+    strchr.o                       22
+    strlen.o                       54
+    zero_init3.o                   58
+    ---------------------------------------------------
+    Total:                      1'284
+
+shb_l.a: [5]
+    exit.o                         20
+    ---------------------------------------------------
+    Total:                         20
+
+    Gaps                           45        8
+    Linker created                          32    1'024
+-------------------------------------------------------
+    Grand Total:               70'761    7'909   12'813
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address    Size  Type      Object
+-----                       -------    ----  ----      ------
+.iar.init_table$$Base    0x801'22f0           --   Gb  - Linker created -
+.iar.init_table$$Limit   0x801'2310           --   Gb  - Linker created -
+?main                    0x801'2331          Code  Gb  cmain.o [4]
+ADV_TRACE_Buffer        0x2000'1804   0x400  Data  Lc  user_adv_trace.o [1]
+ADV_TRACE_Ctx           0x2000'2cfc    0x18  Data  Lc  user_adv_trace.o [1]
+AHBPrescTable            0x801'2514    0x10  Data  Gb  system_stm32l4xx.o [1]
+APBPrescTable            0x801'2b18     0x8  Data  Gb  system_stm32l4xx.o [1]
+AT_CMD_Get_BR_Slave      0x800'2609    0x5a  Code  Gb  user_app_sensor.o [1]
+AT_CMD_Get_Calib_Nh4     0x800'27bd   0x252  Code  Gb  user_app_sensor.o [1]
+AT_CMD_Get_Calib_Plus    0x800'2a29   0x25c  Code  Gb  user_app_sensor.o [1]
+AT_CMD_Get_ID_Slave      0x800'2507    0x5a  Code  Gb  user_app_sensor.o [1]
+AT_CMD_Reset_Slave       0x800'2459    0x4a  Code  Gb  user_app_sensor.o [1]
+AT_CMD_Restore_Slave     0x800'24a3    0x64  Code  Gb  user_app_sensor.o [1]
+AT_CMD_Set_BR_Slave      0x800'267d    0xa0  Code  Gb  user_app_sensor.o [1]
+AT_CMD_Set_ID_Slave      0x800'2561    0xa2  Code  Gb  user_app_sensor.o [1]
+AppComm_DBG_Init_RX_Mode
+                         0x800'd6fd    0x1e  Code  Gb  user_app_comm.o [1]
+AppComm_DBG_Init_Uart    0x800'd6f5     0x8  Code  Gb  user_app_comm.o [1]
+AppComm_DBG_Rx_Callback
+                         0x800'd723   0x176  Code  Gb  user_app_comm.o [1]
+AppComm_DBG_Stop_RX_Mode
+                         0x800'd721     0x2  Code  Gb  user_app_comm.o [1]
+AppComm_Get_Reset_Source
+                         0x800'd6bd    0x38  Code  Gb  user_app_comm.o [1]
+AppComm_IRQ_Timer_CallBack
+                         0x800'd67d     0xc  Code  Gb  user_app_comm.o [1]
+AppComm_Init             0x800'd5bd    0x20  Code  Gb  user_app_comm.o [1]
+AppComm_Set_Next_TxTimer
+                         0x800'd6a3     0x2  Code  Gb  user_app_comm.o [1]
+AppComm_Task             0x800'd5dd    0x9e  Code  Gb  user_app_comm.o [1]
+AppComm_Uart_Debug_Send
+                         0x800'd6a5    0x18  Code  Lc  user_app_comm.o [1]
+AppRs485_Task            0x801'056d    0x84  Code  Gb  user_app_rs485.o [1]
+AppSensor_Task           0x800'2ce9    0x84  Code  Gb  user_app_sensor.o [1]
+BUTTON_Down_Process      0x800'a0ed   0x522  Code  Gb  button.o [1]
+BUTTON_ESC_Process       0x800'a621   0x958  Code  Gb  button.o [1]
+BUTTON_Enter_Process     0x800'8635  0x1552  Code  Gb  button.o [1]
+BUTTON_Process           0x800'84d5    0x32  Code  Gb  button.o [1]
+BUTTON_Up_Process        0x800'9b91   0x536  Code  Gb  button.o [1]
+BUTTON_scan              0x800'8507   0x116  Code  Gb  button.o [1]
+BUTTON_scan::block_time
+                        0x2000'2df0     0x2  Data  Lc  button.o [1]
+BUTTON_scan::hold       0x2000'2da4     0x4  Data  Lc  button.o [1]
+BUTTON_scan::last_value
+                        0x2000'2dfe     0x1  Data  Lc  button.o [1]
+BusFault_Handler         0x801'2033     0x2  Code  Gb  stm32l4xx_it.o [1]
+Button_B_Const_f        0x2000'2dac     0x4  Data  Gb  button.o [1]
+Button_K_Const_f        0x2000'2da8     0x4  Data  Gb  button.o [1]
+CSTACK$$Base            0x2000'2e10           --   Gb  - Linker created -
+CSTACK$$Limit           0x2000'3210           --   Gb  - Linker created -
+Cal_CalibPlus            0x800'0c1d   0x30e  Code  Gb  user_app_sensor.o [1]
+Cal_Calib_NH4            0x800'10ad    0x38  Code  Gb  user_app_sensor.o [1]
+Cal_Calib_NH4_Log        0x800'10e5   0x10a  Code  Gb  user_app_sensor.o [1]
+Cal_Line_AandB           0x800'0bb1    0x3c  Code  Gb  user_app_sensor.o [1]
+Cal_Time                 0x800'4e0b    0x12  Code  Gb  user_util.o [1]
+Calculator_Scale         0x800'3aa1    0x54  Code  Gb  user_convert_variable.o [1]
+CheckList_AT_CONFIG     0x2000'0acc   0x430  Data  Gb  user_at_serial.o [1]
+Check_Time_Out           0x800'4ded    0x1e  Code  Gb  user_util.o [1]
+Convert_Point_Int_To_String
+                         0x800'3af5    0xce  Code  Gb  user_convert_variable.o [1]
+Convert_Point_Int_To_String_Scale
+                         0x800'3bc3    0xea  Code  Gb  user_convert_variable.o [1]
+Convert_Scale            0x800'4f5d    0x5c  Code  Gb  user_util.o [1]
+Convert_String_To_Dec    0x800'3e1d    0x5c  Code  Gb  user_convert_variable.o [1]
+Convert_uint32Hex_To_Float
+                         0x800'3cd9   0x144  Code  Gb  user_convert_variable.o [1]
+CountBufferHandleRecvSS
+                        0x2000'2df8     0x2  Data  Gb  user_app_sensor.o [1]
+DMA1_Channel3_IRQHandler
+                         0x801'208d     0xa  Code  Gb  stm32l4xx_it.o [1]
+DMA1_Channel5_IRQHandler
+                         0x801'2097     0xa  Code  Gb  stm32l4xx_it.o [1]
+DMA2_Channel7_IRQHandler
+                         0x801'20bf     0xa  Code  Gb  stm32l4xx_it.o [1]
+DMA_SetConfig            0x800'7781    0x32  Code  Lc  stm32l4xx_hal_dma.o [1]
+DaysInMonth              0x801'2a7c     0xc  Data  Lc  user_rtc.o [1]
+DaysInMonthLeapYear      0x801'2a88     0xc  Data  Lc  user_rtc.o [1]
+DebugMon_Handler         0x801'2039     0x2  Code  Gb  stm32l4xx_it.o [1]
+Display_Check_Password   0x800'4c89    0x2e  Code  Gb  lcd_display.o [1]
+Display_Check_Toggle     0x800'4afd    0xae  Code  Gb  lcd_display.o [1]
+Display_Check_Toggle::Hide
+                        0x2000'2540    0xd0  Data  Lc  lcd_display.o [1]
+Display_Check_Toggle::LandMarkToggle_u32
+                        0x2000'1c04   0x33c  Data  Lc  lcd_display.o [1]
+Display_Init             0x800'3ead   0x1e6  Code  Gb  lcd_display.o [1]
+Display_Set_Screen       0x800'4c53    0x36  Code  Gb  lcd_display.o [1]
+Display_Set_Screen_Flag
+                         0x800'4c0d    0x46  Code  Gb  lcd_display.o [1]
+Display_Show_Oject       0x800'4753   0x3a0  Code  Gb  lcd_display.o [1]
+Display_Show_Screen      0x800'4bb5    0x52  Code  Gb  lcd_display.o [1]
+Display_Show_State_Sensor_Network
+                         0x800'4ccb    0x34  Code  Gb  lcd_display.o [1]
+Display_Show_State_Setting
+                         0x800'4d09    0x5c  Code  Gb  lcd_display.o [1]
+Display_Show_Static_Param
+                         0x800'4cb7    0x14  Code  Gb  lcd_display.o [1]
+Display_Task             0x800'4093    0x7e  Code  Gb  lcd_display.o [1]
+Error_Handler            0x800'6e8f     0x4  Code  Gb  main.o [1]
+FLASH_FlushCaches        0x800'cf9b    0x6a  Code  Gb  stm32l4xx_hal_flash_ex.o [1]
+FLASH_PageErase          0x800'cf71    0x2a  Code  Gb  stm32l4xx_hal_flash_ex.o [1]
+FLASH_Program_DoubleWord
+                         0x800'ceff    0x1a  Code  Lc  stm32l4xx_hal_flash.o [1]
+FLASH_Program_Fast       0x800'cf19    0x32  Code  Lc  stm32l4xx_hal_flash.o [1]
+FLASH_WaitForLastOperation
+                         0x800'ce99    0x66  Code  Gb  stm32l4xx_hal_flash.o [1]
+Filter_Temp              0x800'0bad     0x2  Code  Gb  user_app_sensor.o [1]
+Filter_pH                0x800'0aed    0xc0  Code  Gb  user_app_sensor.o [1]
+Filter_pH::P            0x2000'0ac0     0x4  Data  Lc  user_app_sensor.o [1]
+Filter_pH::x_est        0x2000'2dd0     0x4  Data  Lc  user_app_sensor.o [1]
+Filter_pH::x_est_last   0x2000'2dd4     0x4  Data  Lc  user_app_sensor.o [1]
+Find_String_V2           0x801'0f2b   0x130  Code  Gb  user_string.o [1]
+Find_str_fix             0x801'107d    0x94  Code  Gb  user_string.o [1]
+Flag_gettick            0x2000'2e02     0x1  Data  Gb  stm32l4xx_it.o [1]
+Font5x7                  0x801'1bc0   0x214  Data  Lc  lcd_display.o [1]
+Get_RTC                  0x801'043d    0x4e  Code  Gb  user_time.o [1]
+HAL_DMA_Abort            0x800'75dd    0x54  Code  Gb  stm32l4xx_hal_dma.o [1]
+HAL_DMA_Abort_IT         0x800'7631    0x5e  Code  Gb  stm32l4xx_hal_dma.o [1]
+HAL_DMA_DeInit           0x800'7471    0xb8  Code  Gb  stm32l4xx_hal_dma.o [1]
+HAL_DMA_IRQHandler       0x800'768f    0xf2  Code  Gb  stm32l4xx_hal_dma.o [1]
+HAL_DMA_Init             0x800'7391    0xe0  Code  Gb  stm32l4xx_hal_dma.o [1]
+HAL_DMA_Start_IT         0x800'7545    0x98  Code  Gb  stm32l4xx_hal_dma.o [1]
+HAL_Delay                0x800'5009    0x28  Code  Wk  stm32l4xx_hal.o [1]
+HAL_FLASH_Lock           0x800'ce8b     0xe  Code  Gb  stm32l4xx_hal_flash.o [1]
+HAL_FLASH_Program        0x800'cdb9    0xb0  Code  Gb  stm32l4xx_hal_flash.o [1]
+HAL_FLASH_Unlock         0x800'ce69    0x22  Code  Gb  stm32l4xx_hal_flash.o [1]
+HAL_GPIO_DeInit          0x800'34d3   0x166  Code  Gb  stm32l4xx_hal_gpio.o [1]
+HAL_GPIO_Init            0x800'3311   0x1c2  Code  Gb  stm32l4xx_hal_gpio.o [1]
+HAL_GPIO_ReadPin         0x800'3639    0x16  Code  Gb  stm32l4xx_hal_gpio.o [1]
+HAL_GPIO_WritePin        0x800'364f    0x18  Code  Gb  stm32l4xx_hal_gpio.o [1]
+HAL_GetTick              0x800'6dc5     0xc  Code  Wk  stm32l4xx_hal.o [1]
+HAL_IncTick              0x801'2101    0x18  Code  Wk  stm32l4xx_hal.o [1]
+HAL_Init                 0x800'd011    0x24  Code  Gb  stm32l4xx_hal.o [1]
+HAL_InitTick             0x800'f251    0x60  Code  Wk  stm32l4xx_hal.o [1]
+HAL_MspInit              0x800'f789    0x38  Code  Gb  stm32l4xx_hal_msp.o [1]
+HAL_NVIC_DisableIRQ      0x800'790b     0xe  Code  Gb  stm32l4xx_hal_cortex.o [1]
+HAL_NVIC_EnableIRQ       0x800'78fd     0xe  Code  Gb  stm32l4xx_hal_cortex.o [1]
+HAL_NVIC_SetPriority     0x800'78d3    0x2a  Code  Gb  stm32l4xx_hal_cortex.o [1]
+HAL_NVIC_SetPriorityGrouping
+                         0x800'78c7     0xc  Code  Gb  stm32l4xx_hal_cortex.o [1]
+HAL_PWREx_ControlVoltageScaling
+                         0x800'd939    0x76  Code  Gb  stm32l4xx_hal_pwr_ex.o [1]
+HAL_PWREx_GetVoltageRange
+                         0x800'd92d     0xc  Code  Gb  stm32l4xx_hal_pwr_ex.o [1]
+HAL_RCCEx_PeriphCLKConfig
+                         0x800'6ea9   0x34c  Code  Gb  stm32l4xx_hal_rcc_ex.o [1]
+HAL_RCC_ClockConfig      0x800'c039   0x17a  Code  Gb  stm32l4xx_hal_rcc.o [1]
+HAL_RCC_GetHCLKFreq      0x800'c287     0x6  Code  Gb  stm32l4xx_hal_rcc.o [1]
+HAL_RCC_GetPCLK1Freq     0x800'c28d    0x1a  Code  Gb  stm32l4xx_hal_rcc.o [1]
+HAL_RCC_GetPCLK2Freq     0x800'c2a7    0x1a  Code  Gb  stm32l4xx_hal_rcc.o [1]
+HAL_RCC_GetResetSource   0x800'c2d1    0x12  Code  Gb  stm32l4xx_hal_rcc.o [1]
+HAL_RCC_GetSysClockFreq
+                         0x800'c1b3    0xd4  Code  Gb  stm32l4xx_hal_rcc.o [1]
+HAL_RCC_OscConfig        0x800'b9b1   0x688  Code  Gb  stm32l4xx_hal_rcc.o [1]
+HAL_RTCEx_AlarmBEventCallback
+                         0x801'0f29     0x2  Code  Wk  stm32l4xx_hal_rtc_ex.o [1]
+HAL_RTCEx_EnableBypassShadow
+                         0x801'1119    0x48  Code  Gb  stm32l4xx_hal_rtc_ex.o [1]
+HAL_RTC_AlarmAEventCallback
+                         0x801'0c91     0xc  Code  Gb  user_rtc.o [1]
+HAL_RTC_AlarmIRQHandler
+                         0x800'fdc5    0x60  Code  Gb  stm32l4xx_hal_rtc.o [1]
+HAL_RTC_DeactivateAlarm
+                         0x800'fceb    0xda  Code  Gb  stm32l4xx_hal_rtc.o [1]
+HAL_RTC_GetDate          0x800'fab3    0x52  Code  Gb  stm32l4xx_hal_rtc.o [1]
+HAL_RTC_GetTime          0x800'f981    0x66  Code  Gb  stm32l4xx_hal_rtc.o [1]
+HAL_RTC_Init             0x800'f7c1    0xca  Code  Gb  stm32l4xx_hal_rtc.o [1]
+HAL_RTC_MspInit          0x800'd359    0x50  Code  Gb  rtc.o [1]
+HAL_RTC_SetAlarm_IT      0x800'fb05   0x1e6  Code  Gb  stm32l4xx_hal_rtc.o [1]
+HAL_RTC_SetDate          0x800'f9e7    0xcc  Code  Gb  stm32l4xx_hal_rtc.o [1]
+HAL_RTC_SetTime          0x800'f88b    0xf6  Code  Gb  stm32l4xx_hal_rtc.o [1]
+HAL_RTC_WaitForSynchro   0x800'fe25    0x2e  Code  Gb  stm32l4xx_hal_rtc.o [1]
+HAL_SPI_Init             0x800'daa9    0xf8  Code  Gb  stm32l4xx_hal_spi.o [1]
+HAL_SPI_MspInit          0x800'd405    0x62  Code  Gb  spi.o [1]
+HAL_SPI_Transmit         0x800'dba1   0x1fe  Code  Gb  stm32l4xx_hal_spi.o [1]
+HAL_SYSTICK_Config       0x800'7919     0xc  Code  Gb  stm32l4xx_hal_cortex.o [1]
+HAL_UARTEx_ReceiveToIdle_DMA
+                         0x800'b93d    0x70  Code  Gb  stm32l4xx_hal_uart_ex.o [1]
+HAL_UARTEx_RxEventCallback
+                         0x800'b84b    0x3e  Code  Gb  user_uart.o [1]
+HAL_UARTEx_WakeupCallback
+                         0x800'b9ad     0x2  Code  Wk  stm32l4xx_hal_uart_ex.o [1]
+HAL_UART_ErrorCallback   0x800'b889    0x3e  Code  Gb  user_uart.o [1]
+HAL_UART_IRQHandler      0x800'51d5   0x35c  Code  Gb  stm32l4xx_hal_uart.o [1]
+HAL_UART_Init            0x800'5031    0x7a  Code  Gb  stm32l4xx_hal_uart.o [1]
+HAL_UART_MspDeInit       0x800'3965    0x80  Code  Gb  usart.o [1]
+HAL_UART_MspInit         0x800'3741   0x224  Code  Gb  usart.o [1]
+HAL_UART_Receive_IT      0x800'5177    0x5e  Code  Gb  stm32l4xx_hal_uart.o [1]
+HAL_UART_RxCpltCallback
+                         0x800'b815    0x36  Code  Gb  user_uart.o [1]
+HAL_UART_Transmit        0x800'50ab    0xcc  Code  Gb  stm32l4xx_hal_uart.o [1]
+Handle_Data_Measure      0x800'0505   0x12a  Code  Gb  user_app_sensor.o [1]
+Handle_Data_Recv_SS_pH   0x800'079d   0x152  Code  Gb  user_app_sensor.o [1]
+Handle_Data_Recv_Sensor
+                         0x800'0641    0x20  Code  Gb  user_app_sensor.o [1]
+Handle_Data_Trans_SS_pH
+                         0x800'0675   0x120  Code  Gb  user_app_sensor.o [1]
+Handle_Data_Trans_Sensor
+                         0x800'062f    0x12  Code  Gb  user_app_sensor.o [1]
+Handle_Float_To_hexUint32
+                         0x800'3e89    0x24  Code  Gb  user_convert_variable.o [1]
+Handle_State_SS_pH       0x800'08ef    0x88  Code  Gb  user_app_sensor.o [1]
+Handle_State_Sensor      0x800'0661    0x14  Code  Gb  user_app_sensor.o [1]
+HardFault_Handler        0x801'202f     0x2  Code  Gb  stm32l4xx_it.o [1]
+IndexUartError          0x2000'2e0f     0x1  Data  Lc  user_uart.o [1]
+Init_AppRs485            0x801'0557    0x16  Code  Gb  user_app_rs485.o [1]
+Init_AppSensor           0x800'2c85    0x52  Code  Gb  user_app_sensor.o [1]
+Init_CalibNH4            0x800'1b91   0x2e4  Code  Gb  user_app_sensor.o [1]
+Init_CalibPlus           0x800'2205   0x254  Code  Gb  user_app_sensor.o [1]
+Init_InforSlaveModbusRTU
+                         0x800'6937    0x30  Code  Gb  user_app_modbus_rtu.o [1]
+Init_MeasureRange        0x800'1645   0x118  Code  Gb  user_app_sensor.o [1]
+Init_ParamCalib          0x800'12af    0x96  Code  Gb  user_app_sensor.o [1]
+Init_TempAlarm           0x800'1429    0xa2  Code  Gb  user_app_sensor.o [1]
+Init_UartRs485           0x801'0519    0x3e  Code  Gb  user_app_rs485.o [1]
+Insert_String_To_String
+                         0x800'3cad    0x2a  Code  Gb  user_convert_variable.o [1]
+Kind_Trans_Calib        0x2000'2e06     0x1  Data  Gb  user_app_sensor.o [1]
+LPUART1_IRQHandler       0x801'20c9     0xa  Code  Gb  stm32l4xx_it.o [1]
+Liberation_Sans15x21_Numbers
+                         0x801'1998   0x228  Data  Lc  lcd_display.o [1]
+MSIRangeTable            0x801'21f8    0x30  Data  Gb  system_stm32l4xx.o [1]
+MX_DMA_Init              0x800'd205    0x60  Code  Gb  dma.o [1]
+MX_GPIO_Init             0x800'd035   0x1d0  Code  Gb  gpio.o [1]
+MX_LPUART1_UART_Init     0x800'3691    0x38  Code  Gb  usart.o [1]
+MX_RTC_Init              0x800'd265    0xf4  Code  Gb  rtc.o [1]
+MX_SPI2_Init             0x800'd3b5    0x50  Code  Gb  spi.o [1]
+MX_USART1_UART_Init      0x800'36c9    0x3c  Code  Gb  usart.o [1]
+MX_USART3_UART_Init      0x800'3705    0x3c  Code  Gb  usart.o [1]
+Main_Task                0x800'd581    0x3c  Code  Gb  user_app_comm.o [1]
+MemManage_Handler        0x801'2031     0x2  Code  Gb  stm32l4xx_it.o [1]
+ModRTU_CRC               0x800'2f87    0x3c  Code  Gb  user_modbus_rtu.o [1]
+ModRTU_Master_Read_Frame
+                         0x800'2fc3    0x9c  Code  Gb  user_modbus_rtu.o [1]
+ModRTU_Master_Write_Frame
+                         0x800'305f    0xe8  Code  Gb  user_modbus_rtu.o [1]
+ModRTU_Slave_ACK_Read_Frame
+                         0x800'3147    0xa2  Code  Gb  user_modbus_rtu.o [1]
+ModRTU_Slave_ACK_Write_Frame
+                         0x800'31e9    0xee  Code  Gb  user_modbus_rtu.o [1]
+Modem_Check_AT           0x801'0261   0x1dc  Code  Gb  user_at_serial.o [1]
+Modem_Check_RTU          0x800'6967   0x384  Code  Gb  user_app_modbus_rtu.o [1]
+NMI_Handler              0x801'202d     0x2  Code  Gb  stm32l4xx_it.o [1]
+NONE_Register_CallBack   0x800'6249     0x6  Code  Gb  user_app_modbus_rtu.o [1]
+NVIC_EncodePriority      0x800'7857    0x40  Code  Lc  stm32l4xx_hal_cortex.o [1]
+OldPosDMADebug          0x2000'2df4     0x2  Data  Lc  user_app_comm.o [1]
+On_Speaker               0x800'4367    0x24  Code  Gb  lcd_display.o [1]
+OnchipFlashPageErase     0x800'6161    0x5a  Code  Gb  onchipflash.o [1]
+OnchipFlashWriteData     0x800'60d5    0x8c  Code  Gb  onchipflash.o [1]
+PendSV_Handler           0x801'203b     0x2  Code  Gb  stm32l4xx_it.o [1]
+PortConfig              0x2000'2e09     0x1  Data  Gb  user_at_serial.o [1]
+RC                       0x801'105b    0x22  Code  Gb  user_string.o [1]
+RCCEx_PLLSAI1_Config     0x800'7209   0x16e  Code  Lc  stm32l4xx_hal_rcc_ex.o [1]
+RCC_SetFlashLatencyFromMSIRange
+                         0x800'c2e9    0x8a  Code  Lc  stm32l4xx_hal_rcc.o [1]
+RS485SS_Init_Data        0x800'3a2d    0x10  Code  Gb  user_connect_sensor.o [1]
+RS485SS_Init_RX_Mode     0x800'3a3d    0x1e  Code  Gb  user_connect_sensor.o [1]
+RS485SS_Rx_Callback      0x800'3a5d    0x34  Code  Gb  user_connect_sensor.o [1]
+RS485SS_Stop_RX_Mode     0x800'3a5b     0x2  Code  Gb  user_connect_sensor.o [1]
+RS485_Done_Calib         0x800'0f2b    0x1a  Code  Gb  user_app_sensor.o [1]
+RS485_Enter_Calib        0x800'0f45    0x20  Code  Gb  user_app_sensor.o [1]
+RS485_Init_RX_Mode       0x800'efa5    0x1e  Code  Gb  user_rs485.o [1]
+RS485_LogData_Calib_NH4
+                         0x800'0f71    0x7e  Code  Gb  user_app_sensor.o [1]
+RS485_Rx_Callback        0x800'efc5    0x3c  Code  Gb  user_rs485.o [1]
+RS485_Stop_RX_Mode       0x800'efc3     0x2  Code  Gb  user_rs485.o [1]
+RTC_AlarmStructure      0x2000'2c78    0x2c  Data  Lc  user_rtc.o [1]
+RTC_Alarm_IRQHandler     0x801'20b5     0xa  Code  Gb  stm32l4xx_it.o [1]
+RTC_Bcd2ToByte           0x800'ff39    0x16  Code  Gb  stm32l4xx_hal_rtc.o [1]
+RTC_ByteToBcd2           0x800'ff1d    0x1c  Code  Gb  stm32l4xx_hal_rtc.o [1]
+RTC_EnterInitMode        0x800'fe53    0x4c  Code  Gb  stm32l4xx_hal_rtc.o [1]
+RTC_ExitInitMode         0x800'fe9f    0x58  Code  Gb  stm32l4xx_hal_rtc.o [1]
+RTC_GetCalendarValue     0x801'0e63    0x90  Code  Lc  user_rtc.o [1]
+RTC_IF_Convert_Tick2ms   0x801'0c81    0x10  Code  Gb  user_rtc.o [1]
+RTC_IF_Convert_ms2Tick   0x801'0c6f    0x12  Code  Gb  user_rtc.o [1]
+RTC_IF_GetMinimumTimeout
+                         0x801'0c6b     0x4  Code  Gb  user_rtc.o [1]
+RTC_IF_GetTimerContext   0x801'0c2f     0x8  Code  Gb  user_rtc.o [1]
+RTC_IF_GetTimerElapsedTime
+                         0x801'0c37    0x16  Code  Gb  user_rtc.o [1]
+RTC_IF_GetTimerValue     0x801'0c4d    0x1e  Code  Gb  user_rtc.o [1]
+RTC_IF_Init              0x801'0bb9    0x30  Code  Gb  user_rtc.o [1]
+RTC_IF_SetTimerContext   0x801'0c19    0x16  Code  Gb  user_rtc.o [1]
+RTC_IF_StartTimer        0x801'0be9     0xe  Code  Gb  user_rtc.o [1]
+RTC_IF_StopTimer         0x801'0bf7    0x22  Code  Gb  user_rtc.o [1]
+RTC_Initalized          0x2000'2e0e     0x1  Data  Lc  user_rtc.o [1]
+RTC_StartWakeUpAlarm     0x801'0c9d   0x1c6  Code  Lc  user_rtc.o [1]
+ReInit_Rx_Mode_Uart_Error
+                         0x800'b8c7    0x5a  Code  Gb  user_uart.o [1]
+Read_Register_Rs485_NH4
+                         0x800'1001    0x66  Code  Gb  user_app_sensor.o [1]
+Region$$Table$$Base      0x801'22f0           --   Gb  - Linker created -
+Region$$Table$$Limit     0x801'2310           --   Gb  - Linker created -
+Reset_Buff               0x800'4e7d    0x24  Code  Gb  user_util.o [1]
+Rs485SSStatus_u8        0x2000'2e0b     0x1  Data  Gb  user_connect_sensor.o [1]
+Rs485Status_u8          0x2000'2e0d     0x1  Data  Gb  user_rs485.o [1]
+RtCountSystick_u32      0x2000'2de0     0x4  Data  Gb  user_util.o [1]
+RtcTimerContext         0x2000'2cc8    0x1c  Data  Lc  user_rtc.o [1]
+SPI_EndRxTxTransaction   0x800'df69    0x6a  Code  Lc  stm32l4xx_hal_spi.o [1]
+SPI_WaitFifoStateUntilTimeout
+                         0x800'de77    0xee  Code  Lc  stm32l4xx_hal_spi.o [1]
+SPI_WaitFlagStateUntilTimeout
+                         0x800'dd9f    0xd8  Code  Lc  stm32l4xx_hal_spi.o [1]
+SVC_Handler              0x801'2037     0x2  Code  Gb  stm32l4xx_it.o [1]
+Save_Array               0x800'61c1    0x86  Code  Gb  onchipflash.o [1]
+Save_CalibNH4            0x800'176d   0x40a  Code  Gb  user_app_sensor.o [1]
+Save_CalibPlus           0x800'1ec1   0x2f8  Code  Gb  user_app_sensor.o [1]
+Save_InforSlaveModbusRTU
+                         0x800'68f3    0x44  Code  Gb  user_app_modbus_rtu.o [1]
+Save_MeasureRange        0x800'14d1   0x162  Code  Gb  user_app_sensor.o [1]
+Save_ParamCalib          0x800'11f5    0xba  Code  Gb  user_app_sensor.o [1]
+Save_TempAlarm           0x800'134d    0xce  Code  Gb  user_app_sensor.o [1]
+Send_RS458_Master        0x800'68bb    0x38  Code  Gb  user_app_modbus_rtu.o [1]
+Send_RS458_Sensor        0x800'1067    0x40  Code  Gb  user_app_sensor.o [1]
+SysApp_Init              0x800'd539     0xc  Code  Gb  user_app_comm.o [1]
+SysApp_Setting           0x800'd545    0x3c  Code  Gb  user_app_comm.o [1]
+SysTick_Config           0x800'7897    0x30  Code  Lc  stm32l4xx_hal_cortex.o [1]
+SysTick_Handler          0x801'203d    0x50  Code  Gb  stm32l4xx_it.o [1]
+SystemClock_Config       0x800'6dfd    0x92  Code  Gb  main.o [1]
+SystemCoreClock         0x2000'0804     0x4  Data  Gb  system_stm32l4xx.o [1]
+SystemInit               0x801'2725     0xc  Code  Gb  system_stm32l4xx.o [1]
+TRACE_AllocateBufer      0x800'f175    0xa2  Code  Lc  user_adv_trace.o [1]
+TRACE_IsLocked           0x800'f22b    0x10  Code  Lc  user_adv_trace.o [1]
+TRACE_Lock               0x800'f217     0xa  Code  Lc  user_adv_trace.o [1]
+TRACE_Send               0x800'f0ef    0x84  Code  Lc  user_adv_trace.o [1]
+TRACE_UnLock             0x800'f221     0xa  Code  Lc  user_adv_trace.o [1]
+TimerExists              0x801'01c9    0x1a  Code  Gb  user_timer.o [1]
+TimerInsertNewHeadTimer
+                         0x801'023d    0x1c  Code  Gb  user_timer.o [1]
+TimerInsertTimer         0x801'020f    0x2e  Code  Gb  user_timer.o [1]
+TimerListHead           0x2000'2ddc     0x4  Data  Lc  user_timer.o [1]
+TimerSetTimeout          0x801'01e3    0x2c  Code  Gb  user_timer.o [1]
+TimerTx                 0x2000'2d14    0x18  Data  Lc  user_app_comm.o [1]
+TxCpltCallback          0x2000'2dc8     0x4  Data  Lc  user_app_comm.o [1]
+UART_AdvFeatureConfig    0x800'582d    0xda  Code  Gb  stm32l4xx_hal_uart.o [1]
+UART_CheckIdleState      0x800'5907    0xd2  Code  Gb  stm32l4xx_hal_uart.o [1]
+UART_DMAAbortOnError     0x800'5db9    0x1a  Code  Lc  stm32l4xx_hal_uart.o [1]
+UART_DMAError            0x800'5d69    0x50  Code  Lc  stm32l4xx_hal_uart.o [1]
+UART_DMAReceiveCplt      0x800'5c9d    0xa2  Code  Lc  stm32l4xx_hal_uart.o [1]
+UART_DMARxHalfCplt       0x800'5d41    0x28  Code  Lc  stm32l4xx_hal_uart.o [1]
+UART_EndRxTransfer       0x800'5c3f    0x5e  Code  Lc  stm32l4xx_hal_uart.o [1]
+UART_EndTransmit_IT      0x800'5dd3    0x2a  Code  Lc  stm32l4xx_hal_uart.o [1]
+UART_EndTxTransfer       0x800'5c23    0x1c  Code  Lc  stm32l4xx_hal_uart.o [1]
+UART_RxISR_16BIT         0x800'5ef1    0xee  Code  Lc  stm32l4xx_hal_uart.o [1]
+UART_RxISR_8BIT          0x800'5dfd    0xec  Code  Lc  stm32l4xx_hal_uart.o [1]
+UART_SetConfig           0x800'5535   0x2ec  Code  Gb  stm32l4xx_hal_uart.o [1]
+UART_Start_Receive_DMA   0x800'5b67    0xbc  Code  Gb  stm32l4xx_hal_uart.o [1]
+UART_Start_Receive_IT    0x800'5a77    0xf0  Code  Gb  stm32l4xx_hal_uart.o [1]
+UART_WaitOnFlagUntilTimeout
+                         0x800'59d9    0x9e  Code  Gb  stm32l4xx_hal_uart.o [1]
+USART1_IRQHandler        0x801'20a1     0xa  Code  Gb  stm32l4xx_it.o [1]
+USART3_IRQHandler        0x801'20ab     0xa  Code  Gb  stm32l4xx_it.o [1]
+UTIL_ADV_TRACE_COND_FSend
+                         0x800'f015    0xda  Code  Gb  user_adv_trace.o [1]
+UTIL_Log_Str             0x800'4f01    0x36  Code  Gb  user_util.o [1]
+UTIL_MEM_cpy             0x800'4f3d    0x1e  Code  Gb  user_util.o [1]
+UTIL_MEM_set             0x800'4ea1    0x18  Code  Gb  user_util.o [1]
+UTIL_Printf              0x800'4eb9    0x2c  Code  Gb  user_util.o [1]
+UTIL_Printf_Str          0x800'4ee5    0x1c  Code  Gb  user_util.o [1]
+UTIL_TIMER_Create        0x800'ff65    0x4c  Code  Gb  user_timer.o [1]
+UTIL_TIMER_IRQ_Handler   0x801'0117    0xb2  Code  Gb  user_timer.o [1]
+UTIL_TIMER_Init          0x800'ff51    0x14  Code  Gb  user_timer.o [1]
+UTIL_TIMER_SetPeriod     0x801'00dd    0x3a  Code  Gb  user_timer.o [1]
+UTIL_TIMER_Start         0x800'ffb1    0x92  Code  Gb  user_timer.o [1]
+UTIL_TIMER_Stop          0x801'0043    0x9a  Code  Gb  user_timer.o [1]
+UTIL_TimerDriver         0x801'2228    0x2c  Data  Gb  user_rtc.o [1]
+UTIL_TraceDriver         0x801'2878     0xc  Data  Gb  user_app_comm.o [1]
+Uart485RxByte           0x2000'2e0c     0x1  Data  Lc  user_rs485.o [1]
+Uart485SSRxByte         0x2000'2e0a     0x1  Data  Lc  user_connect_sensor.o [1]
+UartDebugBuff           0x2000'0f54   0x4b0  Data  Gb  user_app_comm.o [1]
+UartDebugCountFail      0x2000'2dfc     0x2  Data  Lc  user_uart.o [1]
+UartDebugRxByte         0x2000'2e03     0x1  Data  Gb  user_app_comm.o [1]
+Update_ParaDisplay       0x800'438b   0x3c8  Code  Gb  lcd_display.o [1]
+UsageFault_Handler       0x801'2035     0x2  Code  Gb  stm32l4xx_it.o [1]
+User_RTC_Init            0x801'0b81    0x38  Code  Lc  user_rtc.o [1]
+UtilFloatToString        0x800'4fb9    0x2e  Code  Gb  user_util.o [1]
+UtilIntToStringWithScale
+                         0x800'4e1d    0x60  Code  Gb  user_util.o [1]
+VLevelDebug             0x2000'0f50     0x1  Data  Gb  user_util.o [1]
+_Cb_Display_Auto_SW      0x800'4287    0x7e  Code  Lc  lcd_display.o [1]
+_Cb_Display_Auto_SW::MarkButtPressed
+                        0x2000'2e01     0x1  Data  Lc  lcd_display.o [1]
+_Cb_Display_Auto_SW::cNext
+                        0x2000'2df2     0x2  Data  Lc  lcd_display.o [1]
+_Cb_Display_Init         0x800'4111    0x52  Code  Lc  lcd_display.o [1]
+_Cb_Display_Logo         0x800'4163    0xa8  Code  Lc  lcd_display.o [1]
+_Cb_Display_Logo::step_u8
+                        0x2000'2dff     0x1  Data  Lc  lcd_display.o [1]
+_Cb_Display_Show         0x800'420b    0x7c  Code  Lc  lcd_display.o [1]
+_Cb_Display_Show::LandMarkChange_u32
+                        0x2000'2dbc     0x4  Data  Lc  lcd_display.o [1]
+_Cb_Display_Show::ScreenLast
+                        0x2000'2e00     0x1  Data  Lc  lcd_display.o [1]
+_Cb_HandLer_IDLE         0x800'd527     0x6  Code  Lc  user_app_comm.o [1]
+_Cb_Off_Speaker          0x800'4351    0x16  Code  Lc  lcd_display.o [1]
+_Cb_R_ModbusRTU_REG_Alarm_Lower
+                         0x800'67a1    0x5a  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_Alarm_State
+                         0x800'65d7    0x2e  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_Alarm_Upper
+                         0x800'6681    0x5a  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_Baudrate
+                         0x800'62f5    0x2e  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_ID   0x800'624f    0x2e  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_State_Sensor
+                         0x800'64f3    0x30  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_State_Value_1
+                         0x800'6523    0x30  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_State_Value_2
+                         0x800'6553    0x30  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_State_Value_3
+                         0x800'6583    0x2a  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_State_Value_4
+                         0x800'65ad    0x2a  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_Value_Measure_1
+                         0x800'6391    0x5a  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_Value_Measure_2
+                         0x800'63eb    0x5a  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_Value_Measure_3
+                         0x800'6445    0x56  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_R_ModbusRTU_REG_Value_Measure_4
+                         0x800'649d    0x56  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_Save_Box             0x800'd533     0x6  Code  Lc  user_app_comm.o [1]
+_Cb_Set_RTC              0x800'd50b    0x1c  Code  Lc  user_app_comm.o [1]
+_Cb_TX_Timer_Event       0x800'd689    0x1a  Code  Lc  user_app_comm.o [1]
+_Cb_Timer_IRQ            0x800'd47d     0xc  Code  Lc  user_app_comm.o [1]
+_Cb_Tx_Timer             0x800'd52d     0x6  Code  Lc  user_app_comm.o [1]
+_Cb_Uart_Error           0x800'd4ff     0xc  Code  Lc  user_app_comm.o [1]
+_Cb_Uart_Rx_Debug        0x800'd489    0x76  Code  Lc  user_app_comm.o [1]
+_Cb_Uart_Rx_Debug::LastLengthRecv
+                        0x2000'2df6     0x2  Data  Lc  user_app_comm.o [1]
+_Cb_Uart_Rx_Debug::MarkFirstRecvUart
+                        0x2000'2e04     0x1  Data  Lc  user_app_comm.o [1]
+_Cb_W_ModbusRTU_REG_Alarm_Lower
+                         0x800'67fb    0xc0  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_W_ModbusRTU_REG_Alarm_State
+                         0x800'6605    0x7c  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_W_ModbusRTU_REG_Alarm_Upper
+                         0x800'66e1    0xc0  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_W_ModbusRTU_REG_Baudrate
+                         0x800'6323    0x6e  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_W_ModbusRTU_REG_ID   0x800'627d    0x78  Code  Gb  user_app_modbus_rtu.o [1]
+_Cb_button_detect        0x800'4339    0x18  Code  Lc  lcd_display.o [1]
+_Cb_button_scan          0x800'4305    0x34  Code  Lc  lcd_display.o [1]
+_LitobFullNoMb           0x800'ed9d   0x10a  Code  Lc  xprintffull_nomb.o [2]
+_Locale_lconv           0x2000'0f14    0x38  Data  Lc  xlocale_c.o [2]
+_PrintfFullNoMb          0x800'dfdd   0xd9c  Code  Gb  xprintffull_nomb.o [2]
+_PutcharFullNoMb         0x800'ef0d    0x20  Code  Lc  xprintffull_nomb.o [2]
+_PutcharsFullNoMb        0x800'ef2d    0x2e  Code  Lc  xprintffull_nomb.o [2]
+_SProut                  0x800'6063     0xa  Code  Gb  xsprout.o [2]
+__NVIC_DisableIRQ        0x800'7805    0x26  Code  Lc  stm32l4xx_hal_cortex.o [1]
+__NVIC_EnableIRQ         0x800'77e5    0x20  Code  Lc  stm32l4xx_hal_cortex.o [1]
+__NVIC_GetPriorityGrouping
+                         0x800'77d7     0xc  Code  Lc  stm32l4xx_hal_cortex.o [1]
+__NVIC_SetPriority       0x800'782b    0x2c  Code  Lc  stm32l4xx_hal_cortex.o [1]
+__NVIC_SetPriorityGrouping
+                         0x800'77b5    0x22  Code  Lc  stm32l4xx_hal_cortex.o [1]
+__aeabi_cdcmpeq          0x800'f351          Code  Gb  DblCmpEq.o [3]
+__aeabi_cdcmple          0x800'f321          Code  Gb  DblCmpLe.o [3]
+__aeabi_cdrcmple         0x800'f371          Code  Gb  DblCmpGe.o [3]
+__aeabi_d2f              0x800'606d          Code  Gb  DblToFlt.o [3]
+__aeabi_d2iz             0x800'7ed9          Code  Gb  DblToS32.o [3]
+__aeabi_d2uiz            0x801'0801          Code  Gb  DblToU32.o [3]
+__aeabi_dadd             0x800'7d5d          Code  Gb  DblAdd.o [3]
+__aeabi_ddiv             0x800'b58d          Code  Gb  DblDiv.o [3]
+__aeabi_dmul             0x800'7bb9          Code  Gb  DblMul.o [3]
+__aeabi_dsub             0x800'd9c5          Code  Gb  DblSub.o [3]
+__aeabi_f2d              0x800'5ff9          Code  Gb  FltToDbl.o [3]
+__aeabi_i2d              0x800'7b95          Code  Gb  S32ToDbl.o [3]
+__aeabi_ldiv0            0x800'd9c1          Code  Gb  I64DivZer.o [4]
+__aeabi_memcpy           0x800'6d1d          Code  Gb  ABImemcpy.o [4]
+__aeabi_memcpy4          0x800'6d3d          Code  Gb  ABImemcpy.o [4]
+__aeabi_memcpy8          0x800'6d3d          Code  Gb  ABImemcpy.o [4]
+__aeabi_memset           0x800'2f21          Code  Gb  ABImemset.o [4]
+__aeabi_ui2d             0x800'7b79          Code  Gb  U32ToDbl.o [3]
+__aeabi_uldivmod         0x800'7949          Code  Gb  I64DivMod.o [4]
+__cmain                  0x801'2331          Code  Gb  cmain.o [4]
+__exit                   0x801'1161    0x14  Code  Gb  exit.o [5]
+__iar_Exp64              0x800'f3a1   0x388  Code  Gb  iar_Exp64.o [3]
+__iar_Fail_s             0x801'062d    0x1c  Code  Gb  xfail_s.o [2]
+__iar_Log64              0x800'c3b1   0x280  Code  Lc  logx64.o [3]
+__iar_Memchr             0x801'066d          Code  Gb  memchr.o [4]
+__iar_Memset             0x800'2f21          Code  Gb  ABImemset.o [4]
+__iar_Memset_word        0x800'2f29          Code  Gb  ABImemset.o [4]
+__iar_Strchr             0x801'0615          Code  Gb  strchr.o [4]
+__iar_dadd               0x800'd9d5          Code  Gb  DblSub.o [3]
+__iar_data_init3         0x801'22a5    0x28  Code  Gb  data_init.o [4]
+__iar_dsub               0x800'7d6d          Code  Gb  DblAdd.o [3]
+__iar_dsubStart          0x800'7d7f          Code  Gb  DblAdd.o [3]
+__iar_frexp              0x800'f2bd          Code  Gb  frexp.o [3]
+__iar_frexpl             0x800'f2bd          Code  Gb  frexp.o [3]
+__iar_init_vfp           0x801'22cd          Code  Gb  fpinit_M.o [3]
+__iar_ldexp64            0x801'06c5          Code  Gb  ldexp.o [3]
+__iar_log10_64           0x800'c6c9     0x4  Code  Gb  logx64.o [3]
+__iar_log10_medium       0x800'c6c9     0x4  Code  Gb  logx64.o [3]
+__iar_log10_medium64     0x800'c6c9     0x4  Code  Gb  logx64.o [3]
+__iar_log10_mediuml      0x800'c6c9     0x4  Code  Gb  logx64.o [3]
+__iar_lz77_init_single3
+                         0x801'2119    0x78  Code  Gb  lz77_init_single.o [4]
+__iar_pow64              0x800'c6cd   0x6ec  Code  Gb  pow64.o [3]
+__iar_pow_medium         0x800'c6cd   0x6ec  Code  Gb  pow64.o [3]
+__iar_pow_medium64       0x800'c6cd   0x6ec  Code  Gb  pow64.o [3]
+__iar_pow_mediuml        0x800'c6cd   0x6ec  Code  Gb  pow64.o [3]
+__iar_program_start      0x801'2a95          Code  Gb  cstartup_M.o [4]
+__iar_scalbln64          0x801'06c5          Code  Gb  ldexp.o [3]
+__iar_scalbn64           0x801'06c5          Code  Gb  ldexp.o [3]
+__iar_softfp___iar_frexp64
+                         0x800'f2b1          Code  Gb  frexp.o [3]
+__iar_softfp_frexp       0x800'f2b1          Code  Gb  frexp.o [3]
+__iar_softfp_frexpl      0x800'f2b1          Code  Gb  frexp.o [3]
+__iar_vfp_log10          0x800'6047     0xc  Code  Gb  math_wrappers64.o [3]
+__iar_vfp_pow            0x800'6053    0x10  Code  Gb  math_wrappers64.o [3]
+__iar_zero_init3         0x800'32d7    0x3a  Code  Gb  zero_init3.o [4]
+__low_level_init         0x801'234f     0x4  Code  Gb  low_level_init.o [2]
+__vector_table           0x800'0000          Data  Gb  startup_stm32l433xx.o [1]
+_call_main               0x801'233d          Code  Gb  cmain.o [4]
+_exit                    0x801'2359          Code  Gb  cexit.o [4]
+_main                    0x801'234b          Code  Gb  cmain.o [4]
+aAT_CMD                 0x2000'29a8    0x80  Data  Lc  user_at_serial.o [1]
+aBaudrate_value         0x2000'09b4    0x2c  Data  Gb  user_app_modbus_rtu.o [1]
+aDATA_CALIB             0x2000'2d80     0xc  Data  Gb  user_app_sensor.o [1]
+aDATA_CONFIG            0x2000'27a8    0x80  Data  Lc  user_app_modbus_rtu.o [1]
+aDATA_CONFIG            0x2000'2928    0x80  Data  Lc  user_at_serial.o [1]
+aDATA_LOG_REGISTER      0x2000'2828    0x80  Data  Lc  user_app_modbus_rtu.o [1]
+aModeSelectONOFF        0x2000'0160     0x8  Data  Gb  lcd_display.o [1]
+aPASSWORD               0x2000'010c     0x4  Data  Gb  lcd_display.o [1]
+aSTT_SETTING_DONE       0x2000'0140    0x10  Data  Gb  lcd_display.o [1]
+aSTT_SETTING_ENTER      0x2000'0120    0x10  Data  Gb  lcd_display.o [1]
+aSTT_SETTING_ERROR      0x2000'0150    0x10  Data  Gb  lcd_display.o [1]
+aSTT_SETTING_FREE       0x2000'0110    0x10  Data  Gb  lcd_display.o [1]
+aSTT_SETTING_WAIT       0x2000'0130    0x10  Data  Gb  lcd_display.o [1]
+aSampling_STT           0x2000'2d2c    0x14  Data  Gb  user_app_sensor.o [1]
+aSampling_VALUE         0x2000'2d40    0x14  Data  Gb  user_app_sensor.o [1]
+aTEST                   0x2000'0000     0xc  Data  Lc  button.o [1]
+aUART_485SS_DATA        0x2000'2140   0x200  Data  Lc  user_connect_sensor.o [1]
+aUART_485_DATA          0x2000'2340   0x200  Data  Lc  user_rs485.o [1]
+aUART_DBG_DMA_RX        0x2000'2a8c    0x64  Data  Lc  user_app_comm.o [1]
+abort                    0x801'1111     0x6  Code  Gb  abort.o [2]
+abs                      0x800'dfd3     0x8  Code  Gb  abs.o [2]
+aframe                  0x2000'28a8    0x80  Data  Gb  user_app_modbus_rtu.o [1]
+bmp_SV_logo_12864        0x801'1598   0x400  Data  Gb  unit_tests.o [1]
+charNotDetectPress      0x2000'0f4e     0x1  Data  Lc  lcd_display.o [1]
+count_gettick           0x2000'2dc4     0x4  Data  Gb  stm32l4xx_it.o [1]
+delay_ms                 0x800'7fb9     0xc  Code  Gb  STM32L4.o [1]
+ee_number                0x801'0859   0x146  Code  Lc  user_tiny_vsnprintf.o [1]
+ee_skip_atoi             0x801'0831    0x28  Code  Lc  user_tiny_vsnprintf.o [1]
+exit                     0x801'2353     0x4  Code  Gb  exit.o [2]
+fevent_active            0x800'2ecd    0x1e  Code  Gb  event_driven.o [1]
+fevent_detect_salt_recv
+                         0x800'0339     0x6  Code  Lc  user_app_sensor.o [1]
+fevent_disable           0x800'2f0f    0x12  Code  Gb  event_driven.o [1]
+fevent_enable            0x800'2eeb    0x24  Code  Gb  event_driven.o [1]
+fevent_handle_state_sensor
+                         0x800'0471    0x92  Code  Lc  user_app_sensor.o [1]
+fevent_rs485_entry       0x801'0495    0x12  Code  Lc  user_app_rs485.o [1]
+fevent_rs485_init_uart   0x801'04a7    0x2e  Code  Lc  user_app_rs485.o [1]
+fevent_rs485_init_uart::stamp
+                        0x2000'2e05     0x1  Data  Lc  user_app_rs485.o [1]
+fevent_rs485_receive_complete
+                         0x801'04d5    0x24  Code  Lc  user_app_rs485.o [1]
+fevent_rs485_refresh     0x801'04f9    0x20  Code  Lc  user_app_rs485.o [1]
+fevent_sensor_entry      0x800'018d    0x12  Code  Lc  user_app_sensor.o [1]
+fevent_sensor_receive_complete
+                         0x800'026f    0xb6  Code  Lc  user_app_sensor.o [1]
+fevent_sensor_receive_handle
+                         0x800'022f    0x40  Code  Lc  user_app_sensor.o [1]
+fevent_sensor_reset      0x800'03ed    0x84  Code  Lc  user_app_sensor.o [1]
+fevent_sensor_reset::state
+                        0x2000'2e07     0x1  Data  Lc  user_app_sensor.o [1]
+fevent_sensor_transmit   0x800'019f    0x90  Code  Lc  user_app_sensor.o [1]
+fevent_sensor_wait_calib
+                         0x800'0325    0x14  Code  Lc  user_app_sensor.o [1]
+fevent_temp_alarm        0x800'033f    0xae  Code  Lc  user_app_sensor.o [1]
+font_current            0x2000'2d74     0xc  Data  Gb  text.o [1]
+glcd_ST7565R_init        0x800'8479    0x5c  Code  Gb  ST7565R.o [1]
+glcd_bbox               0x2000'2db0     0x4  Data  Gb  glcd.o [1]
+glcd_bbox_refresh        0x800'82fd    0x1c  Code  Gb  glcd.o [1]
+glcd_bbox_selected      0x2000'2db8     0x4  Data  Gb  glcd.o [1]
+glcd_buffer             0x2000'1404   0x400  Data  Gb  glcd.o [1]
+glcd_buffer_selected    0x2000'2db4     0x4  Data  Gb  glcd.o [1]
+glcd_clear               0x800'8319    0x28  Code  Gb  glcd.o [1]
+glcd_clear_buffer        0x800'8341    0x24  Code  Gb  glcd.o [1]
+glcd_command             0x800'8379    0x1a  Code  Gb  ST7565R.o [1]
+glcd_data                0x800'8393    0x1a  Code  Gb  ST7565R.o [1]
+glcd_draw_bitmap         0x800'b565    0x1e  Code  Gb  graphics.o [1]
+glcd_draw_char_xy        0x800'b017   0x33a  Code  Gb  text.o [1]
+glcd_draw_line           0x800'b459   0x10c  Code  Gb  graphics.o [1]
+glcd_draw_string_xy      0x800'b351    0x38  Code  Gb  text.o [1]
+glcd_enable_backlight    0x800'7f3d     0x2  Code  Gb  STM32L4.o [1]
+glcd_init                0x800'7f15    0x28  Code  Gb  STM32L4.o [1]
+glcd_reset               0x800'7f69    0x40  Code  Gb  STM32L4.o [1]
+glcd_reset_bbox          0x800'82e1    0x1c  Code  Gb  glcd.o [1]
+glcd_select_screen       0x800'8365     0xa  Code  Gb  glcd.o [1]
+glcd_set_column_lower    0x800'83ed     0xe  Code  Gb  ST7565R.o [1]
+glcd_set_column_upper    0x800'83d7    0x16  Code  Gb  ST7565R.o [1]
+glcd_set_font            0x800'affd    0x1a  Code  Gb  text.o [1]
+glcd_set_pixel           0x800'b38d    0xcc  Code  Gb  graphics.o [1]
+glcd_set_x_address       0x800'83c1    0x16  Code  Gb  ST7565R.o [1]
+glcd_set_y_address       0x800'83ad    0x14  Code  Gb  ST7565R.o [1]
+glcd_spi_write           0x800'7f3f    0x2a  Code  Gb  STM32L4.o [1]
+glcd_test_bitmap_128x64
+                         0x800'8255     0xe  Code  Gb  unit_tests.o [1]
+glcd_tiny_draw_char      0x800'7fdf   0x21a  Code  Gb  text_tiny.o [1]
+glcd_tiny_draw_string    0x800'81f9    0x54  Code  Gb  text_tiny.o [1]
+glcd_tiny_set_font       0x800'7fc5    0x1a  Code  Gb  text_tiny.o [1]
+glcd_update_bbox         0x800'8269    0x78  Code  Gb  glcd.o [1]
+glcd_write               0x800'83fb    0x70  Code  Gb  ST7565R.o [1]
+hdma_lpuart_rx          0x2000'2af0    0x48  Data  Gb  usart.o [1]
+hdma_usart1_rx          0x2000'2b38    0x48  Data  Gb  usart.o [1]
+hdma_usart3_rx          0x2000'2b80    0x48  Data  Gb  usart.o [1]
+hlpuart1                0x2000'2610    0x88  Data  Gb  usart.o [1]
+hrtc                    0x2000'2ca4    0x24  Data  Gb  rtc.o [1]
+hspi2                   0x2000'2a28    0x64  Data  Gb  spi.o [1]
+huart1                  0x2000'2698    0x88  Data  Gb  usart.o [1]
+huart3                  0x2000'2720    0x88  Data  Gb  usart.o [1]
+ldexp                    0x801'06c5          Code  Gb  ldexp.o [3]
+ldexpl                   0x801'06c5          Code  Gb  ldexp.o [3]
+lnbias                   0x801'1178   0x420  Data  Lc  pow64.o [3]
+localeconv               0x801'0829     0x4  Code  Gb  xlocale_c.o [2]
+log10                    0x800'c6c9     0x4  Code  Gb  logx64.o [3]
+log10l                   0x800'c6c9     0x4  Code  Gb  logx64.o [3]
+lower_digits            0x2000'0f0c     0x4  Data  Lc  user_tiny_vsnprintf.o [1]
+main                     0x800'6dd1    0x2c  Code  Gb  main.o [1]
+memchr                   0x801'066d          Code  Gb  memchr.o [4]
+memset                   0x800'6e93    0x14  Code  Gb  memset.o [4]
+pFlash                  0x2000'07e4    0x20  Data  Gb  stm32l4xx_hal_flash.o [1]
+pFunc_UTIL_Debug_Send   0x2000'2de8     0x4  Data  Gb  user_util.o [1]
+pFunc_UTIL_Log_To_Mem   0x2000'2de4     0x4  Data  Gb  user_util.o [1]
+pModemProcessIRQTimer   0x2000'2dd8     0x4  Data  Gb  user_rtc.o [1]
+pow                      0x800'c6cd   0x6ec  Code  Gb  pow64.o [3]
+powl                     0x800'c6cd   0x6ec  Code  Gb  pow64.o [3]
+quickSort_Sampling       0x800'0977    0x9a  Code  Gb  user_app_sensor.o [1]
+quickSort_Sampling_Value
+                         0x800'0a11    0xdc  Code  Gb  user_app_sensor.o [1]
+quickSort_Sampling_Value::Handle_Once
+                        0x2000'2e08     0x1  Data  Lc  user_app_sensor.o [1]
+sButton                 0x2000'2ce4    0x18  Data  Gb  button.o [1]
+sCalibPlus              0x2000'2c10    0x38  Data  Gb  user_app_sensor.o [1]
+sCheckList_Reg_Modbus_RTU
+                        0x2000'0888   0x12c  Data  Gb  user_app_modbus_rtu.o [1]
+sData_Calib             0x2000'0ab8     0x8  Data  Gb  user_app_sensor.o [1]
+sEventAppComm           0x2000'0808    0x70  Data  Gb  user_app_comm.o [1]
+sEventAppRs485          0x2000'09e8    0x40  Data  Gb  user_app_rs485.o [1]
+sEventAppSensor         0x2000'0a28    0x90  Data  Gb  user_app_sensor.o [1]
+sEventDisplay           0x2000'000c    0x70  Data  Gb  lcd_display.o [1]
+sFirmVersion            0x2000'0878     0x8  Data  Gb  user_app_comm.o [1]
+sHandleRs485            0x2000'2dcc     0x4  Data  Gb  user_app_sensor.o [1]
+sKindMode485            0x2000'2dfa     0x2  Data  Gb  user_app_sensor.o [1]
+sLCD                    0x2000'2d54    0x10  Data  Gb  lcd_display.o [1]
+sLCDObject              0x2000'0168   0x678  Data  Gb  lcd_display.o [1]
+sLogData_ModbusRTU      0x2000'09e0     0x8  Data  Gb  user_app_modbus_rtu.o [1]
+sMeasureRange           0x2000'2d64    0x10  Data  Gb  user_app_sensor.o [1]
+sModelVersion           0x2000'0104     0x8  Data  Gb  lcd_display.o [1]
+sNH4Calib               0x2000'2c48    0x30  Data  Gb  user_app_sensor.o [1]
+sParaDisplay            0x2000'007c    0x88  Data  Gb  lcd_display.o [1]
+sRTC                    0x2000'2d98     0xc  Data  Gb  user_util.o [1]
+sSensor_NH4             0x2000'2bc8    0x48  Data  Gb  user_app_sensor.o [1]
+sSlave_ModbusRTU        0x2000'0f4c     0x2  Data  Gb  user_app_modbus_rtu.o [1]
+sTempAlarm              0x2000'2d8c     0xc  Data  Gb  user_app_sensor.o [1]
+sUart485                0x2000'0f04     0x8  Data  Gb  user_rs485.o [1]
+sUart485SS              0x2000'0efc     0x8  Data  Gb  user_connect_sensor.o [1]
+sUartDebug              0x2000'0880     0x8  Data  Gb  user_app_comm.o [1]
+scalbln                  0x801'06c5          Code  Gb  ldexp.o [3]
+scalblnl                 0x801'06c5          Code  Gb  ldexp.o [3]
+scalbn                   0x801'06c5          Code  Gb  ldexp.o [3]
+scalbnl                  0x801'06c5          Code  Gb  ldexp.o [3]
+scale                    0x800'eea7    0x46  Code  Lc  xprintffull_nomb.o [2]
+sec_hand                0x2000'2dec     0x4  Data  Lc  xfail_s.o [2]
+sprintf                  0x800'b7d5    0x40  Code  Gb  sprintf.o [2]
+strATcmd                0x2000'0ac4     0x8  Data  Gb  user_at_serial.o [1]
+strchr                   0x801'0615          Code  Gb  strchr.o [4]
+strlen                   0x800'afc5          Code  Gb  strlen.o [4]
+sztmp                   0x2000'1f40   0x200  Data  Lc  user_adv_trace.o [1]
+tiny_vsnprintf_like      0x801'099f   0x1d6  Code  Gb  user_tiny_vsnprintf.o [1]
+upper_digits            0x2000'0f10     0x4  Data  Lc  user_tiny_vsnprintf.o [1]
+uwTick                  0x2000'2dc0     0x4  Data  Gb  stm32l4xx_hal.o [1]
+uwTickFreq              0x2000'0f4f     0x1  Data  Gb  stm32l4xx_hal.o [1]
+uwTickPrio              0x2000'07e0     0x4  Data  Gb  stm32l4xx_hal.o [1]
+vcom_DeInit              0x800'd8a3    0x1e  Code  Gb  user_app_comm.o [1]
+vcom_Init                0x800'd899     0xa  Code  Gb  user_app_comm.o [1]
+vcom_Trace_DMA           0x800'd8c1    0x24  Code  Gb  user_app_comm.o [1]
+
+
+[1] = D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Slave_Winmore_NH4\Project_Slave_Sensor_EnviroTrack_v2\EWARM\Project_Slave_Sensor_EnviroTrack\Obj
+[2] = dl7M_tlf.a
+[3] = m7M_tls.a
+[4] = rt7M_tl.a
+[5] = shb_l.a
+
+  70'761 bytes of readonly  code memory
+   7'909 bytes of readonly  data memory
+  12'813 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
