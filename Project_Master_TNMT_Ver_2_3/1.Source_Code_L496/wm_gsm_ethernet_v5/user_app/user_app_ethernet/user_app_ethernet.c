@@ -1148,8 +1148,7 @@ static uint8_t _Cb_ModbTCP_Client (uint8_t event)
                 sEventAppEth[_EVENT_ETH_MODBTCP_CLIENT].e_period = 500;
                 step = 1;
             }
-            return 1;
-            break;
+            break; 
             
         case 1:
             if ((size = getSn_RX_RSR(SOCKET_MODBUS)) > 0)
@@ -1162,7 +1161,7 @@ static uint8_t _Cb_ModbTCP_Client (uint8_t event)
                 
                 if (Length != size)
                 {
-                    return 0;
+                    UTIL_Printf_Str(DBLEVEL_H, "u_app_eth: Error Recv Length Mismatch!\r\n");
                 }
             }
 
@@ -1177,18 +1176,17 @@ static uint8_t _Cb_ModbTCP_Client (uint8_t event)
                 
                 sDataRecvTCP.Length_u16 = strSource.Length_u16;
             }
-            //Clear
+
             Length = 0;
             memset(aRECEIVE_MODBUS, 0, sizeof(aRECEIVE_MODBUS));  
             
-            sTransModTCP.Flag = FALSE;
-            
+            sTransModTCP.Flag = FALSE; 
             sEventAppEth[_EVENT_ETH_MODBTCP_CLIENT].e_period = 100;
-            step = 0;
-            return 1; 
+            step = 0;                  
             break;
             
         default:
+            step = 0; 
             break;
     }
     

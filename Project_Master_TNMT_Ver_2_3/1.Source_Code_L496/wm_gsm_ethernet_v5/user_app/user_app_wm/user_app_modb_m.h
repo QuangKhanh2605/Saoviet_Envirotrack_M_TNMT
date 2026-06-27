@@ -49,7 +49,8 @@ typedef enum
     _EVENT_MODB_ENTRY,
 
     _EVENT_MODB_WAIT_CALIB,
-    _EVENT_MODB_REFRESH,
+    _EVENT_MODB_RS485_1_REFRESH,
+    _EVENT_MODB_RS485_2_REFRESH,
     
     _EVENT_MODB_HANDLE_SUBREG,
 
@@ -273,7 +274,7 @@ uint8_t    ModbusTCP_Check_Format(uint8_t SlaveID, uint16_t nRegis,
 uint8_t    Modbus_RTU_Check_Format(uint8_t SlaveID, uint16_t nRegis,
                                   sData *pSource, sData *Content);
 uint8_t    Handle_Trans_Modb(uint8_t Port, Struct_RegSensor  sReg[], Struct_CtrlModbM  *sCtrl, sData *sFrame);
-void       Handle_Recv_Modb(Struct_RegSensor  sReg[], Struct_CtrlModbM  *sCtrl);
+uint8_t    Handle_Recv_Modb(Struct_RegSensor  sReg[], Struct_CtrlModbM  *sCtrl, sData sRecv);
 void       Config_RegSen_Read(uint8_t Kind,uint8_t *ID, uint8_t *User, void *Return, uint8_t *nConnect);
 void       Config_RegSen_Write(uint8_t Kind,uint8_t *ID, uint8_t *User, void *subReg, uint8_t *nConnect);
 #endif

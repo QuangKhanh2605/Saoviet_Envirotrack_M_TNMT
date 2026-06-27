@@ -9,7 +9,8 @@
 static uint8_t fevent_modb_entry(uint8_t event);
 
 static uint8_t fevent_modb_wait_calib(uint8_t event);
-static uint8_t fevent_modb_refresh(uint8_t event);
+static uint8_t fevent_modb_rs485_1_refresh(uint8_t event);
+static uint8_t fevent_modb_rs485_2_refresh(uint8_t event);
 
 static uint8_t fevent_modb_handle_subreg(uint8_t event);
 
@@ -24,7 +25,8 @@ sEvent_struct               sEventAppModb[]=
   {_EVENT_MODB_ENTRY,              1, 5, 30000,            fevent_modb_entry},            //Doi slave khoi dong moi truyen opera
   
   {_EVENT_MODB_WAIT_CALIB,         0, 5, 5000,             fevent_modb_wait_calib},
-  {_EVENT_MODB_REFRESH,            0, 5, 60000,            fevent_modb_refresh},
+  {_EVENT_MODB_RS485_1_REFRESH,    0, 5, 60000,            fevent_modb_rs485_1_refresh},
+  {_EVENT_MODB_RS485_2_REFRESH,    0, 5, 60000,            fevent_modb_rs485_2_refresh},
   
   {_EVENT_MODB_HANDLE_SUBREG,      1, 5, 500,              fevent_modb_handle_subreg},
   
@@ -324,7 +326,8 @@ void       RS485_Para_Init(void)
 static uint8_t fevent_modb_entry(uint8_t event)
 {
 //    fevent_enable(sEventAppRs485, _EVENT_RS485_TRANSMIT);
-    fevent_enable(sEventAppModb, _EVENT_MODB_REFRESH);
+    fevent_enable(sEventAppModb, _EVENT_MODB_RS485_1_REFRESH);
+    fevent_enable(sEventAppModb, _EVENT_MODB_RS485_2_REFRESH);
     return 1;
 }
 
@@ -336,10 +339,15 @@ static uint8_t fevent_modb_wait_calib(uint8_t event)
     }
     return 1;
 }
-
-static uint8_t fevent_modb_refresh(uint8_t event)
+static uint8_t fevent_modb_rs485_1_refresh(uint8_t event)
 {
     Init_UartRs485();
+    fevent_enable(sEventAppModb, event);
+    return 1;
+}
+
+static uint8_t fevent_modb_rs485_2_refresh(uint8_t event)
+{
     Init_UartRs485_2();
     fevent_enable(sEventAppModb, event);
     return 1;
@@ -383,7 +391,8 @@ static uint8_t fevent_modb_rs485_1_handle(uint8_t event)
             break;
           
         case 1:
-            Handle_Recv_Modb(sRegSensor, &sCtrlModbM);
+            if(Handle_Recv_Modb(sRegSensor, &sCtrlModbM, sUart485) == 1)
+                fevent_enable(sEventAppModb, _EVENT_MODB_RS485_1_REFRESH);
             
             sEventAppModb[_EVENT_MODB_RS485_1_HANDLE].e_period = 100;
             step = 0;
@@ -416,7 +425,8 @@ static uint8_t fevent_modb_rs485_2_handle(uint8_t event)
             break;
           
         case 1:
-            Handle_Recv_Modb(sRegSensor, &sCtrlModbM);
+            if(Handle_Recv_Modb(sRegSensor, &sCtrlModbM, sUart485_2) == 1)
+                fevent_enable(sEventAppModb, _EVENT_MODB_RS485_2_REFRESH);
             
             sEventAppModb[_EVENT_MODB_RS485_2_HANDLE].e_period = 100;
             step = 0;
@@ -464,7 +474,7 @@ static uint8_t fevent_modb_tcp_handle(uint8_t event)
             break;
           
         case 1:
-            Handle_Recv_Modb(sRegSensor, &sCtrlModbM);
+            Handle_Recv_Modb(sRegSensor, &sCtrlModbM, sDataRecvTCP);
             
             sEventAppModb[_EVENT_MODB_TCP_HANDLE].e_period = 100;
             step = 0;
@@ -609,21 +619,20 @@ uint8_t Modbus_RTU_Check_Format (uint8_t SlaveID, uint16_t nRegis,
 uint8_t Handle_Trans_Modb(uint8_t Port, Struct_RegSensor  sReg[], Struct_CtrlModbM  *sCtrl, sData *sFrame)
 {
     uint32_t hex_Data = 0;
+    if (!sReg || !sCtrl || !sFrame) return 0;
     
     if(sCtrl->iHandle == _E_MODB_SS_END)
       sCtrl->iHandle = 0;
     
     while(1)
     {
-        if(*sRegSensor[sCtrl->iHandle].State == 1 && 
-          sRegSensor[sCtrl->iHandle].nPort == Port)
+        if(*sRegSensor[sCtrl->iHandle].State == 1 && sRegSensor[sCtrl->iHandle].nPort == Port)
             break;
           
         if(sRegSensor[sCtrl->iHandle].nConnect != NULL && *sRegSensor[sCtrl->iHandle].State != 1)
             *sRegSensor[sCtrl->iHandle].nConnect = 0;
         
-        sCtrl->iHandle++;
-        if(sCtrl->iHandle == _E_MODB_SS_END) 
+        if(++sCtrl->iHandle == _E_MODB_SS_END) 
         {
             return 0;
         }
@@ -653,92 +662,81 @@ uint8_t Handle_Trans_Modb(uint8_t Port, Struct_RegSensor  sReg[], Struct_CtrlMod
             i++;
             if((i < _E_MODB_SS_END) &&
                (sReg[i].Block == sReg[i-1].Block) && 
-               (sReg[i].nPort == sReg[i-1].nPort))
+               (sReg[i].nPort == sReg[i-1].nPort) &&
+               (sReg[i].cmdAddr == sReg[i-1].cmdAddr + sReg[i-1].cmdLen))
             {
-                if(sReg[i].cmdAddr == sReg[i-1].cmdAddr + sReg[i-1].cmdLen)
-                {
-                    sCtrl->iEndBlock = i;
-                    sCtrl->iReg = sReg[i].cmdAddr - sReg[sCtrl->iStartBlock].cmdAddr + sReg[i].cmdLen;
-                }
-                else 
-                  break;
+                sCtrl->iEndBlock = i;
+                sCtrl->iReg = sReg[i].cmdAddr - sReg[sCtrl->iStartBlock].cmdAddr + sReg[i].cmdLen;
             }
             else
               break;
 
         }
 
-        if(sCtrl->iReg == 1)
-            ModRTU_Master_Write_Frame(sFrame, *sReg[sCtrl->iStartBlock].idDev, FUN_WRITE_BYTE, sReg[sCtrl->iStartBlock].cmdAddr, sCtrl->iReg, aData);
-        else
-            ModRTU_Master_Write_Frame(sFrame, *sReg[sCtrl->iStartBlock].idDev, FUN_WRITE_MULTI, sReg[sCtrl->iStartBlock].cmdAddr, sCtrl->iReg, aData);
+        uint8_t fun_code = (sCtrl->iReg == 1) ? FUN_WRITE_BYTE : FUN_WRITE_MULTI;
+        ModRTU_Master_Write_Frame(sFrame, *sReg[sCtrl->iStartBlock].idDev, fun_code, sReg[sCtrl->iStartBlock].cmdAddr, sCtrl->iReg, aData);
     }
     else
     {
-        uint8_t i = sCtrl->iHandle +1;
-        while(i < _E_MODB_SS_END)
+        uint8_t i = sCtrl->iHandle;
+        while ((i + 1) < _E_MODB_SS_END)
         {
-            if(sReg[i].Block == sReg[i-1].Block && sReg[i].nPort == sReg[i-1].nPort)
+            if (sReg[i + 1].Block == sReg[i].Block && 
+                sReg[i + 1].nPort == sReg[i].nPort && 
+                sReg[i + 1].cmdAddr >= sReg[i].cmdAddr && 
+                sReg[i + 1].idDev == sReg[i].idDev)
             {
-                if(sReg[i].cmdAddr >= sReg[i-1].cmdAddr && sReg[i].idDev == sReg[i-1].idDev)
-                {
-                    sCtrl->iEndBlock = i;
-                    sCtrl->iReg = sReg[i].cmdAddr - sReg[sCtrl->iStartBlock].cmdAddr + sReg[i].cmdLen;
-                }
-                else 
-                  break;
+                sCtrl->iEndBlock = i + 1;
+                sCtrl->iReg = sReg[i + 1].cmdAddr - sReg[sCtrl->iStartBlock].cmdAddr + sReg[i + 1].cmdLen;
+                i++; 
             }
-            else
+            else 
               break;
-            i++;
         }
         ModRTU_Master_Read_Frame(sFrame, *sReg[sCtrl->iStartBlock].idDev, 0x03, sReg[sCtrl->iStartBlock].cmdAddr, sCtrl->iReg);
     }
     return 1;
 }
 
-void Handle_Recv_Modb(Struct_RegSensor  sReg[], Struct_CtrlModbM  *sCtrl)
+uint8_t Handle_Recv_Modb(Struct_RegSensor  sReg[], Struct_CtrlModbM  *sCtrl, sData sRecv)
 {
-    uint32_t hex_Recv = 0;
-    sData *sDataReg = (sReg[sCtrl->iHandle].nPort == _PORT_RS485_1) ? &sUart485 : &sUart485_2;
-    uint8_t RS485Status = (sReg[sCtrl->iHandle].nPort == _PORT_RS485_1) ? Rs485Status_u8 : Rs485_2Status_u8;
-    sData ModContent;
-    hex_Recv = 0;
     uint8_t Result_Recv = false;
+    uint32_t hex_Recv = 0;
+    sData ModContent;
+    
+    if (!sReg || !sCtrl || !sReg[sCtrl->iHandle].idDev) return 0;
 
     if (sReg[sCtrl->iHandle].nPort > _PORT_ETH_TCP)
     {
-        if ((RS485Status == TRUE) && (Modbus_RTU_Check_Format(*sReg[sCtrl->iStartBlock].idDev, sCtrl->iReg, sDataReg, &ModContent) == true))
-        {
-          Result_Recv = true;
-          fevent_enable(sEventAppModb, _EVENT_MODB_REFRESH);
-        }
+        Result_Recv = Modbus_RTU_Check_Format(*sReg[sCtrl->iStartBlock].idDev, sCtrl->iReg, &sRecv, &ModContent);
     }
     else
     {
-        if (ModbusTCP_Check_Format(*sReg[sCtrl->iHandle].idDev, sCtrl->iReg, &sDataRecvTCP, &ModContent) == true)
-            Result_Recv = true;
+        Result_Recv = ModbusTCP_Check_Format(*sReg[sCtrl->iHandle].idDev, sCtrl->iReg, &sRecv, &ModContent);
         
         sCtrl->Transaction_TCP++;
     }
     
     while(sCtrl->iHandle <= sCtrl->iEndBlock)
     {
-        if(Result_Recv == true)
+        if(Result_Recv)
         {     
             sCtrl->iAddr = sReg[sCtrl->iHandle].cmdAddr - sReg[sCtrl->iStartBlock].cmdAddr;
-            if(sReg[sCtrl->iHandle].cmdLen == 2)
+            if(sReg[sCtrl->iHandle].cmdRW == 0)
             {
-                hex_Recv =  ((uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 0] << 24) | 
-                            ((uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 1] << 16) | 
-                            ((uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 2] << 8)  | 
-                            (uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 3];
+                if(sReg[sCtrl->iHandle].cmdLen == 2)
+                {
+                    hex_Recv =  ((uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 0] << 24) | 
+                                ((uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 1] << 16) | 
+                                ((uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 2] << 8)  | 
+                                (uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 3];
+                }
+                else
+                    hex_Recv =  ((uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 0] << 8) | 
+                                (uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 1];
+                
+                hex_Recv = Endian_Format(hex_Recv, sReg[sCtrl->iHandle].cmdLen*2, sReg[sCtrl->iHandle].vBeLe);
             }
-            else
-                hex_Recv =  ((uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 0] << 8) | 
-                            (uint32_t)ModContent.Data_a8[sCtrl->iAddr*2 + 1];
-            
-            hex_Recv = Endian_Format(hex_Recv, sReg[sCtrl->iHandle].cmdLen*2, sReg[sCtrl->iHandle].vBeLe);
             
             if(sReg[sCtrl->iHandle].vReturn != NULL)
             {
@@ -789,6 +787,11 @@ void Handle_Recv_Modb(Struct_RegSensor  sReg[], Struct_CtrlModbM  *sCtrl)
         }
         sCtrl->iHandle++;
     }
+    
+    if(Result_Recv == true)
+        return 1;
+    else 
+        return 0;
 }
 
 void Config_RegSen_Read(uint8_t Kind,uint8_t *ID, uint8_t *User, void *Return, uint8_t *nConnect)
