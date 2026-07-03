@@ -49,12 +49,7 @@ Struct_TransModbusTCP       sTransModTCP = {0};
 Struct_Modb_SubReg          sModbSubReg = {0};
 Struct_Hanlde_Modb          sHandleModb = {0};
 
-float pH1_Test = 7.23;
-float pH2_Test = 8.34;
-float Turb1_Test = 9.45;
-float Turb2_Test = 10.56;
 uint8_t Connect_Test = 0;
-uint8_t State_Test = 1;
 
 uint8_t ID_Default = 1;
 uint8_t User_True = 1;
@@ -63,6 +58,7 @@ uint8_t User_False = 0;
 Struct_RegSensor            sRegSensor[] =
 {
 #ifdef MODBUS_SENSOR_SAOVIET
+   /*---------------------Kênh 1----------------------*/
     //eKind             //State  //cmdRW //idDev     //cmdLen  //Addr   //vFormat  //vBeLe  //vScale  //subReg  //nPort         //vReturn  //nConnect
   {_E_PH_VALUE,     1,  NULL,    0,      NULL,   2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
   {_E_PH_S_SENSOR,  1,  NULL,    0,      NULL,   1,        0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
@@ -81,9 +77,9 @@ Struct_RegSensor            sRegSensor[] =
   {_E_TURB_S_SENSOR,5,  NULL,    0,      NULL, 1,        0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
   {_E_TURB_S_VALUE, 5,  NULL,    0,      NULL, 1,        0x000B,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
   
-  {_E_COD_VALUE,    6,  NULL,    0,      NULL,  2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
-  {_E_COD_S_SENSOR, 6,  NULL,    0,      NULL,  1,        0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
-  {_E_COD_S_VALUE,  6,  NULL,    0,      NULL,  1,        0x000B,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
+  {_E_COD_VALUE,    6,  NULL,    0,      NULL,  2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
+  {_E_COD_S_SENSOR, 6,  NULL,    0,      NULL,  1,        0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
+  {_E_COD_S_VALUE,  6,  NULL,    0,      NULL,  1,        0x000B,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
   
   {_E_TSS_VALUE,    7,  NULL,    0,      NULL,  2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
   {_E_TSS_S_SENSOR, 7,  NULL,    0,      NULL,  1,        0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
@@ -113,11 +109,25 @@ Struct_RegSensor            sRegSensor[] =
   {_E_TEMP_VALUE,    14,    NULL,    0,     NULL,   2,      0x0004,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
   {_E_TEMP_S_SENSOR, 14,    NULL,    0,     NULL,   1,      0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
   {_E_TEMP_S_VALUE,  14,    NULL,    0,     NULL,   1,      0x000C,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_1,       NULL,      NULL},
+    
+  /*-------------------Kênh 2------------------*/
+  {_E_PH_VALUE_2,     1,  NULL,    0,      NULL,   2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
+  {_E_PH_S_SENSOR_2,  1,  NULL,    0,      NULL,   1,        0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
+  {_E_PH_S_VALUE_2,   1,  NULL,    0,      NULL,   1,        0x000B,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
+  
+  {_E_TURB_VALUE_2,   5,  NULL,    0,      NULL, 2,        0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
+  {_E_TURB_S_SENSOR_2,5,  NULL,    0,      NULL, 1,        0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
+  {_E_TURB_S_VALUE_2, 5,  NULL,    0,      NULL, 1,        0x000B,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
+ 
+  {_E_TEMP_VALUE_2,    14,    NULL,    0,     NULL,   2,      0x0004,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
+  {_E_TEMP_S_SENSOR_2, 14,    NULL,    0,     NULL,   1,      0x000A,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
+  {_E_TEMP_S_VALUE_2,  14,    NULL,    0,     NULL,   1,      0x000C,  _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_RS485_2,       NULL,      NULL},
+  /*-------------------Kênh Modbus TCP------------------*/
+  {_E_TURB1_WRITE,   15,    NULL,       1,     NULL,     2,      0x0000,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_ETH_TCP,       NULL,      NULL},
+  {_E_PH1_WRITE,     15,    NULL,       1,     NULL,     2,      0x0002,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_ETH_TCP,       NULL,      NULL},
 
-  {_E_PH1_WRITE,     15,    &State_Test,       1,     NULL,     2,      0x0000,  _ETYPE_F,  _E_WS,   1,        &sMeasureMain[0][_SS_PH].Value_f,     _PORT_ETH_TCP,       NULL,      &Connect_Test},
-  {_E_PH2_WRITE,     15,    &State_Test,       1,     NULL,     2,      0x0002,  _ETYPE_F,  _E_WS,   1,        &pH2_Test,     _PORT_ETH_TCP,       NULL,      &Connect_Test},
-  {_E_TURB1_WRITE,   15,    &State_Test,       1,     NULL,     2,      0x0006,  _ETYPE_F,  _E_WS,   1,        &Turb1_Test,   _PORT_ETH_TCP,       NULL,      &Connect_Test},
-  {_E_TURB2_WRITE,   15,    &State_Test,       1,     NULL,     2,      0x0008,  _ETYPE_F,  _E_WS,   1,        &Turb2_Test,   _PORT_ETH_TCP,       NULL,      &Connect_Test},
+  {_E_TURB2_WRITE,   15,    NULL,       1,     NULL,     2,      0x0006,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_ETH_TCP,       NULL,      NULL},
+  {_E_PH2_WRITE,     15,    NULL,       1,     NULL,     2,      0x0008,  _ETYPE_F,  _E_WS,   1,        NULL,     _PORT_ETH_TCP,       NULL,      NULL},
 #else 
   {_E_PH_S_SENSOR,  1,  NULL,    0,      NULL,  1,        0,    _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_ETH_TCP,       NULL,      NULL},
   {_E_TEMP_S_SENSOR,1,  NULL,    0,      NULL,  1,        0,    _ETYPE_U8, _E_BE,   1,        NULL,     _PORT_ETH_TCP,       NULL,      NULL},
@@ -265,6 +275,48 @@ void       RS485_Para_Init(void)
     
     Config_RegSen_Read(_E_TEMP_S_VALUE,  &sMeasureMain[0][_SS_TEMP].ID_Modbus, &sMeasureMain[0][_SS_TEMP].sUser, 
                                        &sMeasureMain[0][_SS_TEMP].stateValue, &sMeasureMain[0][_SS_TEMP].nConnect_u8); 
+    
+    //PH 2
+    Config_RegSen_Read(_E_PH_VALUE_2, &sMeasureMain[1][_SS_PH].ID_Modbus, &sMeasureMain[1][_SS_PH].sUser, 
+                                    &sMeasureMain[1][_SS_PH].Value_f, &sMeasureMain[1][_SS_PH].nConnect_u8);
+    
+    Config_RegSen_Read(_E_PH_S_SENSOR_2, &sMeasureMain[1][_SS_PH].ID_Modbus, &sMeasureMain[1][_SS_PH].sUser, 
+                                       &sMeasureMain[1][_SS_PH].stateSensor, &sMeasureMain[1][_SS_PH].nConnect_u8);
+
+    Config_RegSen_Read(_E_PH_S_VALUE_2,  &sMeasureMain[1][_SS_PH].ID_Modbus, &sMeasureMain[1][_SS_PH].sUser, 
+                                       &sMeasureMain[1][_SS_PH].stateValue, &sMeasureMain[1][_SS_PH].nConnect_u8);
+    
+    //TURB 2
+    Config_RegSen_Read(_E_TURB_VALUE_2,  &sMeasureMain[1][_SS_TURB].ID_Modbus, &sMeasureMain[1][_SS_TURB].sUser, 
+                                       &sMeasureMain[1][_SS_TURB].Value_f, &sMeasureMain[1][_SS_TURB].nConnect_u8);    
+    
+    Config_RegSen_Read(_E_TURB_S_SENSOR_2,  &sMeasureMain[1][_SS_TURB].ID_Modbus, &sMeasureMain[1][_SS_TURB].sUser, 
+                                       &sMeasureMain[1][_SS_TURB].stateSensor, &sMeasureMain[1][_SS_TURB].nConnect_u8); 
+    
+    Config_RegSen_Read(_E_TURB_S_VALUE_2,  &sMeasureMain[1][_SS_TURB].ID_Modbus, &sMeasureMain[1][_SS_TURB].sUser, 
+                                       &sMeasureMain[1][_SS_TURB].stateValue, &sMeasureMain[1][_SS_TURB].nConnect_u8); 
+    
+    //TEMP 2
+    Config_RegSen_Read(_E_TEMP_VALUE_2,  &sMeasureMain[1][_SS_TEMP].ID_Modbus, &sMeasureMain[1][_SS_TEMP].sUser, 
+                                       &sMeasureMain[1][_SS_TEMP].Value_f, &sMeasureMain[1][_SS_TEMP].nConnect_u8);    
+    
+    Config_RegSen_Read(_E_TEMP_S_SENSOR_2,  &sMeasureMain[1][_SS_TEMP].ID_Modbus, &sMeasureMain[1][_SS_TEMP].sUser, 
+                                       &sMeasureMain[1][_SS_TEMP].stateSensor, &sMeasureMain[1][_SS_TEMP].nConnect_u8); 
+    
+    Config_RegSen_Read(_E_TEMP_S_VALUE_2,  &sMeasureMain[1][_SS_TEMP].ID_Modbus, &sMeasureMain[1][_SS_TEMP].sUser, 
+                                       &sMeasureMain[1][_SS_TEMP].stateValue, &sMeasureMain[1][_SS_TEMP].nConnect_u8); 
+    
+    //Modbus TCP
+    Config_RegSen_Write(_E_TURB1_WRITE,  &ID_Default, &User_True, 
+                                       &sMeasureMain[0][_SS_TURB].Value_f, &Connect_Test);    
+    
+    Config_RegSen_Write(_E_PH1_WRITE,  &ID_Default, &User_True, 
+                                       &sMeasureMain[0][_SS_PH].Value_f, &Connect_Test);    
+
+    Config_RegSen_Write(_E_TURB2_WRITE,  &ID_Default, &User_True, 
+                                       &sMeasureMain[1][_SS_TURB].Value_f, &Connect_Test); 
+    Config_RegSen_Write(_E_PH2_WRITE,  &ID_Default, &User_True, 
+                                       &sMeasureMain[1][_SS_PH].Value_f, &Connect_Test); 
 #else
     //----------------------------Ph------------------------------
     Config_RegSen_Read(_E_PH_VALUE, &sMeasureMain[0][_SS_PH].ID_Modbus, &sMeasureMain[0][_SS_PH].sUser, 
@@ -490,19 +542,28 @@ static uint8_t fevent_modb_tcp_handle(uint8_t event)
 
 static uint8_t fevent_ptr_temp(uint8_t event)
 {
-    for (uint8_t j = 0; j < MAX_CHANNEL_SS; j++)
+    for(uint8_t i = _SS_PH; i<_END_SENSOR; i++)
     {
-        for(uint8_t i = _SS_PH; i<_END_SENSOR; i++)
+        if(sMeasureMain[0][i].sUser == _ACTIVE_SENSOR)
         {
-            if(sMeasureMain[j][i].sUser == _ACTIVE_SENSOR)
-            {
-                sRegSensor[_E_TEMP_VALUE].idDev = &sMeasureMain[j][i].ID_Modbus;
-                sRegSensor[_E_TEMP_S_SENSOR].idDev = &sMeasureMain[j][i].ID_Modbus;
-                sRegSensor[_E_TEMP_S_VALUE].idDev = &sMeasureMain[j][i].ID_Modbus;
-                break;
-            }
+            sRegSensor[_E_TEMP_VALUE].idDev = &sMeasureMain[0][i].ID_Modbus;
+            sRegSensor[_E_TEMP_S_SENSOR].idDev = &sMeasureMain[0][i].ID_Modbus;
+            sRegSensor[_E_TEMP_S_VALUE].idDev = &sMeasureMain[0][i].ID_Modbus;
+            break;
         }
     }
+    
+    for(uint8_t i = _SS_PH; i<_END_SENSOR; i++)
+    {
+        if(sMeasureMain[1][i].sUser == _ACTIVE_SENSOR)
+        {
+            sRegSensor[_E_TEMP_VALUE_2].idDev = &sMeasureMain[1][i].ID_Modbus;
+            sRegSensor[_E_TEMP_S_SENSOR_2].idDev = &sMeasureMain[1][i].ID_Modbus;
+            sRegSensor[_E_TEMP_S_VALUE_2].idDev = &sMeasureMain[1][i].ID_Modbus;
+            break;
+        }
+    }
+
     fevent_enable(sEventAppModb, event);
     return 1;
 }

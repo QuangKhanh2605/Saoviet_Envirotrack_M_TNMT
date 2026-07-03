@@ -31,13 +31,14 @@
     #define DATA_BUF_SIZE   2048   
 #endif
 
-#define SOCKET_DEMO			0
+#define SOCKET_DHCP			0
+#define SOCKET_MQTT         1
 #define SOCK_DNS       		6
 
-#define SOCKET_MODBUS       5
 #define SOCKET_COMM         4
+#define SOCKET_MODCLIENT    5
 
-#define SOCKET_MODTCP       7
+#define SOCKET_MODSERVER    7
 
 #define S_RECEIVE		    0x01		
 #define S_TRANSMITOK	    0x02	

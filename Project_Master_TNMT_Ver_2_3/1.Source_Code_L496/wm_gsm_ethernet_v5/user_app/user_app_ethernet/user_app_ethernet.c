@@ -554,11 +554,11 @@ static uint8_t _Cb_Running_DHCP (uint8_t event)
 			/* DHCP client Initialization */
 			if (gWIZNETINFO.ipmode >= NETINFO_DHCP_V4) {
                 if (DHCPipver == AS_IPV4) {
-                    DHCPv4_init(SOCKET_DEMO, gDATABUF);
+                    DHCPv4_init(SOCKET_DHCP, gDATABUF);
                     reg_dhcpv4_cbfunc (NULL, NULL, AppEth_Cb_IP_Conflict);
                     step = 1;
                 } else {
-                    DHCP_init (SOCKET_DEMO, gDATABUF);
+                    DHCP_init (SOCKET_DHCP, gDATABUF);
                     step = 2;
                 }
 			} else {
@@ -638,13 +638,15 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
     
     sAppEthVar.LandMarkRun_u32 = RtCountSystick_u32;
     //Ctrl socket run
+    
+    DHCPv4_run();
     switch (UTIL_var.ModeConnNow_u8)
     {
         case _CONNECT_DATA_MAIN:
         case _CONNECT_DATA_BACKUP:
             sEventAppEth[_EVENT_ETH_SOCK_CTRL].e_period = 10;
             
-            SockCtrlState = AppEth_Socket_Control (SOCKET_DEMO, sAppEthVar.sServer.aIP, 
+            SockCtrlState = AppEth_Socket_Control (SOCKET_MQTT, sAppEthVar.sServer.aIP, 
                                                     *sAppEthVar.sServer.Port_u16, &AnyPortCtrl);
             
             if (SockCtrlState == SOCK_ESTABLISHED) {
@@ -662,7 +664,7 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
                     AppEth_Push_Block_To_Queue( aETH_MQTT_CONN, sizeof(aETH_MQTT_CONN) );
                     
                     char dat[100]={0};
-                    sprintf(dat,"Sock state: %d AnyPortCtrl: %d IP: %s Port: %d\r\n", getSn_SR(SOCKET_DEMO), AnyPortCtrl, sAppEthVar.sServer.sIP, *sAppEthVar.sServer.Port_u16);
+                    sprintf(dat,"Sock state: %d AnyPortCtrl: %d IP: %s Port: %d\r\n", getSn_SR(SOCKET_MQTT), AnyPortCtrl, sAppEthVar.sServer.sIP, *sAppEthVar.sServer.Port_u16);
                     UTIL_Printf_Str (DBLEVEL_M,  dat);
                 }
             } else if (SockCtrlState == SOCK_CLOSED) {
@@ -672,7 +674,7 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
                     
                     UTIL_Printf_Str ( DBLEVEL_M, "u_app_eth: socket CONNECT_DATA close\r\n" );
                     char dat[100]={0};
-                    sprintf(dat,"Sock state: %d AnyPortCtrl: %d IP: %s Port: %d\r\n", getSn_SR(SOCKET_DEMO), AnyPortCtrl, sAppEthVar.sServer.sIP, *sAppEthVar.sServer.Port_u16);
+                    sprintf(dat,"Sock state: %d AnyPortCtrl: %d IP: %s Port: %d\r\n", getSn_SR(SOCKET_MQTT), AnyPortCtrl, sAppEthVar.sServer.sIP, *sAppEthVar.sServer.Port_u16);
                     UTIL_Printf_Str (DBLEVEL_M,  dat);
                 }
             }
@@ -868,7 +870,7 @@ static uint8_t _Cb_Socket_Control (uint8_t event)
     
     if(sModemInfor.sServerModTCP.IPnum[0] !=0)
     {
-        SockCtrlState = AppEth_Socket_Control(SOCKET_MODBUS, sModemInfor.sServerModTCP.IPnum, 
+        SockCtrlState = AppEth_Socket_Control(SOCKET_MODCLIENT, sModemInfor.sServerModTCP.IPnum, 
                                           sModemInfor.sServerModTCP.Port_u16, &AnyPortCtrl);
         
         if(SockCtrlState == SOCK_ESTABLISHED)
@@ -1035,12 +1037,12 @@ static uint8_t _Cb_Recv_Data (uint8_t event)
     if ( (UTIL_var.ModeConnNow_u8 == _CONNECT_DATA_MAIN)
           || (UTIL_var.ModeConnNow_u8  == _CONNECT_DATA_BACKUP) )
     {
-        if ((size = getSn_RX_RSR(SOCKET_DEMO)) > 0)
+        if ((size = getSn_RX_RSR(SOCKET_MQTT)) > 0)
         {
             if (size > DATA_BUF_SIZE) 
                 size = DATA_BUF_SIZE - 1;
             
-            LengthRecv = recv (SOCKET_DEMO, aRECEIVE_DATA, size);
+            LengthRecv = recv (SOCKET_MQTT, aRECEIVE_DATA, size);
             strSource.Length_u16 = LengthRecv;
             
             if (LengthRecv != size)
@@ -1140,7 +1142,7 @@ static uint8_t _Cb_ModbTCP_Client (uint8_t event)
         case 0:
             if(sTransModTCP.Flag == PENDING)
             {
-                send (SOCKET_MODBUS, sTransModTCP.aData, sTransModTCP.length);
+                send (SOCKET_MODCLIENT, sTransModTCP.aData, sTransModTCP.length);
                 UTIL_Printf_Str(DBLEVEL_H, "\r\nu_app_eth: ModbusTCP tranfer: \r\n");
                 UTIL_Printf_Hex (DBLEVEL_H, sTransModTCP.aData, sTransModTCP.length);
                 UTIL_Printf_Str(DBLEVEL_H, "\r\n");
@@ -1151,12 +1153,12 @@ static uint8_t _Cb_ModbTCP_Client (uint8_t event)
             break; 
             
         case 1:
-            if ((size = getSn_RX_RSR(SOCKET_MODBUS)) > 0)
+            if ((size = getSn_RX_RSR(SOCKET_MODCLIENT)) > 0)
             {
                 if (size > DATA_BUF_SIZE) 
                     size = DATA_BUF_SIZE - 1;
                 
-                Length = recv (SOCKET_MODBUS, aRECEIVE_MODBUS, size);
+                Length = recv (SOCKET_MODCLIENT, aRECEIVE_MODBUS, size);
                 strSource.Length_u16 = Length;
                 
                 if (Length != size)
@@ -1207,28 +1209,28 @@ static uint8_t _Cb_ModbTCP_Server (uint8_t event)
     sData sData_TCP_Trans = {mb_tx_buf, 0};
     static uint32_t LandMarkSock_u32 = 0;    
 
-    switch(getSn_SR(SOCKET_MODTCP))
+    switch(getSn_SR(SOCKET_MODSERVER))
     {
         case SOCK_CLOSED:
-            socket(SOCKET_MODTCP, Sn_MR_TCP, 502, 0);
+            socket(SOCKET_MODSERVER, Sn_MR_TCP, 502, 0);
             break;
 
         case SOCK_INIT:
-            listen(SOCKET_MODTCP);
+            listen(SOCKET_MODSERVER);
             break;
 
         case SOCK_LISTEN:
             break;
 
         case SOCK_ESTABLISHED:   
-            if(getSn_IR(SOCKET_MODTCP) & Sn_IR_CON)
+            if(getSn_IR(SOCKET_MODSERVER) & Sn_IR_CON)
             {
-                setSn_IRCLR(SOCKET_MODTCP, Sn_IR_CON);
+                setSn_IRCLR(SOCKET_MODSERVER, Sn_IR_CON);
                 uint8_t keepalive = 12; // 60s
-                setsockopt(SOCKET_MODTCP, SO_KEEPALIVEAUTO, &keepalive);            //Keepalive 60s;
+                setsockopt(SOCKET_MODSERVER, SO_KEEPALIVEAUTO, &keepalive);            //Keepalive 60s;
             }
             
-            len = getSn_RX_RSR(SOCKET_MODTCP);
+            len = getSn_RX_RSR(SOCKET_MODSERVER);
 
             if(len > 0)
             {
@@ -1236,16 +1238,16 @@ static uint8_t _Cb_ModbTCP_Server (uint8_t event)
                     len = sizeof(mb_rx_buf);
                 Reset_Buff(&sData_TCP_Recv);
                 Reset_Buff(&sData_TCP_Trans);
-                recv(SOCKET_MODTCP, sData_TCP_Recv.Data_a8, len);
+                recv(SOCKET_MODSERVER, sData_TCP_Recv.Data_a8, len);
                 sData_TCP_Recv.Length_u16 = len;
                 
                 if(Modem_Check_RTU(_E_MODB_TCP, &sData_TCP_Recv, &sData_TCP_Trans) == 1)
                 {
-                    send (SOCKET_MODTCP, sData_TCP_Trans.Data_a8, sData_TCP_Trans.Length_u16);
+                    send (SOCKET_MODSERVER, sData_TCP_Trans.Data_a8, sData_TCP_Trans.Length_u16);
                     LandMarkSock_u32 = RtCountSystick_u32;
                 }
 
-                getSn_DIPR(SOCKET_MODTCP, ip);
+                getSn_DIPR(SOCKET_MODSERVER, ip);
                 sprintf (aTEMP, "u_app_eth: Client ModTCP: %d.%d.%d.%d:502\r\n",ip[0], ip[1], ip[2], ip[3]);
                 UTIL_Printf_Str (DBLEVEL_H,  aTEMP);
                 
@@ -1260,8 +1262,8 @@ static uint8_t _Cb_ModbTCP_Server (uint8_t event)
             break;
 
         case SOCK_CLOSE_WAIT:
-            disconnect(SOCKET_MODTCP);
-            close(SOCKET_MODTCP);
+            disconnect(SOCKET_MODSERVER);
+            close(SOCKET_MODSERVER);
             break;
 
         default:
@@ -1270,8 +1272,8 @@ static uint8_t _Cb_ModbTCP_Server (uint8_t event)
     
     if (Check_Time_Out (LandMarkSock_u32, 60000) == true) 
     {
-        disconnect(SOCKET_MODTCP);
-        close(SOCKET_MODTCP);
+        disconnect(SOCKET_MODSERVER);
+        close(SOCKET_MODSERVER);
     }
 
     fevent_enable(sEventAppEth, event);
@@ -1779,8 +1781,11 @@ void AppEth_W5500_Init(void)
     setRTR(1000);  // setRTR(0x07d0);    //setRTR(1000);
 	setRCR(3);
     
-    setSIMR (0x0F);         //IRQ 4 sock 0 -> 3
-	setSn_IMR (0, 0x1F);  //Mark All IRQ Sn
+//    setSIMR (0x0F);         //IRQ 4 sock 0 -> 3
+//	setSn_IMR (0, 0x1F);  //Mark All IRQ Sn
+    
+    setSIMR((1 << 1) | (1 << 2) | (1 << 3));    // = 0x0E
+    setSn_IMR (SOCKET_MQTT, 0x1F);  //Mark All IRQ Sn
     
 //    if (ctlwizchip(CW_SET_INTRMASK, &temp) == -1) {
 //		UTIL_Printf_Str ( DBLEVEL_H, "u_app_eth: interrupt mark\r\n" );
@@ -1926,12 +1931,12 @@ uint8_t AppEth_IRQ_Handler(void)
     
     //Doc tiep thanh ghi SIR (ngat socket n) -> Xem co ngat S0?
     IRQ_sign = getSIR();
-    IRQ_sign = IRQ_sign & (1 << SOCKET_DEMO);
+    IRQ_sign = IRQ_sign & (1 << SOCKET_MQTT);
     
     if (IRQ_sign != 0)  //Ngat o socket 0
     {
-        IRQ_sign = getSn_IR(SOCKET_DEMO);   //Doc tiep S0_IR de check ngat gi
-        setSn_IR (SOCKET_DEMO, IRQ_sign);   //Ghi gia tri 1 vao de xoa
+        IRQ_sign = getSn_IR(SOCKET_MQTT);   //Doc tiep S0_IR de check ngat gi
+        setSn_IR (SOCKET_MQTT, IRQ_sign);   //Ghi gia tri 1 vao de xoa
         
         if (sAppEthVar.Status_u8 >= _ETH_MQTT_CONNECT)
         {
@@ -1943,7 +1948,7 @@ uint8_t AppEth_IRQ_Handler(void)
             //TIMEOUT IR
             if (IRQ_sign & Sn_IR_TIMEOUT)
             {
-                close(SOCKET_DEMO);
+                close(SOCKET_MQTT);
                 fevent_active(sEventAppEth, _EVENT_ETH_RUN_DHCP);
             }
         }
@@ -2339,7 +2344,7 @@ static uint8_t _fMQTT_Connect (void)
     //Send via Ethernet
     UTIL_Printf (DBLEVEL_M,  sMessage.sConnect.Data_a8, sMessage.sConnect.Length_u16);
     
-    if (send (SOCKET_DEMO, sMessage.sConnect.Data_a8, sMessage.sConnect.Length_u16) == -1)
+    if (send (SOCKET_MQTT, sMessage.sConnect.Data_a8, sMessage.sConnect.Length_u16) == -1)
         return false;
     
     sMessage.Status_u8 = PENDING;
@@ -2355,7 +2360,7 @@ static uint8_t _fMQTT_Subcribe (void)
     //Send via Ethernet
     UTIL_Printf (DBLEVEL_M,  sMessage.sSubcribe.Data_a8, sMessage.sSubcribe.Length_u16);
     
-    if (send (SOCKET_DEMO, sMessage.sSubcribe.Data_a8, sMessage.sSubcribe.Length_u16) == -1)
+    if (send (SOCKET_MQTT, sMessage.sSubcribe.Data_a8, sMessage.sSubcribe.Length_u16) == -1)
         return false;
     
     sMessage.Status_u8 = PENDING;
@@ -2370,7 +2375,7 @@ static uint8_t _fMQTT_Publish (void)
     UTIL_Printf (DBLEVEL_M, sMessage.str.Data_a8, sMessage.str.Length_u16);
     UTIL_Printf_Str(DBLEVEL_M, "\r\n");
                     
-    if (send (SOCKET_DEMO, sMessage.str.Data_a8, sMessage.str.Length_u16) == -1)
+    if (send (SOCKET_MQTT, sMessage.str.Data_a8, sMessage.str.Length_u16) == -1)
         return false;
     
     return true;

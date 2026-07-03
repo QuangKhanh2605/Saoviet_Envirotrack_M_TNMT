@@ -94,6 +94,7 @@ typedef enum
 typedef enum
 {
 #ifdef MODBUS_SENSOR_SAOVIET
+    /*--------Kênh 1-------*/
     _E_PH_VALUE=0,
     _E_PH_S_SENSOR,
     _E_PH_S_VALUE,
@@ -144,10 +145,25 @@ typedef enum
     _E_TEMP_S_SENSOR,
     _E_TEMP_S_VALUE,
     
-    _E_PH1_WRITE,
-    _E_PH2_WRITE,
+    /*------Kênh 2------*/
+    _E_PH_VALUE_2,
+    _E_PH_S_SENSOR_2,
+    _E_PH_S_VALUE_2,
+    
+    _E_TURB_VALUE_2,
+    _E_TURB_S_SENSOR_2,
+    _E_TURB_S_VALUE_2,
+    
+    _E_TEMP_VALUE_2,
+    _E_TEMP_S_SENSOR_2,
+    _E_TEMP_S_VALUE_2,
+    
+    /*------Kênh Modbus TCP-----*/
     _E_TURB1_WRITE,
+    _E_PH1_WRITE,
+
     _E_TURB2_WRITE,
+    _E_PH2_WRITE,
 #else
     _E_PH_S_SENSOR,
     _E_TEMP_S_SENSOR,

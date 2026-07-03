@@ -199,9 +199,11 @@ void SysTick_Handler(void)
   Socket_Inc_Tick();
   if (RtCountSystick_u32 % 1000 == 0){
     DNS_time_handler();
+    DHCPv4_time_handler();
+    DHCP_time_handler();
   }
   if (RtCountSystick_u32 % 1000) {
-    DHCP_time_handler();
+    
   }
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();

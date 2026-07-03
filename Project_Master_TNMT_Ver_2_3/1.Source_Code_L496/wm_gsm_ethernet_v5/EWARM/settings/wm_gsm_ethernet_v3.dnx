@@ -14,13 +14,13 @@
     <StLinkDriver>
         <stlinkserialNo>31531457</stlinkserialNo>
         <stlinkfoundProbes />
-        <CStepIntDis>_ 0</CStepIntDis>
-        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
         <stlinkResetStyle>0</stlinkResetStyle>
         <stlinkResetStrategy>2</stlinkResetStrategy>
+        <CStepIntDis>_ 0</CStepIntDis>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>2220857331</Checksum>
+        <Checksum>589206343</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -69,37 +69,38 @@
         <Fmt9>Struct_CtrlModbM-iHandle	3	0</Fmt9>
         <Fmt10>Struct_CtrlModbM-iReg	3	0</Fmt10>
         <Fmt11>Struct_CtrlModbM-iStartBlock	3	0</Fmt11>
-        <Fmt12>Struct_MeasureMain-State	3	0</Fmt12>
-        <Fmt13>Struct_MeasureMain-sUser	3	0</Fmt13>
-        <Fmt14>Struct_MeasureMain-stateSensor	3	0</Fmt14>
-        <Fmt15>Struct_MeasureMain-stateValue	3	0</Fmt15>
-        <Fmt16>Struct_Pulse-Direct_u8	3	0</Fmt16>
-        <Fmt17>Struct_Pulse-FactorDec_u8	3	0</Fmt17>
-        <Fmt18>Struct_Pulse-IsOver5Pulse_u8	3	0</Fmt18>
-        <Fmt19>Struct_Pulse-Status_u8	3	0</Fmt19>
-        <Fmt20>Struct_Queue_Type-LenQueue_u8	3	0</Fmt20>
-        <Fmt21>Struct_Queue_Type-NumWaiting_u8	3	0</Fmt21>
-        <Fmt22>Struct_Queue_Type-status	3	0</Fmt22>
-        <Fmt23>sAppWmPressureInfor-Mode_u8	3	0</Fmt23>
-        <Fmt24>sAppWmPressureInfor-Val_i32	3	0</Fmt24>
-        <Fmt25>sAppWmVariable-ModePacket_u8	3	0</Fmt25>
-        <Fmt26>sData-Length_u16	3	0</Fmt26>
-        <Fmt27>sEthFTPvariable-Retry_u8	3	0</Fmt27>
-        <Fmt28>sEthernetVariable-PHYstatus_u8	3	0</Fmt28>
-        <Fmt29>sEvent_struct-e_name	3	0</Fmt29>
-        <Fmt30>sEvent_struct-e_status	3	0</Fmt30>
-        <Fmt31>sMemRecordInfor-AddrStart_u32	4	0</Fmt31>
-        <Fmt32>sMemRecordInfor-AddrStop_u32	4	0</Fmt32>
-        <Fmt33>sMemRecordInfor-cReaded_u8	3	0</Fmt33>
-        <Fmt34>sModbusDeviceData-Factor	4	0</Fmt34>
-        <Fmt35>sModbusDeviceData-Status_u8	3	0</Fmt35>
-        <Fmt36>sModbusDeviceData-Type_u8	3	0</Fmt36>
-        <Fmt37>sModbusInfor-MType_u8	3	0</Fmt37>
-        <Fmt38>sModbusInfor-SlaveId_u8	3	0</Fmt38>
-        <Fmt39>sPressureLinearInter-InUnit_u8	3	0</Fmt39>
-        <Fmt40>sPressureLinearInter-OutUnit_u8	3	0</Fmt40>
-        <Fmt41>sServerInfor-DomainOrIp_u8	3	0</Fmt41>
-        <Fmt42>sWoteckUltraData-PosInt_u32	4	0</Fmt42>
+        <Fmt12>Struct_MeasureMain-ID_Modbus	3	0</Fmt12>
+        <Fmt13>Struct_MeasureMain-State	3	0</Fmt13>
+        <Fmt14>Struct_MeasureMain-sUser	3	0</Fmt14>
+        <Fmt15>Struct_MeasureMain-stateSensor	3	0</Fmt15>
+        <Fmt16>Struct_MeasureMain-stateValue	3	0</Fmt16>
+        <Fmt17>Struct_Pulse-Direct_u8	3	0</Fmt17>
+        <Fmt18>Struct_Pulse-FactorDec_u8	3	0</Fmt18>
+        <Fmt19>Struct_Pulse-IsOver5Pulse_u8	3	0</Fmt19>
+        <Fmt20>Struct_Pulse-Status_u8	3	0</Fmt20>
+        <Fmt21>Struct_Queue_Type-LenQueue_u8	3	0</Fmt21>
+        <Fmt22>Struct_Queue_Type-NumWaiting_u8	3	0</Fmt22>
+        <Fmt23>Struct_Queue_Type-status	3	0</Fmt23>
+        <Fmt24>sAppWmPressureInfor-Mode_u8	3	0</Fmt24>
+        <Fmt25>sAppWmPressureInfor-Val_i32	3	0</Fmt25>
+        <Fmt26>sAppWmVariable-ModePacket_u8	3	0</Fmt26>
+        <Fmt27>sData-Length_u16	3	0</Fmt27>
+        <Fmt28>sEthFTPvariable-Retry_u8	3	0</Fmt28>
+        <Fmt29>sEthernetVariable-PHYstatus_u8	3	0</Fmt29>
+        <Fmt30>sEvent_struct-e_name	3	0</Fmt30>
+        <Fmt31>sEvent_struct-e_status	3	0</Fmt31>
+        <Fmt32>sMemRecordInfor-AddrStart_u32	4	0</Fmt32>
+        <Fmt33>sMemRecordInfor-AddrStop_u32	4	0</Fmt33>
+        <Fmt34>sMemRecordInfor-cReaded_u8	3	0</Fmt34>
+        <Fmt35>sModbusDeviceData-Factor	4	0</Fmt35>
+        <Fmt36>sModbusDeviceData-Status_u8	3	0</Fmt36>
+        <Fmt37>sModbusDeviceData-Type_u8	3	0</Fmt37>
+        <Fmt38>sModbusInfor-MType_u8	3	0</Fmt38>
+        <Fmt39>sModbusInfor-SlaveId_u8	3	0</Fmt39>
+        <Fmt40>sPressureLinearInter-InUnit_u8	3	0</Fmt40>
+        <Fmt41>sPressureLinearInter-OutUnit_u8	3	0</Fmt41>
+        <Fmt42>sServerInfor-DomainOrIp_u8	3	0</Fmt42>
+        <Fmt43>sWoteckUltraData-PosInt_u32	4	0</Fmt43>
     </struct_types>
     <array_types>
         <Fmt0>uint32_t[6]	3	0</Fmt0>
@@ -251,12 +252,6 @@
         <ShowTimeSum>1</ShowTimeSum>
         <SumSortOrder>0</SumSortOrder>
     </EventLog>
-    <DisassembleMode>
-        <mode>0</mode>
-    </DisassembleMode>
-    <Breakpoints2>
-        <Count>0</Count>
-    </Breakpoints2>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
@@ -266,12 +261,6 @@
         <LogFile>_ ""</LogFile>
         <Category>_ 0</Category>
     </LogFile>
-    <Aliases>
-        <A0>_ "D:\2026\1.Data_Logger_V5\wm_gsm_ethernet_v5\EWARM\startup_stm32l496xx.s" ""</A0>
-        <A1>_ "D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_3\wm_gsm_ethernet_v5\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_adc.c" ""</A1>
-        <Count>2</Count>
-        <SuppressDialog>0</SuppressDialog>
-    </Aliases>
     <DriverProfiling>
         <Enabled>0</Enabled>
         <Mode>3</Mode>
@@ -285,4 +274,16 @@
     <CallStackStripe>
         <ShowTiming>1</ShowTiming>
     </CallStackStripe>
+    <DisassembleMode>
+        <mode>0</mode>
+    </DisassembleMode>
+    <Breakpoints2>
+        <Count>0</Count>
+    </Breakpoints2>
+    <Aliases>
+        <A0>_ "D:\2026\1.Data_Logger_V5\wm_gsm_ethernet_v5\EWARM\startup_stm32l496xx.s" ""</A0>
+        <A1>_ "D:\Saoviet_Git\Saoviet_Envirotrack_M_TNMT\Project_Master_TNMT_Ver_2_3\wm_gsm_ethernet_v5\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_adc.c" ""</A1>
+        <Count>2</Count>
+        <SuppressDialog>0</SuppressDialog>
+    </Aliases>
 </settings>

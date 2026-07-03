@@ -316,7 +316,7 @@ static uint8_t _Cb_Tx_Timer(uint8_t event)
                 if (sAppEthVar.Status_u8 == _ETH_MQTT_CONNECTED) {
                     sAppEthVar.Status_u8 = _ETH_FTP_CONNECTED;
                     AppEth_Init_Socket();
-                    close(SOCKET_DEMO);
+                    close(SOCKET_MQTT);
                 }  
                 AppEth_Restart_If_PSM();
             #endif

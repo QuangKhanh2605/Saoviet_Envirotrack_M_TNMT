@@ -80,18 +80,18 @@ Struct_MeasureMain sMeasureMain[MAX_CHANNEL_SS][_END_SENSOR] =
     
     // ==================== KÊNH 2 (CH2) ====================
     {
-      {_SS_TEMP,    OBIS_ENVI_TEMP,     50 + ID_SS_TEMP,         "Temp",         "°C",       0xFE,       0,      0xFE},       // 0 Temperature       
-      {_SS_PH,      OBIS_ENVI_PH_WATER, 50 + ID_SS_PH,           "pH",           "-",        0xFE,       0,      0xFE},       // 1 pH          
-      {_SS_CLO,     OBIS_ENVI_CLO,      50 + ID_SS_CLO,          "CLO",          "mg/l",     0xFE,       0,      0xFE},       // 2 Clo        
-      {_SS_EC,      OBIS_ENVI_EC,       50 + ID_SS_EC,           "EC",           "µS/cm",    0x00,       0,      0x00},       // 3 EC          
-      {_SS_TURB,    OBIS_ENVI_TURB,     50 + ID_SS_TURB,         "TURB",         "NTU",      0xFE,       10,     0xFF},       // 4 Turb        
-      {_SS_COD,     OBIS_ENVI_COD,      50 + ID_SS_COD,          "COD",          "mg/l",     0xFE,       0,      0xFE},       // 5 COD         
-      {_SS_TSS,     OBIS_ENVI_TSS,      50 + ID_SS_TSS,          "TSS",          "mg/l",     0xFF,       0,      0xFF},       // 6 TSS             
-      {_SS_NH4,     OBIS_ENVI_NH4,      50 + ID_SS_NH4,          "NH4-N",        "mg/l",     0xFE,       0,      0xFE},       // 7 NH4        
-      {_SS_DO,      OBIS_ENVI_OXY_MG_L, 50 + ID_SS_DO,           "DO",           "mg/l",     0xFE,       0,      0xFE},       // 8 DO          
-      {_SS_SALT,    OBIS_ENVI_SALT_UNIT,50 + ID_SS_EC,           "SALT",         "%",        0xFE,       0,      0xFE},       // 9 SALT         
-      {_SS_TDS,     OBIS_ENVI_TDS,      50 + ID_SS_EC,           "TDS",          "mg/l",     0x00,       0,      0x00},       //10 TDS
-      {_SS_NO3,     OBIS_ENVI_NO3,      50 + ID_SS_NO3,          "NO3-N",        "mg/l",     0xFE,       0,      0xFE},       //11 NO3        
+      {_SS_TEMP,    OBIS_ENVI_TEMP,     ID_SS_TEMP,         "Temp",         "°C",       0xFE,       0,      0xFE},       // 0 Temperature       
+      {_SS_PH,      OBIS_ENVI_PH_WATER, ID_SS_PH,           "pH",           "-",        0xFE,       0,      0xFE},       // 1 pH          
+      {_SS_CLO,     OBIS_ENVI_CLO,      ID_SS_CLO,          "CLO",          "mg/l",     0xFE,       0,      0xFE},       // 2 Clo        
+      {_SS_EC,      OBIS_ENVI_EC,       ID_SS_EC,           "EC",           "µS/cm",    0x00,       0,      0x00},       // 3 EC          
+      {_SS_TURB,    OBIS_ENVI_TURB,     ID_SS_TURB,         "TURB",         "NTU",      0xFE,       10,     0xFF},       // 4 Turb        
+      {_SS_COD,     OBIS_ENVI_COD,      ID_SS_COD,          "COD",          "mg/l",     0xFE,       0,      0xFE},       // 5 COD         
+      {_SS_TSS,     OBIS_ENVI_TSS,      ID_SS_TSS,          "TSS",          "mg/l",     0xFF,       0,      0xFF},       // 6 TSS             
+      {_SS_NH4,     OBIS_ENVI_NH4,      ID_SS_NH4,          "NH4-N",        "mg/l",     0xFE,       0,      0xFE},       // 7 NH4        
+      {_SS_DO,      OBIS_ENVI_OXY_MG_L, ID_SS_DO,           "DO",           "mg/l",     0xFE,       0,      0xFE},       // 8 DO          
+      {_SS_SALT,    OBIS_ENVI_SALT_UNIT,ID_SS_EC,           "SALT",         "%",        0xFE,       0,      0xFE},       // 9 SALT         
+      {_SS_TDS,     OBIS_ENVI_TDS,      ID_SS_EC,           "TDS",          "mg/l",     0x00,       0,      0x00},       //10 TDS
+      {_SS_NO3,     OBIS_ENVI_NO3,      ID_SS_NO3,          "NO3-N",        "mg/l",     0xFE,       0,      0xFE},       //11 NO3        
     },
     
     // ==================== KÊNH 3 (CH3) ====================
